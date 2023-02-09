@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import FormField from '../../commons/forms/formField/FormField';
-import Button from '../../commons/button/Button';
-import CheckBox from '../../commons/forms/checkBox/CheckBox';
-import styles from './SignUp.module.css';
+import { useState } from "react";
+import Button from "../../commons/button/Button";
+import CheckBox from "../../commons/forms/checkBox/CheckBox";
+import Input from "../../commons/forms/input/Input";
+import styles from "./SignUp.module.css";
 
 const initialState = {
-  username: '',
-  email: '',
-  password: '',
+  username: "",
+  email: "",
+  password: "",
 };
 
 const SignUp = () => {
@@ -23,58 +23,51 @@ const SignUp = () => {
     event.preventDefault();
     try {
       console.log(credentials);
-    }catch(error){
-
-    };
+    } catch (error) {}
   };
 
-  const isEnabledButton = () => credentials.username && credentials.email && credentials.password && check;
-    
+  const isEnabledButton = () =>
+    credentials.username && credentials.email && credentials.password && check;
+
   return (
-    <div className={styles.signup__page}>
-      <h1 className={styles.signup__title}>{`WELCOME TO HANDELWEBER`}</h1>
-      <form className={styles.signup__form}
-            onSubmit={handleSubmit}
-      >
-        <FormField
-          type='text'
-          name='username'
-          label='username'
+    <div className="">
+      <h1 className="">{`WELCOME TO HANDELWEBER`}</h1>
+      <form className="" onSubmit={handleSubmit}>
+        <Input
+          type="text"
+          name="username"
+          label="username"
           className={styles.signup__field}
           onChange={handleCredentials}
           value={credentials.username}
         />
 
-        <FormField
-          type='email'
-          name='email'
-          label='email'
-          className={styles.signup__field}
+        <Input
+          type="email"
+          name="email"
+          label="email"
+          className=""
           onChange={handleCredentials}
           value={credentials.email}
         />
 
-        <FormField
-          type='password'
-          name='password'
-          label='password'
-          className={styles.signup__field}
+        <Input
+          type="password"
+          name="password"
+          label="password"
+          className=""
           onChange={handleCredentials}
           value={credentials.password}
         />
 
         <CheckBox
-          type='checkbox'
-          name='check'
-          label='Acepto las condiciones'
+          type="checkbox"
+          name="check"
+          label="Acepto las condiciones"
           onChange={handleCheck}
           checked={check}
         />
-        <Button
-          type='submit'
-          className={styles.signup__submit}
-          disabled={!isEnabledButton()}
-        >
+        <Button type="submit" className="" disabled={!isEnabledButton()}>
           SIGNUP
         </Button>
       </form>
