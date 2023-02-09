@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import FormField from '../../common/formField/FormField';
-import Button from '../../common/button/Button';
-import CheckBox from '../../common/checkBox/CheckBox';
+import FormField from '../../commons/forms/formField/FormField';
+import Button from '../../commons/button/Button';
+import CheckBox from '../../commons/forms/checkBox/CheckBox';
 import styles from './SignUp.module.css';
 
 const initialState = {
