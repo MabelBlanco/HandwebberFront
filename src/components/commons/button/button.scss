@@ -1,0 +1,60 @@
+button {
+  position: relative;
+  &.btn-primary {
+    background-color: var(--color-primary-dark);
+    &:hover {
+      background-color: var(--color-primary-medium);
+    }
+    &::after {
+      background-color: var(--color-primary-dark);
+      filter: blur(5px);
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 0;
+      opacity: 0.5;
+    }
+  }
+  &.btn-secondary {
+    background-color: var(--color-secondary-dark);
+    &:hover {
+      background-color: var(--color-secondary-medium);
+    }
+    &::after {
+      background-color: var(--color-secondary-dark);
+      filter: blur(5px);
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 0;
+      opacity: 0.5;
+    }
+  }
+  &.btn-tertiary {
+    background-color: var(--color-tertiary-dark);
+    &:hover {
+      background-color: var(--color-tertiary-medium);
+    }
+    &::after {
+      background-color: var(--color-tertiary-dark);
+      filter: blur(5px);
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 0;
+      opacity: 0.5;
+    }
+  }
+}

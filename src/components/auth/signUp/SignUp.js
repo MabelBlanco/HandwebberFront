@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState } from 'react';
 import FormField from '../../common/formField/FormField';
 import Button from '../../common/button/Button';
@@ -10,6 +11,18 @@ const initialState = {
   mail: '',
   password: '',
   photo: ''
+=======
+import { useState } from "react";
+import Button from "../../commons/button/Button";
+import CheckBox from "../../commons/forms/checkBox/CheckBox";
+import Input from "../../commons/forms/input/Input";
+import styles from "./SignUp.module.css";
+
+const initialState = {
+  username: "",
+  email: "",
+  password: "",
+>>>>>>> aebd5989beeca5191b0b48be5077ea22fa34a456
 };
 
 const SignUp = () => {
@@ -31,6 +44,7 @@ const SignUp = () => {
     event.preventDefault();
     setError(null);
     try {
+<<<<<<< HEAD
       const newUser = await createUser(credentials);
       console.log(newUser)
       return newUser;
@@ -52,25 +66,50 @@ const SignUp = () => {
           type='text'
           name='username'
           label='username'
+=======
+      console.log(credentials);
+    } catch (error) {}
+  };
+
+  const isEnabledButton = () =>
+    credentials.username && credentials.email && credentials.password && check;
+
+  return (
+    <div className="">
+      <h1 className="">{`WELCOME TO HANDELWEBER`}</h1>
+      <form className="" onSubmit={handleSubmit}>
+        <Input
+          type="text"
+          name="username"
+          label="username"
+>>>>>>> aebd5989beeca5191b0b48be5077ea22fa34a456
           className={styles.signup__field}
           onChange={handleCredentials}
           value={credentials.username}
         />
 
+<<<<<<< HEAD
         <FormField
           type='email'
           name='mail'
           label='mail'
           className={styles.signup__field}
+=======
+        <Input
+          type="email"
+          name="email"
+          label="email"
+          className=""
+>>>>>>> aebd5989beeca5191b0b48be5077ea22fa34a456
           onChange={handleCredentials}
           value={credentials.mail}
         />
 
-        <FormField
-          type='password'
-          name='password'
-          label='password'
-          className={styles.signup__field}
+        <Input
+          type="password"
+          name="password"
+          label="password"
+          className=""
           onChange={handleCredentials}
           value={credentials.password}
         />
@@ -91,16 +130,18 @@ const SignUp = () => {
         />
 
         <CheckBox
+<<<<<<< HEAD
           name='check'
           label='Acepto las condiciones'
+=======
+          type="checkbox"
+          name="check"
+          label="Acepto las condiciones"
+>>>>>>> aebd5989beeca5191b0b48be5077ea22fa34a456
           onChange={handleCheck}
           checked={check}
         />
-        <Button
-          type='submit'
-          className={styles.signup__submit}
-          disabled={!isEnabledButton()}
-        >
+        <Button type="submit" className="" disabled={!isEnabledButton()}>
           SIGNUP
         </Button>
       </form>
