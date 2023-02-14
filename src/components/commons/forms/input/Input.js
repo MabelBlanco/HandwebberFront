@@ -1,9 +1,9 @@
 import classNames from "classnames";
-import "./Input.css";
+import "./Input.scss";
 
 const Input = ({ className, label, ...props }) => {
   return (
-    <div className={classNames("form-control", className)}>
+    <div className={classNames("", className)}>
       <label>{label}</label>
       <input {...props} />
     </div>

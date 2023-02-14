@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import Input from "../../commons/forms/input/Input";
-
+import "./Footer.scss";
 const Footer = ({ className, ...props }) => {
   return (
     <footer
