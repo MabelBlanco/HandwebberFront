@@ -1,13 +1,9 @@
 button {
   position: relative;
-  &.btn-primary {
-    background-color: var(--color-primary-dark);
-    &:hover {
-      background-color: var(--color-primary-medium);
-    }
+  &.btn {
+    border-radius: 0px;
     &::after {
-      background-color: var(--color-primary-dark);
-      filter: blur(5px);
+      filter: blur(2px);
       content: "";
       position: absolute;
       left: 0;
@@ -15,46 +11,46 @@ button {
       top: 0;
       left: 0;
       bottom: 0;
-      z-index: 0;
+      z-index: -1;
       opacity: 0.5;
+    }
+  }
+  &.btn-primary {
+    background-color: var(--color-primary-500);
+    z-index: 1;
+    &:hover {
+      background-color: var(--color-primary-300);
+      color: var(--color-static-white);
+    }
+    &::after {
+      background-color: var(--color-primary-500);
     }
   }
   &.btn-secondary {
-    background-color: var(--color-secondary-dark);
+    background-color: var(--color-secondary-800);
+    color: var(--color-static-white);
+    z-index: 1;
     &:hover {
-      background-color: var(--color-secondary-medium);
+      background-color: var(--color-secondary-500);
+      color: var(--color-static-white);
     }
     &::after {
-      background-color: var(--color-secondary-dark);
-      filter: blur(5px);
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      z-index: 0;
-      opacity: 0.5;
+      background-color: var(--color-secondary-800);
     }
   }
   &.btn-tertiary {
-    background-color: var(--color-tertiary-dark);
+    background-color: var(--color-tertiary-500);
+    color: var(--color-static-white);
+    z-index: 1;
     &:hover {
-      background-color: var(--color-tertiary-medium);
+      background-color: var(--color-tertiary-800);
+      color: var(--color-static-white);
     }
     &::after {
-      background-color: var(--color-tertiary-dark);
-      filter: blur(5px);
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      z-index: 0;
-      opacity: 0.5;
+      background-color: var(--color-tertiary-500);
     }
+  }
+  &.btn-primary-link {
+    color: var(--color-primary-500);
   }
 }
