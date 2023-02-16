@@ -1,31 +1,6 @@
 /*********************************************/
-/*          CUSTOMIZED DEFAULTS         */
+/*          COLORS     */
 /*********************************************/
-
-$font-family-sans-serif: "Poppins", sans-serif;
-/*********************************************/
-/*          INPUT       */
-/*********************************************/
-$input-group-addon-padding-y: 0px;
-$input-padding-y: 0px;
-$input-group-addon-padding-x: 15px;
-$input-padding-x: 10px;
-$input-group-addon-font-weight: 500;
-$input-font-weight: 500;
-$input-group-addon-color: transparent;
-$input-color: var(--color-black-dark);
-$input-group-addon-bg: #264653ff;
-$input-group-addon-border-color: transparent;
-$input-border-color: green;
-$input-border-size: 0px;
-
-/* SCSS HEX */
-$charcoal: #264653ff;
-$persian-green: #2a9d8fff;
-$saffron: #e9c46aff;
-$sandy-brown: #f4a261ff;
-$burnt-sienna: #e76f51ff;
-
 /* SCSS Gradient */
 $gradient-top: linear-gradient(
   0deg,
@@ -99,6 +74,51 @@ $gradient-radial: radial-gradient(
   #e76f51ff
 );
 
+$font-family-sans-serif: "Poppins", sans-serif;
+/*********************************************/
+/*          INPUT       */
+/*********************************************/
+$input-group-addon-padding-y: 0px;
+$input-padding-y: 0px;
+$input-group-addon-padding-x: 15px;
+$input-padding-x: 10px;
+$input-group-addon-font-weight: 500;
+$input-font-weight: 500;
+$input-group-addon-color: transparent;
+$input-color: var(--color-black-dark);
+$input-group-addon-bg: #264653ff;
+$input-group-addon-border-color: transparent;
+$input-border-color: var(--color-secondary-800);
+$input-border-size: 0px;
+
+/*********************************************/
+/*          SELECT       */
+/*********************************************/
+$input-border-radius: 0px;
+$form-select-border-radius: 0px;
+$form-select-border-color: var(--color-secondary-800);
+
+/*********************************************/
+/*          BUTTONS links      */
+/*********************************************/
+button {
+  &.btn-link {
+    --bs-btn-font-weight: 400;
+    --bs-btn-color: var(--color-secondary-500);
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: transparent;
+    --bs-btn-hover-color: var(--color-secondary-600);
+    --bs-btn-hover-border-color: transparent;
+    --bs-btn-active-color: var(--color-secondary-600);
+    --bs-btn-active-border-color: transparent;
+    --bs-btn-disabled-color: #6c757d;
+    --bs-btn-disabled-border-color: transparent;
+    --bs-btn-box-shadow: none;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    text-decoration: underline;
+  }
+}
+
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&display=swap");
 
@@ -109,12 +129,13 @@ $gradient-radial: radial-gradient(
 body {
   width: 100%;
   position: relative;
+  color: var(--color-tertiary-700);
 }
 
 p.main-form-text {
   font-size: 25px !important;
   font-weight: 500;
-  color: #494949;
+  color: var(--color-tertiary-800);
 }
 
 h3 {

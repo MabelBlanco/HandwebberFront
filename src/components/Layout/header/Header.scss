@@ -1,14 +1,21 @@
-nav {
-  background-color: var(--color-primary-900);
-  & .navbar-brand {
-    font-weight: lighter;
-    color: var(--color-primary-light);
-    font-size: 30px;
+header {
+  &.bd-navbar {
+    background-color: transparent;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.15);
   }
-  & .navbar-toggler {
-    font-size: 50px;
-    font-weight: bolder;
-    border: none;
-    color: var(--color-primary-dark);
+  nav {
+    background-color: var(--color-static-light);
+    & .navbar-brand {
+      font-weight: lighter;
+      color: var(--color-primary-light);
+      font-size: 30px;
+    }
+    & .navbar-toggler {
+      font-size: 50px;
+      font-weight: bolder;
+      border: none;
+      color: var(--color-static-dark);
+    }
   }
 }
