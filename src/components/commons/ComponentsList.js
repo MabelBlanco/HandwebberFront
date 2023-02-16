@@ -1,5 +1,5 @@
 import Input from "../commons/forms/input/Input";
-import Checkbox from "./forms/checkBox/CheckBox";
+import Checkbox from "./forms/checkbox/CheckBox";
 import InputFile from "./forms/inputFile/InputFile";
 import Range from "./forms/range/Range";
 import Select from "./forms/select/Select";
