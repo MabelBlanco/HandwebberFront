@@ -1,0 +1,14 @@
+nav {
+    background-color: var(--color-primary-900);
+    & .navbar-brand {
+      font-weight: lighter;
+      color: var(--color-primary-light);
+      font-size: 30px;
+    }
+    & .navbar-toggler {
+      font-size: 50px;
+      font-weight: bolder;
+      border: none;
+      color: var(--color-primary-dark);
+    }
+  }

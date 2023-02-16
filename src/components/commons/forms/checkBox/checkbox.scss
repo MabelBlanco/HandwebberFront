@@ -1,0 +1,10 @@
+input[type="checkbox"] {
+    &.form-check-input:checked {
+      print-color-adjust: var(--color-primary-dark) !important;
+      background-color: var(--color-primary-dark) !important;
+      border-color: var(--color-primary-medium) !important;
+    }
+  }
+  .form-check-label {
+    padding-left: 10px;
+  }

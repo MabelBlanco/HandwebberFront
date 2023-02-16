@@ -1,0 +1,11 @@
+input:not([type="checkbox"]) {
+    -webkit-appearance: none;
+    appearance: none;
+    border-bottom: 2px solid var(--color-primary-900);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding: 20px 5px 5px !important;
+    border-radius: 2px 2px 0px 0px !important ;
+    width: 100%;
+  }
