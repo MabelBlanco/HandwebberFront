@@ -1,37 +1,86 @@
-.App {
-  text-align: center;
+/* ================================
+               vars 
+   ================================  */
+:root {
+  --color-black-dark: #222222;
+  --color-black-medium: #666666;
+  --color-black-light: #e2e2e2;
+  --color-white: #ffffff;
+  --color-primary-100: #DBF5F6;
+  --color-primary-200: #BAE9ED;
+  --color-primary-300: #89C1CB;
+  --color-primary-400: #5A8A97;
+  --color-primary-500: #264653;
+  --color-primary-600: #1B3747;  
+  --color-primary-700: #132A3B;
+  --color-primary-800: #0C1E30;
+  --color-primary-900: #071527;
+  --color-success-100: #D5FAE8;
+  --color-success-200: #ADF5D8;
+  --color-success-300: #7EE1C3;
+  --color-success-400: #58C4AD;
+  --color-success-500: #2a9d8f;
+  --color-success-600: #1E8783;
+  --color-success-700: #156B71;
+  --color-success-800: #0D4F5B;
+  --color-success-900: #083A4B;
+  --color-info-100: #CDE3FA;
+  --color-info-200: #9EC6F6;
+  --color-info-300: #6A9DE3;
+  --color-info-400: #4276C9;
+  --color-info-500: #1245A5;
+  --color-info-600: #0D358D;
+  --color-info-700: #092776;
+  --color-info-800: #051B5F;
+  --color-info-900: #03124F;
+  --color-warning-100: #FDEDDC;
+  --color-warning-200: #FCD6BA;
+  --color-warning-300: #F7B897;
+  --color-warning-400: #F09B7B;
+  --color-warning-500: #e76f51;
+  --color-warning-600: #C64C3B;
+  --color-warning-700: #A62F28;
+  --color-warning-800: #85191C;
+  --color-warning-900: #6E0F18;
+  --color-danger-100: #FAD9CE;
+  --color-danger-200: #F5AE9E;
+  --color-danger-300: #E2746A;
+  --color-danger-400: #C54344;
+  --color-danger-500: #A01321;
+  --color-danger-600: #890D25;
+  --color-danger-700: #730927;
+  --color-danger-800: #5C0626;
+  --color-danger-900: #4C0325;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+/* ================================
+               layout 
+   ================================  */
+
+body {
+  color: var(--color-black-dark)
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+/* ================================
+               forms 
+   ================================  */
+
+label {
+  margin-bottom: 10px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
 
-.App-link {
-  color: #61dafb;
-}
+@media (prefers-reduced-motion: no-preference) {}
+
+
 
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

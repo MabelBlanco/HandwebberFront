@@ -13,3 +13,4 @@ const InputFile = ({ className, label, id, ...props }) => {
 };
 
 export default InputFile;
+
