@@ -8,7 +8,7 @@ const useAdvertisement = () => {
     const execute = async () => {
       try {
         const ads = await getAdvertisements();
-        setAdsList(ads);
+        setAdsList(ads.result);
       } catch (error) {}
     };
     execute();
