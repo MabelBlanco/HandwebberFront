@@ -1,8 +1,11 @@
+import classNames from "classnames";
 import "./spinner.scss";
-const Spinner = ({ ...props }) => {
+const Spinner = ({ className, ...props }) => {
   return (
-    <div class="spinner-grow" role="status">
-      <span class="visually-hidden">Loading...</span>
+    <div className={classNames("", className)}>
+      <div class="spinner-grow" role="status" {...props}>
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
   );
 };

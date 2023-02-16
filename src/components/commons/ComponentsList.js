@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Input from "../commons/forms/input/Input";
+import Card from "./card/Card";
 import Checkbox from "./forms/checkbox/Checkbox";
 import InputFile from "./forms/inputFile/InputFile";
 import Range from "./forms/range/Range";
@@ -49,6 +50,7 @@ const ComponentsList = () => {
         <InputFile label="input field" className="col-md-6 pb-5" />
         <Checkbox label="checkbox label" className="col-md-6 pb-5" />
         <Spinner className="col-md-6 pb-5" />
+        <Card className="col-md-4 pb-5" />
       </div>
     </div>
   );
