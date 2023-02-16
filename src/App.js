@@ -1,11 +1,22 @@
-import "./App.css";
-import Layout from "./components/Layout/Layout";
+import { Fragment } from 'react';
+import './App.css';
+import AdsList from './components/advertisements/AdsList';
+import Layout from './components/Layout/Layout';
+import LayoutTest from './components/Layout/LayoutTest';
 
 function App() {
   return (
-    <div className="App">
-      <Layout />
-    </div>
+    <Fragment>
+      <div className='App'>
+        <LayoutTest />
+      </div>
+
+      <div className='App'>
+        <Layout title='Advertisements List'>
+          <AdsList />
+        </Layout>
+      </div>
+    </Fragment>
   );
 }
 
