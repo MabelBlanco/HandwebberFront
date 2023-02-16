@@ -1,7 +1,7 @@
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../src/style.scss';
-// import $ from "jquery";
+
 // import Popper from "popper.js";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
