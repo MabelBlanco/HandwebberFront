@@ -7,6 +7,7 @@ const ComponentsList = () => {
   return (
     <div className="row p-4 bg-light">
       <div className="row">
+        <h1>hola</h1>
         <h1 className="col col-12 text-center p-5">listado de componentes</h1>
         <Input label="Input label" className="col-md-6 pb-5" />
         <Select label="select" className="col-md-6 pb-5" />
