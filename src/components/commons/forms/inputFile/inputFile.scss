@@ -8,16 +8,18 @@
     padding: 0px;
     background: white;
     height: 50px;
-    margin: 0px;
-    input[type="file"] {
+    padding: 0px !important;
+    &::file-selector-button {
+      border: 2px solid var(--color-secondary-800);
+      color: var(--color-static-white);
+      border-radius: 2px;
+      background-color: var(--color-secondary-800);
       border: none;
-      height: 50px;
-      padding: 0px !important;
-      &::file-selector-button {
-        border: 2px solid var(--color-primary-dark);
-        color: var(--color-white);
-        border-radius: 2px;
-        background-color: var(--color-primary-dark);
+      padding: 0px 20px;
+      transition: 1s;
+      height: 100%;
+      &:hover {
+        background-color: var(--color-secondary-500) !important;
         border: none;
         padding: 0px 20px;
         transition: 1s;

@@ -1,5 +1,11 @@
-nav {
-    background-color: var(--color-primary-900);
+header {
+  &.bd-navbar {
+    background-color: transparent;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.15);
+  }
+  nav {
+    background-color: var(--color-static-light);
     & .navbar-brand {
       font-weight: lighter;
       color: var(--color-primary-light);
@@ -9,6 +15,7 @@ nav {
       font-size: 50px;
       font-weight: bolder;
       border: none;
-      color: var(--color-primary-dark);
+      color: var(--color-static-dark);
     }
   }
+}

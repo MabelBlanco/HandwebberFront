@@ -1,14 +1,14 @@
-.form-select {
-    padding: 10px;
-    border-bottom: 2px solid var(--color-primary-dark);
-    border-top: none !important;
-    border-left: none;
-    border-right: none;
-    border-radius: 2px 2px 0 0;
-    padding: 15px 5px 10px;
-    &:focus {
-      outline: 0;
-      box-shadow: 0 0 0 0.25rem #e46a6a50;
-      border-bottom: 2px solid var(--color-primary-dark);
+.dropdown {
+  &.hk--custom--select {
+    & .dropdown-menu {
+      border-radius: 0px;
+      border-left: none;
+      border-right: none;
+      border-bottom: 2px solid var(--color-secondary-800);
+      & .dropdown-item.active,
+      .dropdown-item:active {
+        background-color: var(--color-secondary-800);
+      }
     }
   }
+}

@@ -1,10 +1,10 @@
 input[type="range"] {
-    border: none;
-    &::-webkit-slider-thumb {
-      width: 12px;
-      -webkit-appearance: none;
-      height: 20px;
-      background: var(--color-primary-dark);
-      border-radius: 2px;
-    }
+  border: none;
+  &::-webkit-slider-thumb {
+    width: 12px;
+    -webkit-appearance: none;
+    height: 20px;
+    background: var(--color-secondary-800);
+    border-radius: 2px;
   }
+}

@@ -4,47 +4,27 @@ import "./Footer.scss";
 const Footer = ({ className, ...props }) => {
   return (
     <footer
-      className={classNames("bg-dark text-center text-white", className)}
+      className={classNames("text-center text-white", className)}
       {...props}
     >
       <div className="container p-4">
         <section className="mb-4">
-          <a
-            className="btn btn-outline-light btn-floating m-1"
-            href="!#"
-            role="button"
-          >
+          <a className="btn btn-floating m-1" href="!#" role="button">
             <i className="fab fa-facebook-f"></i>
           </a>
-          <a
-            className="btn btn-outline-light btn-floating m-1"
-            href="!#"
-            role="button"
-          >
+          <a className="btn  btn-floating m-1" href="!#" role="button">
             <i className="fab fa-twitter"></i>
           </a>
-          <a
-            className="btn btn-outline-light btn-floating m-1"
-            href="!#"
-            role="button"
-          >
-            <i className="fab fa-google"></i>
+          <a className="btn btn-floating m-1" href="!#" role="button">
+            <i className="bi bi-youtube"></i>
           </a>
-          <a
-            className="btn btn-outline-light btn-floating m-1"
-            href="!#"
-            role="button"
-          >
-            <i className="fab fa-instagram"></i>
+          <a className="btn btn-floating m-1" href="!#" role="button">
+            <i className="bi bi-facebook"></i>
           </a>
-          <a
-            className="btn btn-outline-light btn-floating m-1"
-            href="!#"
-            role="button"
-          >
+          <a className="btn btn-floating m-1" href="!#" role="button">
             <i className="bi bi-linkedin"></i>
           </a>
-          <a className="btn btn-outline-light m-1" href="!#" role="button">
+          <a className="btn  m-1" href="!#" role="button">
             <i className="bi bi-twitter"></i>
           </a>
         </section>
@@ -60,7 +40,7 @@ const Footer = ({ className, ...props }) => {
 
               <div className="col-md-5 col-12">
                 <div className="form-outline form-white mb-4">
-                  <Input type="email" id="f" label="Email" />
+                  <Input type="email" id="f" />
                 </div>
               </div>
 
