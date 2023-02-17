@@ -6,7 +6,6 @@ import CheckBox from '../../commons/forms/checkbox/Checkbox';
 import styles from './SignUp.module.css';
 import { createUser, loginUser } from '../service';
 import { useNavigate } from 'react-router-dom';
-import storage from '../../../utils/storage';
 
 const initialState = {
   username: '',
@@ -17,7 +16,7 @@ const initialState = {
 
 const SignUp = () => {
   const [credentials, setCredentials] = useState(initialState);
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [check, setCheck] = useState(false);
   const [error, setError] = useState(null);
 
@@ -30,7 +29,7 @@ const SignUp = () => {
     setCredentials({ ...credentials, [event.target.name]: event.target.value });
   };
 
-  const handleConfirmPassword = (event)  => {
+  const handleConfirmPassword = (event) => {
     resetError();
     setConfirmPassword(event.target.value);
   };
@@ -40,15 +39,14 @@ const SignUp = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     resetError();
-    if(credentials.password !== confirmPassword){
+    if (credentials.password !== confirmPassword) {
       setError(["Passwords don't match"]);
       return;
     }
     try {
       const newUser = await createUser(credentials);
-      const { mail, password } = credentials
-      const accessToken = await loginUser({ mail, password });
-      storage.set('auth', accessToken);
+      const { mail, password } = credentials;
+      await loginUser({ mail, password });
       console.log(newUser);
       navigate('/advertisements');
       return newUser;
@@ -68,7 +66,13 @@ const SignUp = () => {
 
   return (
     <div className={styles.signup__page}>
-      {error && error.map((e) => <p className={styles.signup__error} key={e}> {e} </p>)}
+      {error &&
+        error.map((e) => (
+          <p className={styles.signup__error} key={e}>
+            {' '}
+            {e}{' '}
+          </p>
+        ))}
       <form className={styles.signup__form} onSubmit={handleSubmit}>
         <Input
           type='text'
@@ -107,13 +111,13 @@ const SignUp = () => {
         />
 
         <InputFile
-        name='image'
-        id='image'
-        photo={''}
-        label={'Upload picture'}
-        className={styles.signup__field}
-        onChange={handleCredentials}
-         />
+          name='image'
+          id='image'
+          photo={''}
+          label={'Upload picture'}
+          className={styles.signup__field}
+          onChange={handleCredentials}
+        />
 
         <CheckBox
           name='check'
