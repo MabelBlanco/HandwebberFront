@@ -5,7 +5,7 @@ import Button from '../../commons/button/Button';
 import CheckBox from '../../commons/forms/checkbox/Checkbox';
 import styles from './SignUp.module.css';
 import { createUser } from '../service';
-
+import { useNavigate } from 'react-router-dom';
 
 const initialState = {
   username: '',
@@ -19,6 +19,8 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [check, setCheck] = useState(false);
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   const resetError = () => setError(null);
 
@@ -43,6 +45,7 @@ const SignUp = () => {
     }
     try {
       const newUser = await createUser(credentials);
+      navigate('/advertisements');
       console.log(newUser);
       return newUser;
     } catch (error) {
@@ -61,8 +64,7 @@ const SignUp = () => {
 
   return (
     <div className={styles.signup__page}>
-      <h1 className={styles.signup__title}>{`WELCOME TO HANDWEBER`}</h1>
-      {error && error.map((e) => <p key={e}> {e} </p>)}
+      {error && error.map((e) => <p className={styles.signup__error} key={e}> {e} </p>)}
       <form className={styles.signup__form} onSubmit={handleSubmit}>
         <Input
           type='text'
@@ -108,21 +110,6 @@ const SignUp = () => {
         className={styles.signup__field}
         onChange={handleCredentials}
          />
-
-       {/*  <label htmlFor='photo' style={{ color: 'whitesmoke' }}>
-          Upload picture
-        </label>
-        <p className={styles.recomendation__size}>
-          *Recomended size 300px / 300px
-        </p>
-        <input
-          onChange={handleCredentials}
-          type='file'
-          name='image'
-          id='image'
-          photo={''}
-          style={{ color: 'whitesmoke' }}
-        /> */}
 
         <CheckBox
           name='check'

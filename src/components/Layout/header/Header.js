@@ -1,7 +1,9 @@
 import Button from '../../commons/button/Button';
 import './Header.scss';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
+
   return (
     <header className='bd-navbar sticky-top'>
       <nav className='navbar navbar-expand-lg'>
@@ -41,6 +43,8 @@ const Header = () => {
                 Login
               </Button>
               <Button
+                as={Link}
+                to='/signup'
                 type='button'
                 className='btn btn-secondary'>
                 Sign up for free

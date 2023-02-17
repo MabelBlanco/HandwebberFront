@@ -1,23 +1,10 @@
  .signup__page {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 40px;
     max-width: 300px;
     padding: 0 15px;
     width: 100%;
     text-align: center;
-  }
-
-  .signup__title {
-    margin: auto;
-    align-items: center;
-    display: flex;
-    height: 100px;
-    justify-content: center;
-    margin-bottom: 10px;
-    background-color: rgb(17, 14, 14);
-    color: whitesmoke;
-    border-radius: 20px;
   }
 
   .signup__form {
@@ -25,9 +12,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    background-color: rgb(246, 237, 237);
+    background-color: rgb(235, 228, 228);
     border-radius: 20px;
-    min-height: 500px;
+    min-height: 550px;
+    color:rgb(36, 161, 161);
   }
 
   .signup__field {
@@ -41,7 +29,7 @@
     width: 100%;
   }
 
-  .recomendation__size{
+  .signup__error{
     color: red;
-    font-size: 10px;
+    font-size: 15px;
 }
