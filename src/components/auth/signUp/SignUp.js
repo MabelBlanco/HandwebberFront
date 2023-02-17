@@ -4,8 +4,9 @@ import InputFile from '../../commons/forms/inputFile/InputFile';
 import Button from '../../commons/button/Button';
 import CheckBox from '../../commons/forms/checkbox/Checkbox';
 import styles from './SignUp.module.css';
-import { createUser } from '../service';
+import { createUser, loginUser } from '../service';
 import { useNavigate } from 'react-router-dom';
+import storage from '../../../utils/storage';
 
 const initialState = {
   username: '',
@@ -45,8 +46,11 @@ const SignUp = () => {
     }
     try {
       const newUser = await createUser(credentials);
-      navigate('/advertisements');
+      const { mail, password } = credentials
+      const accessToken = await loginUser({ mail, password });
+      storage.set('auth', accessToken);
       console.log(newUser);
+      navigate('/advertisements');
       return newUser;
     } catch (error) {
       const errors = [];

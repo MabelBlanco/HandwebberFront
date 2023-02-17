@@ -1,6 +1,7 @@
-import client from '../../api/client.js';
+import client, {setAuthorizationHeader} from '../../api/client.js';
 
 const signupURL = '/api/users/signup';
+const loginURL = '/api/users/login';
 const usersURL = '/api/users';
 
 export const getAllUsers = async () => {
@@ -31,4 +32,11 @@ export const deleteUser = async (userID) => {
   const response = await client.delete(`${usersURL}/${userID}`);
 
   return response;
+};
+
+export const loginUser = async (credentials) => {
+  const accessToken = await client.post(loginURL, credentials);
+  console.log(accessToken)
+  setAuthorizationHeader(accessToken);
+  return accessToken;
 };
