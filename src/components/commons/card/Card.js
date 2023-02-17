@@ -15,8 +15,6 @@ const Card = ({
   date,
   ...props
 }) => {
-  // console.log(tags);
-  // console.log(typeof tags);
   return (
     <div
       className={`card ${active ? 'active' : ''}`}
