@@ -5,9 +5,7 @@ const DetailAdvertisement = ({ ...props }) => {
   //.then((currentValue) => setNewValue(currentValue));
   //}, []);
   return (
-    <div>
-      {/*console.log(currentValue)*/}
-      test DetailAdvertisement
+    <div className="row">
       <h1 className="col-sm-12 py-5">{props.title}</h1>
     </div>
   );

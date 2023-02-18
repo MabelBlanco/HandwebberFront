@@ -7,7 +7,6 @@ import InputFile from "../commons/forms/inputFile/InputFile";
 import Select from "../commons/forms/select/Select";
 import Textarea from "../commons/forms/textarea/Textarea";
 import "./advertisements.scss";
-import { createAdvertisements } from "./service";
 
 const NewAdvertisement = ({ ...props }) => {
   const [name, setName] = useState("");
@@ -79,7 +78,7 @@ const NewAdvertisement = ({ ...props }) => {
     console.log(bodyFormData);
 
     try {
-      const advert = await createAdvertisements(bodyFormData);
+      const advert = await createAdvertisement(bodyFormData);
       navigate(`/advertisement/${advert.result._id}`);
     } catch (error) {
       if (error.statusCode === 401) {
