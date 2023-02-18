@@ -1,16 +1,16 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Button from '../commons/button/Button';
-import Checkbox from '../commons/forms/checkbox/Checkbox';
-import Input from '../commons/forms/input/Input';
-import InputFile from '../commons/forms/inputFile/InputFile';
-import Select from '../commons/forms/select/Select';
-import Textarea from '../commons/forms/textarea/Textarea';
-import './advertisements.scss';
-import { createAdvertisements } from './service';
+import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Button from "../commons/button/Button";
+import Checkbox from "../commons/forms/checkbox/Checkbox";
+import Input from "../commons/forms/input/Input";
+import InputFile from "../commons/forms/inputFile/InputFile";
+import Select from "../commons/forms/select/Select";
+import Textarea from "../commons/forms/textarea/Textarea";
+import "./advertisements.scss";
+import { createAdvertisements } from "./service";
 
 const NewAdvertisement = ({ ...props }) => {
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
   const [description, setDescription] = useState("");
@@ -19,7 +19,7 @@ const NewAdvertisement = ({ ...props }) => {
   const [tags, setTags] = useState([]);
   const [photo, setPhoto] = useState();
   const navigate = useNavigate();
-  const tagsOpt = ['lifestyle', 'sport', 'motor', 'players'];
+  const tagsOpt = ["lifestyle", "sport", "motor", "players"];
 
   // useEffect(() => {
   //   const execute = async () => {
@@ -74,7 +74,7 @@ const NewAdvertisement = ({ ...props }) => {
     bodyFormData.append("active", active);
     bodyFormData.append("idUser", "123testing");
     if (photo) {
-      bodyFormData.append('image', photo);
+      bodyFormData.append("image", photo);
     }
     console.log(bodyFormData);
 
@@ -83,10 +83,10 @@ const NewAdvertisement = ({ ...props }) => {
       navigate(`/advertisement/${advert.result._id}`);
     } catch (error) {
       if (error.statusCode === 401) {
-        navigate('/login');
+        navigate("/login");
       }
       if (error.statusCode === 404) {
-        navigate('/404');
+        navigate("/404");
       }
       console.log(error);
     }
@@ -102,41 +102,41 @@ const NewAdvertisement = ({ ...props }) => {
       <div className="col-sm-12">
         <form className="row bg-light p-5" onSubmit={handleSubmit}>
           <Input
-            className='col-md-4 col-lg-4 mb-5'
-            type='text'
-            name='name'
-            label='Name'
+            className="col-md-4 col-lg-4 mb-5"
+            type="text"
+            name="name"
+            label="Name"
             required
             onChange={handleChangeName}
             value={name}
           />
           <Input
-            type='number'
-            label='Price'
-            className='col-sm-4 col-lg-4 mb-5'
-            name='price'
+            type="number"
+            label="Price"
+            className="col-sm-4 col-lg-4 mb-5"
+            name="price"
             required
             onChange={handleChangePrice}
             value={price}
           />
           <Input
-            type='number'
-            label='Stock'
-            className='col-sm-4 col-lg-4 mb-5'
-            name='price'
+            type="number"
+            label="Stock"
+            className="col-sm-4 col-lg-4 mb-5"
+            name="price"
             required
             onChange={handleChangeStock}
             value={stock}
           />
           <Textarea
-            className='col-sm-12 mb-5'
-            label='Description'
+            className="col-sm-12 mb-5"
+            label="Description"
             value={description}
             onChange={handleChangeDescription}
           ></Textarea>
           <Select
-            label='Tags'
-            className='col-md-6 col-lg-6 mb-5'
+            label="Tags"
+            className="col-md-6 col-lg-6 mb-5"
             optionarray={tagsOpt}
             onChange={handleChangeSelect}
             value={tags}
@@ -145,10 +145,10 @@ const NewAdvertisement = ({ ...props }) => {
           />
 
           <InputFile
-            label='Photo'
-            className='col-md-6 mb-5'
-            name='photo'
-            id='photo'
+            label="Photo"
+            className="col-md-6 mb-5"
+            name="photo"
+            id="photo"
             onChange={handleChangeImage}
           />
 
@@ -165,9 +165,9 @@ const NewAdvertisement = ({ ...props }) => {
             onChange={handleChangeCustom}
           />
           <Button
-            type='submit'
-            classNameContainer='col-md-12 mt-5 align-right'
-            className='btn-secondary mb-2'
+            type="submit"
+            classNameContainer="col-md-12 mt-5 align-right"
+            className="btn-secondary mb-2"
             disabled={!isDisabled}
           >
             Add Advertisement
