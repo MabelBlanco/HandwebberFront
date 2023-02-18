@@ -14,7 +14,6 @@ const NewAdvertisement = ({ ...props }) => {
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
   const [description, setDescription] = useState("");
-  const [sale, setSale] = useState(true);
   const [active, setActive] = useState(true);
   const [custom, setCustom] = useState(false);
   const [tags, setTags] = useState([]);
@@ -44,7 +43,6 @@ const NewAdvertisement = ({ ...props }) => {
   const handleChangeDescription = (e) => setDescription(e.target.value);
   const handleChangePrice = (e) => setPrice(e.target.value);
   const handleChangeStock = (e) => setStock(e.target.value);
-  const handleChangeSale = (e) => setSale(e.target.checked);
   const handleChangeActive = (e) => setActive(e.target.checked);
   const handleChangeCustom = (e) => setCustom(e.target.checked);
   const handleChangeSelect = (e) => {
@@ -72,19 +70,20 @@ const NewAdvertisement = ({ ...props }) => {
     const bodyFormData = new FormData();
     bodyFormData.append("name", name);
     bodyFormData.append("price", price);
-    bodyFormData.append("sale", sale);
     bodyFormData.append("tags", tags);
-    bodyFormData.append("custom", description);
+    bodyFormData.append("description", description);
+    bodyFormData.append("custom", custom);
     bodyFormData.append("stock", stock);
     bodyFormData.append("active", active);
     bodyFormData.append("idUser", "123testing");
     if (photo) {
       bodyFormData.append("image", photo);
     }
+    console.log(bodyFormData);
 
     try {
       const advert = await createAdvertisements(bodyFormData);
-      navigate(`/advertisements/${advert.id}`);
+      navigate(`/advertisement/${advert.result._id}`);
     } catch (error) {
       if (error.statusCode === 401) {
         navigate("/login");
@@ -101,6 +100,7 @@ const NewAdvertisement = ({ ...props }) => {
 
   return (
     <div className="row">
+      <h1 className="col-sm-12 py-5">{props.title}</h1>
       <div className="col-sm-12">
         <form className="row bg-light p-5" onSubmit={handleSubmit}>
           <Input
@@ -155,14 +155,6 @@ const NewAdvertisement = ({ ...props }) => {
           />
 
           <Checkbox
-            label="Sale"
-            className="col-md-4 mb-2"
-            id="sale"
-            colsize="m12"
-            checked={sale}
-            onChange={handleChangeSale}
-          />
-          <Checkbox
             label="Active"
             className="col-md-4 mb-2"
             value={active}
@@ -171,7 +163,6 @@ const NewAdvertisement = ({ ...props }) => {
           <Checkbox
             label="Custom"
             className="col-md-4 mb-2"
-            required
             value={custom}
             onChange={handleChangeCustom}
           />

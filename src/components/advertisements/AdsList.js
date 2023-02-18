@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import Card from '../commons/card/Card';
-import { getAdvertisements } from './service';
+import { useEffect, useState } from "react";
+import Card from "../commons/card/Card";
+import { getAdvertisements } from "./service";
 
 const useAdvertisement = () => {
   const [adsList, setAdsList] = useState([]);
@@ -11,7 +11,7 @@ const useAdvertisement = () => {
         const ads = await getAdvertisements();
         setAdsList(ads.result);
       } catch (error) {
-        console.log('tenemos un error');
+        console.log("tenemos un error");
         console.log(error);
       }
     };
@@ -23,16 +23,15 @@ const useAdvertisement = () => {
 const AdsList = ({ ...props }) => {
   const advertisements = useAdvertisement();
   return (
-    <div {...props}>
+    <div className="row" {...props}>
       {advertisements.map((element) => {
         const newProps = { ...props, ...element };
         return (
-          <li
-            className='list-group-item'
+          <Card
+            className="col-sm-12 col-lg-3 m-2"
             key={element._id}
-          >
-            <Card {...newProps} />
-          </li>
+            {...newProps}
+          />
         );
       })}
     </div>
