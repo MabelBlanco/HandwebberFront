@@ -4,7 +4,7 @@ import "./inputFile.scss";
 const InputFile = ({ className, label, id, ...props }) => {
   return (
     <div className={classNames("", className)}>
-      <label>{label}</label>
+      <label htmlFor={id}>{label}</label>
       <div className="input-group">
         <input type="file" className="form-control" id={id} {...props} />
       </div>
@@ -13,4 +13,3 @@ const InputFile = ({ className, label, id, ...props }) => {
 };
 
 export default InputFile;
-

@@ -1,18 +1,16 @@
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../src/style.scss';
-
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 // import Popper from "popper.js";
-import 'bootstrap/dist/js/bootstrap.bundle.min';
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter as Router } from "react-router-dom";
+import "../src/style.scss";
+import App from "./App";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
 
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter as Router } from 'react-router-dom';
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Router>

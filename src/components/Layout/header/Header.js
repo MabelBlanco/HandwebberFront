@@ -1,9 +1,8 @@
-import Button from '../../commons/button/Button';
-import './Header.scss';
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import Button from "../../commons/button/Button";
+import "./Header.scss";
 
 const Header = () => {
-
   return (
     <header className="bd-navbar sticky-top">
       <nav className="navbar navbar-expand-lg">
@@ -11,7 +10,7 @@ const Header = () => {
           <a className="navbar-brand me-2" href="/advertisements">
             handWebber
           </a>
-          <button
+          <Button
             className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
@@ -21,7 +20,7 @@ const Header = () => {
             aria-label="Toggle navigation"
           >
             <i className="bi bi-list"></i>
-          </button>
+          </Button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
@@ -49,14 +48,14 @@ const Header = () => {
               </li>
             </ul>
             <div className="d-flex align-items-center">
-              <Button type="button" className="btn btn-link px-3 me-2">
+              <Button
+                type="button"
+                as={Link}
+                className="btn btn-secondary-link px-3 me-2"
+              >
                 Login
               </Button>
-              <Button
-                as={Link}
-                to='/signup'
-                type='button'
-                className='btn btn-secondary'>
+              <Button to="/signup" type="button" className="btn btn-secondary">
                 Sign up for free
               </Button>
             </div>
