@@ -1,16 +1,12 @@
 .input-group {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  width: 100%;
-  flex-direction: row;
-  padding: 0px;
-  background: white;
-  height: 50px;
-  margin: 0px;
-  input[type="file"] {
-    border: none;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+    flex-direction: row;
+    padding: 0px;
+    background: white;
     height: 50px;
     padding: 0px !important;
     &::file-selector-button {
@@ -25,7 +21,13 @@
       &:hover {
         background-color: var(--color-secondary-500) !important;
         border: none;
+        padding: 0px 20px;
+        transition: 1s;
+        height: 100%;
+        &:hover {
+          background-color: var(--color-primary-medium) !important;
+          border: none;
+        }
       }
     }
   }
-}
