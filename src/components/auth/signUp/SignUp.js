@@ -11,7 +11,7 @@ const initialState = {
   username: '',
   mail: '',
   password: '',
-  photo: '',
+  image: '',
 };
 
 const SignUp = () => {
@@ -29,6 +29,11 @@ const SignUp = () => {
     setCredentials({ ...credentials, [event.target.name]: event.target.value });
   };
 
+  const handleImage = (event) => {
+    console.log(event.target.files[0])
+    setCredentials({ ...credentials, [event.target.name]: event.target.files[0]})
+  };
+
   const handleConfirmPassword = (event) => {
     resetError();
     setConfirmPassword(event.target.value);
@@ -39,13 +44,20 @@ const SignUp = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     resetError();
-    if (credentials.password !== confirmPassword) {
+    const { image, username, mail, password } = credentials;
+    if (password !== confirmPassword) {
       setError(["Passwords don't match"]);
       return;
     }
+
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('mail', mail);
+    formData.append('password', password);
+    image && formData.append('image', image);
     try {
-      const newUser = await createUser(credentials);
-      const { mail, password } = credentials;
+      const newUser = await createUser(formData);
+      
       await loginUser({ mail, password });
       console.log(newUser);
       navigate('/advertisements');
@@ -113,10 +125,9 @@ const SignUp = () => {
         <InputFile
           name='image'
           id='image'
-          photo={''}
           label={'Upload picture'}
           className={styles.signup__field}
-          onChange={handleCredentials}
+          onChange={handleImage}
         />
 
         <CheckBox
