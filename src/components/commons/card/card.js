@@ -1,6 +1,9 @@
-import NoImage from '../noImage/NoImage';
+import classNames from "classnames";
+import NoImage from "../noImage/NoImage";
+import "./card.scss";
 
 const Card = ({
+  className,
   link_1,
   link_2,
   image,
@@ -17,80 +20,53 @@ const Card = ({
 }) => {
   return (
     <div
-      className={`card ${active ? 'active' : ''}`}
-      style={{ width: '18rem' }}
+      className={classNames(`card ${active ? "active" : ""}`, className)}
       {...props}
     >
-      {image ? (
-        <img
-          src={image}
-          className='card-img-top'
-          alt='...'
-        />
-      ) : (
-        <NoImage className='card-img-top' />
-      )}
-      <div className='card-body'>
-        <h5 className='card-title'>{name}</h5>
-        <p className='card-text'>
+      <div className="header-card">
+        {image ? (
+          <img src={image} className="card-img-top" alt="..." />
+        ) : (
+          <NoImage className="card-img-top" />
+        )}
+      </div>
+      <div className="card-body">
+        <h5 className="card-title">{name}</h5>
+        <p className="card-text">
           <span>Description: </span>
           {description}
         </p>
       </div>
-      <ul className='list-group list-group-flush'>
-        <li
-          key='price'
-          className='list-group-item'
-        >
+      <ul className="list-group list-group-flush">
+        <li key="price" className="list-group-item">
           <span>Price: </span>
           {price}
         </li>
-        <li
-          key='tags'
-          className='list-group-item'
-        >
+        <li key="tags" className="list-group-item">
           <span>Tags: </span>
-          {tags.join(', ')}
+          {tags.join(", ")}
         </li>
-        <li
-          key='date'
-          className='list-group-item'
-        >
+        <li key="date" className="list-group-item">
           <span>Date: </span>
           {date}
         </li>
-        <li
-          key='stock'
-          className='list-group-item'
-        >
+        <li key="stock" className="list-group-item">
           <span>Stock: </span>
           {stock}
         </li>
-        <li
-          key='user'
-          className='list-group-item'
-        >
+        <li key="user" className="list-group-item">
           <span>Usuario: </span>
           {idUser}
         </li>
-        <li
-          key='custom'
-          className='list-group-item'
-        >
-          {custom ? <span>'Custom Product'</span> : ''}
+        <li key="custom" className="list-group-item">
+          {custom ? <span>'Custom Product'</span> : ""}
         </li>
       </ul>
-      <div className='card-body'>
-        <a
-          href={link_1}
-          className='card-link'
-        >
+      <div className="card-body actions">
+        <a href={link_1} className="card-link">
           Card link
         </a>
-        <a
-          href={link_2}
-          className='card-link'
-        >
+        <a href={link_2} className="card-link">
           Another link
         </a>
       </div>

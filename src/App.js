@@ -15,7 +15,7 @@ function App() {
         <Route path="/advertisements" element={<Layout />}>
           <Route path="" element={<AdsList />} index />
           <Route
-            path=":id"
+            path="id"
             element={<DetailAdvertisement title="Advertisement Detail" />}
           />
           <Route

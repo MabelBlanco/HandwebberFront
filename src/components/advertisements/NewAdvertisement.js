@@ -7,6 +7,7 @@ import InputFile from "../commons/forms/inputFile/InputFile";
 import Select from "../commons/forms/select/Select";
 import Textarea from "../commons/forms/textarea/Textarea";
 import "./advertisements.scss";
+import { createAdvertisement } from "./service";
 
 const NewAdvertisement = ({ ...props }) => {
   const [name, setName] = useState("");
