@@ -10,13 +10,15 @@ const CustomizedButton = styled.button`
   border-style: none;
 `;
 
-const Button = ({ className, ...props }) => {
+const Button = ({ className, classNameContainer, ...props }) => {
   // console.log(props);
   return (
-    <CustomizedButton
-      {...props}
-      className={classNames("btn", className)}
-    ></CustomizedButton>
+    <div className={classNames("", classNameContainer)}>
+      <CustomizedButton
+        {...props}
+        className={classNames("btn", className)}
+      ></CustomizedButton>
+    </div>
   );
 };
 
