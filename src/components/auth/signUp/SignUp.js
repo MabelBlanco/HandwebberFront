@@ -74,6 +74,7 @@ const SignUp = () => {
           </p>
         ))}
       <form className={styles.signup__form} onSubmit={handleSubmit}>
+
         <Input
           type='text'
           name='username'
@@ -82,6 +83,7 @@ const SignUp = () => {
           onChange={handleCredentials}
           value={credentials.username}
         />
+
 
         <Input
           type='email'

@@ -9,7 +9,6 @@ const LayoutTest = ({ ...props }) => {
       <Header />
       <main className='container py-5'>
         <ComponentsList />
-        <h1 style={{ minHeight: 'calc(100vh - 442px)' }}>MAIN</h1>
       </main>
       <Footer />
     </div>

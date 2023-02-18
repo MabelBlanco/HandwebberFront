@@ -53,4 +53,10 @@ button {
   &.btn-primary-link {
     color: var(--color-primary-500);
   }
+  & a {
+    color: var(--color-static-white);
+    text-decoration: none;
+    font-weight: 700;
+    
+  }
 }

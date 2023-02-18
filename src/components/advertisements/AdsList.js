@@ -23,16 +23,18 @@ const useAdvertisement = () => {
 const AdsList = ({ ...props }) => {
   const advertisements = useAdvertisement();
   return (
-    <div {...props}>
+    <div
+      className='row'
+      {...props}
+    >
       {advertisements.map((element) => {
         const newProps = { ...props, ...element };
         return (
-          <li
-            className='list-group-item'
+          <Card
+            className='col-sm-12 col-lg-3 m-2'
             key={element._id}
-          >
-            <Card {...newProps} />
-          </li>
+            {...newProps}
+          />
         );
       })}
     </div>

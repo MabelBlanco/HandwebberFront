@@ -74,6 +74,18 @@ $gradient-radial: radial-gradient(
   #e76f51ff
 );
 
+/*********************************************/
+/*          FORMS       */
+/*********************************************/
+.form-control {
+  appearance: none;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  background-color: var(color-static-white);
+  border-bottom: 2px solid var(--color-secondary-800);
+}
+
 $font-family-sans-serif: "Poppins", sans-serif;
 /*********************************************/
 /*          INPUT       */

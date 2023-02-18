@@ -17,7 +17,7 @@ const Checkbox = ({ className, label, ...props }) => {
         type='checkbox'
         {...props}
       />
-      <label className='form-check-label'>{label}</label>
+      <label className='form-check-label px-2'>{label}</label>
     </div>
   );
 };
