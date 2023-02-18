@@ -1,6 +1,6 @@
-import client from "../../api/client";
+import client from '../../api/client';
 
-const advertisementsURL = "/api/advertisement";
+const advertisementsURL = '/api/advertisement';
 
 export const getAdvertisements = (skip, limit) => {
   const sk = skip ? skip : 0;
