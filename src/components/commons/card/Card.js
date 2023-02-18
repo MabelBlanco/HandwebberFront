@@ -1,5 +1,17 @@
 import NoImage from '../noImage/NoImage';
 
+/**
+ *
+ * @param {object} props
+ * {string} name, description, idUser
+ * {string-path-to} image,
+ * {number} price, stock,
+ * {boolean} active, custom,
+ * {date} date (update)
+ * ...props rest of the props
+ *
+ * @returns ReactComponent Card
+ */
 const Card = ({
   link_1,
   link_2,
