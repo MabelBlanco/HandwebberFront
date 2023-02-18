@@ -36,7 +36,7 @@ const Header = () => {
                 <a
                   className="nav-link active"
                   aria-current="page"
-                  href="/new-advertisement"
+                  href="/advertisements/new"
                 >
                   New Advertisement
                 </a>

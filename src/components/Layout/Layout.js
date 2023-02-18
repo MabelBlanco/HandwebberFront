@@ -1,14 +1,14 @@
+import { Outlet } from "react-router-dom";
 import Footer from "./footer/Footer";
 import Header from "./header/Header";
 import "./Layout.scss";
 
-const Layout = ({ title, children, ...props }) => {
+const Layout = ({ title, ...props }) => {
   return (
     <div {...props}>
       <Header />
       <main className="container py-5">
-        <h1 className="py-5">{title}</h1>
-        {children}
+        <Outlet />
       </main>
       <Footer />
     </div>
