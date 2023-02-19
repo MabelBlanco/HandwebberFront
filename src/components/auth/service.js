@@ -1,9 +1,9 @@
-import client, { setAuthorizationHeader } from "../../api/client.js";
-import storage from "../../utils/storage.js";
+import client, {setAuthorizationHeader} from '../../api/client.js';
+import storage from '../../utils/storage.js';
 
-const signupURL = "/api/users/signup";
-const loginURL = "/api/users/login";
-const usersURL = "/api/users";
+const signupURL = '/api/users/signup';
+const loginURL = '/api/users/login';
+const usersURL = '/api/users';
 
 export const getAllUsers = async () => {
   const response = await client.get(usersURL);
@@ -37,8 +37,8 @@ export const deleteUser = async (userID) => {
 
 export const loginUser = async (credentials) => {
   const accessToken = await client.post(loginURL, credentials);
-  storage.set("auth", accessToken);
-  console.log(accessToken);
+  storage.set('auth', accessToken);
+  console.log(accessToken)
   setAuthorizationHeader(accessToken);
   return accessToken;
 };
