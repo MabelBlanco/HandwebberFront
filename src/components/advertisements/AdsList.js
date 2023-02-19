@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import Card from '../commons/card/Card';
-import { getAdvertisements } from './service';
+import { useEffect, useState } from "react";
+import Card from "../commons/card/Card";
+import { getAdvertisements } from "./service";
 
 const useAdvertisement = () => {
   const [adsList, setAdsList] = useState([]);
@@ -11,7 +11,7 @@ const useAdvertisement = () => {
         const ads = await getAdvertisements();
         setAdsList(ads.result);
       } catch (error) {
-        console.log('tenemos un error');
+        console.log("tenemos un error");
         console.log(error);
       }
     };
