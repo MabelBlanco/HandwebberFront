@@ -10,7 +10,7 @@ const Layout = ({ title, ...props }) => {
       <Header />    
       <main className="container py-5">
       <Profile title={title}/>
-        <Outlet title={title} />
+        <Outlet />
       </main>
       <Footer />
     </div>

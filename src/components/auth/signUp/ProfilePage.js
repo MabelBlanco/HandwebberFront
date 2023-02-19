@@ -10,7 +10,7 @@ const initialState = {
   image: '',
 };
 
-const Profile = ({ className, title, ...props }) => {
+const ProfilePage = ({ className, title, ...props }) => {
 
   const { user, handleLogOut, isLogged } = useDataUser({initialState});
 
@@ -62,4 +62,4 @@ const Profile = ({ className, title, ...props }) => {
   );
 };
 
-export default Profile;
+export default ProfilePage;

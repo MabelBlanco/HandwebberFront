@@ -6,7 +6,6 @@ import CheckBox from '../../commons/forms/checkbox/Checkbox';
 import styles from './SignUp.module.css';
 import { createUser, loginUser } from '../service';
 import { useNavigate } from 'react-router-dom';
-import Profile from './Profile';
 import { useAuth } from '../../context/AuthContext';
 
 const initialState = {
