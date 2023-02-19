@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button from "../../commons/button/Button";
-import CheckBox from "../../commons/forms/checkBox/CheckBox";
+import CheckBox from "../../commons/forms/checkbox/Checkbox";
 import Input from "../../commons/forms/input/Input";
 import styles from "./SignUp.module.css";
 
