@@ -6,6 +6,7 @@ import CheckBox from "../../commons/forms/checkbox/Checkbox";
 import styles from "./SignUp.module.css";
 import { createUser, loginUser } from "../service";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const initialState = {
   username: "",
@@ -19,6 +20,8 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [check, setCheck] = useState(false);
   const [error, setError] = useState(null);
+
+  const { handleLogin } = useAuth();
 
   const navigate = useNavigate();
 
@@ -48,6 +51,7 @@ const SignUp = () => {
       const { mail, password } = credentials;
       await loginUser({ mail, password });
       console.log(newUser);
+      handleLogin();
       navigate("/advertisements");
       return newUser;
     } catch (error) {

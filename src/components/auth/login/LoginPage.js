@@ -4,7 +4,7 @@ import "./loginPage.css";
 import { loginUser } from "../service";
 import Input from "../../commons/forms/input/Input";
 import Button from "../../commons/button/Button";
-//import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 export function LoginPage() {
   const [emailValue, setEmailValue] = useState("");
@@ -13,7 +13,7 @@ export function LoginPage() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  //const { handleLogin } = useAuth();
+  const { handleLogin, isLogged } = useAuth();
 
   const submitEvent = async (event) => {
     event.preventDefault();
@@ -24,7 +24,7 @@ export function LoginPage() {
         password: passwordValue,
       });
 
-      //handleLogin();
+      handleLogin();
       const to = location.state?.from?.pathname || "/";
       navigate(to);
     } catch (error) {
@@ -38,32 +38,41 @@ export function LoginPage() {
     }
   };
 
-  return (
-    <form id="login" onSubmit={submitEvent}>
-      <div className="emailContainer">
-        <Input
-          value={emailValue}
-          type="text"
-          label="Email:"
-          name="loginEmail"
-          id="loginEmail"
-          onChange={(event) => setEmailValue(event.target.value)}
-        />
-      </div>
-      <div className="passwordContainer">
-        <Input
-          value={passwordValue}
-          type="password"
-          label="Password:"
-          name="loginPassword"
-          id="loginPassword"
-          onChange={(event) => setPasswordValue(event.target.value)}
-        />
-      </div>
-      <Button type="submit" form="login" className="loginButton">
-        Login
-      </Button>
-      <div>{errors.length ? errors.map((error) => <p>{error}</p>) : ""}</div>
-    </form>
-  );
+  if (isLogged) {
+    return (
+      <p>
+        Sorry, you are loggin now. If you want singin with another count, close
+        this session first
+      </p>
+    );
+  } else {
+    return (
+      <form id="login" onSubmit={submitEvent}>
+        <div className="emailContainer">
+          <Input
+            value={emailValue}
+            type="text"
+            label="Email:"
+            name="loginEmail"
+            id="loginEmail"
+            onChange={(event) => setEmailValue(event.target.value)}
+          />
+        </div>
+        <div className="passwordContainer">
+          <Input
+            value={passwordValue}
+            type="password"
+            label="Password:"
+            name="loginPassword"
+            id="loginPassword"
+            onChange={(event) => setPasswordValue(event.target.value)}
+          />
+        </div>
+        <Button type="submit" form="login" className="loginButton">
+          Login
+        </Button>
+        <div>{errors.length ? errors.map((error) => <p>{error}</p>) : ""}</div>
+      </form>
+    );
+  }
 }
