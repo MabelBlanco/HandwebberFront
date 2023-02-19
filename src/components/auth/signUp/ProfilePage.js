@@ -28,7 +28,7 @@ const ProfilePage = ({ className, title, ...props }) => {
             {user?.image ? (
               <img
                 style={{ height: '100px', width: '100px' }}
-                src={`${process.env.REACT_APP_API_BASE_URL}${user?.image}`}
+                src={`${process.env.REACT_APP_API_BASE_URL}/${user?.image}`}
                 className='card-img-top'
                 alt='...'
               />
