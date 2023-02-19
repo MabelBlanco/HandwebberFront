@@ -47,7 +47,7 @@ const SignUp = () => {
     const { image, username, mail, password } = credentials;
     if (password !== confirmPassword) {
       setError(["Passwords don't match"]);
-      return;
+      throw error;
     }
 
     const formData = new FormData();
