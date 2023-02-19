@@ -59,10 +59,10 @@ const Header = () => {
             </ul>
             <div className='d-flex align-items-center'>
               <Button
+                type='button'
                 as={Link}
                 to='/login'
-                type='button'
-                className='btn btn-link px-3 me-2'
+                className='btn btn-secondary-link px-3 me-2'
               >
                 Login
               </Button>

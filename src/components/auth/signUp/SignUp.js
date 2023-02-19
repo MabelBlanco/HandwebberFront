@@ -6,6 +6,7 @@ import CheckBox from '../../commons/forms/checkbox/Checkbox';
 import styles from './SignUp.module.css';
 import { createUser, loginUser } from '../service';
 import { useNavigate } from 'react-router-dom';
+import Profile from './Profile';
 import { useAuth } from '../../context/AuthContext';
 
 const initialState = {
@@ -15,7 +16,7 @@ const initialState = {
   image: '',
 };
 
-const SignUp = () => {
+const SignUp = ({ className, title, ...props }) => {
   const [credentials, setCredentials] = useState(initialState);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [check, setCheck] = useState(false);
@@ -84,80 +85,84 @@ const SignUp = () => {
     credentials.username && credentials.mail && credentials.password && check;
 
   return (
-    <div className={styles.signup__page}>
-      {error &&
-        error.map((e) => (
-          <p
-            className={styles.signup__error}
-            key={e}
-          >
-            {' '}
-            {e}{' '}
-          </p>
-        ))}
-      <form
-        className={styles.signup__form}
-        onSubmit={handleSubmit}
-      >
-        <Input
-          type='text'
-          name='username'
-          label='username'
-          className={styles.signup__field}
-          onChange={handleCredentials}
-          value={credentials.username}
-        />
+    <>
+      <Profile title={title} />
 
-        <Input
-          type='email'
-          name='mail'
-          label='mail'
-          className={styles.signup__field}
-          onChange={handleCredentials}
-          value={credentials.mail}
-        />
-
-        <Input
-          type='password'
-          name='password'
-          label='password (min 8 characters)'
-          className={styles.signup__field}
-          onChange={handleCredentials}
-          value={credentials.password}
-        />
-
-        <Input
-          type='password'
-          name='passwordConfirm'
-          label='confirm password'
-          className={styles.signup__field}
-          onChange={handleConfirmPassword}
-          value={confirmPassword}
-        />
-
-        <InputFile
-          name='image'
-          id='image'
-          label={'Upload picture'}
-          className={styles.signup__field}
-          onChange={handleImage}
-        />
-
-        <CheckBox
-          name='check'
-          label='Acepto las condiciones'
-          onChange={handleCheck}
-          checked={check}
-        />
-        <Button
-          type='submit'
-          className={styles.signup__submit}
-          disabled={!isEnabledButton()}
+      <div className={styles.signup__page}>
+        {error &&
+          error.map((e) => (
+            <p
+              className={styles.signup__error}
+              key={e}
+            >
+              {' '}
+              {e}{' '}
+            </p>
+          ))}
+        <form
+          className={styles.signup__form}
+          onSubmit={handleSubmit}
         >
-          SIGNUP
-        </Button>
-      </form>
-    </div>
+          <Input
+            type='text'
+            name='username'
+            label='username'
+            className={styles.signup__field}
+            onChange={handleCredentials}
+            value={credentials.username}
+          />
+
+          <Input
+            type='email'
+            name='mail'
+            label='mail'
+            className={styles.signup__field}
+            onChange={handleCredentials}
+            value={credentials.mail}
+          />
+
+          <Input
+            type='password'
+            name='password'
+            label='password (min 8 characters)'
+            className={styles.signup__field}
+            onChange={handleCredentials}
+            value={credentials.password}
+          />
+
+          <Input
+            type='password'
+            name='passwordConfirm'
+            label='confirm password'
+            className={styles.signup__field}
+            onChange={handleConfirmPassword}
+            value={confirmPassword}
+          />
+
+          <InputFile
+            name='image'
+            id='image'
+            label={'Upload picture'}
+            className={styles.signup__field}
+            onChange={handleImage}
+          />
+
+          <CheckBox
+            name='check'
+            label='Acepto las condiciones'
+            onChange={handleCheck}
+            checked={check}
+          />
+          <Button
+            type='submit'
+            className={styles.signup__submit}
+            disabled={!isEnabledButton()}
+          >
+            SIGNUP
+          </Button>
+        </form>
+      </div>
+    </>
   );
 };
 
