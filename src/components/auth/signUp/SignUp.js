@@ -1,24 +1,27 @@
-import { useState } from 'react';
-import Input from '../../commons/forms/input/Input';
-import InputFile from '../../commons/forms/inputFile/InputFile';
-import Button from '../../commons/button/Button';
-import CheckBox from '../../commons/forms/checkbox/Checkbox';
-import styles from './SignUp.module.css';
-import { createUser, loginUser } from '../service';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import Input from "../../commons/forms/input/Input";
+import InputFile from "../../commons/forms/inputFile/InputFile";
+import Button from "../../commons/button/Button";
+import CheckBox from "../../commons/forms/checkbox/Checkbox";
+import styles from "./SignUp.module.css";
+import { createUser, loginUser } from "../service";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const initialState = {
-  username: '',
-  mail: '',
-  password: '',
-  photo: '',
+  username: "",
+  mail: "",
+  password: "",
+  photo: "",
 };
 
 const SignUp = () => {
   const [credentials, setCredentials] = useState(initialState);
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [check, setCheck] = useState(false);
   const [error, setError] = useState(null);
+
+  const { handleLogin } = useAuth();
 
   const navigate = useNavigate();
 
@@ -48,7 +51,8 @@ const SignUp = () => {
       const { mail, password } = credentials;
       await loginUser({ mail, password });
       console.log(newUser);
-      navigate('/advertisements');
+      handleLogin();
+      navigate("/advertisements");
       return newUser;
     } catch (error) {
       const errors = [];
@@ -69,16 +73,16 @@ const SignUp = () => {
       {error &&
         error.map((e) => (
           <p className={styles.signup__error} key={e}>
-            {' '}
-            {e}{' '}
+            {" "}
+            {e}{" "}
           </p>
         ))}
       <form className={styles.signup__form} onSubmit={handleSubmit}>
 
         <Input
-          type='text'
-          name='username'
-          label='username'
+          type="text"
+          name="username"
+          label="username"
           className={styles.signup__field}
           onChange={handleCredentials}
           value={credentials.username}
@@ -86,49 +90,49 @@ const SignUp = () => {
 
 
         <Input
-          type='email'
-          name='mail'
-          label='mail'
+          type="email"
+          name="mail"
+          label="mail"
           className={styles.signup__field}
           onChange={handleCredentials}
           value={credentials.mail}
         />
 
         <Input
-          type='password'
-          name='password'
-          label='password (min 8 characters)'
+          type="password"
+          name="password"
+          label="password (min 8 characters)"
           className={styles.signup__field}
           onChange={handleCredentials}
           value={credentials.password}
         />
 
         <Input
-          type='password'
-          name='passwordConfirm'
-          label='confirm password'
+          type="password"
+          name="passwordConfirm"
+          label="confirm password"
           className={styles.signup__field}
           onChange={handleConfirmPassword}
           value={confirmPassword}
         />
 
         <InputFile
-          name='image'
-          id='image'
-          photo={''}
-          label={'Upload picture'}
+          name="image"
+          id="image"
+          photo={""}
+          label={"Upload picture"}
           className={styles.signup__field}
           onChange={handleCredentials}
         />
 
         <CheckBox
-          name='check'
-          label='Acepto las condiciones'
+          name="check"
+          label="Acepto las condiciones"
           onChange={handleCheck}
           checked={check}
         />
         <Button
-          type='submit'
+          type="submit"
           className={styles.signup__submit}
           disabled={!isEnabledButton()}
         >
