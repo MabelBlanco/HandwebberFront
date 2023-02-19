@@ -73,10 +73,7 @@ const NewAdvertisement = ({ ...props }) => {
     bodyFormData.append("stock", stock);
     bodyFormData.append("active", active);
     bodyFormData.append("idUser", "123testing");
-    if (photo) {
-      bodyFormData.append("image", photo);
-    }
-    console.log(bodyFormData);
+    photo && bodyFormData.append("image", photo);
 
     try {
       const advert = await createAdvertisement(bodyFormData);
