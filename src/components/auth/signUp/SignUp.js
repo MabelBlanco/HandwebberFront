@@ -6,15 +6,16 @@ import CheckBox from '../../commons/forms/checkbox/Checkbox';
 import styles from './SignUp.module.css';
 import { createUser, loginUser } from '../service';
 import { useNavigate } from 'react-router-dom';
+import Profile from './Profile'
 
 const initialState = {
   username: '',
   mail: '',
   password: '',
-  image: '',
+  image: '/uploads/image-1676790115156-marshall.jpeg',
 };
 
-const SignUp = () => {
+const SignUp = ({ className, title, ...props }) => {
   const [credentials, setCredentials] = useState(initialState);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [check, setCheck] = useState(false);
@@ -77,7 +78,13 @@ const SignUp = () => {
     credentials.username && credentials.mail && credentials.password && check;
 
   return (
+    <>
+    
+
+    <Profile title={title} image={credentials.image}/>
+    
     <div className={styles.signup__page}>
+      
       {error &&
         error.map((e) => (
           <p className={styles.signup__error} key={e}>
@@ -86,7 +93,6 @@ const SignUp = () => {
           </p>
         ))}
       <form className={styles.signup__form} onSubmit={handleSubmit}>
-
         <Input
           type='text'
           name='username'
@@ -95,7 +101,6 @@ const SignUp = () => {
           onChange={handleCredentials}
           value={credentials.username}
         />
-
 
         <Input
           type='email'
@@ -147,6 +152,7 @@ const SignUp = () => {
         </Button>
       </form>
     </div>
+    </>
   );
 };
 

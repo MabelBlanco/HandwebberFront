@@ -55,7 +55,7 @@ const Header = () => {
               >
                 Login
               </Button>
-              <Button to="/signup" type="button" className="btn btn-secondary">
+              <Button as={Link} to="/signup" type="button" className="btn btn-secondary">
                 Sign up for free
               </Button>
             </div>

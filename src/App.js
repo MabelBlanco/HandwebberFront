@@ -12,15 +12,8 @@ function App() {
   return (
     <div className='App'>
       <Routes>
-        <Route
-          path='/advertisements'
-          element={<Layout />}
-        >
-          <Route
-            path=''
-            element={<AdsList />}
-            index
-          />
+        <Route path='/advertisements' element={<Layout />}>
+          <Route path='' element={<AdsList />} index />
           <Route
             path='id'
             element={<DetailAdvertisement title='Advertisement Detail' />}
@@ -31,10 +24,7 @@ function App() {
           />
         </Route>
 
-        <Route
-          path='/'
-          element={<Navigate to='/advertisements' />}
-        />
+        <Route path='/' element={<Navigate to='/advertisements' />} />
         <Route
           path='/404'
           element={
@@ -43,22 +33,13 @@ function App() {
             </Layout>
           }
         />
-        <Route
-          path='/*'
-          element={<Navigate to='/404' />}
-        />
-        <Route
-          path='/test'
-          element={<LayoutTest />}
-        />
-        <Route
-          path='/signup'
-          element={
-            <Layout title='Sign up'>
-              <SignUp />
-            </Layout>
-          }
-        />
+        <Route path='/*' element={<Navigate to='/404' />} />
+        <Route path='/test' element={<LayoutTest />} />
+        <Route path='/signup'
+          element={ <Layout />}>
+            <Route path='' element={<SignUp title='Sign Up' />} index />
+        </Route>
+          
       </Routes>
     </div>
   );
