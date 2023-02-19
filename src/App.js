@@ -18,6 +18,32 @@ function App() {
           element={<Navigate to='/advertisements' />}
         />
         <Route
+          path='/signup'
+          element={<Layout />}
+        >
+          <Route
+            path=''
+            element={<SignUp />}
+          />
+        </Route>
+        <Route
+          path='/login'
+          element={<Layout />}
+        >
+          <Route
+            path=''
+            element={<LoginPage />}
+          />
+        </Route>
+        <Route
+          path='/404'
+          element={
+            <Layout>
+              <NotFoundPage />
+            </Layout>
+          }
+        />
+        <Route
           path='/advertisements'
           element={<Layout />}
         >
@@ -37,44 +63,12 @@ function App() {
         </Route>
 
         <Route
-          path='/signup'
-          element={
-            <Layout title='Sign up'>
-              <SignUp />
-            </Layout>
-          }
-        />
-        <Route
-          path='/404'
-          element={
-            <Layout>
-              <NotFoundPage />
-            </Layout>
-          }
-        />
-        <Route
           path='/*'
           element={<Navigate to='/404' />}
         />
         <Route
           path='/test'
           element={<LayoutTest />}
-        />
-        <Route
-          path='/signup'
-          element={
-            <Layout title='Sign up'>
-              <SignUp />
-            </Layout>
-          }
-        />
-        <Route
-          path='/login'
-          element={
-            <Layout title='Login'>
-              <LoginPage />
-            </Layout>
-          }
         />
       </Routes>
     </div>
