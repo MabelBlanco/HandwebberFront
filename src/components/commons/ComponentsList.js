@@ -59,8 +59,25 @@ const ComponentsList = () => {
           label='checkbox label'
           className='col-md-6 pb-5'
         />
+        <Range
+          label='range label'
+          className='col-md-6 pb-5'
+        />
+        <InputFile
+          label='input field'
+          className='col-md-6 pb-5'
+        />
+        <Checkbox
+          label='checkbox label'
+          className='col-md-6 pb-5'
+        />
         <Spinner className='col-md-6 pb-5' />
-        <Card className='col-md-4 pb-5' />
+        <Card
+          className='col-md-4 pb-5'
+          label_link_1='see more'
+          label_button_1='edit'
+          label_button_2='delete'
+        />
       </div>
     </div>
   );

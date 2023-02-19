@@ -1,14 +1,25 @@
 select {
-  &.hk--custom--select {
-    & .dropdown-menu {
-      border-radius: 0px;
-      border-left: none;
-      border-right: none;
-      border-bottom: 2px solid var(--color-secondary-800);
-      & .dropdown-item.active,
-      .dropdown-item:active {
-        background-color: var(--color-secondary-800);
-      }
-    }
+  &.form-select[multiple] {
+    appearance: none;
+    border-bottom: 2px solid var(--color-secondary-800);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding: 10px 5px 5px !important;
+    border-radius: 2px 2px 0px 0px !important;
+    width: 100%;
   }
+  // &.hk--custom--select {
+
+  //   & .dropdown-menu {
+  //     border-radius: 0px;
+  //     border-left: none;
+  //     border-right: none;
+  //     border-bottom: 2px solid var(--color-secondary-800);
+  //     & .dropdown-item.active,
+  //     .dropdown-item:active {
+  //       background-color: var(--color-secondary-800);
+  //     }
+  //   }
+  // }
 }

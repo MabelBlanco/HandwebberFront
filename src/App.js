@@ -49,11 +49,10 @@ function App() {
         >
           <Route
             path=''
-            element={<AdsList />}
-            index
+            element={<AdsList title='Advertisement List' />}
           />
           <Route
-            path='id'
+            path=':id'
             element={<DetailAdvertisement title='Advertisement Detail' />}
           />
           <Route

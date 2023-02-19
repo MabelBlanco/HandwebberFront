@@ -14,11 +14,12 @@ export const createAdvertisement = (advertData) => {
 };
 
 export const getAdvertisementDetail = (advertId) => {
-  const url = `${advertisementsURL}:${advertId}`;
+  const url = `${advertisementsURL}/${advertId}`;
   return client.get(url);
 };
 
 export const deleteAdvertisement = (id) => {
-  const url = `${advertisementsURL}:${id}`;
+  console.log(id);
+  const url = `${advertisementsURL}/${id}`;
   return client.delete(url);
 };

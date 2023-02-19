@@ -3,11 +3,24 @@
   & .header-card {
     min-height: 250px;
     max-height: 250px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid var(--color-secondary-800);
+    padding: 0px;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
   }
   & .card-body {
     &.actions {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
       padding-top: 14px;
       flex-direction: row;
