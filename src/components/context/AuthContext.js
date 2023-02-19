@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import storage from "../../utils/storage";
 
 const AuthContext = createContext();
 
@@ -10,8 +11,10 @@ export function AuthContextProvider({ children, haveInitialToken }) {
   const [isLogged, setIsLogged] = useState(haveInitialToken);
 
   const handleLogin = () => setIsLogged(true);
-  const handleLogOut = () => setIsLogged(false);
-
+  const handleLogOut = () => {
+    setIsLogged(false);
+    storage.remove('auth');
+  }
   return (
     <AuthContext.Provider
       value={{ isLogged: isLogged, handleLogin, handleLogOut }}
