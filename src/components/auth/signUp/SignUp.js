@@ -86,8 +86,6 @@ const SignUp = ({ className, title, ...props }) => {
 
   return (
     <>
-      <Profile title={title} />
-
       <div className={styles.signup__page}>
         {error &&
           error.map((e) => (

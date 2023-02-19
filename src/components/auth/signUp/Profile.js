@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import NoImage from '../../commons/noImage/NoImage';
-import './../../commons/card/card.scss';
+import '../../commons/card/card.scss';
 import decodeToken from '../../../utils/decodeToken';
 import storage from '../../../utils/storage';
 import { useAuth } from '../../context/AuthContext';
@@ -40,7 +40,7 @@ const Profile = ({ className, title, ...props }) => {
       </div>
 
       {isLogged && (
-        <div className='col-sm-6 py-5'>
+        <div className='col-sm-6 py-5' style={{textAlign: 'right'}}>
           {' '}
           <div className={'header-card'}>
             {user.image ? (
@@ -59,11 +59,20 @@ const Profile = ({ className, title, ...props }) => {
           </div>
           <div className='card-body actions'>
             <Button
+              as={Link}
               type='button'
               className='btn btn-secondary'
               onClick={handleLogOut}
             >
               Logout
+            </Button>
+            <Button
+              as={Link}
+              to='/profile'
+              type='button'
+              className='btn btn-secondary'
+            >
+              Profile
             </Button>
           </div>
         </div>

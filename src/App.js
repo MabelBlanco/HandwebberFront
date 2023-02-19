@@ -19,7 +19,7 @@ function App() {
         />
         <Route
           path='/signup'
-          element={<Layout />}
+          element={<Layout  title='Sign Up'/>}
         >
           <Route
             path=''
@@ -28,7 +28,7 @@ function App() {
         </Route>
         <Route
           path='/login'
-          element={<Layout />}
+          element={<Layout title='Login' />}
         >
           <Route
             path=''
@@ -37,7 +37,7 @@ function App() {
         </Route>
         <Route
           path='/404'
-          element={<Layout />}
+          element={<Layout title='NOT FOUND' />}
         >
           <Route
             path=''
@@ -46,7 +46,7 @@ function App() {
         </Route>
         <Route
           path='/advertisements'
-          element={<Layout />}
+          element={<Layout title={'Advertisments'}/>}
         >
           <Route
             path=''
