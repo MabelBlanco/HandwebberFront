@@ -37,12 +37,13 @@ function App() {
         </Route>
         <Route
           path='/404'
-          element={
-            <Layout>
-              <NotFoundPage />
-            </Layout>
-          }
-        />
+          element={<Layout />}
+        >
+          <Route
+            path=''
+            element={<NotFoundPage />}
+          />
+        </Route>
         <Route
           path='/advertisements'
           element={<Layout />}
