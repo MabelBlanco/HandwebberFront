@@ -24,7 +24,7 @@ const useDataUser = ({initialState, ...props}) => {
       }
     }, [isLogged, userId]);
 
-    return {user, handleLogOut, isLogged};
+    return {user, handleLogOut, isLogged, ...props};
 };
 
 export default useDataUser;

@@ -24,10 +24,10 @@ const Profile = ({ className, title, ...props }) => {
         <div className='col-sm-6 py-5' style={{textAlign: 'right'}}>
           {' '}
           <div className={'header-card'}>
-            {user.image ? (
+            {user?.image ? (
               <img
                 style={{ height: '100px', width: '100px' }}
-                src={`${process.env.REACT_APP_API_BASE_URL}/${user.image}`}
+                src={`${process.env.REACT_APP_API_BASE_URL}/${user?.image}`}
                 className='card-img-top'
                 alt='...'
               />
@@ -36,7 +36,7 @@ const Profile = ({ className, title, ...props }) => {
             )}
           </div>
           <div className='card-body'>
-            <h5 className='card-title'>{user.username}</h5>
+            <h5 className='card-title'>{user?.username}</h5>
           </div>
           <div className='card-body actions'>
             <Button
