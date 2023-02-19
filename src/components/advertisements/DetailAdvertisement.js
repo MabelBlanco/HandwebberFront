@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Button from "../commons/button/Button";
 import Card from "../commons/card/Card";
 import "./advertisements.scss";
-import { deleteAdvertisement, getAdvertisementDetail } from "./service";
+// import { deleteAdvertisement, getAdvertisementDetail } from "./service";
 
 const DetailAdvertisement = ({
   // confirm,
@@ -30,7 +30,7 @@ const DetailAdvertisement = ({
 
   const onDelete = async () => {
     try {
-      await deleteAdvertisement(id).then(navigate("/advertisements"));
+      // await deleteAdvertisement(id).then(navigate("/advertisements"));
     } catch (error) {
       console.log(error);
     }
@@ -40,8 +40,8 @@ const DetailAdvertisement = ({
     if (isMounted) {
       const execute = async () => {
         try {
-          const advert = await getAdvertisementDetail(id);
-          setAdvert(advert);
+          // const advert = await getAdvertisementDetail(id);
+          // setAdvert(advert);
         } catch (error) {
           if (error.statusCode === 401) {
             navigate("/login");
@@ -63,7 +63,7 @@ const DetailAdvertisement = ({
     <div className="row">
       <h1 className="col-sm-12 py-5">{props.title}</h1>
       <div className="container advert-content-detail">
-        <Card {...advert} />
+        <Card {...advert} label_button_2="Delete" label_button_1="Edit" />
         {/* <ConfirmButton
           confirmation="Are you sure?"
           doTask={onDelete}
