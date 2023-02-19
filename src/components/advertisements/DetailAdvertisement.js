@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Button from "../commons/button/Button";
 import Card from "../commons/card/Card";
 import "./advertisements.scss";
-// import { deleteAdvertisement, getAdvertisementDetail } from "./service";
+import { getAdvertisementDetail } from "./service";
 
 const DetailAdvertisement = ({
   // confirm,
@@ -40,8 +40,8 @@ const DetailAdvertisement = ({
     if (isMounted) {
       const execute = async () => {
         try {
-          // const advert = await getAdvertisementDetail(id);
-          // setAdvert(advert);
+          const advert = await getAdvertisementDetail(id);
+          setAdvert(advert.result);
         } catch (error) {
           if (error.statusCode === 401) {
             navigate("/login");

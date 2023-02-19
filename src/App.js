@@ -25,24 +25,14 @@ function App() {
         </Route>
 
         <Route path="/" element={<Navigate to="/advertisements" />} />
-        <Route
-          path="/404"
-          element={
-            <Layout>
-              <NotFoundPage />
-            </Layout>
-          }
-        />
-        {/* <Route path="/*" element={<Navigate to="/404" />} /> */}
+        <Route path="/404" element={<Layout />}>
+          <Route path="" element={<NotFoundPage title="Sign Up" />} index />
+        </Route>
+        <Route path="/*" element={<Navigate to="/404" />} />
         <Route path="/test" element={<LayoutTest />} />
-        <Route
-          path="/signup"
-          element={
-            <Layout title="Sign up">
-              <SignUp />
-            </Layout>
-          }
-        />
+        <Route path="/signup" element={<Layout />}>
+          <Route path="" element={<SignUp title="Sign Up" />} index />
+        </Route>
       </Routes>
     </div>
   );
