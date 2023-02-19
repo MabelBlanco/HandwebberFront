@@ -1,6 +1,21 @@
+import classNames from 'classnames';
 import NoImage from '../noImage/NoImage';
+import './card.scss';
 
+/**
+ *
+ * @param {object} props
+ * {string} name, description, idUser
+ * {string-path-to} image,
+ * {number} price, stock,
+ * {boolean} active, custom,
+ * {date} date (update)
+ * ...props rest of the props
+ *
+ * @returns ReactComponent Card
+ */
 const Card = ({
+  className,
   link_1,
   link_2,
   image,
@@ -17,19 +32,20 @@ const Card = ({
 }) => {
   return (
     <div
-      className={`card ${active ? 'active' : ''}`}
-      style={{ width: '18rem' }}
+      className={classNames(`card ${active ? 'active' : ''}`, className)}
       {...props}
     >
-      {image ? (
-        <img
-          src={image}
-          className='card-img-top'
-          alt='...'
-        />
-      ) : (
-        <NoImage className='card-img-top' />
-      )}
+      <div className='header-card'>
+        {image ? (
+          <img
+            src={`${process.env.REACT_APP_API_BASE_URL}/${image}`}
+            className='card-img-top'
+            alt='...'
+          />
+        ) : (
+          <NoImage className='card-img-top' />
+        )}
+      </div>
       <div className='card-body'>
         <h5 className='card-title'>{name}</h5>
         <p className='card-text'>
@@ -80,7 +96,7 @@ const Card = ({
           {custom ? <span>'Custom Product'</span> : ''}
         </li>
       </ul>
-      <div className='card-body'>
+      <div className='card-body actions'>
         <a
           href={link_1}
           className='card-link'
