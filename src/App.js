@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import AdsList from './components/advertisements/AdsList';
+import { LoginPage } from './components/auth/login/LoginPage';
 import DetailAdvertisement from './components/advertisements/DetailAdvertisement';
 import NewAdvertisement from './components/advertisements/NewAdvertisement';
 import SignUp from './components/auth/signUp/SignUp';
@@ -12,6 +13,10 @@ function App() {
   return (
     <div className='App'>
       <Routes>
+        <Route
+          path='/'
+          element={<Navigate to='/advertisements' />}
+        />
         <Route
           path='/advertisements'
           element={<Layout />}
@@ -32,8 +37,12 @@ function App() {
         </Route>
 
         <Route
-          path='/'
-          element={<Navigate to='/advertisements' />}
+          path='/signup'
+          element={
+            <Layout title='Sign up'>
+              <SignUp />
+            </Layout>
+          }
         />
         <Route
           path='/404'
@@ -56,6 +65,14 @@ function App() {
           element={
             <Layout title='Sign up'>
               <SignUp />
+            </Layout>
+          }
+        />
+        <Route
+          path='/login'
+          element={
+            <Layout title='Login'>
+              <LoginPage />
             </Layout>
           }
         />
