@@ -5,6 +5,7 @@ import Button from '../../commons/button/Button';
 import useDataUser from './useDataUser';
 import { deleteUser } from '../service';
 import { useAuth } from '../../context/AuthContext';
+import { useEffect } from 'react';
 
 const initialState = {
   username: '',
@@ -27,6 +28,10 @@ const ProfilePage = ({ className, title, ...props }) => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    !isLogged && navigate('/')
+  },[isLogged, navigate])
 
   return (
     <div className='row'>
