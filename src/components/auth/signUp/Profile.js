@@ -13,6 +13,7 @@ const initialState = {
 const Profile = ({ className, title, ...props }) => {
 
   const { user, handleLogOut, isLogged } = useDataUser({initialState});
+  console.log(user)
 
   return (
     <div className='row'>

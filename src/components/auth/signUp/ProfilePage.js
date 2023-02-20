@@ -3,7 +3,7 @@ import '../../commons/card/card.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../commons/button/Button';
 import useDataUser from './useDataUser';
-import { deleteUser,  } from '../service';
+import { deleteUser } from '../service';
 
 const initialState = {
   username: '',
@@ -12,7 +12,6 @@ const initialState = {
 
 const ProfilePage = ({ className, title, ...props }) => {
   const { user, handleLogOut, isLogged } = useDataUser(initialState);
-  console.log(user);
 
   const navigate = useNavigate();
 
@@ -80,6 +79,7 @@ const ProfilePage = ({ className, title, ...props }) => {
           <div className='card-body actions'>
             <Button
               type='button'
+              className="btn btn-secondary mx-3"
               onClick={deleteCount}
             >DELETE COUNT</Button>
             <Button

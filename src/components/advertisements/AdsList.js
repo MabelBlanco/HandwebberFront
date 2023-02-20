@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Card from "../commons/card/Card";
 import { getAdvertisements } from "./service";
 
-const useAdvertisement = () => {
+export const useAdvertisement = () => {
   const [adsList, setAdsList] = useState([]);
 
   useEffect(() => {
