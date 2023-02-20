@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import decodeToken from '../../../utils/decodeToken';
 import storage from '../../../utils/storage';
-import { useAuth } from '../../context/AuthContext';
 import { getUserById } from '../service';
 import { getAdvertisements } from "../../advertisements/service";
 
 const useDataUser = ({initialState, ...props}) => {
     const [user, setUser] = useState(initialState);
-    const { handleLogOut, isLogged } = useAuth();
   
     const { userId } = decodeToken(storage.get('auth')) || {};
 
@@ -26,7 +24,7 @@ const useDataUser = ({initialState, ...props}) => {
       execute();
     }, [userId]);
 
-    return {user, handleLogOut, isLogged, ...props};
+    return {user, ...props};
 };
 
 export default useDataUser;
