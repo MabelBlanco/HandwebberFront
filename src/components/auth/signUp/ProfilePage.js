@@ -76,8 +76,8 @@ const ProfilePage = ({ className, title, ...props }) => {
               <ul>
                 {user?.ads &&
                   user.ads.map((e) => (
-                    <li key={e}>
-                      <Link to={`/advertisements/${e}`}>{e}</Link>
+                    <li key={e.idUser}>
+                      <Link to={`/advertisements/${e.idUser}`}>{e.name}</Link>
                     </li>
                   ))}
               </ul>
