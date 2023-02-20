@@ -21,7 +21,7 @@ const SignUp = ({ className, title, ...props }) => {
   const [check, setCheck] = useState(false);
   const [error, setError] = useState(null);
 
-  const { handleLogin } = useAuth();
+  const { handleLogin, isLogged } = useAuth();
 
   const navigate = useNavigate();
 
@@ -96,7 +96,7 @@ const SignUp = ({ className, title, ...props }) => {
               {e}{' '}
             </p>
           ))}
-        <form
+        {!isLogged && <form
           className={styles.signup__form}
           onSubmit={handleSubmit}
         >
@@ -157,7 +157,11 @@ const SignUp = ({ className, title, ...props }) => {
           >
             SIGNUP
           </Button>
-        </form>
+        </form>}
+        {isLogged && <p>
+        Sorry, you are already registered. If you want register a new count, close
+        this session first
+      </p>}
       </div>
     </>
   );

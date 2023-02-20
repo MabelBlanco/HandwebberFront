@@ -4,6 +4,7 @@ import '../../commons/card/card.scss';
 import { Link } from 'react-router-dom';
 import Button from '../../commons/button/Button';
 import useDataUser from './useDataUser';
+import { useAuth } from '../../context/AuthContext';
 
 const initialState = {
   username: '',
@@ -12,7 +13,8 @@ const initialState = {
 
 const Profile = ({ className, title, ...props }) => {
 
-  const { user, handleLogOut, isLogged } = useDataUser({initialState});
+  const { user } = useDataUser({initialState});
+  const {isLogged, handleLogOut} = useAuth();
 
   return (
     <div className='row'>

@@ -3,7 +3,9 @@ import '../../commons/card/card.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../commons/button/Button';
 import useDataUser from './useDataUser';
-import { deleteUser,  } from '../service';
+import { deleteUser } from '../service';
+import { useAuth } from '../../context/AuthContext';
+import { useEffect } from 'react';
 
 const initialState = {
   username: '',
@@ -11,8 +13,8 @@ const initialState = {
 };
 
 const ProfilePage = ({ className, title, ...props }) => {
-  const { user, handleLogOut, isLogged } = useDataUser(initialState);
-  console.log(user);
+  const { user } = useDataUser(initialState);
+  const {isLogged, handleLogOut} = useAuth();
 
   const navigate = useNavigate();
 
@@ -21,11 +23,15 @@ const ProfilePage = ({ className, title, ...props }) => {
       const response = await deleteUser(user._id);
       handleLogOut();
       navigate('/');
-      return response;    
+      return response;
     } catch (error) {
       console.log(error);
-    };
+    }
   };
+
+  useEffect(() => {
+    !isLogged && navigate('/')
+  },[isLogged, navigate])
 
   return (
     <div className='row'>
@@ -57,38 +63,33 @@ const ProfilePage = ({ className, title, ...props }) => {
             <li key='subscriptions' className='list-group-item'>
               <span>Favorites: </span>
               <ul>
-              {user?.subscriptions && user.subscriptions.map( e => <li key={e}><Link to={`/advertisements/${e}`}>{e}</Link></li>)}
+                {user?.subscriptions &&
+                  user.subscriptions.map((e) => (
+                    <li key={e}>
+                      <Link to={`/advertisements/${e}`}>{e}</Link>
+                    </li>
+                  ))}
               </ul>
             </li>
-            {/*
-            <li key='date' className='list-group-item'>
-              <span>Date: </span>
-              {date}
+            <li key='ads' className='list-group-item'>
+              <span>My advertisements: </span>
+              <ul>
+                {user?.ads &&
+                  user.ads.map((e) => (
+                    <li key={e._id}>
+                      <Link to={`/advertisements/${e._id}`}>{e.name}</Link>
+                    </li>
+                  ))}
+              </ul>
             </li>
-            <li key='stock' className='list-group-item'>
-              <span>Stock: </span>
-              {stock}
-            </li>
-            <li key='user' className='list-group-item'>
-              <span>Usuario: </span>
-              {idUser}
-            </li>
-            <li key='custom' className='list-group-item'>
-              {custom ? <span>'Custom Product'</span> : ''}
-            </li>*/}
           </ul>
           <div className='card-body actions'>
             <Button
               type='button'
+              className='btn btn-secondary mx-3'
               onClick={deleteCount}
-            >DELETE COUNT</Button>
-            <Button
-              as={Link}
-              to='/profile'
-              type='button'
-              className='btn btn-secondary'
             >
-              Profile
+              DELETE COUNT
             </Button>
           </div>
         </div>
