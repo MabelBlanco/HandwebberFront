@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import Button from '../../commons/button/Button';
+import { useAuth } from '../../context/AuthContext';
 import './Header.scss';
 
 const Header = () => {
+  const { isLogged } = useAuth();
   return (
     <header className='bd-navbar sticky-top'>
       <nav className='navbar navbar-expand-lg'>
@@ -38,15 +40,17 @@ const Header = () => {
                   Home
                 </a>
               </li>
-              <li className='nav-item'>
-                <a
-                  className='nav-link active'
-                  aria-current='page'
-                  href='/advertisements/new'
-                >
-                  New Advertisement
-                </a>
-              </li>
+              {isLogged && (
+                <li className='nav-item'>
+                  <a
+                    className='nav-link active'
+                    aria-current='page'
+                    href='/advertisements/new'
+                  >
+                    New Advertisement
+                  </a>
+                </li>
+              )}
               <li className='nav-item'>
                 <a
                   className='nav-link active'
