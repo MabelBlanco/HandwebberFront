@@ -48,7 +48,8 @@ const ComponentsList = () => {
             classNameBtnClose="btn-secondary"
             classNameBtnConfirm="btn-primary"
             classNameContent="body"
-            label_confirm="borrar"
+            label_confirm="que si que vale :)"
+            label_cancel="paso :("
             label_btn="modal"
             modalId="hola"
           >
@@ -58,6 +59,7 @@ const ComponentsList = () => {
             modalTitle="titulo para la modal"
             label_btn="modal sin confirmación"
             modalId="que"
+            label_cancel="que cierroooo xxx"
           >
             Modal sin confirmación
           </Modal>

@@ -10,6 +10,7 @@ const Modal = ({
   classNameBtnClose,
   classNameBtnConfirm,
   label_confirm,
+  label_cancel,
   children,
   hasConfirm,
   modalTitle,
@@ -61,7 +62,7 @@ const Modal = ({
                 className={classNames("btn btn-primary", classNameBtnClose)}
                 data-bs-dismiss="modal"
               >
-                Close
+                {label_cancel}
               </Button>
               {hasConfirm && (
                 <Button
