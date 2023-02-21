@@ -20,22 +20,22 @@ const Pagination = ({
         <ul className="pagination">
           <li className="page-item">
             <span className="page-link" onClick={handleFirst}>
-              <i class="bi bi-arrow-bar-right"></i> First
+              <i className="bi bi-arrow-bar-right"></i> First
             </span>
           </li>
           <li className="page-item">
             <span className="page-link" onClick={handlePrevious}>
-              <i class="bi bi-arrow-left"></i> Previous
+              <i className="bi bi-arrow-left"></i> Previous
             </span>
           </li>
           <li className="page-item">
             <span className="page-link" onClick={handleNext}>
-              Next <i class="bi bi-arrow-right"></i>
+              Next <i className="bi bi-arrow-right"></i>
             </span>
           </li>
           <li className="page-item">
             <span className="page-link" onClick={handleLast}>
-              Last <i class="bi bi-arrow-bar-left"></i>
+              Last <i className="bi bi-arrow-bar-left"></i>
             </span>
           </li>
         </ul>
