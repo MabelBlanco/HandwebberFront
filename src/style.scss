@@ -1,6 +1,7 @@
 /*********************************************/
 /*          COLORS     */
 /*********************************************/
+
 /* SCSS Gradient */
 $gradient-top: linear-gradient(
   0deg,
@@ -142,6 +143,12 @@ body {
   width: 100%;
   position: relative;
   color: var(--color-tertiary-700);
+}
+
+div {
+  &a {
+    color: var(--color-secondary-800) !important;
+  }
 }
 
 p.main-form-text {

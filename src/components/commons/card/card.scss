@@ -24,6 +24,14 @@
       align-items: center;
       padding-top: 14px;
       flex-direction: row;
+      & a {
+        color: var(--color-primary-500);
+        text-decoration: none;
+        font-weight: 700;
+        &:hover {
+          color: var(--color-primary-300);
+        }
+      }
     }
   }
 }

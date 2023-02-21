@@ -1,0 +1,12 @@
+.pagination {
+  & span {
+    &.page-link {
+      color: var(--color-secondary-800);
+      &:hover {
+        color: var(--color-static-white);
+        cursor: pointer;
+        background-color: var(--color-secondary-800);
+      }
+    }
+  }
+}

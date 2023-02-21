@@ -6,6 +6,7 @@ import InputFile from "./forms/inputFile/InputFile";
 import Range from "./forms/range/Range";
 import Select from "./forms/select/Select";
 import Modal from "./modal/Modal";
+import Pagination from "./pagination/Pagination";
 import Spinner from "./spinner/Spinner";
 
 const ComponentsList = () => {
@@ -63,6 +64,7 @@ const ComponentsList = () => {
           >
             Modal sin confirmación
           </Modal>
+          <Pagination />
         </div>
       </div>
     </div>
