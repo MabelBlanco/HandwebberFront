@@ -10,6 +10,11 @@ export const getAdvertisements = (skip, limit) => {
   );
 };
 
+export const countAdvertisements = () => {
+  const url = `${advertisementsURL}/count`;
+  return client.get(url);
+};
+
 export const createAdvertisement = (advertData) => {
   const url = `${advertisementsURL}`;
   return client.post(url, advertData);
