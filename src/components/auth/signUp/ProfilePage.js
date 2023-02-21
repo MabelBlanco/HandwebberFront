@@ -23,6 +23,9 @@ const ProfilePage = ({ className, title, ...props }) => {
   const [credentials, setCredentials] = useState(initialState);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
+  const [activeForm, setActiveForm] = useState(false);
+
+  const handleActiveForm = () => setActiveForm(!activeForm);
 
   const navigate = useNavigate();
 
@@ -79,6 +82,7 @@ const ProfilePage = ({ className, title, ...props }) => {
 
   const deleteCount = async () => {
     try {
+      window.confirm('Sure delete count?')
       const response = await deleteUser(user._id);
       handleLogOut();
       navigate('/');
@@ -150,7 +154,14 @@ const ProfilePage = ({ className, title, ...props }) => {
                   {e}{' '}
                 </p>
               ))}
-            <form className={styles.signup__form} onSubmit={updateCount}>
+              <Button
+              type='button'
+              className='btn btn-secondary mx-3'
+              onClick={handleActiveForm}
+            >
+              CLICK FOR UPDATE YOUR PROFILE
+            </Button>
+            {activeForm && <form className={styles.signup__form} onSubmit={updateCount}>
               <Input
                 type='text'
                 name='username'
@@ -201,7 +212,7 @@ const ProfilePage = ({ className, title, ...props }) => {
                 disabled={!!isFetching}>
                 CLICK FOR UPDATE
               </Button>
-            </form>
+            </form>}
             <Button
               type='button'
               className='btn btn-secondary mx-3'

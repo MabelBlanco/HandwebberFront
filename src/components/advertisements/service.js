@@ -8,6 +8,10 @@ export const getAdvertisements = (skip, limit) => {
   return client.get(`${advertisementsURL}?skip=${sk}&limit=${lim}`);
 };
 
+export const getUserAdvertisements = (idUser) => {
+  return client.get(`${advertisementsURL}?idUser=${idUser}`);
+};
+
 export const createAdvertisement = (advertData) => {
   const url = `${advertisementsURL}`;
   return client.post(url, advertData);
