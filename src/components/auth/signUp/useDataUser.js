@@ -6,11 +6,13 @@ import { getAdvertisements } from "../../advertisements/service";
 
 const useDataUser = ({initialState, ...props}) => {
     const [user, setUser] = useState(initialState);
+    const [isFetching, setIsFetching] = useState(false);
   
     const { userId } = decodeToken(storage.get('auth')) || {};
 
     useEffect(() => {
       const execute = async () => {
+        setIsFetching(true);
         try {
           const userData = await getUserById(userId);
           const result = userData.result;
@@ -20,11 +22,12 @@ const useDataUser = ({initialState, ...props}) => {
         } catch (error) {
           console.log(error);
         }
+        setIsFetching(false)
       };  
       execute();
     }, [userId]);
 
-    return {user, ...props};
+    return {user, isFetching, ...props};
 };
 
 export default useDataUser;
