@@ -18,6 +18,7 @@ const useDataUser = ({ initialState, ...props }) => {
         const result = userData.result;
         const ads = await getUserAdvertisements(userId);
         result.ads = ads.result;
+        console.log(result)
         setUser(result);
       } catch (error) {
         console.log(error);

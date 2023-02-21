@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import styles from './SignUp.module.css';
 import Input from '../../commons/forms/input/Input';
 import InputFile from '../../commons/forms/inputFile/InputFile';
+import { deleteAdvertisement } from '../../advertisements/service';
 
 const initialState = {
   username: '',
@@ -82,7 +83,10 @@ const ProfilePage = ({ className, title, ...props }) => {
 
   const deleteCount = async () => {
     try {
-      window.confirm('Sure delete count?')
+      const userAds = user.ads;
+      for (let ad of userAds) {
+        await deleteAdvertisement(ad._id);
+      }
       const response = await deleteUser(user._id);
       handleLogOut();
       navigate('/');
@@ -154,65 +158,68 @@ const ProfilePage = ({ className, title, ...props }) => {
                   {e}{' '}
                 </p>
               ))}
-              <Button
+            <Button
               type='button'
               className='btn btn-secondary mx-3'
               onClick={handleActiveForm}
             >
               CLICK FOR UPDATE YOUR PROFILE
             </Button>
-            {activeForm && <form className={styles.signup__form} onSubmit={updateCount}>
-              <Input
-                type='text'
-                name='username'
-                label='New username'
-                className={styles.signup__field}
-                onChange={handleCredentials}
-                value={credentials.username}
-              />
+            {activeForm && (
+              <form className={styles.signup__form} onSubmit={updateCount}>
+                <Input
+                  type='text'
+                  name='username'
+                  label='New username'
+                  className={styles.signup__field}
+                  onChange={handleCredentials}
+                  value={credentials.username}
+                />
 
-              <Input
-                type='email'
-                name='mail'
-                label='New mail'
-                className={styles.signup__field}
-                onChange={handleCredentials}
-                value={credentials.mail}
-              />
+                <Input
+                  type='email'
+                  name='mail'
+                  label='New mail'
+                  className={styles.signup__field}
+                  onChange={handleCredentials}
+                  value={credentials.mail}
+                />
 
-              <Input
-                type='password'
-                name='password'
-                label='New password (min 8 characters)'
-                className={styles.signup__field}
-                onChange={handleCredentials}
-                value={credentials.password}
-              />
+                <Input
+                  type='password'
+                  name='password'
+                  label='New password (min 8 characters)'
+                  className={styles.signup__field}
+                  onChange={handleCredentials}
+                  value={credentials.password}
+                />
 
-              <Input
-                type='password'
-                name='passwordConfirm'
-                label='Confirm new password'
-                className={styles.signup__field}
-                onChange={handleConfirmPassword}
-                value={confirmPassword}
-              />
+                <Input
+                  type='password'
+                  name='passwordConfirm'
+                  label='Confirm new password'
+                  className={styles.signup__field}
+                  onChange={handleConfirmPassword}
+                  value={confirmPassword}
+                />
 
-              <InputFile
-                name='image'
-                id='image'
-                label={'Upload new picture'}
-                className={styles.signup__field}
-                onChange={handleImage}
-              />
+                <InputFile
+                  name='image'
+                  id='image'
+                  label={'Upload new picture'}
+                  className={styles.signup__field}
+                  onChange={handleImage}
+                />
 
-              <Button 
-                type='submit' 
-                className={styles.signup__submit}
-                disabled={!!isFetching}>
-                CLICK FOR UPDATE
-              </Button>
-            </form>}
+                <Button
+                  type='submit'
+                  className={styles.signup__submit}
+                  disabled={!!isFetching}
+                >
+                  CLICK FOR UPDATE
+                </Button>
+              </form>
+            )}
             <Button
               type='button'
               className='btn btn-secondary mx-3'
