@@ -16,8 +16,9 @@ const Profile = ({ className, title, ...props }) => {
   const { isLogged, handleLogOut } = useAuth();
 
   return (
-    <div className="profile-top fixed-top">
+    <>
       {isLogged && (
+        <div className="profile-top fixed-top">
         <div className="container">
           <div className="profile-top_text_container">
             <div className={"profile-top_avatar"}>
@@ -49,8 +50,9 @@ const Profile = ({ className, title, ...props }) => {
             </Button>
           </div>
         </div>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
