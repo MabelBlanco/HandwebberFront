@@ -148,8 +148,16 @@ body {
 div {
   &a {
     color: var(--color-secondary-800) !important;
+    &.btn {
+      &.btn-link {
+        color: var(--color-secondary-800) !important;
+      }
+    }
   }
 }
+// a.btn.btn-link {
+//     color: red;
+// }
 
 p.main-form-text {
   font-size: 25px !important;
