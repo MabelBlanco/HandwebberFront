@@ -76,7 +76,8 @@ const NewAdvertisement = ({ ...props }) => {
 
     try {
       const advert = await createAdvertisement(bodyFormData);
-      navigate(`/advertisement/${advert.result._id}`);
+      console.log(`/advertisement/${advert.result._id}`);
+      navigate(`/advertisements/${advert.result._id}`);
     } catch (error) {
       if (error.statusCode === 401) {
         navigate('/login');
