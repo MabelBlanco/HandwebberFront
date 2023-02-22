@@ -76,7 +76,6 @@ const NewAdvertisement = ({ ...props }) => {
 
     try {
       const advert = await createAdvertisement(bodyFormData);
-      console.log(`/advertisement/${advert.result._id}`);
       navigate(`/advertisements/${advert.result._id}`);
     } catch (error) {
       if (error.statusCode === 401) {
