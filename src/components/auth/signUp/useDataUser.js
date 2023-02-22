@@ -18,7 +18,6 @@ const useDataUser = ({ initialState, ...props }) => {
         const result = userData.result;
         const ads = await getUserAdvertisements(userId);
         result.ads = ads.result;
-        console.log(result)
         setUser(result);
       } catch (error) {
         console.log(error);
@@ -28,7 +27,7 @@ const useDataUser = ({ initialState, ...props }) => {
     execute();
   }, [userId]);
 
-  return { user, isFetching, ...props };
+  return { user, isFetching, setUser, ...props };
 };
 
 export default useDataUser;

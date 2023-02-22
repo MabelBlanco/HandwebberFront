@@ -19,7 +19,7 @@ const initialState = {
 };
 
 const ProfilePage = ({ className, title, ...props }) => {
-  const { user, isFetching } = useDataUser(initialState);
+  const { user, isFetching, setUser } = useDataUser(initialState);
   const { isLogged, handleLogOut } = useAuth();
   const [credentials, setCredentials] = useState(initialState);
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -66,10 +66,9 @@ const ProfilePage = ({ className, title, ...props }) => {
     image && formData.append('image', image);
 
     try {
-      const updatedUser = await updateUser(user._id, formData);
-
-      window.location.reload();
-      return updatedUser;
+      const {result} = await updateUser(user._id, formData);
+      result.ads = user.ads;
+      setUser(result);
     } catch (error) {
       const errors = [];
       if (Array.isArray(error.message)) {
@@ -78,7 +77,8 @@ const ProfilePage = ({ className, title, ...props }) => {
         errors.push(error.message);
       }
       setError(errors);
-    }
+    };
+    setActiveForm(false);
   };
 
   const deleteCount = async () => {
