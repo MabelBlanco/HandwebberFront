@@ -1,4 +1,5 @@
 select {
+  &.form-select,
   &.form-select[multiple] {
     appearance: none;
     border-bottom: 2px solid var(--color-secondary-800);

@@ -1,66 +1,58 @@
-
-import NoImage from '../../commons/noImage/NoImage';
-import '../../commons/card/card.scss';
-import { Link } from 'react-router-dom';
-import Button from '../../commons/button/Button';
-import useDataUser from './useDataUser';
-import { useAuth } from '../../context/AuthContext';
+import { Link } from "react-router-dom";
+import Button from "../../commons/button/Button";
+import "../../commons/card/card.scss";
+import NoImage from "../../commons/noImage/NoImage";
+import { useAuth } from "../../context/AuthContext";
+import "./profile.scss";
+import useDataUser from "./useDataUser";
 
 const initialState = {
-  username: '',
-  image: '',
+  username: "",
+  image: "",
 };
 
 const Profile = ({ className, title, ...props }) => {
-
-  const { user } = useDataUser({initialState});
-  const {isLogged, handleLogOut} = useAuth();
+  const { user } = useDataUser({ initialState });
+  const { isLogged, handleLogOut } = useAuth();
 
   return (
-    <div className='row'>
-      <div className='col-sm-6 py-5'>
-        <h1 className='col-sm-12 py-5'>{title}</h1>
-      </div>
-
+    <>
       {isLogged && (
-        <div className='col-sm-6 py-5' style={{textAlign: 'right'}}>
-          {' '}
-          <div className={'header-card'}>
-            {user?.image ? (
-              <img
-                style={{ height: '100px', width: '100px' }}
-                src={`${process.env.REACT_APP_API_BASE_URL}/${user?.image}`}
-                className='card-img-top'
-                alt='...'
-              />
-            ) : (
-              <NoImage className='card-img-top' />
-            )}
+        <div className="profile-top fixed-top">
+        <div className="container">
+          <div className="profile-top_text_container">
+            <div className={"profile-top_avatar"}>
+              {user?.image ? (
+                <img
+                  style={{ height: "auto", width: "100px" }}
+                  src={`${process.env.REACT_APP_API_BASE_URL}/${user?.image}`}
+                  alt="..."
+                />
+              ) : (
+                <NoImage className="profile-top_noImage" />
+              )}
+            </div>
+            <h5 className="profile-top_username">
+              Hello <span> {user?.username} </span>
+            </h5>
           </div>
-          <div className='card-body'>
-            <h5 className='card-title'>{user?.username}</h5>
-          </div>
-          <div className='card-body actions'>
+          <div className="profile-top_actions">
+            <Button as={Link} to="/profile" className="btn-link">
+              Profile
+            </Button>
             <Button
               as={Link}
-              type='button'
-              className='btn btn-secondary'
+              type="button"
+              className="btn-primary"
               onClick={handleLogOut}
             >
               Logout
             </Button>
-            <Button
-              as={Link}
-              to='/profile'
-              type='button'
-              className='btn btn-secondary'
-            >
-              Profile
-            </Button>
           </div>
         </div>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
