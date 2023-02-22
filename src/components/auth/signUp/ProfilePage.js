@@ -69,6 +69,7 @@ const ProfilePage = ({ className, title, ...props }) => {
       const {result} = await updateUser(user._id, formData);
       result.ads = user.ads;
       setUser(result);
+      navigate('/')
     } catch (error) {
       const errors = [];
       if (Array.isArray(error.message)) {
