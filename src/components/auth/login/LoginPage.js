@@ -5,6 +5,7 @@ import { loginUser } from "../service";
 import Input from "../../commons/forms/input/Input";
 import Button from "../../commons/button/Button";
 import { useAuth } from "../../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 export function LoginPage() {
   const [emailValue, setEmailValue] = useState("");
@@ -14,6 +15,7 @@ export function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { handleLogin, isLogged } = useAuth();
+  const { t, i18n } = useTranslation();
 
   const submitEvent = async (event) => {
     event.preventDefault();
@@ -41,8 +43,8 @@ export function LoginPage() {
   if (isLogged) {
     return (
       <p>
-        Sorry, you are loggin now. If you want singin with another count, close
-        this session first
+        {t(`Sorry, you are loggin now. If you want singin with another count, close
+        this session first.`)}
       </p>
     );
   } else {
@@ -52,7 +54,7 @@ export function LoginPage() {
           <Input
             value={emailValue}
             type="text"
-            label="Email:"
+            label={t("Email") + ":"}
             name="loginEmail"
             id="loginEmail"
             onChange={(event) => setEmailValue(event.target.value)}
@@ -62,14 +64,14 @@ export function LoginPage() {
           <Input
             value={passwordValue}
             type="password"
-            label="Password:"
+            label={t("Password") + ":"}
             name="loginPassword"
             id="loginPassword"
             onChange={(event) => setPasswordValue(event.target.value)}
           />
         </div>
         <Button type="submit" form="login" className="loginButton">
-          Login
+          {t("Login")}
         </Button>
         <div>{errors.length ? errors.map((error) => <p>{error}</p>) : ""}</div>
       </form>
