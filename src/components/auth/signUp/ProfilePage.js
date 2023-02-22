@@ -25,6 +25,9 @@ const ProfilePage = ({ className, title, ...props }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
   const [activeForm, setActiveForm] = useState(false);
+  const [activeDeleteUser, setActiveDeleteUser] = useState(false)
+
+  const handleActiveDeleteUser  = () => setActiveDeleteUser(!activeDeleteUser);
 
   const handleActiveForm = () => setActiveForm(!activeForm);
 
@@ -49,7 +52,7 @@ const ProfilePage = ({ className, title, ...props }) => {
     setConfirmPassword(event.target.value);
   };
 
-  const updateCount = async (event) => {
+  const updateAccount = async (event) => {
     event.preventDefault();
     resetError();
     const { image, username, mail, password } = credentials;
@@ -82,7 +85,7 @@ const ProfilePage = ({ className, title, ...props }) => {
     setActiveForm(false);
   };
 
-  const deleteCount = async () => {
+  const deleteAccount = async () => {
     try {
       const userAds = user.ads;
       for (let ad of userAds) {
@@ -91,6 +94,7 @@ const ProfilePage = ({ className, title, ...props }) => {
       const response = await deleteUser(user._id);
       handleLogOut();
       navigate('/');
+      setActiveDeleteUser(false)
       return response;
     } catch (error) {
       console.log(error);
@@ -167,7 +171,7 @@ const ProfilePage = ({ className, title, ...props }) => {
               CLICK FOR UPDATE YOUR PROFILE
             </Button>
             {activeForm && (
-              <form className={styles.signup__form} onSubmit={updateCount}>
+              <form className={styles.signup__form} onSubmit={updateAccount}>
                 <Input
                   type='text'
                   name='username'
@@ -224,10 +228,28 @@ const ProfilePage = ({ className, title, ...props }) => {
             <Button
               type='button'
               className='btn btn-secondary mx-3'
-              onClick={deleteCount}
+              onClick={handleActiveDeleteUser}
             >
-              DELETE COUNT
+              DELETE ACCOUNT
             </Button>
+
+            {activeDeleteUser && <div>
+              <p>Are you sure for delete account?</p>
+              <Button
+              type='button'
+              className='btn btn-secondary mx-3'
+              onClick={deleteAccount}
+            >
+              YES
+            </Button>
+            <Button
+            type='button'
+            className='btn btn-secondary mx-3'
+            onClick={handleActiveDeleteUser}
+          >
+            NO
+          </Button>
+            </div>}
           </div>
         </div>
       )}
