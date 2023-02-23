@@ -9,13 +9,17 @@ const useDataUser = ({ initialState, ...props }) => {
   const [user, setUser] = useState(initialState);
   const [userSearch, setUserSearch] = useState(initialState);
   const [isFetching, setIsFetching] = useState(false);
+  const [errorDataUser, setErrorDataUser] = useState(null);
 
   const { userId } = decodeToken(storage.get('auth')) || {};
 
   const userSearchId = useParams().id;
 
+  const resetErrorDataUser = () => setErrorDataUser(null);
+
   useEffect(() => {
     const execute = async () => {
+      resetErrorDataUser();
       setIsFetching(true);
       try {
         const userData = await getUserById(userId);
@@ -24,7 +28,6 @@ const useDataUser = ({ initialState, ...props }) => {
         result.ads = ads.result;
         setUser(result);
         if (userSearchId) {
-          console.log(userSearchId)
           const userSearchData = await getUserById(userSearchId);
           const resultSearch = userSearchData.result;
           const userSearchAds = await getUserAdvertisements(userSearchId);
@@ -33,13 +36,14 @@ const useDataUser = ({ initialState, ...props }) => {
         }
       } catch (error) {
         console.log(error);
+        setErrorDataUser(error);
       }
       setIsFetching(false);
     };
     execute();
   }, [userId, userSearchId]);
 
-  return { user, isFetching, setUser, userSearch, setUserSearch, ...props };
+  return { user, isFetching, setUser, userSearch, setUserSearch, errorDataUser, setErrorDataUser, ...props };
 };
 
 export default useDataUser;
