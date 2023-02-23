@@ -11,7 +11,7 @@ export const useAdvertisement = () => {
   const [filters, setFilters] = useState({
     name: '',
     tag: '',
-    price: 50,
+    price: 0,
   });
 
   const handleFilters = (event) => {
