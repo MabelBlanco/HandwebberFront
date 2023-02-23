@@ -10,6 +10,7 @@ import Layout from './components/Layout/Layout';
 import LayoutTest from './components/Layout/LayoutTest';
 import ProfilePage from './components/auth/signUp/ProfilePage';
 import RequireAuth from './components/auth/RequireAuth';
+import UserAdsList from './components/advertisements/UserAdsList';
 
 function App() {
   return (
@@ -30,6 +31,10 @@ function App() {
                 <ProfilePage />
               </RequireAuth>
             }
+          />
+          <Route 
+            path=':id'
+            element={<UserAdsList />}
           />
         </Route>
         <Route path='/404' element={<Layout title='NOT FOUND' />}>

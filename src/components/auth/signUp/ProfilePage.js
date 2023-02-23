@@ -19,7 +19,7 @@ const initialState = {
 };
 
 const ProfilePage = ({ className, title, ...props }) => {
-  const { user, isFetching, setUser } = useDataUser(initialState);
+  const { user, isFetching, setUser } = useDataUser({initialState});
   const { isLogged, handleLogOut } = useAuth();
   const [credentials, setCredentials] = useState(initialState);
   const [confirmPassword, setConfirmPassword] = useState('');
