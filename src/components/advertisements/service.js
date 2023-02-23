@@ -2,12 +2,24 @@ import client from '../../api/client';
 
 const advertisementsURL = '/api/advertisement';
 
-export const getAdvertisements = (skip, limit) => {
+export const getAdvertisements = (skip, limit, filters) => {
   const sk = skip ? skip : 0;
   const lim = limit ? limit : 10;
-  return client.get(
-    `${advertisementsURL}?skip=${sk}&limit=${lim}&sort=-update`
-  );
+  let filtersToApply = '';
+  filtersToApply = filters.name
+    ? `${filtersToApply}&name=${filters.name}`
+    : filtersToApply;
+  filtersToApply = filters.tag
+    ? `${filtersToApply}&tag=${filters.tag}`
+    : filtersToApply;
+  //TODO filters.range
+
+  //Request chaine
+  let request = `${advertisementsURL}?skip=${sk}&limit=${lim}&sort=-update`;
+  if (filtersToApply !== '') {
+    request = `${request}${filtersToApply}`;
+  }
+  return client.get(request);
 };
 
 export const countAdvertisements = () => {

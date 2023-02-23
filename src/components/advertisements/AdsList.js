@@ -1,12 +1,22 @@
-import { useEffect, useState } from "react";
-import Card from "../commons/card/Card";
-import Pagination from "../commons/pagination/Pagination";
-import { countAdvertisements, getAdvertisements } from "./service";
+import { useEffect, useState } from 'react';
+import SearchBar from './SearchBar';
+import Card from '../commons/card/Card';
+import Pagination from '../commons/pagination/Pagination';
+import { countAdvertisements, getAdvertisements } from './service';
 const MAX_RESULTS_PER_PAGE = 12; //12;
 
 export const useAdvertisement = () => {
   const [adsList, setAdsList] = useState([]);
   const [page, setPage] = useState(1);
+  const [filters, setFilters] = useState({
+    name: '',
+    tag: '',
+    price: 50,
+  });
+
+  const handleFilters = (event) => {
+    setFilters({ ...filters, [event.target.name]: event.target.value });
+  };
 
   const numPages = async () => {
     let adsCount = 0;
@@ -14,7 +24,7 @@ export const useAdvertisement = () => {
       adsCount = await countAdvertisements();
     } catch (error) {
       //TODO
-      console.log("Error contando los anuncios");
+      console.log('Error contando los anuncios');
     }
     return Math.ceil(adsCount.result / MAX_RESULTS_PER_PAGE);
   };
@@ -42,16 +52,28 @@ export const useAdvertisement = () => {
     const execute = async () => {
       const skip = MAX_RESULTS_PER_PAGE * (page - 1);
       try {
-        const ads = await getAdvertisements(skip, MAX_RESULTS_PER_PAGE);
+        const ads = await getAdvertisements(
+          skip,
+          MAX_RESULTS_PER_PAGE,
+          filters
+        );
         setAdsList(ads.result);
       } catch (error) {
-        console.log("tenemos un error");
+        console.log('tenemos un error');
         console.log(error);
       }
     };
     execute();
-  }, [page]);
-  return { adsList, firstPage, previousPage, nextPage, lastPage };
+  }, [page, filters]);
+  return {
+    adsList,
+    firstPage,
+    previousPage,
+    nextPage,
+    lastPage,
+    filters,
+    handleFilters,
+  };
 };
 
 const AdsList = ({ ...props }) => {
@@ -61,13 +83,18 @@ const AdsList = ({ ...props }) => {
     previousPage,
     nextPage,
     lastPage,
+    filters,
+    handleFilters,
   } = useAdvertisement();
   return (
-    <div className="row" {...props}>
-      {/* <span onClick={firstPage}> FIRST </span>
-      <span onClick={previousPage}> BACK </span>
-      <span onClick={nextPage}> NEXT </span>
-      <span onClick={lastPage}> LAST </span> */}
+    <div
+      className='row'
+      {...props}
+    >
+      <SearchBar
+        onChange={handleFilters}
+        filters={filters}
+      />
       <Pagination
         handleFirst={firstPage}
         handlePrevious={previousPage}
@@ -78,11 +105,11 @@ const AdsList = ({ ...props }) => {
         const newProps = { ...props, ...element };
         return (
           <Card
-            className="col-sm-12 col-lg-3 m-2"
+            className='col-sm-12 col-lg-3 m-2'
             key={element._id}
             {...newProps}
             link_1={`/advertisements/${element._id}`}
-            label_link_1="See more"
+            label_link_1='See more'
           />
         );
       })}
@@ -92,11 +119,6 @@ const AdsList = ({ ...props }) => {
         handleNext={nextPage}
         handleLast={lastPage}
       />
-
-      {/* <span onClick={firstPage}> FIRST </span>
-      <span onClick={previousPage}> BACK </span>
-      <span onClick={nextPage}> NEXT </span>
-      <span onClick={lastPage}> LAST </span> */}
     </div>
   );
 };

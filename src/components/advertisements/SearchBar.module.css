@@ -1,0 +1,18 @@
+.searchBar {
+  margin-top: 40px;
+}
+datalist {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  writing-mode: vertical-lr;
+  width: 100%;
+}
+
+option {
+  padding: 0;
+}
+
+input[type='range'] {
+  margin: 0;
+}
