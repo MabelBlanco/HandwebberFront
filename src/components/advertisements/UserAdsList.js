@@ -17,6 +17,7 @@ const UserAdsList = ({...props}) => {
   const advertisements = userSearch?.ads;
 
     return (
+      <>
       <div className='row'>
         <div className='col-sm-12 py-5' style={{ textAlign: 'center' }}>
           {' '}
@@ -36,13 +37,16 @@ const UserAdsList = ({...props}) => {
             ) : (
               <NoImage className='card-img-top' />
             )}
+            </div>
         </div>
         <ul className='list-group list-group-flush'>
-            <li key='mail' className='list-group-item'>
+            <li key='mail' className='list-group-item text-center'>
               <span>Mail: </span>
               {userSearch?.mail}
             </li>
-      </ul>
+        </ul>
+      </div>
+      <div  className='row'>
       {advertisements?.map((element) => {
         const newProps = { ...props, ...element };
         return (
@@ -56,7 +60,7 @@ const UserAdsList = ({...props}) => {
         );
       })}
       </div>
-      </div>
+      </>
     )
 };
 

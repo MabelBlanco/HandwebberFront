@@ -33,7 +33,7 @@ function App() {
             }
           />
           <Route 
-            path=':id'
+            path=':userId'
             element={<UserAdsList />}
           />
         </Route>

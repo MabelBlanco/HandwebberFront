@@ -13,7 +13,7 @@ const useDataUser = ({ initialState, ...props }) => {
 
   const { userId } = decodeToken(storage.get('auth')) || {};
 
-  const userSearchId = useParams().id;
+  const userSearchId = useParams().userId;
 
   const resetErrorDataUser = () => setErrorDataUser(null);
 
