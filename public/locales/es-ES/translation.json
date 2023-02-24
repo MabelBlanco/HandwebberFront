@@ -30,5 +30,11 @@
   "UserAdsList": {
     "Mail": "Correo electrónico",
     "See more": "Ver más"
+  },
+
+  "Profile": {
+    "Hello": "Hola",
+    "Profile": "Perfil",
+    "Logout": "Cerrar Sesión"
   }
 }
