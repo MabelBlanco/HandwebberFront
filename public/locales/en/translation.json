@@ -53,5 +53,16 @@
     "Are you sure for delete account?": "Are you sure for delete account?",
     "YES": "YES",
     "NO": "NO"
+  },
+
+  "SignUp": {
+    "username": "username",
+    "mail": "mail",
+    "password": "password",
+    "confirm password": "confirm password",
+    "Upload picture": "Upload picture",
+    "I accept the conditions": "I accept the conditions",
+    "SIGNUP": "SIGNUP",
+    "Sorry, you are already registered. If you want register a new count, close this session first": "Sorry, you are already registered. If you want register a new count, close this session first"
   }
 }

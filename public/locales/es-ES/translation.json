@@ -53,5 +53,16 @@
     "Are you sure for delete account?": "¿Estás seguro de que quieres borrar la cuenta?",
     "YES": "SI",
     "NO": "NO"
+  },
+
+  "SignUp": {
+    "username": "nombre de usuario",
+    "mail": "correo electrónico",
+    "password": "contraseña",
+    "confirm password": "confirmar contraseña",
+    "Upload picture": "Subir imagen",
+    "I accept the conditions": "Acepto las condiciones",
+    "SIGNUP": "REGISTRARME",
+    "Sorry, you are already registered. If you want register a new count, close this session first": "Lo siento, ya estás registrado. Si quieres registrar una nueva cuenta, cierra esta sesion primero"
   }
 }
