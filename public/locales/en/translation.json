@@ -36,5 +36,22 @@
     "Hello": "Hello",
     "Profile": "Profile",
     "Logout": "Logout"
+  },
+
+  "ProfilePage": {
+    "Mail": "Mail",
+    "Favorites": "Favorites",
+    "My advertisements": "My advertisements",
+    "CLICK FOR UPDATE YOUR PROFILE": "CLICK FOR UPDATE YOUR PROFILE",
+    "New username": "New username",
+    "New mail": "New mail",
+    "New password": "New password",
+    "Confirm new password": "Confirm new password",
+    "Upload new picture": "Upload new picture",
+    "CLICK FOR UPDATE": "CLICK FOR UPDATE",
+    "DELETE ACCOUNT": "DELETE ACCOUNT",
+    "Are you sure for delete account?": "Are you sure for delete account?",
+    "YES": "YES",
+    "NO": "NO"
   }
 }

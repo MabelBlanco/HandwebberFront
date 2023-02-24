@@ -36,5 +36,22 @@
     "Hello": "Hola",
     "Profile": "Perfil",
     "Logout": "Cerrar Sesión"
+  },
+
+  "ProfilePage": {
+    "Mail": "Correo electrónico",
+    "Favorites": "Favoritos",
+    "My advertisements": "Mis anuncios",
+    "CLICK FOR UPDATE YOUR PROFILE": "HAZ CLICK PARA ACTUALIZAR TU PERFIL",
+    "New username": "Nuevo nombre de usuario",
+    "New mail": "Nuevo correo electrónico",
+    "New password": "Nueva contraseña",
+    "Confirm new password": "Confirma la nueva contraseña",
+    "Upload new picture": "Subir una nueva imagen",
+    "CLICK FOR UPDATE": "HAZ CLICK PARA ACTUALIZAR",
+    "DELETE ACCOUNT": "BORRAR CUENTA",
+    "Are you sure for delete account?": "¿Estás seguro de que quieres borrar la cuenta?",
+    "YES": "SI",
+    "NO": "NO"
   }
 }
