@@ -1,6 +1,12 @@
 {
-  "Sorry, you are loggin now. If you want singin with another count, close this session first.": "Sorry, you are loggin now. If you want singin with another count, close this session first.",
-  "Email": "Email",
-  "Password": "Password",
-  "Login": "Login"
+  "LoginPage": {
+    "Sorry, you are loggin now. If you want singin with another count, close this session first.": "Sorry, you are loggin now. If you want singin with another count, close this session first.",
+    "Email": "Email",
+    "Password": "Password",
+    "Login": "Login"
+  },
+
+  "AdsList": {
+    "See more": "See more"
+  }
 }

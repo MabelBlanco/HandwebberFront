@@ -19,7 +19,7 @@ export function LoginPage() {
   const { t } = useTranslation();
 
   const loginMessageError = t(
-    `Sorry, you are loggin now. If you want singin with another count, close this session first.`
+    "LoginPage.Sorry, you are loggin now. If you want singin with another count, close this session first."
   );
 
   const submitEvent = async (event) => {
@@ -54,7 +54,7 @@ export function LoginPage() {
           <Input
             value={emailValue}
             type="text"
-            label={t("Email") + ":"}
+            label={t("LoginPage.Email") + ":"}
             name="loginEmail"
             id="loginEmail"
             onChange={(event) => setEmailValue(event.target.value)}
@@ -64,14 +64,14 @@ export function LoginPage() {
           <Input
             value={passwordValue}
             type="password"
-            label={t("Password") + ":"}
+            label={t("LoginPage.Password") + ":"}
             name="loginPassword"
             id="loginPassword"
             onChange={(event) => setPasswordValue(event.target.value)}
           />
         </div>
         <Button type="submit" form="login" className="loginButton">
-          {t("Login")}
+          {t("LoginPage.Login")}
         </Button>
         <Error arrayErrors={errors} />
       </form>
