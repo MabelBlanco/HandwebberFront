@@ -8,5 +8,10 @@
 
   "AdsList": {
     "See more": "Ver más"
+  },
+
+  "DetailAdvertisement": {
+    "Delete": "Borra",
+    "Edit": "Editar"
   }
 }
