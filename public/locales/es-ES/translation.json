@@ -13,5 +13,17 @@
   "DetailAdvertisement": {
     "Delete": "Borra",
     "Edit": "Editar"
+  },
+
+  "NewAdvertisement": {
+    "Name": "Nombre",
+    "Price": "Precio",
+    "Stock": "Cantidad",
+    "Description": "Descripción",
+    "Tags": "Etiquetas",
+    "Photo": "Foto",
+    "Active": "Activo",
+    "Custom": "Personalizado",
+    "Add Advertisement": "Añadir Anuncio"
   }
 }
