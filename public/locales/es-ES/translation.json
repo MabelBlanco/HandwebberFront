@@ -25,5 +25,10 @@
     "Active": "Activo",
     "Custom": "Personalizado",
     "Add Advertisement": "Añadir Anuncio"
+  },
+
+  "UserAdsList": {
+    "Mail": "Correo electrónico",
+    "See more": "Ver más"
   }
 }

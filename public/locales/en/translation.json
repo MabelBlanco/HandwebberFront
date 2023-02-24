@@ -25,5 +25,10 @@
     "Active": "Active",
     "Custom": "Custom",
     "Add Advertisement": "Add Advertisement"
+  },
+
+  "UserAdsList": {
+    "Mail": "Mail",
+    "See more": "See more"
   }
 }
