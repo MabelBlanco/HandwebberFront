@@ -10,59 +10,41 @@ import Layout from './components/Layout/Layout';
 import LayoutTest from './components/Layout/LayoutTest';
 import ProfilePage from './components/auth/signUp/ProfilePage';
 import RequireAuth from './components/auth/RequireAuth';
+import UserAdsList from './components/advertisements/UserAdsList';
 
 function App() {
   return (
     <div className='App'>
       <Routes>
-        <Route
-          path='/'
-          element={<Navigate to='/advertisements' />}
-        />
-        <Route
-          path='/signup'
-          element={<Layout title='Sign Up' />}
-        >
+        <Route path='/' element={<Navigate to='/advertisements' />} />
+        <Route path='/signup' element={<Layout title='Sign Up' />}>
+          <Route path='' element={<SignUp />} />
+        </Route>
+        <Route path='/login' element={<Layout title='Login' />}>
+          <Route path='' element={<LoginPage />} />
+        </Route>
+        <Route path='/profile' element={<Layout title='Profile' />}>
           <Route
             path=''
-            element={<SignUp />}
+            element={
+              <RequireAuth>
+                <ProfilePage />
+              </RequireAuth>
+            }
+          />
+          <Route 
+            path=':id'
+            element={<UserAdsList />}
           />
         </Route>
-        <Route
-          path='/login'
-          element={<Layout title='Login' />}
-        >
-          <Route
-            path=''
-            element={<LoginPage />}
-          />
-        </Route>
-        <Route
-          path='/profile'
-          element={<Layout title='Profile' />}
-        >
-          <Route
-            path=''
-            element={<ProfilePage title={'hola'} />}
-          />
-        </Route>
-        <Route
-          path='/404'
-          element={<Layout title='NOT FOUND' />}
-        >
-          <Route
-            path=''
-            element={<NotFoundPage />}
-          />
+        <Route path='/404' element={<Layout title='NOT FOUND' />}>
+          <Route path='' element={<NotFoundPage />} />
         </Route>
         <Route
           path='/advertisements'
           element={<Layout title={'Advertisments'} />}
         >
-          <Route
-            path=''
-            element={<AdsList title='Advertisement List' />}
-          />
+          <Route path='' element={<AdsList title='Advertisement List' />} />
           <Route
             path=':id'
             element={<DetailAdvertisement title='Advertisement Detail' />}
@@ -77,14 +59,8 @@ function App() {
           />
         </Route>
 
-        <Route
-          path='/*'
-          element={<Navigate to='/404' />}
-        />
-        <Route
-          path='/test'
-          element={<LayoutTest />}
-        />
+        <Route path='/*' element={<Navigate to='/404' />} />
+        <Route path='/test' element={<LayoutTest />} />
       </Routes>
     </div>
   );

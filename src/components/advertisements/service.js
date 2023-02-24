@@ -15,6 +15,10 @@ export const countAdvertisements = () => {
   return client.get(url);
 };
 
+export const getUserAdvertisements = (idUser) => {
+  return client.get(`${advertisementsURL}?idUser=${idUser}`);
+};
+
 export const createAdvertisement = (advertData) => {
   const url = `${advertisementsURL}`;
   return client.post(url, advertData);

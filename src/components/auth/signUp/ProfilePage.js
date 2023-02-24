@@ -3,26 +3,98 @@ import '../../commons/card/card.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../commons/button/Button';
 import useDataUser from './useDataUser';
-import { deleteUser } from '../service';
+import { deleteUser, updateUser } from '../service';
 import { useAuth } from '../../context/AuthContext';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import styles from './SignUp.module.css';
+import Input from '../../commons/forms/input/Input';
+import InputFile from '../../commons/forms/inputFile/InputFile';
+import { deleteAdvertisement } from '../../advertisements/service';
 
 const initialState = {
   username: '',
+  mail: '',
+  password: '',
   image: '',
 };
 
 const ProfilePage = ({ className, title, ...props }) => {
-  const { user } = useDataUser(initialState);
-  const {isLogged, handleLogOut} = useAuth();
+  const { user, isFetching, setUser } = useDataUser({initialState});
+  const { isLogged, handleLogOut } = useAuth();
+  const [credentials, setCredentials] = useState(initialState);
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState(null);
+  const [activeForm, setActiveForm] = useState(false);
+  const [activeDeleteUser, setActiveDeleteUser] = useState(false)
+
+  const handleActiveDeleteUser  = () => setActiveDeleteUser(!activeDeleteUser);
+
+  const handleActiveForm = () => setActiveForm(!activeForm);
 
   const navigate = useNavigate();
 
-  const deleteCount = async () => {
+  const resetError = () => setError(null);
+
+  const handleCredentials = (event) => {
+    resetError();
+    setCredentials({ ...credentials, [event.target.name]: event.target.value });
+  };
+
+  const handleImage = (event) => {
+    setCredentials({
+      ...credentials,
+      [event.target.name]: event.target.files[0],
+    });
+  };
+
+  const handleConfirmPassword = (event) => {
+    resetError();
+    setConfirmPassword(event.target.value);
+  };
+
+  const updateAccount = async (event) => {
+    event.preventDefault();
+    resetError();
+    const { image, username, mail, password } = credentials;
+    if (password !== confirmPassword) {
+      setError(["Passwords don't match"]);
+      throw error;
+    }
+
+    const formData = new FormData();
+
+    username && formData.append('username', username);
+    mail && formData.append('mail', mail);
+    password && formData.append('password', password);
+    image && formData.append('image', image);
+
     try {
+      const {result} = await updateUser(user._id, formData);
+      result.ads = user.ads;
+      setUser(result);
+      navigate('/')
+    } catch (error) {
+      const errors = [];
+      if (Array.isArray(error.message)) {
+        error.message.map((e) => errors.push(e.msg));
+      } else {
+        errors.push(error.message);
+      }
+      setError(errors);
+    };
+    setActiveForm(false);
+  };
+
+  const deleteAccount = async () => {
+    try {
+      const userAds = user.ads;
+      for (let ad of userAds) {
+        await deleteAdvertisement(ad._id);
+      }
       const response = await deleteUser(user._id);
       handleLogOut();
       navigate('/');
+      setActiveDeleteUser(false)
       return response;
     } catch (error) {
       console.log(error);
@@ -30,8 +102,8 @@ const ProfilePage = ({ className, title, ...props }) => {
   };
 
   useEffect(() => {
-    !isLogged && navigate('/')
-  },[isLogged, navigate])
+    !isLogged && navigate('/');
+  }, [isLogged, navigate]);
 
   return (
     <div className='row'>
@@ -84,13 +156,100 @@ const ProfilePage = ({ className, title, ...props }) => {
             </li>
           </ul>
           <div className='card-body actions'>
+            {error &&
+              error.map((e) => (
+                <p className={styles.signup__error} key={e}>
+                  {' '}
+                  {e}{' '}
+                </p>
+              ))}
             <Button
               type='button'
               className='btn btn-secondary mx-3'
-              onClick={deleteCount}
+              onClick={handleActiveForm}
             >
-              DELETE COUNT
+              CLICK FOR UPDATE YOUR PROFILE
             </Button>
+            {activeForm && (
+              <form className={styles.signup__form} onSubmit={updateAccount}>
+                <Input
+                  type='text'
+                  name='username'
+                  label='New username'
+                  className={styles.signup__field}
+                  onChange={handleCredentials}
+                  value={credentials.username}
+                />
+
+                <Input
+                  type='email'
+                  name='mail'
+                  label='New mail'
+                  className={styles.signup__field}
+                  onChange={handleCredentials}
+                  value={credentials.mail}
+                />
+
+                <Input
+                  type='password'
+                  name='password'
+                  label='New password (min 8 characters)'
+                  className={styles.signup__field}
+                  onChange={handleCredentials}
+                  value={credentials.password}
+                />
+
+                <Input
+                  type='password'
+                  name='passwordConfirm'
+                  label='Confirm new password'
+                  className={styles.signup__field}
+                  onChange={handleConfirmPassword}
+                  value={confirmPassword}
+                />
+
+                <InputFile
+                  name='image'
+                  id='image'
+                  label={'Upload new picture'}
+                  className={styles.signup__field}
+                  onChange={handleImage}
+                />
+
+                <Button
+                  type='submit'
+                  className={styles.signup__submit}
+                  disabled={!!isFetching}
+                >
+                  CLICK FOR UPDATE
+                </Button>
+              </form>
+            )}
+            <Button
+              type='button'
+              className='btn btn-secondary mx-3'
+              onClick={handleActiveDeleteUser}
+            >
+              DELETE ACCOUNT
+            </Button>
+
+            {activeDeleteUser && <div>
+              <p>Are you sure for delete account?</p>
+              <Button
+              type='button'
+              className='btn btn-secondary mx-3'
+              onClick={deleteAccount}
+            >
+              YES
+            </Button>
+            <Button
+            type='button'
+            className='btn btn-secondary mx-3'
+            onClick={handleActiveDeleteUser}
+          >
+            NO
+          </Button>
+            </div>}
           </div>
         </div>
       )}
