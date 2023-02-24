@@ -97,7 +97,7 @@ const ProfilePage = ({ className, title, ...props }) => {
       setActiveDeleteUser(false);
       return response;
     } catch (error) {
-      console.log(error);
+      setError(error);
     }
   };
 
