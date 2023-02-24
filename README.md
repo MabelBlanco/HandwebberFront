@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 And inside the component:
 
 ```
-const { t, i18n } = useTranslation();
+const { t } = useTranslation();
 ```
 
 "t" will be function "translate", that we use to translate. We aplicate this the next way:

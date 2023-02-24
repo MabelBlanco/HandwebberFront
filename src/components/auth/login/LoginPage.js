@@ -6,6 +6,7 @@ import Input from "../../commons/forms/input/Input";
 import Button from "../../commons/button/Button";
 import { useAuth } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
+import { Error } from "../../commons/error/Error";
 
 export function LoginPage() {
   const [emailValue, setEmailValue] = useState("");
@@ -15,13 +16,17 @@ export function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { handleLogin, isLogged } = useAuth();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+
+  const loginMessageError = t(
+    `Sorry, you are loggin now. If you want singin with another count, close this session first.`
+  );
 
   const submitEvent = async (event) => {
     event.preventDefault();
 
     try {
-      const token = await loginUser({
+      await loginUser({
         mail: emailValue,
         password: passwordValue,
       });
@@ -41,12 +46,7 @@ export function LoginPage() {
   };
 
   if (isLogged) {
-    return (
-      <p>
-        {t(`Sorry, you are loggin now. If you want singin with another count, close
-        this session first.`)}
-      </p>
-    );
+    return <Error arrayErrors={[loginMessageError]} />;
   } else {
     return (
       <form id="login" onSubmit={submitEvent}>
@@ -73,7 +73,7 @@ export function LoginPage() {
         <Button type="submit" form="login" className="loginButton">
           {t("Login")}
         </Button>
-        <div>{errors.length ? errors.map((error) => <p>{error}</p>) : ""}</div>
+        <Error arrayErrors={errors} />
       </form>
     );
   }
