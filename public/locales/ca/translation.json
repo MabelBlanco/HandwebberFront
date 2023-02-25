@@ -12,7 +12,7 @@
   
     "DetailAdvertisement": {
       "Delete": "Borra",
-      "Edit": "Editar"
+      "Edit": "Edita"
     },
   
     "NewAdvertisement": {
@@ -42,6 +42,7 @@
       "Mail": "Correu electrónic",
       "Favorites": "Favorits",
       "My advertisements": "Els meus anuncis",
+      "GO TO MY ADVERTISEMENTS LIST": "ANAR AL LLISTAT DELS MEUS ANUNCIS",
       "CLICK FOR UPDATE YOUR PROFILE": "FES CLICK PER ACTUALITZAR EL TEU PERFIL",
       "New username": "Nou nom d'usuari",
       "New mail": "Nou correu electrónic",

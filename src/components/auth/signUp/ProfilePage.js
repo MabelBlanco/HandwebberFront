@@ -37,6 +37,8 @@ const ProfilePage = ({ className, title, ...props }) => {
 
   const resetError = () => setError(null);
 
+  const goToMyAds = () => navigate(`/profile/${user._id}`)
+
   const handleCredentials = (event) => {
     resetError();
     setCredentials({ ...credentials, [event.target.name]: event.target.value });
@@ -144,6 +146,13 @@ const ProfilePage = ({ className, title, ...props }) => {
             </li>
             <li key='ads' className='list-group-item'>
               <span>{t('ProfilePage.My advertisements')}: </span>
+              <Button
+              type='button'
+              className='btn btn-secondary mx-3 my-3'
+              onClick={goToMyAds}
+              >
+              {t('ProfilePage.GO TO MY ADVERTISEMENTS LIST')}
+              </Button>
               <ul>
                 {user?.ads &&
                   user.ads.map((e) => (
