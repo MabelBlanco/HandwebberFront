@@ -58,7 +58,7 @@ export function Error({ arrayErrors, ...props }) {
           } else {
             errorTranslate = t('Error.An unexpected error has occurred');
           }
-          return <p {...props}>{errorTranslate}</p>;
+          return <p key={error} {...props}>{errorTranslate}</p>;
         })}
       </div>
     );

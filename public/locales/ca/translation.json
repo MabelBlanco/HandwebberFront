@@ -41,6 +41,7 @@
     "ProfilePage": {
       "Mail": "Correu electrónic",
       "Favorites": "Favorits",
+      "SEE MY FAVORITS ADS": "VEURE ELS MEUS ANUNCIS FAVORITS",
       "My advertisements": "Els meus anuncis",
       "GO TO MY ADVERTISEMENTS LIST": "ANAR AL LLISTAT DELS MEUS ANUNCIS",
       "CLICK FOR UPDATE YOUR PROFILE": "FES CLICK PER ACTUALITZAR EL TEU PERFIL",
@@ -65,6 +66,54 @@
       "I accept the conditions": "Accepto les condicions",
       "SIGNUP": "REGISTRAR-ME",
       "Sorry, you are already registered. If you want register a new count, close this session first": "Ho sento, ja estàs registrat. Si vols registrar un nou compte, tanca aquesta sessió primer"
+    },
+    "Card": {
+      "Description": "Descripció",
+      "Price": "Preu",
+      "Tags": "Etiquetes",
+      "Date": "Data",
+      "Stock": "Quantitat",
+      "User": "Usuari",
+      "Custom Product": "Product Personalitzat"
+    },
+  
+    "NoImage": {
+      "No image": "Sense image"
+    },
+  
+    "Pagination": {
+      "First": "Primer",
+      "Previous": "Anterior",
+      "Next": "Següent",
+      "Last": "Ùltim"
+    },
+  
+    "Header": {
+      "Home": "Inici",
+      "New Advertisement": "Nou Anunci",
+      "Comp List": "Llista de Components",
+      "Login": "Entrar",
+      "Sign up for free": "Registra't gratis"
+    },
+  
+    "Error": {
+      "Username must be alphanumeric": "El nom d'usuari deu ser alfanumèric",
+      "Insert a valid mail please": "Inseriu un correu electrònic vàlid, si us plau",
+      "Password min length 8 characters": "La longitud mínima de la contrasenya és de 8 caràcters",
+      "ERROR in DB": "ERROR en la Base de Dades",
+      "User not found": "Usuari no trobat",
+      "Bad Request": "Sol.licitud Incorrecta",
+      "User not in DB": "El Usuari no està a la Base de Dades",
+      "Advertisements are not available in this moment": "Els Anuncis no estan disponibles en aquest moment",
+      "Internal Error: Impossible create the advertisement": "Error Intern: Imposible crear l'Anunci",
+      "Advertisement not in DB": "L'Anunci no està a la Base de Dades",
+      "This email do not have an account": "Aquest correu electrònic no té compte",
+      "Wrong password": "Contrasenya incorrecta",
+      "Internal Server Error": "Error Intern del Servidor",
+      "no jwtToken provided": "No te credencials",
+      "Invalid jwtToken": "Credencials invàlides",
+      "The file must be an image": "L'archivu deu ser una image",
+      "An unexpected error has occurred": "Ha passat un error inesperat"
     }
   }
   
