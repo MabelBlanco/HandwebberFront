@@ -85,5 +85,13 @@
     "Previous": "Previous",
     "Next": "Next",
     "Last": "Last"
+  },
+
+  "Header": {
+    "Home": "Home",
+    "New Advertisement": "New Advertisement",
+    "Comp List": "Comp List",
+    "Login": "Login",
+    "Sign up for free": "Sign up for free"
   }
 }

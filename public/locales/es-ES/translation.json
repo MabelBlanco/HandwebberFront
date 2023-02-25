@@ -85,5 +85,13 @@
     "Previous": "Anterior",
     "Next": "Siguiente",
     "Last": "Último"
+  },
+
+  "Header": {
+    "Home": "Inicio",
+    "New Advertisement": "Nuevo Anuncio",
+    "Comp List": "Lista de Componentes",
+    "Login": "Entrar",
+    "Sign up for free": "Regístrate Gratis"
   }
 }
