@@ -8,19 +8,22 @@ import { createUser, loginUser } from '../service';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import '../../commons/card/card.scss';
+import { useTranslation } from "react-i18next";
 
 const initialState = {
-  username: '',
-  mail: '',
-  password: '',
-  image: '',
+  username: "",
+  mail: "",
+  password: "",
+  image: "",
 };
 
 const SignUp = ({ className, title, ...props }) => {
   const [credentials, setCredentials] = useState(initialState);
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [check, setCheck] = useState(false);
   const [error, setError] = useState(null);
+
+  const { t } = useTranslation();
 
   const { handleLogin, isLogged } = useAuth();
 
@@ -58,17 +61,17 @@ const SignUp = ({ className, title, ...props }) => {
     }
 
     const formData = new FormData();
-    formData.append('username', username);
-    formData.append('mail', mail);
-    formData.append('password', password);
-    image && formData.append('image', image);
+    formData.append("username", username);
+    formData.append("mail", mail);
+    formData.append("password", password);
+    image && formData.append("image", image);
     try {
       const newUser = await createUser(formData);
 
       await loginUser({ mail, password });
       console.log(newUser);
       handleLogin();
-      navigate('/advertisements');
+      navigate("/advertisements");
       return newUser;
     } catch (error) {
       const errors = [];
@@ -102,7 +105,7 @@ const SignUp = ({ className, title, ...props }) => {
                 <Input
                   type='text'
                   name='username'
-                  label='username'
+                  label={t("SignUp.username")}
                   className={styles.signup__field}
                   onChange={handleCredentials}
                   value={credentials.username}
@@ -111,7 +114,7 @@ const SignUp = ({ className, title, ...props }) => {
                 <Input
                   type='email'
                   name='mail'
-                  label='mail'
+                  label={t("SignUp.mail")}
                   className={styles.signup__field}
                   onChange={handleCredentials}
                   value={credentials.mail}
@@ -120,7 +123,7 @@ const SignUp = ({ className, title, ...props }) => {
                 <Input
                   type='password'
                   name='password'
-                  label='password (min 8 characters)'
+                  label={t("SignUp.password") + " (min 8 characters)"}
                   className={styles.signup__field}
                   onChange={handleCredentials}
                   value={credentials.password}
@@ -129,7 +132,7 @@ const SignUp = ({ className, title, ...props }) => {
                 <Input
                   type='password'
                   name='passwordConfirm'
-                  label='confirm password'
+                  label={t("SignUp.confirm password")}
                   className={styles.signup__field}
                   onChange={handleConfirmPassword}
                   value={confirmPassword}
@@ -138,14 +141,14 @@ const SignUp = ({ className, title, ...props }) => {
                 <InputFile
                   name='image'
                   id='image'
-                  label={'Upload picture'}
+                  label={t("SignUp.Upload picture")}
                   className={styles.signup__field}
                   onChange={handleImage}
                 />
 
                 <CheckBox
                   name='check'
-                  label='Acepto las condiciones'
+                  label={t("SignUp.I accept the conditions")}
                   onChange={handleCheck}
                   checked={check}
                 />
@@ -154,15 +157,16 @@ const SignUp = ({ className, title, ...props }) => {
                   className={styles.signup__submit}
                   disabled={!isEnabledButton()}
                 >
-                  SIGNUP
+                  {t("SignUp.SIGNUP")}
                 </Button>
               </form>
             )}
           </div>
           {isLogged && (
             <p className='h5'>
-              Sorry, you are already registered. If you want register a new
-              count, close this session first
+              {t(
+              "SignUp.Sorry, you are already registered. If you want register a new count, close this session first"
+            )}
             </p>
           )}
         </div>

@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getUserById } from '../auth/service';
 import { getUserAdvertisements } from './service';
+import { useTranslation } from "react-i18next";
 
 const initialState = {
   username: '',
@@ -16,6 +17,8 @@ const initialState = {
 
 const UserAdsList = ({ ...props }) => {
   const [userSearch, setUserSearch] = useState(initialState);
+
+  const { t } = useTranslation();
 
   const userSearchId = useParams().userId;
 
@@ -53,7 +56,7 @@ const UserAdsList = ({ ...props }) => {
           </div>
           <ul className='list-group list-group-flush'>
             <li key='mail' className='list-group-item text-center'>
-              <span>Mail: </span>
+              <span>{t("UserAdsList.Mail")}: </span>
               {userSearch?.mail}
             </li>
           </ul>
@@ -68,7 +71,7 @@ const UserAdsList = ({ ...props }) => {
               key={element._id}
               {...newProps}
               link_1={`/advertisements/${element._id}`}
-              label_link_1='See more'
+              label_link_1={t("UserAdsList.See more")}
             />
           );
         })}
