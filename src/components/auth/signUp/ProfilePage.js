@@ -10,6 +10,7 @@ import styles from './SignUp.module.css';
 import Input from '../../commons/forms/input/Input';
 import InputFile from '../../commons/forms/inputFile/InputFile';
 import { deleteAdvertisement } from '../../advertisements/service';
+import { useTranslation } from 'react-i18next';
 
 const initialState = {
   username: '',
@@ -19,21 +20,24 @@ const initialState = {
 };
 
 const ProfilePage = ({ className, title, ...props }) => {
-  const { user, isFetching, setUser } = useDataUser({initialState});
+  const { user, isFetching, setUser } = useDataUser({ initialState });
   const { isLogged, handleLogOut } = useAuth();
   const [credentials, setCredentials] = useState(initialState);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
   const [activeForm, setActiveForm] = useState(false);
-  const [activeDeleteUser, setActiveDeleteUser] = useState(false)
+  const [activeDeleteUser, setActiveDeleteUser] = useState(false);
+  const { t } = useTranslation();
 
-  const handleActiveDeleteUser  = () => setActiveDeleteUser(!activeDeleteUser);
+  const handleActiveDeleteUser = () => setActiveDeleteUser(!activeDeleteUser);
 
   const handleActiveForm = () => setActiveForm(!activeForm);
 
   const navigate = useNavigate();
 
   const resetError = () => setError(null);
+
+  const goToMyAds = () => navigate(`/profile/${user._id}`)
 
   const handleCredentials = (event) => {
     resetError();
@@ -69,10 +73,10 @@ const ProfilePage = ({ className, title, ...props }) => {
     image && formData.append('image', image);
 
     try {
-      const {result} = await updateUser(user._id, formData);
+      const { result } = await updateUser(user._id, formData);
       result.ads = user.ads;
       setUser(result);
-      navigate('/')
+      navigate('/');
     } catch (error) {
       const errors = [];
       if (Array.isArray(error.message)) {
@@ -81,7 +85,7 @@ const ProfilePage = ({ className, title, ...props }) => {
         errors.push(error.message);
       }
       setError(errors);
-    };
+    }
     setActiveForm(false);
   };
 
@@ -94,10 +98,10 @@ const ProfilePage = ({ className, title, ...props }) => {
       const response = await deleteUser(user._id);
       handleLogOut();
       navigate('/');
-      setActiveDeleteUser(false)
+      setActiveDeleteUser(false);
       return response;
     } catch (error) {
-      console.log(error);
+      setError(error);
     }
   };
 
@@ -108,32 +112,29 @@ const ProfilePage = ({ className, title, ...props }) => {
   return (
     <div className='row'>
       {isLogged && (
-        <div className='col-sm-12 py-5' style={{ textAlign: 'center' }}>
+        <div className='col-sm-12 py-5 my-5 text-center'>
           {' '}
-          <div className='card-body'>
-            <h2 className='card-title' style={{ fontSize: '50px' }}>
-              {user?.username}
-            </h2>
+          <div className='card-body py-3'>
+            <h2 className='card-title h1'>{user?.username}</h2>
           </div>{' '}
-          <div className={'header-card'}>
+          <div className='header-card'>
             {user?.image ? (
               <img
-                style={{ height: '300px', width: '300px' }}
                 src={`${process.env.REACT_APP_API_BASE_URL}/${user?.image}`}
-                className='card-img-top'
+                className='rounded-pill w-25 h-25'
                 alt='...'
               />
             ) : (
               <NoImage className='card-img-top' />
             )}
           </div>
-          <ul className='list-group list-group-flush'>
+          <ul className='list-group list-group-flush my-3'>
             <li key='mail' className='list-group-item'>
-              <span>Mail: </span>
+              <span>{t('ProfilePage.Mail')}: </span>
               {user?.mail}
             </li>
             <li key='subscriptions' className='list-group-item'>
-              <span>Favorites: </span>
+              <span>{t('ProfilePage.Favorites')}: </span>
               <ul>
                 {user?.subscriptions &&
                   user.subscriptions.map((e) => (
@@ -144,7 +145,14 @@ const ProfilePage = ({ className, title, ...props }) => {
               </ul>
             </li>
             <li key='ads' className='list-group-item'>
-              <span>My advertisements: </span>
+              <span>{t('ProfilePage.My advertisements')}: </span>
+              <Button
+              type='button'
+              className='btn btn-secondary mx-3 my-3'
+              onClick={goToMyAds}
+              >
+              {t('ProfilePage.GO TO MY ADVERTISEMENTS LIST')}
+              </Button>
               <ul>
                 {user?.ads &&
                   user.ads.map((e) => (
@@ -165,17 +173,17 @@ const ProfilePage = ({ className, title, ...props }) => {
               ))}
             <Button
               type='button'
-              className='btn btn-secondary mx-3'
+              className='btn btn-secondary mx-3 my-3'
               onClick={handleActiveForm}
             >
-              CLICK FOR UPDATE YOUR PROFILE
+              {t('ProfilePage.CLICK FOR UPDATE YOUR PROFILE')}
             </Button>
             {activeForm && (
               <form className={styles.signup__form} onSubmit={updateAccount}>
                 <Input
                   type='text'
                   name='username'
-                  label='New username'
+                  label={t('ProfilePage.New username')}
                   className={styles.signup__field}
                   onChange={handleCredentials}
                   value={credentials.username}
@@ -184,7 +192,7 @@ const ProfilePage = ({ className, title, ...props }) => {
                 <Input
                   type='email'
                   name='mail'
-                  label='New mail'
+                  label={t('ProfilePage.New mail')}
                   className={styles.signup__field}
                   onChange={handleCredentials}
                   value={credentials.mail}
@@ -193,7 +201,7 @@ const ProfilePage = ({ className, title, ...props }) => {
                 <Input
                   type='password'
                   name='password'
-                  label='New password (min 8 characters)'
+                  label={t('ProfilePage.New password') + ' (min 8 characters)'}
                   className={styles.signup__field}
                   onChange={handleCredentials}
                   value={credentials.password}
@@ -202,7 +210,7 @@ const ProfilePage = ({ className, title, ...props }) => {
                 <Input
                   type='password'
                   name='passwordConfirm'
-                  label='Confirm new password'
+                  label={t('ProfilePage.Confirm new password')}
                   className={styles.signup__field}
                   onChange={handleConfirmPassword}
                   value={confirmPassword}
@@ -211,7 +219,7 @@ const ProfilePage = ({ className, title, ...props }) => {
                 <InputFile
                   name='image'
                   id='image'
-                  label={'Upload new picture'}
+                  label={t('ProfilePage.Upload new picture')}
                   className={styles.signup__field}
                   onChange={handleImage}
                 />
@@ -221,35 +229,39 @@ const ProfilePage = ({ className, title, ...props }) => {
                   className={styles.signup__submit}
                   disabled={!!isFetching}
                 >
-                  CLICK FOR UPDATE
+                  {t('ProfilePage.CLICK FOR UPDATE')}
                 </Button>
               </form>
             )}
             <Button
               type='button'
-              className='btn btn-secondary mx-3'
+              className='btn btn-secondary mx-3 my-3'
               onClick={handleActiveDeleteUser}
             >
-              DELETE ACCOUNT
+              {t('ProfilePage.DELETE ACCOUNT')}
             </Button>
 
-            {activeDeleteUser && <div>
-              <p>Are you sure for delete account?</p>
-              <Button
-              type='button'
-              className='btn btn-secondary mx-3'
-              onClick={deleteAccount}
-            >
-              YES
-            </Button>
-            <Button
-            type='button'
-            className='btn btn-secondary mx-3'
-            onClick={handleActiveDeleteUser}
-          >
-            NO
-          </Button>
-            </div>}
+            {activeDeleteUser && (
+              <div>
+                <p>{t('ProfilePage.Are you sure for delete account?')}</p>
+                <div className='d-flex justify-content-center align-items-center'>
+                  <Button
+                    type='button'
+                    className='btn-primary mx-3 col-12'
+                    onClick={deleteAccount}
+                  >
+                    {t('ProfilePage.YES')}
+                  </Button>
+                  <Button
+                    type='button'
+                    className='btn-secondary mx-3 col-12'
+                    onClick={handleActiveDeleteUser}
+                  >
+                    {t('ProfilePage.NO')}
+                  </Button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

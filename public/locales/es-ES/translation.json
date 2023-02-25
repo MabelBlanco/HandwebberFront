@@ -1,0 +1,69 @@
+{
+  "LoginPage": {
+    "Sorry, you are loggin now. If you want singin with another count, close this session first.": "Lo siento, ya estás logeado. Si quieres entrar con otra cuenta, cierra esta sesión primero.",
+    "Email": "Correo electrónico",
+    "Password": "Contraseña",
+    "Login": "Iniciar Sesión"
+  },
+
+  "AdsList": {
+    "See more": "Ver más"
+  },
+
+  "DetailAdvertisement": {
+    "Delete": "Borra",
+    "Edit": "Editar"
+  },
+
+  "NewAdvertisement": {
+    "Name": "Nombre",
+    "Price": "Precio",
+    "Stock": "Cantidad",
+    "Description": "Descripción",
+    "Tags": "Etiquetas",
+    "Photo": "Foto",
+    "Active": "Activo",
+    "Custom": "Personalizado",
+    "Add Advertisement": "Añadir Anuncio"
+  },
+
+  "UserAdsList": {
+    "Mail": "Correo electrónico",
+    "See more": "Ver más"
+  },
+
+  "Profile": {
+    "Hello": "Hola",
+    "Profile": "Perfil",
+    "Logout": "Cerrar Sesión"
+  },
+
+  "ProfilePage": {
+    "Mail": "Correo electrónico",
+    "Favorites": "Favoritos",
+    "My advertisements": "Mis anuncios",
+    "GO TO MY ADVERTISEMENTS LIST": "IR AL LISTADO DE MIS ANUNCIOS",
+    "CLICK FOR UPDATE YOUR PROFILE": "HAZ CLICK PARA ACTUALIZAR TU PERFIL",
+    "New username": "Nuevo nombre de usuario",
+    "New mail": "Nuevo correo electrónico",
+    "New password": "Nueva contraseña",
+    "Confirm new password": "Confirma la nueva contraseña",
+    "Upload new picture": "Subir una nueva imagen",
+    "CLICK FOR UPDATE": "HAZ CLICK PARA ACTUALIZAR",
+    "DELETE ACCOUNT": "BORRAR CUENTA",
+    "Are you sure for delete account?": "¿Estás seguro de que quieres borrar la cuenta?",
+    "YES": "SI",
+    "NO": "NO"
+  },
+
+  "SignUp": {
+    "username": "nombre de usuario",
+    "mail": "correo electrónico",
+    "password": "contraseña",
+    "confirm password": "confirmar contraseña",
+    "Upload picture": "Subir imagen",
+    "I accept the conditions": "Acepto las condiciones",
+    "SIGNUP": "REGISTRARME",
+    "Sorry, you are already registered. If you want register a new count, close this session first": "Lo siento, ya estás registrado. Si quieres registrar una nueva cuenta, cierra esta sesion primero"
+  }
+}

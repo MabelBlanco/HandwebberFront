@@ -1,0 +1,70 @@
+{
+    "LoginPage": {
+      "Sorry, you are loggin now. If you want singin with another count, close this session first.": "Ho sento, ja estàs logejat. Si vols entrar amb un altre compte, tanca aquesta sessió primer.",
+      "Email": "Correu electrònic",
+      "Password": "Contrasenya",
+      "Login": "Iniciar Sessió"
+    },
+  
+    "AdsList": {
+      "See more": "Veure més"
+    },
+  
+    "DetailAdvertisement": {
+      "Delete": "Borra",
+      "Edit": "Edita"
+    },
+  
+    "NewAdvertisement": {
+      "Name": "Nom",
+      "Price": "Preu",
+      "Stock": "Quantitat",
+      "Description": "Descripció",
+      "Tags": "Etiquetes",
+      "Photo": "Foto",
+      "Active": "Actiu",
+      "Custom": "Personalitzat",
+      "Add Advertisement": "Afegir Anunci"
+    },
+  
+    "UserAdsList": {
+      "Mail": "Correu electrónic",
+      "See more": "Veure més"
+    },
+  
+    "Profile": {
+      "Hello": "Hola",
+      "Profile": "Perfil",
+      "Logout": "Tancar Sessió"
+    },
+  
+    "ProfilePage": {
+      "Mail": "Correu electrónic",
+      "Favorites": "Favorits",
+      "My advertisements": "Els meus anuncis",
+      "GO TO MY ADVERTISEMENTS LIST": "ANAR AL LLISTAT DELS MEUS ANUNCIS",
+      "CLICK FOR UPDATE YOUR PROFILE": "FES CLICK PER ACTUALITZAR EL TEU PERFIL",
+      "New username": "Nou nom d'usuari",
+      "New mail": "Nou correu electrónic",
+      "New password": "Nova contrasenya",
+      "Confirm new password": "Confirma la contrasenya nova",
+      "Upload new picture": "Pujar una nova imatge",
+      "CLICK FOR UPDATE": "FES CLICK PER ACTUALITZAR",
+      "DELETE ACCOUNT": "ESBORRAR COMPTE",
+      "Are you sure for delete account?": "Estàs segur que vols esborrar el compte?",
+      "YES": "SI",
+      "NO": "NO"
+    },
+  
+    "SignUp": {
+      "username": "nom d'usuari",
+      "mail": "correu electrónic",
+      "password": "contrasenya",
+      "confirm password": "confirmar contrasenya",
+      "Upload picture": "Pujar image",
+      "I accept the conditions": "Accepto les condicions",
+      "SIGNUP": "REGISTRAR-ME",
+      "Sorry, you are already registered. If you want register a new count, close this session first": "Ho sento, ja estàs registrat. Si vols registrar un nou compte, tanca aquesta sessió primer"
+    }
+  }
+  

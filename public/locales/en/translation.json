@@ -1,0 +1,69 @@
+{
+  "LoginPage": {
+    "Sorry, you are loggin now. If you want singin with another count, close this session first.": "Sorry, you are loggin now. If you want singin with another count, close this session first.",
+    "Email": "Email",
+    "Password": "Password",
+    "Login": "Login"
+  },
+
+  "AdsList": {
+    "See more": "See more"
+  },
+
+  "DetailAdvertisement": {
+    "Delete": "Delete",
+    "Edit": "Edit"
+  },
+
+  "NewAdvertisement": {
+    "Name": "Name",
+    "Price": "Price",
+    "Stock": "Stock",
+    "Description": "Description",
+    "Tags": "Tags",
+    "Photo": "Photo",
+    "Active": "Active",
+    "Custom": "Custom",
+    "Add Advertisement": "Add Advertisement"
+  },
+
+  "UserAdsList": {
+    "Mail": "Mail",
+    "See more": "See more"
+  },
+
+  "Profile": {
+    "Hello": "Hello",
+    "Profile": "Profile",
+    "Logout": "Logout"
+  },
+
+  "ProfilePage": {
+    "Mail": "Mail",
+    "Favorites": "Favorites",
+    "My advertisements": "My advertisements",
+    "GO TO MY ADVERTISEMENTS LIST": "GO TO MY ADVERTISEMENTS LIST",
+    "CLICK FOR UPDATE YOUR PROFILE": "CLICK FOR UPDATE YOUR PROFILE",
+    "New username": "New username",
+    "New mail": "New mail",
+    "New password": "New password",
+    "Confirm new password": "Confirm new password",
+    "Upload new picture": "Upload new picture",
+    "CLICK FOR UPDATE": "CLICK FOR UPDATE",
+    "DELETE ACCOUNT": "DELETE ACCOUNT",
+    "Are you sure for delete account?": "Are you sure for delete account?",
+    "YES": "YES",
+    "NO": "NO"
+  },
+
+  "SignUp": {
+    "username": "username",
+    "mail": "mail",
+    "password": "password",
+    "confirm password": "confirm password",
+    "Upload picture": "Upload picture",
+    "I accept the conditions": "I accept the conditions",
+    "SIGNUP": "SIGNUP",
+    "Sorry, you are already registered. If you want register a new count, close this session first": "Sorry, you are already registered. If you want register a new count, close this session first"
+  }
+}

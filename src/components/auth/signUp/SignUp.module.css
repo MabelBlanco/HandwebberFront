@@ -17,14 +17,11 @@
     min-height: 550px;
     color:rgb(36, 161, 161);
   }
-
-  /* .signup__field {
-    text-align: center;
-    padding: 10px 0;
-    width: 250px;
+.signup__field {
+    max-width: 90%;
   }
 
-  .signup__submit {
+  /* .signup__submit {
     margin-top: 10px;
     width: 100%;
   } */
