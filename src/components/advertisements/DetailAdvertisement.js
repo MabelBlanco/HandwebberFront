@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 // import ConfirmButton from "../commons/alerts/confirmButton";
-import Button from "../commons/button/Button";
-import Card from "../commons/card/Card";
-import "./advertisements.scss";
-import { getAdvertisementDetail } from "./service";
-import { useTranslation } from "react-i18next";
+import Button from '../commons/button/Button';
+import Card from '../commons/card/Card';
+import './advertisements.scss';
+import { getAdvertisementDetail } from './service';
+import { useTranslation } from 'react-i18next';
 
 const DetailAdvertisement = ({
   // confirm,
@@ -37,21 +37,22 @@ const DetailAdvertisement = ({
       console.log(error);
     }
   };
+  const advertisementCall = id.split('-', 1)[0];
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
       const execute = async () => {
         try {
-          const advert = await getAdvertisementDetail(id);
+          const advert = await getAdvertisementDetail(advertisementCall);
           setAdvert(advert.result);
         } catch (error) {
           if (error.statusCode === 401) {
-            navigate("/login");
+            navigate('/login');
           }
           if (error.statusCode === 404) {
-            navigate("/404", { state: { message: error.statusCode } });
+            navigate('/404', { state: { message: error.statusCode } });
           }
-          navigate("/404", { state: { message: error } });
+          navigate('/404', { state: { message: error } });
         }
       };
       execute();
@@ -59,16 +60,16 @@ const DetailAdvertisement = ({
     return () => {
       isMounted = false;
     };
-  }, [id, navigate]);
+  }, [advertisementCall, navigate]);
 
   return (
-    <div className="row">
-      <h1 className="col-sm-12 py-5">{props.title}</h1>
-      <div className="container advert-content-detail">
+    <div className='row'>
+      <h1 className='col-sm-12 py-5'>{props.title}</h1>
+      <div className='container advert-content-detail'>
         <Card
           {...advert}
-          label_button_2={t("DetailAdvertisement.Delete")}
-          label_button_1={t("DetailAdvertisement.Edit")}
+          label_button_2={t('DetailAdvertisement.Delete')}
+          label_button_1={t('DetailAdvertisement.Edit')}
         />
         {/* <ConfirmButton
           confirmation="Are you sure?"
@@ -78,7 +79,7 @@ const DetailAdvertisement = ({
         >
           Delete
         </ConfirmButton> */}
-        <Button onClick={onDelete}>{t("DetailAdvertisement.Delete")}</Button>
+        <Button onClick={onDelete}>{t('DetailAdvertisement.Delete')}</Button>
       </div>
     </div>
   );

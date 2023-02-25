@@ -18,7 +18,6 @@ export const useAdvertisement = () => {
   const [filters, setFilters] = useState(initialFiltersState);
 
   const handleFilters = (event) => {
-    console.log(event);
     if (event.target.name === 'resetFilters') {
       setFilters(initialFiltersState);
       return;
@@ -66,7 +65,7 @@ export const useAdvertisement = () => {
       }
     };
     execute();
-  }, [page, filters]);
+  }, [page, filters, meta.maxPrice]);
   return {
     adsList,
     firstPage,
@@ -98,6 +97,7 @@ const AdsList = ({ ...props }) => {
       {...props}
     >
       <SearchBar
+        className='row'
         onChange={handleFilters}
         filters={filters}
         max={meta.maxPrice}
@@ -115,7 +115,7 @@ const AdsList = ({ ...props }) => {
             className='col-sm-12 col-lg-3 m-2'
             key={element._id}
             {...newProps}
-            link_1={`/advertisements/${element._id}`}
+            link_1={`/advertisements/${element._id}-${element.name}`}
             label_link_1={t('AdsList.See more')}
           />
         );
