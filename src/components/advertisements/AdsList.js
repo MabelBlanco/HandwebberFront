@@ -18,9 +18,8 @@ export const useAdvertisement = () => {
   const [filters, setFilters] = useState(initialFiltersState);
 
   const handleFilters = (event) => {
-    console.log(event);
     if (event.target.name === 'resetFilters') {
-      setFilters({ ...initialFiltersState, price: meta.maxPrice });
+      setFilters(initialFiltersState);
       return;
     }
     setFilters({ ...filters, [event.target.name]: event.target.value });
@@ -60,7 +59,6 @@ export const useAdvertisement = () => {
         );
         setAdsList(ads.result);
         setMeta(ads.meta);
-        //        setFilters({ ...filters, price: meta.maxPrice });
       } catch (error) {
         console.log('tenemos un error');
         console.log(error);
@@ -99,6 +97,7 @@ const AdsList = ({ ...props }) => {
       {...props}
     >
       <SearchBar
+        className='row'
         onChange={handleFilters}
         filters={filters}
         max={meta.maxPrice}
