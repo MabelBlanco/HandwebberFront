@@ -74,5 +74,9 @@
     "Stock": "Cantidad",
     "User": "Usuario",
     "Custom Product": "Producto Personalizado"
+  },
+
+  "NoImage": {
+    "No image": "Sin imagen"
   }
 }

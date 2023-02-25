@@ -74,5 +74,9 @@
     "Stock": "Stock",
     "User": "User",
     "Custom Product": "Custom Product"
+  },
+
+  "NoImage": {
+    "No image": "No image"
   }
 }
