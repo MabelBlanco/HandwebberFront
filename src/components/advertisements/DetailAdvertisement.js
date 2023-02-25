@@ -5,6 +5,7 @@ import Button from "../commons/button/Button";
 import Card from "../commons/card/Card";
 import "./advertisements.scss";
 import { getAdvertisementDetail } from "./service";
+import { useTranslation } from "react-i18next";
 
 const DetailAdvertisement = ({
   // confirm,
@@ -27,6 +28,7 @@ const DetailAdvertisement = ({
   const [advert, setAdvert] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const onDelete = async () => {
     try {
@@ -63,7 +65,11 @@ const DetailAdvertisement = ({
     <div className="row">
       <h1 className="col-sm-12 py-5">{props.title}</h1>
       <div className="container advert-content-detail">
-        <Card {...advert} label_button_2="Delete" label_button_1="Edit" />
+        <Card
+          {...advert}
+          label_button_2={t("DetailAdvertisement.Delete")}
+          label_button_1={t("DetailAdvertisement.Edit")}
+        />
         {/* <ConfirmButton
           confirmation="Are you sure?"
           doTask={onDelete}
@@ -72,7 +78,7 @@ const DetailAdvertisement = ({
         >
           Delete
         </ConfirmButton> */}
-        <Button onClick={onDelete}>Delete</Button>
+        <Button onClick={onDelete}>{t("DetailAdvertisement.Delete")}</Button>
       </div>
     </div>
   );

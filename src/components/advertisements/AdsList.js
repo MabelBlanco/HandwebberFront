@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Card from "../commons/card/Card";
 import Pagination from "../commons/pagination/Pagination";
 import { countAdvertisements, getAdvertisements } from "./service";
+import { useTranslation } from "react-i18next";
 const MAX_RESULTS_PER_PAGE = 12; //12;
 
 export const useAdvertisement = () => {
@@ -55,6 +56,8 @@ export const useAdvertisement = () => {
 };
 
 const AdsList = ({ ...props }) => {
+  const { t } = useTranslation();
+
   const {
     adsList: advertisements,
     firstPage,
@@ -82,7 +85,7 @@ const AdsList = ({ ...props }) => {
             key={element._id}
             {...newProps}
             link_1={`/advertisements/${element._id}`}
-            label_link_1="See more"
+            label_link_1={t("AdsList.See more")}
           />
         );
       })}
