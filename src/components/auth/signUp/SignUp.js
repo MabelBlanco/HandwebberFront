@@ -8,6 +8,7 @@ import { createUser, loginUser } from "../service";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
+import { Error } from "../../commons/error/Error";
 
 const initialState = {
   username: "",
@@ -89,13 +90,21 @@ const SignUp = ({ className, title, ...props }) => {
   return (
     <>
       <div className={styles.signup__page}>
-        {error &&
-          error.map((e) => (
-            <p className={styles.signup__error} key={e}>
-              {" "}
-              {e}{" "}
-            </p>
-          ))}
+        {
+          error && (
+            <Error
+              className={styles.signup__error}
+              key={e}
+              arrayErrors={error}
+            />
+          )
+          // error.map((e) => (
+          //   <p className={styles.signup__error} key={e}>
+          //     {" "}
+          //     {e}{" "}
+          //   </p>
+          // ))
+        }
         {!isLogged && (
           <form className={styles.signup__form} onSubmit={handleSubmit}>
             <Input

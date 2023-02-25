@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-export function Error({ arrayErrors }) {
+export function Error({ arrayErrors, ...props }) {
   const [errors, setErrors] = useState(arrayErrors);
 
   const { t } = useTranslation();
@@ -56,7 +56,7 @@ export function Error({ arrayErrors }) {
           } else {
             errorTranslate = t("Error.An unexpected error has occurred");
           }
-          return <p>{errorTranslate}</p>;
+          return <p {...props}>{errorTranslate}</p>;
         })}
       </div>
     );

@@ -11,6 +11,7 @@ import Input from "../../commons/forms/input/Input";
 import InputFile from "../../commons/forms/inputFile/InputFile";
 import { deleteAdvertisement } from "../../advertisements/service";
 import { useTranslation } from "react-i18next";
+import { Error } from "../../commons/error/Error";
 
 const initialState = {
   username: "",
@@ -158,13 +159,21 @@ const ProfilePage = ({ className, title, ...props }) => {
             </li>
           </ul>
           <div className="card-body actions">
-            {error &&
-              error.map((e) => (
-                <p className={styles.signup__error} key={e}>
-                  {" "}
-                  {e}{" "}
-                </p>
-              ))}
+            {
+              error && (
+                <Error
+                  className={styles.signup__error}
+                  key={e}
+                  arrayErrors={error}
+                />
+              )
+              // error.map((e) => (
+              //   <p className={styles.signup__error} key={e}>
+              //     {" "}
+              //     {e}{" "}
+              //   </p>
+              //))
+            }
             <Button
               type="button"
               className="btn btn-secondary mx-3"
