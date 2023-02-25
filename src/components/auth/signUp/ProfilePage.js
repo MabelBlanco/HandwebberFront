@@ -169,7 +169,6 @@ const ProfilePage = ({ className, title, ...props }) => {
               error && (
                 <Error
                   className={styles.signup__error}
-                  key={e}
                   arrayErrors={error}
                 />
               )
