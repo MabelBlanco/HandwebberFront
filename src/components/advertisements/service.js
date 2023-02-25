@@ -12,7 +12,9 @@ export const getAdvertisements = (skip, limit, filters) => {
   filtersToApply = filters.tag
     ? `${filtersToApply}&tag=${filters.tag}`
     : filtersToApply;
-  //TODO filters.range
+  filtersToApply = filters.price
+    ? `${filtersToApply}&price=-${filters.price}`
+    : filtersToApply;
 
   //Request chaine
   let request = `${advertisementsURL}?skip=${sk}&limit=${lim}&sort=-update`;
@@ -20,11 +22,6 @@ export const getAdvertisements = (skip, limit, filters) => {
     request = `${request}${filtersToApply}`;
   }
   return client.get(request);
-};
-
-export const countAdvertisements = () => {
-  const url = `${advertisementsURL}/count`;
-  return client.get(url);
 };
 
 export const getUserAdvertisements = (idUser) => {

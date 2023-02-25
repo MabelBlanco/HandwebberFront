@@ -2,39 +2,39 @@ import { useEffect, useState } from 'react';
 import SearchBar from './SearchBar';
 import Card from '../commons/card/Card';
 import Pagination from '../commons/pagination/Pagination';
-import { countAdvertisements, getAdvertisements } from './service';
+import { getAdvertisements } from './service';
 const MAX_RESULTS_PER_PAGE = 12; //12;
 
 export const useAdvertisement = () => {
-  const [adsList, setAdsList] = useState([]);
-  const [page, setPage] = useState(1);
-  const [filters, setFilters] = useState({
+  const initialFiltersState = {
     name: '',
     tag: '',
-    price: 0,
-  });
+    price: '',
+  };
+  const [adsList, setAdsList] = useState([]);
+  const [meta, setMeta] = useState({});
+  const [page, setPage] = useState(1);
+  const [filters, setFilters] = useState(initialFiltersState);
 
   const handleFilters = (event) => {
+    console.log(event);
+    if (event.target.name === 'resetFilters') {
+      setFilters(initialFiltersState);
+      return;
+    }
     setFilters({ ...filters, [event.target.name]: event.target.value });
   };
 
-  const numPages = async () => {
-    let adsCount = 0;
-    try {
-      adsCount = await countAdvertisements();
-    } catch (error) {
-      //TODO
-      console.log('Error contando los anuncios');
-    }
-    return Math.ceil(adsCount.result / MAX_RESULTS_PER_PAGE);
+  const numPages = () => {
+    return Math.ceil(meta.totalNumOfAds / MAX_RESULTS_PER_PAGE);
   };
 
   const firstPage = () => {
     setPage(1);
   };
 
-  const nextPage = async () => {
-    const maxPages = await numPages();
+  const nextPage = () => {
+    const maxPages = numPages();
     if (page === maxPages) return;
     setPage(page + 1);
   };
@@ -43,8 +43,8 @@ export const useAdvertisement = () => {
     setPage(page - 1);
   };
 
-  const lastPage = async () => {
-    const lastPage = await numPages();
+  const lastPage = () => {
+    const lastPage = numPages();
     setPage(lastPage);
   };
 
@@ -58,6 +58,7 @@ export const useAdvertisement = () => {
           filters
         );
         setAdsList(ads.result);
+        setMeta(ads.meta);
       } catch (error) {
         console.log('tenemos un error');
         console.log(error);
@@ -73,6 +74,7 @@ export const useAdvertisement = () => {
     lastPage,
     filters,
     handleFilters,
+    meta,
   };
 };
 
@@ -85,6 +87,7 @@ const AdsList = ({ ...props }) => {
     lastPage,
     filters,
     handleFilters,
+    meta,
   } = useAdvertisement();
   return (
     <div
@@ -94,6 +97,7 @@ const AdsList = ({ ...props }) => {
       <SearchBar
         onChange={handleFilters}
         filters={filters}
+        max={meta.maxPrice}
       />
       <Pagination
         handleFirst={firstPage}
