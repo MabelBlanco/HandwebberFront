@@ -5,6 +5,7 @@ import Pagination from '../commons/pagination/Pagination';
 import { getAdvertisements } from './service';
 import { useTranslation } from 'react-i18next';
 import Spinner from '../commons/spinner/Spinner';
+import { Error } from '../commons/error/Error';
 const MAX_RESULTS_PER_PAGE = 12; //12;
 
 export const useAdvertisement = () => {
@@ -18,6 +19,7 @@ export const useAdvertisement = () => {
   const [page, setPage] = useState(1);
   const [filters, setFilters] = useState(initialFiltersState);
   const [adsIsFetching, setAdsIsFetching] = useState(false);
+  const [error, setError] = useState([]);
 
   const handleFilters = (event) => {
     if (event.target.name === 'resetFilters') {
@@ -62,9 +64,8 @@ export const useAdvertisement = () => {
         );
         setAdsList(ads.result);
         setMeta(ads.meta);
-      } catch (error) {
-        console.log('tenemos un error');
-        console.log(error);
+      } catch (err) {
+        setError([err.message]);
       }
       setAdsIsFetching(false);
     };
@@ -81,6 +82,7 @@ export const useAdvertisement = () => {
     handleFilters,
     meta,
     adsIsFetching,
+    error,
   };
 };
 
@@ -97,6 +99,7 @@ const AdsList = ({ ...props }) => {
     handleFilters,
     meta,
     adsIsFetching,
+    error,
   } = useAdvertisement();
 
   return (
@@ -117,6 +120,7 @@ const AdsList = ({ ...props }) => {
         handleLast={lastPage}
       />
       {adsIsFetching && <Spinner />}
+      {error.length ? <Error arrayErrors={error} /> : <div></div>}
       {advertisements.map((element) => {
         const newProps = { ...props, ...element };
         return (

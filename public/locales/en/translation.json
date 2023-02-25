@@ -113,6 +113,7 @@
     "no jwtToken provided": "You haven't credentials",
     "Invalid jwtToken": "Invalid credentials",
     "The file must be an image": "The file must be an image",
+    "Network Error": "Network Error. Review your connection. This could be a server problem",
     "An unexpected error has occurred": "An unexpected error has occurred"
   }
 }
