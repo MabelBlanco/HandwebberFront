@@ -4,6 +4,7 @@ import Card from '../commons/card/Card';
 import Pagination from '../commons/pagination/Pagination';
 import { getAdvertisements } from './service';
 import { useTranslation } from 'react-i18next';
+import Spinner from '../commons/spinner/Spinner';
 const MAX_RESULTS_PER_PAGE = 12; //12;
 
 export const useAdvertisement = () => {
@@ -16,6 +17,7 @@ export const useAdvertisement = () => {
   const [meta, setMeta] = useState({});
   const [page, setPage] = useState(1);
   const [filters, setFilters] = useState(initialFiltersState);
+  const [adsIsFetching, setAdsIsFetching] = useState(false);
 
   const handleFilters = (event) => {
     if (event.target.name === 'resetFilters') {
@@ -51,6 +53,7 @@ export const useAdvertisement = () => {
   useEffect(() => {
     const execute = async () => {
       const skip = MAX_RESULTS_PER_PAGE * (page - 1);
+      setAdsIsFetching(true);
       try {
         const ads = await getAdvertisements(
           skip,
@@ -63,9 +66,11 @@ export const useAdvertisement = () => {
         console.log('tenemos un error');
         console.log(error);
       }
+      setAdsIsFetching(false);
     };
     execute();
   }, [page, filters, meta.maxPrice]);
+
   return {
     adsList,
     firstPage,
@@ -75,6 +80,7 @@ export const useAdvertisement = () => {
     filters,
     handleFilters,
     meta,
+    adsIsFetching,
   };
 };
 
@@ -90,7 +96,9 @@ const AdsList = ({ ...props }) => {
     filters,
     handleFilters,
     meta,
+    adsIsFetching,
   } = useAdvertisement();
+
   return (
     <div
       className='row'
@@ -108,6 +116,7 @@ const AdsList = ({ ...props }) => {
         handleNext={nextPage}
         handleLast={lastPage}
       />
+      {adsIsFetching && <Spinner />}
       {advertisements.map((element) => {
         const newProps = { ...props, ...element };
         return (
