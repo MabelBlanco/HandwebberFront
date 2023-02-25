@@ -20,7 +20,7 @@ export const useAdvertisement = () => {
   const handleFilters = (event) => {
     console.log(event);
     if (event.target.name === 'resetFilters') {
-      setFilters(initialFiltersState);
+      setFilters({ ...initialFiltersState, price: meta.maxPrice });
       return;
     }
     setFilters({ ...filters, [event.target.name]: event.target.value });
@@ -60,13 +60,14 @@ export const useAdvertisement = () => {
         );
         setAdsList(ads.result);
         setMeta(ads.meta);
+        //        setFilters({ ...filters, price: meta.maxPrice });
       } catch (error) {
         console.log('tenemos un error');
         console.log(error);
       }
     };
     execute();
-  }, [page, filters]);
+  }, [page, filters, meta.maxPrice]);
   return {
     adsList,
     firstPage,
@@ -115,7 +116,7 @@ const AdsList = ({ ...props }) => {
             className='col-sm-12 col-lg-3 m-2'
             key={element._id}
             {...newProps}
-            link_1={`/advertisements/${element._id}`}
+            link_1={`/advertisements/${element._id}-${element.name}`}
             label_link_1={t('AdsList.See more')}
           />
         );
