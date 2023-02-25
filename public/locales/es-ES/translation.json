@@ -64,5 +64,15 @@
     "I accept the conditions": "Acepto las condiciones",
     "SIGNUP": "REGISTRARME",
     "Sorry, you are already registered. If you want register a new count, close this session first": "Lo siento, ya estás registrado. Si quieres registrar una nueva cuenta, cierra esta sesion primero"
+  },
+
+  "Card": {
+    "Description": "Descripción",
+    "Price": "Precio",
+    "Tags": "Etiquetas",
+    "Date": "Fecha",
+    "Stock": "Cantidad",
+    "User": "Usuario",
+    "Custom Product": "Producto Personalizado"
   }
 }

@@ -64,5 +64,15 @@
     "I accept the conditions": "I accept the conditions",
     "SIGNUP": "SIGNUP",
     "Sorry, you are already registered. If you want register a new count, close this session first": "Sorry, you are already registered. If you want register a new count, close this session first"
+  },
+
+  "Card": {
+    "Description": "Description",
+    "Price": "Price",
+    "Tags": "Tags",
+    "Date": "Date",
+    "Stock": "Stock",
+    "User": "User",
+    "Custom Product": "Custom Product"
   }
 }

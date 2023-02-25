@@ -2,6 +2,7 @@ import classNames from "classnames";
 import Button from "../button/Button";
 import NoImage from "../noImage/NoImage";
 import "./card.scss";
+import { useTranslation } from "react-i18next";
 
 /**
  *
@@ -35,6 +36,8 @@ const Card = ({
   date,
   ...props
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div
       className={classNames(`card ${active ? "active" : ""}`, className)}
@@ -54,33 +57,33 @@ const Card = ({
       <div className="card-body">
         <h5 className="card-title">{name}</h5>
         <p className="card-text">
-          <span>Description: </span>
+          <span>{t("Card.Description")}: </span>
           {description}
         </p>
       </div>
       <ul className="list-group list-group-flush">
         <li key="price" className="list-group-item">
-          <span>Price: </span>
+          <span>{t("Card.Price")}: </span>
           {price}
         </li>
         <li key="tags" className="list-group-item">
-          <span>Tags: </span>
+          <span>{t("Card.Tags")}: </span>
           {tags && tags.join(", ")}
         </li>
         <li key="date" className="list-group-item">
-          <span>Date: </span>
+          <span>{t("Card.Date")}: </span>
           {date}
         </li>
         <li key="stock" className="list-group-item">
-          <span>Stock: </span>
+          <span>{t("Card.Stock")}: </span>
           {stock}
         </li>
         <li key="user" className="list-group-item">
-          <span>Usuario: </span>
+          <span>{t("Card.User")}: </span>
           {idUser}
         </li>
         <li key="custom" className="list-group-item">
-          {custom ? <span>'Custom Product'</span> : ""}
+          {custom ? <span> {t("Card.Custom Product")} </span> : ""}
         </li>
       </ul>
       <div className="card-body actions">
