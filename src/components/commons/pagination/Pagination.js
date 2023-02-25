@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import "./pagination.scss";
+import { useTranslation } from "react-i18next";
 
 const Pagination = ({
   clasName,
@@ -9,6 +10,7 @@ const Pagination = ({
   handleLast,
   ...props
 }) => {
+  const { t } = useTranslation();
   //const [currentValue, setNewValue] = useState([]);
   //useEffect(() => {
   //setNewValue(currentValue);
@@ -20,22 +22,22 @@ const Pagination = ({
         <ul className="pagination">
           <li className="page-item">
             <span className="page-link" onClick={handleFirst}>
-              <i className="bi bi-arrow-bar-right"></i> First
+              <i className="bi bi-arrow-bar-right"></i> {t("Pagination.First")}
             </span>
           </li>
           <li className="page-item">
             <span className="page-link" onClick={handlePrevious}>
-              <i className="bi bi-arrow-left"></i> Previous
+              <i className="bi bi-arrow-left"></i> {t("Pagination.Previous")}
             </span>
           </li>
           <li className="page-item">
             <span className="page-link" onClick={handleNext}>
-              Next <i className="bi bi-arrow-right"></i>
+              {t("Pagination.Next")} <i className="bi bi-arrow-right"></i>
             </span>
           </li>
           <li className="page-item">
             <span className="page-link" onClick={handleLast}>
-              Last <i className="bi bi-arrow-bar-left"></i>
+              {t("Pagination.Last")} <i className="bi bi-arrow-bar-left"></i>
             </span>
           </li>
         </ul>

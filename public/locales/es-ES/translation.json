@@ -78,5 +78,12 @@
 
   "NoImage": {
     "No image": "Sin imagen"
+  },
+
+  "Pagination": {
+    "First": "Primero",
+    "Previous": "Anterior",
+    "Next": "Siguiente",
+    "Last": "Último"
   }
 }
