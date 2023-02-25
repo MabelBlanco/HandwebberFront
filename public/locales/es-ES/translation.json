@@ -93,5 +93,25 @@
     "Comp List": "Lista de Componentes",
     "Login": "Entrar",
     "Sign up for free": "Regístrate Gratis"
+  },
+
+  "Error": {
+    "Username must be alphanumeric": "El nombre de usuario debe ser alfanumérico",
+    "Insert a valid mail please": "Inserte un correo electrónico válido, por favor",
+    "Password min length 8 characters": "La longitud minínima de la contraseña es de 8 caracteres",
+    "ERROR in DB": "ERROR en la Base de Datos",
+    "User not found": "Usuario no encontrado",
+    "Bad Request": "Solicitud Incorrecta",
+    "User not in DB": "El Usuario no está en la Base de Datos",
+    "Advertisements are not available in this moment": "Los Anuncios no están disponibles en este momento",
+    "Internal Error: Impossible create the advertisement": "Error Interno: Imposible crear el Anuncio",
+    "Advertisement not in DB": "El Anuncio no está en la Base de Datos",
+    "This email do not have an account": "Este correo electrónico no tiene cuenta",
+    "Wrong password": "Contraseña incorrecta",
+    "Internal Server Error": "Error Interno del Servidor",
+    "no jwtToken provided": "No tiene credenciales",
+    "Invalid jwtToken": "Credenciales inválidas",
+    "The file must be an image": "El archivo debe ser una imagen",
+    "An unexpected error has occurred": "Ha ocurrido un error inesperado"
   }
 }

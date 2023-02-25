@@ -93,5 +93,25 @@
     "Comp List": "Comp List",
     "Login": "Login",
     "Sign up for free": "Sign up for free"
+  },
+
+  "Error": {
+    "Username must be alphanumeric": "Username must be alphanumeric",
+    "Insert a valid mail please": "Insert a valid mail please",
+    "Password min length 8 characters": "Password min length 8 characters",
+    "ERROR in DB": "ERROR in DataBase",
+    "User not found": "User not found",
+    "Bad Request": "Bad Request",
+    "User not in DB": "User not in DataBase",
+    "Advertisements are not available in this moment": "Advertisements are not available in this moment",
+    "Internal Error: Impossible create the advertisement": "Internal Error: Impossible create the advertisement",
+    "Advertisement not in DB": "Advertisement not in DataBase",
+    "This email do not have an account": "This email do not have an account",
+    "Wrong password": "Wrong password",
+    "Internal Server Error": "Internal Server Error",
+    "no jwtToken provided": "You haven't credentials",
+    "Invalid jwtToken": "Invalid credentials",
+    "The file must be an image": "The file must be an image",
+    "An unexpected error has occurred": "An unexpected error has occurred"
   }
 }
