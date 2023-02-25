@@ -80,7 +80,9 @@ const Card = ({
         </li>
         <li key="user" className="list-group-item">
           <span>{t("Card.User")}: </span>
-          {idUser}
+          <a href={`/profile/${idUser}`} className="card-link">
+            {idUser}
+          </a>
         </li>
         <li key="custom" className="list-group-item">
           {custom ? <span> {t("Card.Custom Product")} </span> : ""}

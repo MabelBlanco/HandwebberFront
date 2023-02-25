@@ -22,7 +22,7 @@ const Pagination = ({
         <ul className="pagination">
           <li className="page-item">
             <span className="page-link" onClick={handleFirst}>
-              <i className="bi bi-arrow-bar-right"></i> {t("Pagination.First")}
+              <i className="bi bi-arrow-bar-left"></i> First
             </span>
           </li>
           <li className="page-item">
@@ -37,7 +37,7 @@ const Pagination = ({
           </li>
           <li className="page-item">
             <span className="page-link" onClick={handleLast}>
-              {t("Pagination.Last")} <i className="bi bi-arrow-bar-left"></i>
+              {t("Pagination.Last")} <i className="bi bi-arrow-bar-right"></i>
             </span>
           </li>
         </ul>

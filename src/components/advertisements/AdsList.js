@@ -1,31 +1,41 @@
-import { useEffect, useState } from "react";
-import Card from "../commons/card/Card";
-import Pagination from "../commons/pagination/Pagination";
-import { countAdvertisements, getAdvertisements } from "./service";
-import { useTranslation } from "react-i18next";
+import { useEffect, useState } from 'react';
+import SearchBar from './SearchBar';
+import Card from '../commons/card/Card';
+import Pagination from '../commons/pagination/Pagination';
+import { getAdvertisements } from './service';
+import { useTranslation } from 'react-i18next';
 const MAX_RESULTS_PER_PAGE = 12; //12;
 
 export const useAdvertisement = () => {
+  const initialFiltersState = {
+    name: '',
+    tag: '',
+    price: '',
+  };
   const [adsList, setAdsList] = useState([]);
+  const [meta, setMeta] = useState({});
   const [page, setPage] = useState(1);
+  const [filters, setFilters] = useState(initialFiltersState);
 
-  const numPages = async () => {
-    let adsCount = 0;
-    try {
-      adsCount = await countAdvertisements();
-    } catch (error) {
-      //TODO
-      console.log("Error contando los anuncios");
+  const handleFilters = (event) => {
+    console.log(event);
+    if (event.target.name === 'resetFilters') {
+      setFilters(initialFiltersState);
+      return;
     }
-    return Math.ceil(adsCount.result / MAX_RESULTS_PER_PAGE);
+    setFilters({ ...filters, [event.target.name]: event.target.value });
+  };
+
+  const numPages = () => {
+    return Math.ceil(meta.totalNumOfAds / MAX_RESULTS_PER_PAGE);
   };
 
   const firstPage = () => {
     setPage(1);
   };
 
-  const nextPage = async () => {
-    const maxPages = await numPages();
+  const nextPage = () => {
+    const maxPages = numPages();
     if (page === maxPages) return;
     setPage(page + 1);
   };
@@ -34,8 +44,8 @@ export const useAdvertisement = () => {
     setPage(page - 1);
   };
 
-  const lastPage = async () => {
-    const lastPage = await numPages();
+  const lastPage = () => {
+    const lastPage = numPages();
     setPage(lastPage);
   };
 
@@ -43,16 +53,30 @@ export const useAdvertisement = () => {
     const execute = async () => {
       const skip = MAX_RESULTS_PER_PAGE * (page - 1);
       try {
-        const ads = await getAdvertisements(skip, MAX_RESULTS_PER_PAGE);
+        const ads = await getAdvertisements(
+          skip,
+          MAX_RESULTS_PER_PAGE,
+          filters
+        );
         setAdsList(ads.result);
+        setMeta(ads.meta);
       } catch (error) {
-        console.log("tenemos un error");
+        console.log('tenemos un error');
         console.log(error);
       }
     };
     execute();
-  }, [page]);
-  return { adsList, firstPage, previousPage, nextPage, lastPage };
+  }, [page, filters]);
+  return {
+    adsList,
+    firstPage,
+    previousPage,
+    nextPage,
+    lastPage,
+    filters,
+    handleFilters,
+    meta,
+  };
 };
 
 const AdsList = ({ ...props }) => {
@@ -64,13 +88,20 @@ const AdsList = ({ ...props }) => {
     previousPage,
     nextPage,
     lastPage,
+    filters,
+    handleFilters,
+    meta,
   } = useAdvertisement();
   return (
-    <div className="row" {...props}>
-      {/* <span onClick={firstPage}> FIRST </span>
-      <span onClick={previousPage}> BACK </span>
-      <span onClick={nextPage}> NEXT </span>
-      <span onClick={lastPage}> LAST </span> */}
+    <div
+      className='row'
+      {...props}
+    >
+      <SearchBar
+        onChange={handleFilters}
+        filters={filters}
+        max={meta.maxPrice}
+      />
       <Pagination
         handleFirst={firstPage}
         handlePrevious={previousPage}
@@ -81,11 +112,11 @@ const AdsList = ({ ...props }) => {
         const newProps = { ...props, ...element };
         return (
           <Card
-            className="col-sm-12 col-lg-3 m-2"
+            className='col-sm-12 col-lg-3 m-2'
             key={element._id}
             {...newProps}
             link_1={`/advertisements/${element._id}`}
-            label_link_1={t("AdsList.See more")}
+            label_link_1={t('AdsList.See more')}
           />
         );
       })}
@@ -95,11 +126,6 @@ const AdsList = ({ ...props }) => {
         handleNext={nextPage}
         handleLast={lastPage}
       />
-
-      {/* <span onClick={firstPage}> FIRST </span>
-      <span onClick={previousPage}> BACK </span>
-      <span onClick={nextPage}> NEXT </span>
-      <span onClick={lastPage}> LAST </span> */}
     </div>
   );
 };
