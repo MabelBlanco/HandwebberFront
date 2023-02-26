@@ -67,6 +67,24 @@
       "SIGNUP": "REGISTRAR-ME",
       "Sorry, you are already registered. If you want register a new count, close this session first": "Ho sento, ja estàs registrat. Si vols registrar un nou compte, tanca aquesta sessió primer"
     },
+    "NotFoundPage":{
+      "Unprocessable Entity": "Entitat no processable",
+      "NOT FOUND": "NO TROBAT",
+      "Close": "Tanca"
+    },
+    "AdsDetailPage":{
+      "Edit": "Editar",
+      "Delete" : "Borrar",
+      "Price" : "Preu",
+      "Description": "Descripció",
+      "Contact" : "Contactar",
+      "Active":"Actiu",
+      "Inactive": "Inactiu",
+      "ModalText" : "Esteu segur d'eliminar l'anunci? Aquesta acció no es pot desfer",
+      "Cancel": "Cancelar",
+      "ModalTitle": "Borrar anunci"
+    },
+
     "Card": {
       "Description": "Descripció",
       "Price": "Preu",
