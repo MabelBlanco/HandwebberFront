@@ -44,7 +44,7 @@ Just import Error Component at your component's file:
 import { Error } from "../../commons/error/Error"
 ```
 
-Place the component where you want and pass the property "arrayErrors" with an array that includes the errors to translate (you can save them in a state, for example):
+Place the component where you want, and pass the property "arrayErrors" with an array that includes the errors to translate (you can save them in a state, for example):
 
 ```
 <Error arrayErrors={errors} />

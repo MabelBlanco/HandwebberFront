@@ -4,8 +4,9 @@ import Input from '../commons/forms/input/Input';
 import Range from '../commons/forms/range/Range';
 import styles from './SearchBar.module.css';
 
-const SearchBar = ({ className, filters, max, ...props }) => {
+const SearchBar = ({ className, filters, max, onChange, ...props }) => {
   const rangeLabels = () => {
+    if (!max) return [];
     const increment = Math.ceil(max / 3);
     let incrementsArray = [0];
     for (let index = 0; index < 3; index++) {
@@ -16,19 +17,21 @@ const SearchBar = ({ className, filters, max, ...props }) => {
   const options = rangeLabels();
   return (
     <div
-      className={classNames(styles.searchBar, className, 'row')}
+      className={classNames(styles.searchBar, className)}
       {...props}
     >
       <Input
         label='Search by name'
         name='name'
         value={filters.name}
+        onChange={onChange}
         className={classNames(className, 'col-sm-12 col-lg-5 m-2')}
       ></Input>
       <Input
         label='Search by tag'
         name='tag'
         value={filters.tag}
+        onChange={onChange}
         className={classNames(className, 'col-sm-12 col-lg-5 m-2')}
       ></Input>
       <Range
@@ -38,6 +41,7 @@ const SearchBar = ({ className, filters, max, ...props }) => {
         min='0'
         max={max}
         value={filters.price}
+        onChange={onChange}
         className={classNames(className, 'col-12')}
       >
         {options.map((element) => {
@@ -45,6 +49,7 @@ const SearchBar = ({ className, filters, max, ...props }) => {
             <option
               value={element}
               label={element}
+              key={element}
             />
           );
         })}
@@ -52,7 +57,7 @@ const SearchBar = ({ className, filters, max, ...props }) => {
       <Button
         className={classNames(className, 'btn btn-secondary col-3')}
         name='resetFilters'
-        onClick={props.onChange}
+        onClick={onChange}
         {...props}
       >
         Reset Filters

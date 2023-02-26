@@ -68,9 +68,38 @@
   --color-danger-600: #D86793;
   --color-danger-700: #B5477D;
   --color-danger-800: #922C68;
-  --color-danger-900: #781B5B
+  --color-danger-900: #781B5B;
 }
 
+/* ================================
+               commons - backgrounds
+   ================================  */
+.bg-primary-300 {
+  background-color: var(--color-primary-300);
+}
+
+.bg-primary-500 {
+  background-color: var(--color-primary-500);
+}
+
+.bg-primary-800 {
+  background-color: var(--color-primary-800);
+}
+
+/* ================================
+               commons - radius
+   ================================  */
+.radius-4 {
+  border-radius: 4px;
+}
+
+.radius-8 {
+  border-radius: 8px;
+}
+
+.radius-16 {
+  border-radius: 16px;
+}
 
 /* ================================
                layout 
@@ -81,6 +110,9 @@ body {
 }
 
 
+
+
+
 /* ================================
                forms 
    ================================  */
@@ -88,9 +120,6 @@ body {
 label {
   margin-bottom: 10px;
 }
-
-
-@media (prefers-reduced-motion: no-preference) {}
 
 
 

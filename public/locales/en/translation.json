@@ -41,6 +41,7 @@
   "ProfilePage": {
     "Mail": "Mail",
     "Favorites": "Favorites",
+    "SEE MY FAVORITS ADS": "SEE MY FAVORITS ADS",
     "My advertisements": "My advertisements",
     "GO TO MY ADVERTISEMENTS LIST": "GO TO MY ADVERTISEMENTS LIST",
     "CLICK FOR UPDATE YOUR PROFILE": "CLICK FOR UPDATE YOUR PROFILE",
@@ -65,6 +66,23 @@
     "I accept the conditions": "I accept the conditions",
     "SIGNUP": "SIGNUP",
     "Sorry, you are already registered. If you want register a new count, close this session first": "Sorry, you are already registered. If you want register a new count, close this session first"
+  },
+  "NotFoundPage":{
+    "Unprocessable Entity": "Entidad no procesable",
+    "NOT FOUND": "NO ENCONTRADO",
+    "Close": "Cerrar"
+  },
+  "AdsDetailPage":{
+    "Edit": "Editar",
+    "Delete" : "Borrar",
+    "Price" : "Precio",
+    "Description": "Descripción",
+    "Contact" : "Contactar",
+    "Active":"Activo",
+    "Inactive": "Inactivo",
+    "ModalText" : "Are you sure to remove the advertisement? This action can not be undone",
+    "Cancel": "Cancelar",
+    "ModalTitle": "Delete advertisement"
   },
 
   "Card": {
@@ -113,6 +131,7 @@
     "no jwtToken provided": "You haven't credentials",
     "Invalid jwtToken": "Invalid credentials",
     "The file must be an image": "The file must be an image",
+    "Network Error": "Network Error. Review your connection. This could be a server problem",
     "An unexpected error has occurred": "An unexpected error has occurred"
   }
 }
