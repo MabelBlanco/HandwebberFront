@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import Button from "../commons/button/Button";
 import Checkbox from "../commons/forms/checkbox/Checkbox";
@@ -8,14 +9,13 @@ import Select from "../commons/forms/select/Select";
 import Textarea from "../commons/forms/textarea/Textarea";
 import "./advertisements.scss";
 import { createAdvertisement } from "./service";
-import { useTranslation } from "react-i18next";
 
 const NewAdvertisement = ({ ...props }) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
   const [description, setDescription] = useState("");
-  const [active, setActive] = useState(true);
+  const [active, setActive] = useState(false);
   const [custom, setCustom] = useState(false);
   const [tags, setTags] = useState([]);
   const [photo, setPhoto] = useState();
@@ -78,7 +78,7 @@ const NewAdvertisement = ({ ...props }) => {
 
     try {
       const advert = await createAdvertisement(bodyFormData);
-      navigate(`/advertisements/${advert.result._id}`);
+      navigate(`/advertisements/${advert.result._id}-${advert.result.name} `);
     } catch (error) {
       if (error.statusCode === 401) {
         navigate("/login");

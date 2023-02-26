@@ -79,6 +79,7 @@
     "Descripcion": "Description",
     "Contactar" : "Contact",
     "Activo": "Active",
+    "Inactivo" : "Inactive",
     "ModalText" : "¿Estás seguro de eliminar el anuncio? Esta acción no se puede deshacer",
     "Cancelar": "Cancel",
     "ModalTitle": "Borrar anuncio"
