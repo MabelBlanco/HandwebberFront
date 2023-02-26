@@ -43,13 +43,13 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
     navigate("/advertisements");
   };
 
-  // const advertisementCall = id.split("-", 1)[0];
+  const advertisementCall = id.split("-", 1)[0];
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
       const execute = async () => {
         try {
-          const advert = await getAdvertisementDetail(id);
+          const advert = await getAdvertisementDetail(advertisementCall);
           const userData = await getUserById(advert.result.idUser);
           let tags = advert.result.tags[0].split(",");
           const advertObj = {
@@ -60,8 +60,6 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
             favorites: 50,
           };
           setCurrentAdvert(advertObj);
-          // const advert = await getAdvertisementDetail(advertisementCall);
-          // setAdvert(advert.result);
         } catch (error) {
           if (error.status === 401) {
             navigate("/login");
@@ -77,7 +75,7 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
     return () => {
       isMounted = false;
     };
-  }, [id, navigate, user._id]);
+  }, [navigate, user._id, advertisementCall]);
 
   return (
     <div className="row">
