@@ -1,6 +1,6 @@
 import NoImage from "../../commons/noImage/NoImage";
 import "../../commons/card/card.scss";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../../commons/button/Button";
 import useDataUser from "./useDataUser";
 import { deleteUser, updateUser } from "../service";
@@ -9,9 +9,13 @@ import { useEffect, useState } from "react";
 import styles from "./SignUp.module.css";
 import Input from "../../commons/forms/input/Input";
 import InputFile from "../../commons/forms/inputFile/InputFile";
-import { deleteAdvertisement } from "../../advertisements/service";
+import {
+  deleteAdvertisement,
+  getAdvertisementDetail,
+} from "../../advertisements/service";
 import { useTranslation } from "react-i18next";
 import { Error } from "../../commons/error/Error";
+import Card from "../../commons/card/Card";
 
 const initialState = {
   username: "",
@@ -29,6 +33,8 @@ const ProfilePage = ({ className, title, ...props }) => {
   const [activeForm, setActiveForm] = useState(false);
   const [activeDeleteUser, setActiveDeleteUser] = useState(false);
   const { t } = useTranslation();
+  const [favorits, setFavorits] = useState([]);
+  const [activeFavorits, setActiveFavorits] = useState(false);
 
   const handleActiveDeleteUser = () => setActiveDeleteUser(!activeDeleteUser);
 
@@ -39,6 +45,22 @@ const ProfilePage = ({ className, title, ...props }) => {
   const resetError = () => setError(null);
 
   const goToMyAds = () => navigate(`/profile/${user._id}`);
+
+  const getMyFavorites = async () => {
+    setActiveFavorits(!activeFavorits);
+    try {
+      const ads = [];
+      if (user.subscriptions.length !== favorits.length) {
+        for (let ad of user.subscriptions) {
+          const favorit = await getAdvertisementDetail(ad);
+          ads.unshift(favorit.result);
+        }
+        setFavorits(ads);
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
 
   const handleCredentials = (event) => {
     resetError();
@@ -129,6 +151,9 @@ const ProfilePage = ({ className, title, ...props }) => {
               <NoImage className="card-img-top" />
             )}
           </div>
+          {error && (
+            <Error className={styles.signup__error} arrayErrors={error} />
+          )}
           <ul className="list-group list-group-flush my-3">
             <li key="mail" className="list-group-item">
               <span>{t("ProfilePage.Mail")}: </span>
@@ -136,14 +161,28 @@ const ProfilePage = ({ className, title, ...props }) => {
             </li>
             <li key="subscriptions" className="list-group-item">
               <span>{t("ProfilePage.Favorites")}: </span>
-              <ul>
-                {user?.subscriptions &&
-                  user.subscriptions.map((e) => (
-                    <li key={e}>
-                      <Link to={`/advertisements/${e}`}>{e}</Link>
-                    </li>
-                  ))}
-              </ul>
+              <Button
+                type="button"
+                className="btn btn-secondary mx-3 my-3"
+                onClick={getMyFavorites}
+              >
+                {t("ProfilePage.SEE MY FAVORITS ADS")}
+              </Button>
+              <div className="row">
+                {activeFavorits &&
+                  favorits?.map((element) => {
+                    const newProps = { ...props, ...element };
+                    return (
+                      <Card
+                        className="col-sm-12 col-lg-3 mx-2 my-5"
+                        key={element._id}
+                        {...newProps}
+                        link_1={`/advertisements/${element._id}`}
+                        label_link_1={t("UserAdsList.See more")}
+                      />
+                    );
+                  })}
+              </div>
             </li>
             <li key="ads" className="list-group-item">
               <span>{t("ProfilePage.My advertisements")}: </span>
@@ -154,123 +193,105 @@ const ProfilePage = ({ className, title, ...props }) => {
               >
                 {t("ProfilePage.GO TO MY ADVERTISEMENTS LIST")}
               </Button>
-              <ul>
-                {user?.ads &&
-                  user.ads.map((e) => (
-                    <li key={e._id}>
-                      <Link to={`/advertisements/${e._id}`}>{e.name}</Link>
-                    </li>
-                  ))}
-              </ul>
+            </li>
+            <li key="update" className="list-group-item">
+              <Button
+                type="button"
+                className="btn btn-secondary mx-3 my-3"
+                onClick={handleActiveForm}
+              >
+                {t("ProfilePage.CLICK FOR UPDATE YOUR PROFILE")}
+              </Button>
+              {activeForm && (
+                <form className={styles.signup__form} onSubmit={updateAccount}>
+                  <Input
+                    type="text"
+                    name="username"
+                    label={t("ProfilePage.New username")}
+                    className={styles.signup__field}
+                    onChange={handleCredentials}
+                    value={credentials.username}
+                  />
+
+                  <Input
+                    type="email"
+                    name="mail"
+                    label={t("ProfilePage.New mail")}
+                    className={styles.signup__field}
+                    onChange={handleCredentials}
+                    value={credentials.mail}
+                  />
+
+                  <Input
+                    type="password"
+                    name="password"
+                    label={
+                      t("ProfilePage.New password") + " (min 8 characters)"
+                    }
+                    className={styles.signup__field}
+                    onChange={handleCredentials}
+                    value={credentials.password}
+                  />
+
+                  <Input
+                    type="password"
+                    name="passwordConfirm"
+                    label={t("ProfilePage.Confirm new password")}
+                    className={styles.signup__field}
+                    onChange={handleConfirmPassword}
+                    value={confirmPassword}
+                  />
+
+                  <InputFile
+                    name="image"
+                    id="image"
+                    label={t("ProfilePage.Upload new picture")}
+                    className={styles.signup__field}
+                    onChange={handleImage}
+                  />
+
+                  <Button
+                    type="submit"
+                    className={styles.signup__submit}
+                    disabled={!!isFetching}
+                  >
+                    {t("ProfilePage.CLICK FOR UPDATE")}
+                  </Button>
+                </form>
+              )}
+            </li>
+            <li key="delet" className="list-group-item">
+              <Button
+                type="button"
+                className="btn btn-secondary mx-3 my-3"
+                onClick={handleActiveDeleteUser}
+              >
+                {t("ProfilePage.DELETE ACCOUNT")}
+              </Button>
+
+              {activeDeleteUser && (
+                <div>
+                  <p>{t("ProfilePage.Are you sure for delete account?")}</p>
+                  <div className="d-flex justify-content-center align-items-center">
+                    <Button
+                      type="button"
+                      className="btn-primary mx-3 col-12"
+                      onClick={deleteAccount}
+                    >
+                      {t("ProfilePage.YES")}
+                    </Button>
+                    <Button
+                      type="button"
+                      className="btn-secondary mx-3 col-12"
+                      onClick={handleActiveDeleteUser}
+                    >
+                      {t("ProfilePage.NO")}
+                    </Button>
+                  </div>
+                </div>
+              )}
             </li>
           </ul>
-          <div className="card-body actions">
-            {
-              error && (
-                <Error
-                  className={styles.signup__error}
-                  arrayErrors={error}
-                />
-              )
-              // error.map((e) => (
-              //   <p className={styles.signup__error} key={e}>
-              //     {" "}
-              //     {e}{" "}
-              //   </p>
-              //))
-            }
-            <Button
-              type="button"
-              className="btn btn-secondary mx-3 my-3"
-              onClick={handleActiveForm}
-            >
-              {t("ProfilePage.CLICK FOR UPDATE YOUR PROFILE")}
-            </Button>
-            {activeForm && (
-              <form className={styles.signup__form} onSubmit={updateAccount}>
-                <Input
-                  type="text"
-                  name="username"
-                  label={t("ProfilePage.New username")}
-                  className={styles.signup__field}
-                  onChange={handleCredentials}
-                  value={credentials.username}
-                />
-
-                <Input
-                  type="email"
-                  name="mail"
-                  label={t("ProfilePage.New mail")}
-                  className={styles.signup__field}
-                  onChange={handleCredentials}
-                  value={credentials.mail}
-                />
-
-                <Input
-                  type="password"
-                  name="password"
-                  label={t("ProfilePage.New password") + " (min 8 characters)"}
-                  className={styles.signup__field}
-                  onChange={handleCredentials}
-                  value={credentials.password}
-                />
-
-                <Input
-                  type="password"
-                  name="passwordConfirm"
-                  label={t("ProfilePage.Confirm new password")}
-                  className={styles.signup__field}
-                  onChange={handleConfirmPassword}
-                  value={confirmPassword}
-                />
-
-                <InputFile
-                  name="image"
-                  id="image"
-                  label={t("ProfilePage.Upload new picture")}
-                  className={styles.signup__field}
-                  onChange={handleImage}
-                />
-
-                <Button
-                  type="submit"
-                  className={styles.signup__submit}
-                  disabled={!!isFetching}
-                >
-                  {t("ProfilePage.CLICK FOR UPDATE")}
-                </Button>
-              </form>
-            )}
-            <Button
-              type="button"
-              className="btn btn-secondary mx-3 my-3"
-              onClick={handleActiveDeleteUser}
-            >
-              {t("ProfilePage.DELETE ACCOUNT")}
-            </Button>
-
-            {activeDeleteUser && (
-              <div>
-                <p>{t("ProfilePage.Are you sure for delete account?")}</p>
-                <div className="d-flex justify-content-center align-items-center">
-                  <Button
-                    type="button"
-                    className="btn-primary mx-3 col-12"
-                    onClick={deleteAccount}
-                  >
-                    {t("ProfilePage.YES")}
-                  </Button>
-                  <Button
-                    type="button"
-                    className="btn-secondary mx-3 col-12"
-                    onClick={handleActiveDeleteUser}
-                  >
-                    {t("ProfilePage.NO")}
-                  </Button>
-                </div>
-              </div>
-            )}
-          </div>
         </div>
       )}
     </div>

@@ -1,0 +1,7 @@
+datalist {
+  & #list-priceRange {
+    &option {
+      transform: rotate(-90deg);
+    }
+  }
+}

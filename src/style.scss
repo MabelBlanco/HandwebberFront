@@ -143,6 +143,8 @@ body {
   width: 100%;
   position: relative;
   color: var(--color-tertiary-700);
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.2px;
 }
 
 div {
@@ -155,9 +157,6 @@ div {
     }
   }
 }
-// a.btn.btn-link {
-//     color: red;
-// }
 
 p.main-form-text {
   font-size: 25px !important;
@@ -182,4 +181,39 @@ img {
 
 form {
   position: relative;
+}
+b,
+strong {
+  font-weight: 500;
+}
+/*********************************************/
+/*              effects CSS                 "/
+/*********************************************/
+@mixin effect-blur {
+  filter: blur(10px);
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  opacity: 0.2;
+  border-radius: 8px;
+}
+.blur-primary-800::after {
+  @include effect-blur;
+  background-color: var(--color-primary-800);
+}
+.blur-secondary-800::after {
+  @include effect-blur;
+  background-color: var(--color-secondary-800);
+}
+.blur-tertiary-800::after {
+  @include effect-blur;
+  background-color: var(--color-tertiary-800);
+}
+.blur-neutral::after {
+  @include effect-blur;
+  background-color: var(--color-static-medium);
 }

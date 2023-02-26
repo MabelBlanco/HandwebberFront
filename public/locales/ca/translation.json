@@ -41,6 +41,7 @@
     "ProfilePage": {
       "Mail": "Correu electrónic",
       "Favorites": "Favorits",
+      "SEE MY FAVORITS ADS": "VEURE ELS MEUS ANUNCIS FAVORITS",
       "My advertisements": "Els meus anuncis",
       "GO TO MY ADVERTISEMENTS LIST": "ANAR AL LLISTAT DELS MEUS ANUNCIS",
       "CLICK FOR UPDATE YOUR PROFILE": "FES CLICK PER ACTUALITZAR EL TEU PERFIL",
@@ -66,7 +67,6 @@
       "SIGNUP": "REGISTRAR-ME",
       "Sorry, you are already registered. If you want register a new count, close this session first": "Ho sento, ja estàs registrat. Si vols registrar un nou compte, tanca aquesta sessió primer"
     },
-
     "Card": {
       "Description": "Descripció",
       "Price": "Preu",

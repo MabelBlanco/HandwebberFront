@@ -4,6 +4,8 @@ import Card from '../commons/card/Card';
 import Pagination from '../commons/pagination/Pagination';
 import { getAdvertisements } from './service';
 import { useTranslation } from 'react-i18next';
+import Spinner from '../commons/spinner/Spinner';
+import { Error } from '../commons/error/Error';
 const MAX_RESULTS_PER_PAGE = 12; //12;
 
 export const useAdvertisement = () => {
@@ -16,9 +18,10 @@ export const useAdvertisement = () => {
   const [meta, setMeta] = useState({});
   const [page, setPage] = useState(1);
   const [filters, setFilters] = useState(initialFiltersState);
+  const [adsIsFetching, setAdsIsFetching] = useState(false);
+  const [error, setError] = useState([]);
 
   const handleFilters = (event) => {
-    console.log(event);
     if (event.target.name === 'resetFilters') {
       setFilters(initialFiltersState);
       return;
@@ -52,6 +55,7 @@ export const useAdvertisement = () => {
   useEffect(() => {
     const execute = async () => {
       const skip = MAX_RESULTS_PER_PAGE * (page - 1);
+      setAdsIsFetching(true);
       try {
         const ads = await getAdvertisements(
           skip,
@@ -60,13 +64,14 @@ export const useAdvertisement = () => {
         );
         setAdsList(ads.result);
         setMeta(ads.meta);
-      } catch (error) {
-        console.log('tenemos un error');
-        console.log(error);
+      } catch (err) {
+        setError([err.message]);
       }
+      setAdsIsFetching(false);
     };
     execute();
-  }, [page, filters]);
+  }, [page, filters, meta.maxPrice]);
+
   return {
     adsList,
     firstPage,
@@ -76,6 +81,8 @@ export const useAdvertisement = () => {
     filters,
     handleFilters,
     meta,
+    adsIsFetching,
+    error,
   };
 };
 
@@ -91,13 +98,17 @@ const AdsList = ({ ...props }) => {
     filters,
     handleFilters,
     meta,
+    adsIsFetching,
+    error,
   } = useAdvertisement();
+
   return (
     <div
       className='row'
       {...props}
     >
       <SearchBar
+        className='row'
         onChange={handleFilters}
         filters={filters}
         max={meta.maxPrice}
@@ -108,6 +119,8 @@ const AdsList = ({ ...props }) => {
         handleNext={nextPage}
         handleLast={lastPage}
       />
+      {adsIsFetching && <Spinner />}
+      {error.length ? <Error arrayErrors={error} /> : <div></div>}
       {advertisements.map((element) => {
         const newProps = { ...props, ...element };
         return (
@@ -115,7 +128,7 @@ const AdsList = ({ ...props }) => {
             className='col-sm-12 col-lg-3 m-2'
             key={element._id}
             {...newProps}
-            link_1={`/advertisements/${element._id}`}
+            link_1={`/advertisements/${element._id}-${element.name}`}
             label_link_1={t('AdsList.See more')}
           />
         );
