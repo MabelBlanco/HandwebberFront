@@ -41,7 +41,9 @@
   "ProfilePage": {
     "Mail": "Mail",
     "Favorites": "Favorites",
+    "SEE MY FAVORITS ADS": "SEE MY FAVORITS ADS",
     "My advertisements": "My advertisements",
+    "GO TO MY ADVERTISEMENTS LIST": "GO TO MY ADVERTISEMENTS LIST",
     "CLICK FOR UPDATE YOUR PROFILE": "CLICK FOR UPDATE YOUR PROFILE",
     "New username": "New username",
     "New mail": "New mail",
@@ -80,5 +82,55 @@
     "ModalText" : "Are you sure to remove the advertisement? This action can not be undone",
     "Cancel": "Cancelar",
     "ModalTitle": "Delete advertisement"
+  },
+
+  "Card": {
+    "Description": "Description",
+    "Price": "Price",
+    "Tags": "Tags",
+    "Date": "Date",
+    "Stock": "Stock",
+    "User": "User",
+    "Custom Product": "Custom Product"
+  },
+
+  "NoImage": {
+    "No image": "No image"
+  },
+
+  "Pagination": {
+    "First": "First",
+    "Previous": "Previous",
+    "Next": "Next",
+    "Last": "Last"
+  },
+
+  "Header": {
+    "Home": "Home",
+    "New Advertisement": "New Advertisement",
+    "Comp List": "Comp List",
+    "Login": "Login",
+    "Sign up for free": "Sign up for free"
+  },
+
+  "Error": {
+    "Username must be alphanumeric": "Username must be alphanumeric",
+    "Insert a valid mail please": "Insert a valid mail please",
+    "Password min length 8 characters": "Password min length 8 characters",
+    "ERROR in DB": "ERROR in DataBase",
+    "User not found": "User not found",
+    "Bad Request": "Bad Request",
+    "User not in DB": "User not in DataBase",
+    "Advertisements are not available in this moment": "Advertisements are not available in this moment",
+    "Internal Error: Impossible create the advertisement": "Internal Error: Impossible create the advertisement",
+    "Advertisement not in DB": "Advertisement not in DataBase",
+    "This email do not have an account": "This email do not have an account",
+    "Wrong password": "Wrong password",
+    "Internal Server Error": "Internal Server Error",
+    "no jwtToken provided": "You haven't credentials",
+    "Invalid jwtToken": "Invalid credentials",
+    "The file must be an image": "The file must be an image",
+    "Network Error": "Network Error. Review your connection. This could be a server problem",
+    "An unexpected error has occurred": "An unexpected error has occurred"
   }
 }

@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import Button from "../../commons/button/Button";
 import { useAuth } from "../../context/AuthContext";
 import "./Header.scss";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const { isLogged } = useAuth();
+  const { t } = useTranslation();
   return (
     <header className="bd-navbar fixed-top">
       <nav className="navbar navbar-expand-lg">
@@ -31,7 +33,7 @@ const Header = () => {
                   aria-current="page"
                   href="/advertisements"
                 >
-                  Home
+                  {t("Header.Home")}
                 </a>
               </li>
               {isLogged && (
@@ -41,13 +43,13 @@ const Header = () => {
                     aria-current="page"
                     href="/advertisements/new"
                   >
-                    New Advertisement
+                    {t("Header.New Advertisement")}
                   </a>
                 </li>
               )}
               <li className="nav-item">
                 <a className="nav-link active" aria-current="page" href="/test">
-                  Comp List
+                  {t("Header.Comp List")}
                 </a>
               </li>
             </ul>
@@ -58,7 +60,7 @@ const Header = () => {
                 to="/login"
                 className="btn btn-secondary-link px-3 me-2"
               >
-                Login
+                {t("Header.Login")}
               </Button>
               <Button
                 as={Link}
@@ -66,7 +68,7 @@ const Header = () => {
                 type="button"
                 className="btn btn-secondary"
               >
-                Sign up for free
+                {t("Header.Sign up for free")}
               </Button>
             </div>
           </div>

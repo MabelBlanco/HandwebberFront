@@ -42,6 +42,8 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
     e.preventDefault();
     navigate("/advertisements");
   };
+
+  // const advertisementCall = id.split("-", 1)[0];
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
@@ -58,6 +60,8 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
             favorites: 50,
           };
           setCurrentAdvert(advertObj);
+          // const advert = await getAdvertisementDetail(advertisementCall);
+          // setAdvert(advert.result);
         } catch (error) {
           if (error.status === 401) {
             navigate("/login");
@@ -87,13 +91,14 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
             fnedit={onEdit}
           ></AdsDetailPage>
         )}
+        {isDelete && (
+          <Alert className="alert-success" alertTask={handleClickAlert}>
+            Borrado correctamente
+          </Alert>
+        )}
       </div>
-      {isDelete && (
-        <Alert className="alert-success" alertTask={handleClickAlert}>
-          Borrado correctamente
-        </Alert>
-      )}
     </div>
   );
 };
+
 export default DetailAdvertisement;
