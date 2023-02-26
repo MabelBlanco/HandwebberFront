@@ -16,9 +16,7 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
-      const execute = async () => {
-        console.log(advert);
-      };
+      const execute = async () => {};
       execute();
     }
 
@@ -29,7 +27,7 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
 
   const onEdit = async () => {
     try {
-      navigate(`/advertisements/${advert._id}-${advert.name}/edit`);
+      navigate(`/advertisements/edit/${advert._id}-${advert.name}`);
       // await deleteAdvertisement(id).then(navigate("/advertisements"));
     } catch (error) {
       console.log(error);
@@ -52,7 +50,6 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
     navigate("/advertisements");
   };
 
-  
   return (
     <div className="row">
       <h1 className="col-sm-12 py-5">{props.title}</h1>

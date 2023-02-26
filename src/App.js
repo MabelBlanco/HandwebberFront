@@ -48,10 +48,10 @@ function App() {
             element={<DetailAdvertisement title="Advertisement Detail" />}
           />
           <Route
-            path=":id/edit"
+            path="edit/:id"
             element={
               <RequireAuth>
-                <EditAveritisement title="Edit Avertisement" />{" "}
+                <EditAveritisement title="Editing Avertisement" />
               </RequireAuth>
             }
           />

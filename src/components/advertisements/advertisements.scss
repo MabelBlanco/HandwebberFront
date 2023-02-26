@@ -1,7 +1,59 @@
+/*********************************************/
+/*              adsList              "/
+/*********************************************/
+
 datalist {
   & #list-priceRange {
     &option {
       transform: rotate(-90deg);
+    }
+  }
+}
+
+/*********************************************/
+/*             Edit advert               "/
+/*********************************************/
+
+.ads-edit-form {
+  position: relative;
+  background-color: var(--color-static-white);
+  border-radius: 8px;
+  margin-top: 120px;
+  & .row {
+    overflow: hidden;
+    & [class*="col-"] {
+      margin-bottom: -99999px;
+      padding-bottom: 99999px;
+      &.ads-info {
+        background-color: var(--color-static-white);
+        & :not(.edit-name):not(.edit-description)[class^="edit-"] {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+        }
+      }
+      & .tags {
+        display: block;
+      }
+      & .description {
+        padding-bottom: 20px;
+      }
+      & img {
+        &.card-img-top {
+          width: 100%;
+          height: auto;
+        }
+      }
+
+      & .actions {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+      }
+      & .label-info {
+        font-weight: 600;
+        line-height: 0;
+      }
     }
   }
 }
