@@ -58,6 +58,8 @@ export function Error({ arrayErrors, ...props }) {
             errorTranslate = t("Error.Invalid jwtToken");
           } else if (error === "The file must be an image") {
             errorTranslate = t("Error.The file must be an image");
+          } else if (error === "Network Error") {
+            errorTranslate = t("Error.Network Error");
           } else {
             errorTranslate = t("Error.An unexpected error has occurred");
           }

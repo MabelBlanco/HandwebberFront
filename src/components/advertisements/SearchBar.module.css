@@ -9,8 +9,9 @@ datalist {
   width: 100%;
 }
 
-option {
+:not(select) > option{
   padding: 0;
+  transform: rotate(-90deg);
 }
 
 input[type='range'] {

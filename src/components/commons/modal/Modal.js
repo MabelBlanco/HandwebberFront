@@ -13,6 +13,7 @@ const Modal = ({
   label_cancel,
   children,
   hasConfirm,
+  selfOpen,
   modalTitle,
   doTask,
   ...props
@@ -25,7 +26,7 @@ const Modal = ({
     <>
       <Button
         type="button"
-        className={classNames("btn btn-primary", classNameBtn)}
+        className={classNames(`btn btn-primary `, classNameBtn)}
         data-bs-toggle="modal"
         data-bs-target={`#${modalId}`}
       >
@@ -33,7 +34,11 @@ const Modal = ({
       </Button>
 
       <div
-        className={classNames("modal fade", classNameContent)}
+        className={classNames(
+          `modal fade`,
+          classNameContent,
+          `${selfOpen && "self-open"}`
+        )}
         id={modalId}
         data-bs-backdrop="static"
         data-bs-keyboard="false"
