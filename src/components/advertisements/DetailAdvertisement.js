@@ -18,6 +18,8 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   const navigate = useNavigate();
   const { user } = useDataUser({ initialState });
 
+  const advertisementCall = id.split("-", 1)[0];
+
   const onEdit = async () => {
     try {
       console.log("delete");
@@ -29,10 +31,10 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
 
   const onDelete = async () => {
     try {
-      await deleteAdvertisement(id);
+      await deleteAdvertisement(advertisementCall);
       setIsDelete(true);
     } catch (error) {
-      console.log(error);
+      console.log("err", error);
     }
   };
   const onContact = async () => {
@@ -43,7 +45,6 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
     navigate("/advertisements");
   };
 
-  const advertisementCall = id.split("-", 1)[0];
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
@@ -75,7 +76,7 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
     return () => {
       isMounted = false;
     };
-  }, [navigate, user._id, advertisementCall]);
+  }, [id, navigate, user._id, advertisementCall]);
 
   return (
     <div className="row">
