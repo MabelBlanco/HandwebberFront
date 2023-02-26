@@ -8,8 +8,8 @@ export function Error({ arrayErrors }) {
   } else {
     return (
       <div>
-        {errors.map((error) => {
-          return <p>{error}</p>;
+        {errors.map((error, idx) => {
+          return <p key={idx}>{error}</p>;
         })}
       </div>
     );

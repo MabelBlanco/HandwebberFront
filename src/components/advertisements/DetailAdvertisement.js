@@ -1,41 +1,46 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-// import ConfirmButton from "../commons/alerts/confirmButton";
-import Button from "../commons/button/Button";
-import Card from "../commons/card/Card";
+import { getUserById } from "../auth/service";
+import useDataUser from "../auth/signUp/useDataUser";
+import Alert from "../commons/feedbacks/alert/Alert";
+import AdsDetailPage from "./AdsDetailPage/AdsDetailPage";
 import "./advertisements.scss";
-import { getAdvertisementDetail } from "./service";
-import { useTranslation } from "react-i18next";
+import { deleteAdvertisement, getAdvertisementDetail } from "./service";
 
-const DetailAdvertisement = ({
-  // confirm,
-  isLoading,
-  className,
-  link_1,
-  link_2,
-  image,
-  name,
-  price,
-  tags,
-  stock,
-  idUser,
-  custom,
-  active,
-  description,
-  date,
-  ...props
-}) => {
-  const [advert, setAdvert] = useState(null);
+const initialState = {
+  username: "",
+  _id: null,
+};
+const DetailAdvertisement = ({ isLoading, className, ...props }) => {
+  const [currentAdvert, setCurrentAdvert] = useState(null);
+  const [isDelete, setIsDelete] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { user } = useDataUser({ initialState });
 
-  const onDelete = async () => {
+  const onEdit = async () => {
     try {
+      console.log("delete");
       // await deleteAdvertisement(id).then(navigate("/advertisements"));
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const onDelete = async () => {
+    try {
+      await deleteAdvertisement(id);
+      setIsDelete(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const onContact = async () => {
+    console.log("contact");
+  };
+  const handleClickAlert = (e) => {
+    e.preventDefault();
+    navigate("/advertisements");
   };
   useEffect(() => {
     let isMounted = true;
@@ -43,15 +48,24 @@ const DetailAdvertisement = ({
       const execute = async () => {
         try {
           const advert = await getAdvertisementDetail(id);
-          setAdvert(advert.result);
+          const userData = await getUserById(advert.result.idUser);
+          let tags = advert.result.tags[0].split(",");
+          const advertObj = {
+            ...advert.result,
+            username: userData.result.username,
+            tags: tags,
+            userLoggedId: user._id,
+            favorites: 50,
+          };
+          setCurrentAdvert(advertObj);
         } catch (error) {
-          if (error.statusCode === 401) {
+          if (error.status === 401) {
             navigate("/login");
           }
-          if (error.statusCode === 404) {
-            navigate("/404", { state: { message: error.statusCode } });
+          if (error.status === 422) {
+            navigate("/404", { state: { message: error.statusText } });
           }
-          navigate("/404", { state: { message: error } });
+          navigate("/404", { state: { message: error.statusText } });
         }
       };
       execute();
@@ -59,27 +73,26 @@ const DetailAdvertisement = ({
     return () => {
       isMounted = false;
     };
-  }, [id, navigate]);
+  }, [id, navigate, user._id]);
 
   return (
     <div className="row">
       <h1 className="col-sm-12 py-5">{props.title}</h1>
       <div className="container advert-content-detail">
-        <Card
-          {...advert}
-          label_button_2={t("DetailAdvertisement.Delete")}
-          label_button_1={t("DetailAdvertisement.Edit")}
-        />
-        {/* <ConfirmButton
-          confirmation="Are you sure?"
-          doTask={onDelete}
-          disabled={isLoading}
-          message="¿Estas seguro de eliminar?"
-        >
-          Delete
-        </ConfirmButton> */}
-        <Button onClick={onDelete}>{t("DetailAdvertisement.Delete")}</Button>
+        {currentAdvert && !isDelete && (
+          <AdsDetailPage
+            {...currentAdvert}
+            fncontact={onContact}
+            fndelete={onDelete}
+            fnedit={onEdit}
+          ></AdsDetailPage>
+        )}
       </div>
+      {isDelete && (
+        <Alert className="alert-success" alertTask={handleClickAlert}>
+          Borrado correctamente
+        </Alert>
+      )}
     </div>
   );
 };

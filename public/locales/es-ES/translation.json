@@ -64,5 +64,21 @@
     "I accept the conditions": "Acepto las condiciones",
     "SIGNUP": "REGISTRARME",
     "Sorry, you are already registered. If you want register a new count, close this session first": "Lo siento, ya estás registrado. Si quieres registrar una nueva cuenta, cierra esta sesion primero"
+  },
+  "NotFoundPage": {
+    "Entidad no procesable": "Unprocessable Entity",
+    "NO ENCONTRADO": "NOT FOUND",
+    "Cerrar": "Close"
+  },
+  "AdsDetailPage": {
+    "Editar": "Edit",
+    "Borrar": "Delete",
+    "Precio": "Price",
+    "Descripcion": "Description",
+    "Contactar" : "Contact",
+    "Activo": "Active",
+    "ModalText" : "¿Estás seguro de eliminar el anuncio? Esta acción no se puede deshacer",
+    "Cancelar": "Cancel",
+    "ModalTitle": "Borrar anuncio"
   }
 }

@@ -64,5 +64,21 @@
     "I accept the conditions": "I accept the conditions",
     "SIGNUP": "SIGNUP",
     "Sorry, you are already registered. If you want register a new count, close this session first": "Sorry, you are already registered. If you want register a new count, close this session first"
+  },
+  "NotFoundPage":{
+    "Unprocessable Entity": "Entidad no procesable",
+    "NOT FOUND": "NO ENCONTRADO",
+    "Close": "Cerrar"
+  },
+  "AdsDetailPage":{
+    "Edit": "Editar",
+    "Delete" : "Borrar",
+    "Price" : "Precio",
+    "Description": "Descripción",
+    "Contact" : "Contactar",
+    "Active":"Activo",
+    "ModalText" : "Are you sure to remove the advertisement? This action can not be undone",
+    "Cancel": "Cancelar",
+    "ModalTitle": "Delete advertisement"
   }
 }

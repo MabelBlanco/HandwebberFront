@@ -2,7 +2,6 @@ button,
 a {
   position: relative;
   &.btn {
-    border-radius: 0px;
     &::after {
       filter: blur(2px);
       content: "";
