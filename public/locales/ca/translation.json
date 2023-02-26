@@ -113,6 +113,7 @@
       "no jwtToken provided": "No te credencials",
       "Invalid jwtToken": "Credencials invàlides",
       "The file must be an image": "L'archivu deu ser una image",
+      "Network Error": "Error de xarxa. Revisa la teva connexió. Pot ser un problema del servidor",
       "An unexpected error has occurred": "Ha passat un error inesperat"
     }
   }
