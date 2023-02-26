@@ -30,6 +30,7 @@ const Card = ({
   tags,
   stock,
   idUser,
+  username,
   custom,
   active,
   description,
@@ -80,7 +81,7 @@ const Card = ({
         </li>
         <li key="user" className="list-group-item">
           <span>{t("Card.User")}: </span>
-          <a href={`/profile/${idUser}`} className="card-link">
+          <a href={`/profile/user/${username}`} className="card-link">
             {idUser}
           </a>
         </li>

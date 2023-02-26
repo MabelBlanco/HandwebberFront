@@ -11,6 +11,12 @@ export const getAllUsers = async () => {
   return response;
 };
 
+export const getUserByUsername = async (username) => {
+  const response = await client.get(`${usersURL}/user/${username}`);
+
+  return response;
+};
+
 export const getUserById = async (userID) => {
   const response = await client.get(`${usersURL}/${userID}`);
 

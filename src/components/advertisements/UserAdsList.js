@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import { getUserById } from "../auth/service";
+import { getUserByUsername } from "../auth/service";
 import Card from "../commons/card/Card";
 import "../commons/card/card.scss";
 import NoImage from "../commons/noImage/NoImage";
@@ -20,20 +20,21 @@ const UserAdsList = ({ ...props }) => {
 
   const { t } = useTranslation();
 
-  const userSearchId = useParams().userId;
+  const userSearchUsername = useParams().username;
 
   const advertisements = userSearch.ads;
 
   useEffect(() => {
     const execute = async () => {
-      const userSearchData = await getUserById(userSearchId);
+      const userSearchData = await getUserByUsername(userSearchUsername);
       const resultSearch = userSearchData.result;
-      const userSearchAds = await getUserAdvertisements(userSearchId);
+      console.log(resultSearch)
+      const userSearchAds = await getUserAdvertisements(resultSearch._id);
       resultSearch.ads = userSearchAds.result;
       setUserSearch(resultSearch);
     };
     execute();
-  }, [userSearchId]);
+  }, [userSearchUsername]);
 
   return (
     <>
@@ -64,7 +65,7 @@ const UserAdsList = ({ ...props }) => {
       </div>
       <div className="row">
         {advertisements?.map((element) => {
-          const newProps = { ...props, ...element };
+          const newProps = { ...props, ...element, username: userSearch.username };
           return (
             <Card
               className="col-sm-12 col-lg-3 mx-2"
