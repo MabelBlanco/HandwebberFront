@@ -95,11 +95,7 @@ const SignUp = ({ className, title, ...props }) => {
         <div className={styles.signup__page}>
           {
             error && (
-              <Error
-                className={styles.signup__error}
-                key={e}
-                arrayErrors={error}
-              />
+              <Error className={styles.signup__error} arrayErrors={error} />
             )
             // error.map((e) => (
             //   <p className={styles.signup__error} key={e}>

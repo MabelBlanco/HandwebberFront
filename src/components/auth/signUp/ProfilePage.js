@@ -167,11 +167,7 @@ const ProfilePage = ({ className, title, ...props }) => {
           <div className="card-body actions">
             {
               error && (
-                <Error
-                  className={styles.signup__error}
-                  key={e}
-                  arrayErrors={error}
-                />
+                <Error className={styles.signup__error} arrayErrors={error} />
               )
               // error.map((e) => (
               //   <p className={styles.signup__error} key={e}>
