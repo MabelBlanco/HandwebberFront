@@ -82,7 +82,7 @@ const Card = ({
         <li key="user" className="list-group-item">
           <span>{t("Card.User")}: </span>
           <a href={`/profile/user/${username}`} className="card-link">
-            {idUser}
+            {username}
           </a>
         </li>
         <li key="custom" className="list-group-item">

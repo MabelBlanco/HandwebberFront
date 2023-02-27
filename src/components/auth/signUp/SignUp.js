@@ -38,7 +38,6 @@ const SignUp = ({ className, title, ...props }) => {
   };
 
   const handleImage = (event) => {
-    console.log(event.target.files[0]);
     setCredentials({
       ...credentials,
       [event.target.name]: event.target.files[0],
@@ -62,7 +61,7 @@ const SignUp = ({ className, title, ...props }) => {
     }
 
     const formData = new FormData();
-    formData.append("username", username);
+    formData.append("username", username.toLowerCase());
     formData.append("mail", mail);
     formData.append("password", password);
     image && formData.append("image", image);

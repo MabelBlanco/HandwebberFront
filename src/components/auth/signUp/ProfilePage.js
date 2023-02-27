@@ -44,7 +44,7 @@ const ProfilePage = ({ className, title, ...props }) => {
 
   const resetError = () => setError(null);
 
-  const goToMyAds = () => navigate(`/profile/${user._id}`);
+  const goToMyAds = () => navigate(`/profile/user/${user.username}`);
 
   const getMyFavorites = async () => {
     setActiveFavorits(!activeFavorits);

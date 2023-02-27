@@ -25,7 +25,7 @@ export const getAdvertisements = (skip, limit, filters) => {
 };
 
 export const getUserAdvertisements = (idUser) => {
-  return client.get(`${advertisementsURL}?idUser=${idUser}`);
+  return client.get(`${advertisementsURL}?idUser=${idUser}&skip=0&limit=1`);
 };
 
 export const createAdvertisement = (advertData) => {

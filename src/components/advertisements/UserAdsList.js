@@ -28,7 +28,6 @@ const UserAdsList = ({ ...props }) => {
     const execute = async () => {
       const userSearchData = await getUserByUsername(userSearchUsername);
       const resultSearch = userSearchData.result;
-      console.log(resultSearch)
       const userSearchAds = await getUserAdvertisements(resultSearch._id);
       resultSearch.ads = userSearchAds.result;
       setUserSearch(resultSearch);
