@@ -16,6 +16,8 @@ import {
 import { useTranslation } from "react-i18next";
 import { Error } from "../../commons/error/Error";
 import Card from "../../commons/card/Card";
+import Modal from "../../commons/modal/Modal";
+import Alert from "../../commons/feedbacks/alert/Alert";
 
 const initialState = {
   username: "",
@@ -31,12 +33,10 @@ const ProfilePage = ({ className, title, ...props }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
   const [activeForm, setActiveForm] = useState(false);
-  const [activeDeleteUser, setActiveDeleteUser] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
   const { t } = useTranslation();
   const [favorits, setFavorits] = useState([]);
   const [activeFavorits, setActiveFavorits] = useState(false);
-
-  const handleActiveDeleteUser = () => setActiveDeleteUser(!activeDeleteUser);
 
   const handleActiveForm = () => setActiveForm(!activeForm);
 
@@ -90,7 +90,7 @@ const ProfilePage = ({ className, title, ...props }) => {
 
     const formData = new FormData();
 
-    username && formData.append("username", username);
+    username && formData.append("username", username.toLowerCase());
     mail && formData.append("mail", mail);
     password && formData.append("password", password);
     image && formData.append("image", image);
@@ -118,10 +118,13 @@ const ProfilePage = ({ className, title, ...props }) => {
       for (let ad of userAds) {
         await deleteAdvertisement(ad._id);
       }
-      const response = await deleteUser(user._id);
-      handleLogOut();
-      navigate("/");
-      setActiveDeleteUser(false);
+      const response = await deleteUser(user._id);   
+      setIsDelete(true);
+      setTimeout(() =>{
+        handleLogOut();
+        navigate("/advertisements");
+        setIsDelete(false);
+      }, 1500);    
       return response;
     } catch (error) {
       setError(error);
@@ -134,7 +137,7 @@ const ProfilePage = ({ className, title, ...props }) => {
 
   return (
     <div className="row">
-      {isLogged && (
+      {isLogged && !isDelete && (
         <div className="col-sm-12 py-5 my-5 text-center">
           {" "}
           <div className="card-body py-3">
@@ -261,38 +264,28 @@ const ProfilePage = ({ className, title, ...props }) => {
               )}
             </li>
             <li key="delet" className="list-group-item">
-              <Button
-                type="button"
-                className="btn btn-secondary mx-3 my-3"
-                onClick={handleActiveDeleteUser}
-              >
-                {t("ProfilePage.DELETE ACCOUNT")}
-              </Button>
-
-              {activeDeleteUser && (
-                <div>
-                  <p>{t("ProfilePage.Are you sure for delete account?")}</p>
-                  <div className="d-flex justify-content-center align-items-center">
-                    <Button
-                      type="button"
-                      className="btn-primary mx-3 col-12"
-                      onClick={deleteAccount}
-                    >
-                      {t("ProfilePage.YES")}
-                    </Button>
-                    <Button
-                      type="button"
-                      className="btn-secondary mx-3 col-12"
-                      onClick={handleActiveDeleteUser}
-                    >
-                      {t("ProfilePage.NO")}
-                    </Button>
-                  </div>
-                </div>
-              )}
+              <Modal 
+              hasConfirm
+              modalTitle={t("ProfilePage.DELETE ACCOUNT")}
+              doTask={deleteAccount}
+              classNameBtn="ms-2 btn-secondary"
+              classNameBtnClose="btn-secondary"
+              classNameBtnConfirm="btn-primary"
+              classNameContent="body"
+              label_confirm={t(`AdsDetailPage.Delete`)}
+              label_cancel={t(`AdsDetailPage.Cancel`)}
+              label_btn={t("ProfilePage.DELETE ACCOUNT")}
+              modalId="deleteUser"
+              >{t("ProfilePage.Are you sure for delete account?")}
+              </Modal>            
             </li>
           </ul>
         </div>
+      )}
+      {isDelete && (
+        <Alert className="alert-success">
+        Borrado correctamente
+      </Alert>
       )}
     </div>
   );
