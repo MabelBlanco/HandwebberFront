@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import AdsList from "./components/advertisements/AdsList";
 import DetailAdvertisement from "./components/advertisements/DetailAdvertisement";
+import EditAveritisement from "./components/advertisements/EditAdvertisement";
 import NewAdvertisement from "./components/advertisements/NewAdvertisement";
 import UserAdsList from "./components/advertisements/UserAdsList";
 import { LoginPage } from "./components/auth/login/LoginPage";
@@ -45,6 +46,14 @@ function App() {
           <Route
             path=":id"
             element={<DetailAdvertisement title="Advertisement Detail" />}
+          />
+          <Route
+            path="edit/:id"
+            element={
+              <RequireAuth>
+                <EditAveritisement title="Editing Avertisement" />
+              </RequireAuth>
+            }
           />
           <Route
             path="new"
