@@ -4,17 +4,11 @@ import "../../commons/card/card.scss";
 import NoImage from "../../commons/noImage/NoImage";
 import { useAuth } from "../../context/AuthContext";
 import "./profile.scss";
-import useDataUser from "./useDataUser";
 import { useTranslation } from "react-i18next";
 
-const initialState = {
-  username: "",
-  image: "",
-};
-
 const Profile = ({ className, title, ...props }) => {
-  const { user } = useDataUser({ initialState });
-  const { isLogged, handleLogOut } = useAuth();
+
+  const { isLogged, handleLogOut, user } = useAuth();
   const { t } = useTranslation();
 
   return (

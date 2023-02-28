@@ -1,14 +1,10 @@
-import NoImage from "../../commons/noImage/NoImage";
 import "../../commons/card/card.scss";
 import { useNavigate } from "react-router-dom";
 import Button from "../../commons/button/Button";
-import useDataUser from "./useDataUser";
 import { deleteUser, updateUser } from "../service";
 import { useAuth } from "../../context/AuthContext";
 import { useEffect, useState } from "react";
 import styles from "./SignUp.module.css";
-import Input from "../../commons/forms/input/Input";
-import InputFile from "../../commons/forms/inputFile/InputFile";
 import {
   deleteAdvertisement,
   getAdvertisementDetail,
@@ -18,6 +14,8 @@ import { Error } from "../../commons/error/Error";
 import Card from "../../commons/card/Card";
 import Modal from "../../commons/modal/Modal";
 import Alert from "../../commons/feedbacks/alert/Alert";
+import FormUpdateProfile from "./FormUpdateProfile";
+import UserInfo from "./UserInfo";
 
 const initialState = {
   username: "",
@@ -27,8 +25,8 @@ const initialState = {
 };
 
 const ProfilePage = ({ className, title, ...props }) => {
-  const { user, isFetching, setUser } = useDataUser({ initialState });
-  const { isLogged, handleLogOut } = useAuth();
+  //const { user, isFetching, setUser } = useDataUser({ initialState });
+  const { isLogged, handleLogOut, user, isFetching, setUser } = useAuth();
   const [credentials, setCredentials] = useState(initialState);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
@@ -100,7 +98,7 @@ const ProfilePage = ({ className, title, ...props }) => {
       result.ads = user.ads;
       setUser(result);
       setActiveForm(false);
-      navigate("/");
+      //navigate("/");
     } catch (error) {
       const errors = [];
       if (Array.isArray(error.message)) {
@@ -139,27 +137,9 @@ const ProfilePage = ({ className, title, ...props }) => {
   return (
     <div className="row">
       {isLogged && !isDelete && (
-        <div className="col-sm-12 py-5 my-5 text-center">
-          {" "}
-          <div className="card-body py-3">
-            <h2 className="card-title h1">{user?.username}</h2>
-          </div>{" "}
-          <div className="header-card">
-            {user?.image ? (
-              <img
-                src={`${process.env.REACT_APP_API_BASE_URL}/${user?.image}`}
-                className="rounded-pill w-25 h-25"
-                alt="..."
-              />
-            ) : (
-              <NoImage className="card-img-top" />
-            )}
-          </div>
+        <div className="col-sm-12 py-2 my-1 text-center">
+          <UserInfo user={user} />
           <ul className="list-group list-group-flush my-3">
-            <li key="mail" className="list-group-item">
-              <span>{t("ProfilePage.Mail")}: </span>
-              {user?.mail}
-            </li>
             <li key="subscriptions" className="list-group-item">
               <span>{t("ProfilePage.Favorites")}: </span>
               <Button
@@ -207,61 +187,15 @@ const ProfilePage = ({ className, title, ...props }) => {
             <Error className={styles.signup__error} arrayErrors={error} />
           )}
               {activeForm && (
-                <form className={styles.signup__form} onSubmit={updateAccount}>
-                  <Input
-                    type="text"
-                    name="username"
-                    label={t("ProfilePage.New username")}
-                    className={styles.signup__field}
-                    onChange={handleCredentials}
-                    value={credentials.username}
-                  />
-
-                  <Input
-                    type="email"
-                    name="mail"
-                    label={t("ProfilePage.New mail")}
-                    className={styles.signup__field}
-                    onChange={handleCredentials}
-                    value={credentials.mail}
-                  />
-
-                  <Input
-                    type="password"
-                    name="password"
-                    label={
-                      t("ProfilePage.New password") + " (min 8 characters)"
-                    }
-                    className={styles.signup__field}
-                    onChange={handleCredentials}
-                    value={credentials.password}
-                  />
-
-                  <Input
-                    type="password"
-                    name="passwordConfirm"
-                    label={t("ProfilePage.Confirm new password")}
-                    className={styles.signup__field}
-                    onChange={handleConfirmPassword}
-                    value={confirmPassword}
-                  />
-
-                  <InputFile
-                    name="image"
-                    id="image"
-                    label={t("ProfilePage.Upload new picture")}
-                    className={styles.signup__field}
-                    onChange={handleImage}
-                  />
-
-                  <Button
-                    type="submit"
-                    className={styles.signup__submit}
-                    disabled={!!isFetching}
-                  >
-                    {t("ProfilePage.CLICK FOR UPDATE")}
-                  </Button>
-                </form>
+                <FormUpdateProfile 
+                  updateAccount={updateAccount}
+                  handleCredentials={handleCredentials}
+                  credentials={credentials}
+                  handleConfirmPassword={handleConfirmPassword}
+                  confirmPassword={confirmPassword}
+                  handleImage={handleImage}
+                  isFetching={isFetching}
+                />            
               )}
             </li>
             <li key="delet" className="list-group-item">

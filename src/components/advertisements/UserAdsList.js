@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { getUserByUsername } from "../auth/service";
+import UserInfo from "../auth/signUp/UserInfo";
 import Card from "../commons/card/Card";
 import "../commons/card/card.scss";
-import NoImage from "../commons/noImage/NoImage";
 import { getUserAdvertisements } from "./service";
 
 const initialState = {
@@ -38,28 +38,8 @@ const UserAdsList = ({ ...props }) => {
   return (
     <>
       <div className="row">
-        <div className="col-sm-12 py-5 my-5 text-center">
-          {" "}
-          <div className="card-body py-3">
-            <h2 className="card-title h1">{userSearch?.username}</h2>
-          </div>{" "}
-          <div className="header-card">
-            {userSearch?.image ? (
-              <img
-                src={`${process.env.REACT_APP_API_BASE_URL}/${userSearch?.image}`}
-                className="rounded-pill w-25 h-25"
-                alt="..."
-              />
-            ) : (
-              <NoImage className="card-img-top" />
-            )}
-          </div>
-          <ul className="list-group list-group-flush">
-            <li key="mail" className="list-group-item text-center">
-              <span>{t("UserAdsList.Mail")}: </span>
-              {userSearch?.mail}
-            </li>
-          </ul>
+        <div className="col-sm-12 py-2 my-1 text-center">
+          <UserInfo user={userSearch} />
         </div>
       </div>
       <div className="row">
