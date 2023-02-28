@@ -132,7 +132,10 @@
       "Invalid jwtToken": "Credencials invàlides",
       "The file must be an image": "L'archivu deu ser una image",
       "Network Error": "Error de xarxa. Revisa la teva connexió. Pot ser un problema del servidor",
-      "An unexpected error has occurred": "Ha passat un error inesperat"
+      "An unexpected error has occurred": "Ha passat un error inesperat",
+      "This username is not available": "Aquest nom d'usuari no està disponible",
+      "This email is already registered": "Aquest mail ja està registrat",
+      "Passwords don't match": "Les contrasenyes no coincideixen"
     }
   }
   

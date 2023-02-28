@@ -60,6 +60,12 @@ export function Error({ arrayErrors, ...props }) {
             errorTranslate = t("Error.The file must be an image");
           } else if (error === "Network Error") {
             errorTranslate = t("Error.Network Error");
+          } else if (error === "This username is not available") {
+            errorTranslate = t("Error.This username is not available");
+          } else if (error === "This email is already registered") {
+            errorTranslate = t("Error.This email is already registered");
+          }else if (error === "Passwords don't match") {
+            errorTranslate = t("Error.Passwords don't match");
           } else {
             errorTranslate = t("Error.An unexpected error has occurred");
           }

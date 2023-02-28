@@ -132,6 +132,9 @@
     "Invalid jwtToken": "Credenciales inválidas",
     "The file must be an image": "El archivo debe ser una imagen",
     "Network Error": "Error de red. Revise su conexión. Podría ser un problema en el servidor",
-    "An unexpected error has occurred": "Ha ocurrido un error inesperado"
+    "An unexpected error has occurred": "Ha ocurrido un error inesperado",
+    "This username is not available": "Este nombre de usuario no está disponible",
+    "This email is already registered": "Este mail ya está registrado",
+    "Passwords don't match": "Las contraseñas no coinciden"
   }
 }

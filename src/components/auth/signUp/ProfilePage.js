@@ -99,6 +99,7 @@ const ProfilePage = ({ className, title, ...props }) => {
       const { result } = await updateUser(user._id, formData);
       result.ads = user.ads;
       setUser(result);
+      setActiveForm(false);
       navigate("/");
     } catch (error) {
       const errors = [];
@@ -109,7 +110,7 @@ const ProfilePage = ({ className, title, ...props }) => {
       }
       setError(errors);
     }
-    setActiveForm(false);
+    
   };
 
   const deleteAccount = async () => {
@@ -154,9 +155,6 @@ const ProfilePage = ({ className, title, ...props }) => {
               <NoImage className="card-img-top" />
             )}
           </div>
-          {error && (
-            <Error className={styles.signup__error} arrayErrors={error} />
-          )}
           <ul className="list-group list-group-flush my-3">
             <li key="mail" className="list-group-item">
               <span>{t("ProfilePage.Mail")}: </span>
@@ -205,6 +203,9 @@ const ProfilePage = ({ className, title, ...props }) => {
               >
                 {t("ProfilePage.CLICK FOR UPDATE YOUR PROFILE")}
               </Button>
+              {error && (
+            <Error className={styles.signup__error} arrayErrors={error} />
+          )}
               {activeForm && (
                 <form className={styles.signup__form} onSubmit={updateAccount}>
                   <Input
