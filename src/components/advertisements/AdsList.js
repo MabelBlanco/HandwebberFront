@@ -6,7 +6,13 @@ import { getAdvertisements } from './service';
 import { useTranslation } from 'react-i18next';
 import Spinner from '../commons/spinner/Spinner';
 import { Error } from '../commons/error/Error';
-const MAX_RESULTS_PER_PAGE = 12; //12;
+import {
+  adsLoadSuccess,
+  useAdsListSelector,
+  useDispatchAdsList,
+  useMetaSelector,
+} from '../../store/adsListSlice';
+const MAX_RESULTS_PER_PAGE = 1; //12;
 
 export const useAdvertisement = () => {
   const initialFiltersState = {
@@ -14,12 +20,14 @@ export const useAdvertisement = () => {
     tag: '',
     price: '',
   };
-  const [adsList, setAdsList] = useState([]);
-  const [meta, setMeta] = useState({});
   const [page, setPage] = useState(1);
   const [filters, setFilters] = useState(initialFiltersState);
   const [adsIsFetching, setAdsIsFetching] = useState(false);
   const [error, setError] = useState([]);
+
+  const dispatch = useDispatchAdsList();
+  const adsList = useAdsListSelector();
+  const meta = useMetaSelector();
 
   const handleFilters = (event) => {
     if (event.target.name === 'resetFilters') {
@@ -62,15 +70,14 @@ export const useAdvertisement = () => {
           MAX_RESULTS_PER_PAGE,
           filters
         );
-        setAdsList(ads.result);
-        setMeta(ads.meta);
+        dispatch(adsLoadSuccess(ads));
       } catch (err) {
         setError([err.message]);
       }
       setAdsIsFetching(false);
     };
     execute();
-  }, [page, filters, meta.maxPrice]);
+  }, [page, filters, dispatch]);
 
   return {
     adsList,
@@ -105,8 +112,7 @@ const AdsList = ({ ...props }) => {
   return (
     <div
       className='row'
-      {...props}
-    >
+      {...props}>
       <SearchBar
         className='row'
         onChange={handleFilters}
