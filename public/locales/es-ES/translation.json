@@ -135,6 +135,7 @@
     "An unexpected error has occurred": "Ha ocurrido un error inesperado",
     "This username is not available": "Este nombre de usuario no está disponible",
     "This email is already registered": "Este mail ya está registrado",
-    "Passwords don't match": "Las contraseñas no coinciden"
+    "Passwords don't match": "Las contraseñas no coinciden",
+    "This is not the page you're looking for...": "Esta no es la página que estás buscando..."
   }
 }

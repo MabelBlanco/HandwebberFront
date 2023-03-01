@@ -12,6 +12,14 @@ import {
   useDispatchAdsList,
   useMetaSelector,
 } from '../../store/adsListSlice';
+import {
+  request,
+  success,
+  errorUi,
+  useDispatchUi,
+  useIsFetchingSelector,
+  useUiErrorSelector,
+} from '../../store/uiSlice';
 const MAX_RESULTS_PER_PAGE = 1; //12;
 
 export const useAdvertisement = () => {
@@ -22,12 +30,15 @@ export const useAdvertisement = () => {
   };
   const [page, setPage] = useState(1);
   const [filters, setFilters] = useState(initialFiltersState);
-  const [adsIsFetching, setAdsIsFetching] = useState(false);
-  const [error, setError] = useState([]);
 
-  const dispatch = useDispatchAdsList();
+  const dispatchAdsList = useDispatchAdsList();
   const adsList = useAdsListSelector();
   const meta = useMetaSelector();
+
+  const dispatchUi = useDispatchUi();
+  const adsIsFetching = useIsFetchingSelector();
+
+  const error = useUiErrorSelector();
 
   const handleFilters = (event) => {
     if (event.target.name === 'resetFilters') {
@@ -63,21 +74,22 @@ export const useAdvertisement = () => {
   useEffect(() => {
     const execute = async () => {
       const skip = MAX_RESULTS_PER_PAGE * (page - 1);
-      setAdsIsFetching(true);
+
+      dispatchUi(request());
       try {
         const ads = await getAdvertisements(
           skip,
           MAX_RESULTS_PER_PAGE,
           filters
         );
-        dispatch(adsLoadSuccess(ads));
+        dispatchAdsList(adsLoadSuccess(ads));
+        dispatchUi(success());
       } catch (err) {
-        setError([err.message]);
+        dispatchUi(errorUi(err.message));
       }
-      setAdsIsFetching(false);
     };
     execute();
-  }, [page, filters, dispatch]);
+  }, [page, filters, dispatchAdsList, dispatchUi]);
 
   return {
     adsList,
