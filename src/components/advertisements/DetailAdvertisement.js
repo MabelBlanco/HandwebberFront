@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate /*, useParams*/ } from "react-router-dom";
-// import { getUserById } from "../auth/service";
-// import useDataUser from "../auth/signUp/useDataUser";
+import { useNavigate } from "react-router-dom";
 import Alert from "../commons/feedbacks/alert/Alert";
 import AdsDetailPage from "./AdsDetailPage/AdsDetailPage";
 import "./advertisements.scss";

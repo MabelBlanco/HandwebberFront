@@ -1,13 +1,17 @@
 import { useState } from "react";
 import Input from "../commons/forms/input/Input";
 import Card from "./card/Card";
+import Alert from "./feedbacks/alert/Alert";
 import Checkbox from "./forms/checkbox/Checkbox";
 import InputFile from "./forms/inputFile/InputFile";
 import Range from "./forms/range/Range";
 import Select from "./forms/select/Select";
+import Textarea from "./forms/textarea/Textarea";
 import Modal from "./modal/Modal";
+import NoImage from "./noImage/NoImage";
 import Pagination from "./pagination/Pagination";
 import Spinner from "./spinner/Spinner";
+import Tags from "./tags/Tags";
 
 const ComponentsList = () => {
   const [options, setOptions] = useState([]);
@@ -33,7 +37,15 @@ const ComponentsList = () => {
         <Range label="range label" className="col-md-6 pb-5" />
         <InputFile label="input field" className="col-md-6 pb-5" />
         <Checkbox label="checkbox label" className="col-md-6 pb-5" />
+        <Textarea label="textarea label" className="col-md-6 pb-5" />
+
         <Spinner className="col-md-6 pb-5" />
+        <p>Tags</p>
+        <Tags tagsArray={optionsArray} />
+        <Alert className="alert-danger"> Alert danger</Alert>
+        <Alert className="alert-success"> Alert success</Alert>
+        <Alert className="alert-warning"> Alert warning</Alert>
+
         <Card
           className="col-md-4 pb-5"
           label_link_1="see more"
@@ -64,8 +76,12 @@ const ComponentsList = () => {
           >
             Modal sin confirmación
           </Modal>
-          <Pagination />
+
+          <p>NoImage</p>
+          <NoImage className="w-100 h-50" />
         </div>
+        <p>Pagination</p>
+        <Pagination clasName="w-100" />
       </div>
     </div>
   );
