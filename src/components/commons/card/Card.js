@@ -91,11 +91,12 @@ const Card = ({
           key='user'
           className='list-group-item'>
           <span>{t('Card.User')}: </span>
-          <a
-            href={`/profile/user/${username}`}
-            className='card-link'>
+          <NavLink
+            to={`/profile/user/${username}`}
+            className='card-link'
+            end>
             {username}
-          </a>
+          </NavLink>
         </li>
         <li
           key='custom'
