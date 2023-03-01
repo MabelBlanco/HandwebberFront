@@ -42,15 +42,17 @@ export const useAdvertisement = () => {
 
   const [filters, setFilters] = useState(initialFiltersState);
 
+  //Redux adslist handles
   const dispatchAdsList = useDispatchAdsList();
   const adsList = useAdsListSelector();
   const meta = useMetaSelector();
 
+  //Redux UI handles
   const dispatchUi = useDispatchUi();
   const adsIsFetching = useIsFetchingSelector();
-
   const error = useUiErrorSelector();
 
+  //Redux pagination handles
   const page = useActualPage();
   const firstPageSelector = useFirstPage();
   const firstPage = () => firstPageSelector(first());

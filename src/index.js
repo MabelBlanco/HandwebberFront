@@ -14,21 +14,24 @@ import storage from './utils/storage';
 import { setAuthorizationHeader } from './api/client';
 import './utils/i18n';
 import { store } from './store/store';
-import { Root } from './components/root/Root';
+import { Root } from './Root';
+import { createBrowserRouter } from 'react-router-dom';
 
 const initialToken = storage.get('auth');
 if (initialToken) {
   setAuthorizationHeader(initialToken);
 }
 
+const router = createBrowserRouter([{ path: '*', element: <App /> }]);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Root
       haveInitialToken={!!initialToken}
-      store={store}>
-      <App />
-    </Root>
+      store={store}
+      router={router}
+    />
   </React.StrictMode>
 );
 
