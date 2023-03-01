@@ -20,7 +20,18 @@ import {
   useIsFetchingSelector,
   useUiErrorSelector,
 } from '../../store/uiSlice';
-const MAX_RESULTS_PER_PAGE = 1; //12;
+import {
+  first,
+  last,
+  next,
+  previous,
+  useActualPage,
+  useFirstPage,
+  useLastPage,
+  useNext,
+  usePrevious,
+  MAX_RESULTS_PER_PAGE,
+} from '../../store/paginationSlice';
 
 export const useAdvertisement = () => {
   const initialFiltersState = {
@@ -28,7 +39,7 @@ export const useAdvertisement = () => {
     tag: '',
     price: '',
   };
-  const [page, setPage] = useState(1);
+
   const [filters, setFilters] = useState(initialFiltersState);
 
   const dispatchAdsList = useDispatchAdsList();
@@ -40,35 +51,22 @@ export const useAdvertisement = () => {
 
   const error = useUiErrorSelector();
 
+  const page = useActualPage();
+  const firstPageSelector = useFirstPage();
+  const firstPage = () => firstPageSelector(first());
+  const lastPageSelector = useLastPage();
+  const lastPage = () => lastPageSelector(last(meta.totalNumOfAds));
+  const previousPageSelector = usePrevious();
+  const previousPage = () => previousPageSelector(previous());
+  const nextPageSelector = useNext();
+  const nextPage = () => nextPageSelector(next(meta.totalNumOfAds));
+
   const handleFilters = (event) => {
     if (event.target.name === 'resetFilters') {
       setFilters(initialFiltersState);
       return;
     }
     setFilters({ ...filters, [event.target.name]: event.target.value });
-  };
-
-  const numPages = () => {
-    return Math.ceil(meta.totalNumOfAds / MAX_RESULTS_PER_PAGE);
-  };
-
-  const firstPage = () => {
-    setPage(1);
-  };
-
-  const nextPage = () => {
-    const maxPages = numPages();
-    if (page === maxPages) return;
-    setPage(page + 1);
-  };
-  const previousPage = () => {
-    if (page === 1) return;
-    setPage(page - 1);
-  };
-
-  const lastPage = () => {
-    const lastPage = numPages();
-    setPage(lastPage);
   };
 
   useEffect(() => {

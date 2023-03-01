@@ -25,6 +25,8 @@ export const useAdsListSelector = () =>
   useSelector((state) => state.adsList.result);
 
 export const useMetaSelector = () => useSelector((state) => state.adsList.meta);
+export const useNumberOfAdsSelector = () =>
+  useSelector((state) => state.adsList.meta.totalNumOfAds);
 
 export const useAdsAreLoadedSelector = () =>
   useSelector((state) => state.adsList.areLoaded);
