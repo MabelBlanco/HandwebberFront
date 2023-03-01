@@ -33,7 +33,7 @@ function App() {
               </RequireAuth>
             }
           />
-          <Route path=":userId" element={<UserAdsList />} />
+          <Route path="user/:username" element={<UserAdsList />} />
         </Route>
         <Route path="/404" element={<Layout title="NOT FOUND" />}>
           <Route path="" element={<NotFoundPage />} />

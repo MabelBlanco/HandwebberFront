@@ -38,7 +38,6 @@ const SignUp = ({ className, title, ...props }) => {
   };
 
   const handleImage = (event) => {
-    console.log(event.target.files[0]);
     setCredentials({
       ...credentials,
       [event.target.name]: event.target.files[0],
@@ -62,7 +61,7 @@ const SignUp = ({ className, title, ...props }) => {
     }
 
     const formData = new FormData();
-    formData.append('username', username);
+    formData.append('username', username.toLowerCase());
     formData.append('mail', mail);
     formData.append('password', password);
     image && formData.append('image', image);
@@ -93,26 +92,12 @@ const SignUp = ({ className, title, ...props }) => {
       <div className='col-sm-12 py-5 my-5 text-center'>
         <h1>Sign up</h1>
         <div className={styles.signup__page}>
-          {
-            error && (
-              <Error
-                className={styles.signup__error}
-                arrayErrors={error}
-              />
-            )
-            // error.map((e) => (
-            //   <p className={styles.signup__error} key={e}>
-            //     {' '}
-            //     {e}{' '}
-            //   </p>
-            // ))
-          }
+          {error && (
+            <Error className={styles.signup__error} arrayErrors={error} />
+          )}
           <div className='card-body actions'>
             {!isLogged && (
-              <form
-                className={styles.signup__form}
-                onSubmit={handleSubmit}
-              >
+              <form className={styles.signup__form} onSubmit={handleSubmit}>
                 <Input
                   type='text'
                   name='username'

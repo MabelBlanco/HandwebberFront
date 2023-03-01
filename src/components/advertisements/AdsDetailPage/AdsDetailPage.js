@@ -82,7 +82,7 @@ const AdsDetailPage = ({
             </div>
             <div key="user" className="list-group-item user">
               <span className="label-info">Usuario: </span>
-              <a href={`/profile/${idUser}`} className="card-link">
+              <a href={`/profile/user/${username}`} className="card-link">
                 {username}
               </a>
             </div>
