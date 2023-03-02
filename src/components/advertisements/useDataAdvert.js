@@ -25,17 +25,26 @@ const useDataAdvert = () => {
   const dispatch = useDispatchAdsList();
 
   useEffect(() => {
+    const advertsFilter = (ads) => {
+      return ads.filter((ad) => {
+        return ad._id === advertisementCall;
+      });
+    };
+
     const execute = async () => {
       try {
-        let advertFiltered = adsList.filter((ad) => {
-          return ad._id === advertisementCall;
-        });
+        let advertFiltered = advertsFilter(adsList);
+
         if (advertFiltered.length === 0) {
-          // advertFiltered = await getAdvertisementDetail(advertisementCall);
-          // advertFiltered = [advertFiltered.result];
-          const advertGetted = await getAdvertisementDetail(advertisementCall);
-          dispatch(loadThisAd(advertGetted));
+          advertFiltered = await getAdvertisementDetail(advertisementCall);
+          dispatch(loadThisAd(advertFiltered));
+          advertFiltered = [advertFiltered.result];
+          // const advertGetted = await getAdvertisementDetail(advertisementCall);
+          // console.log('advertgetted: ', advertGetted.result);
+
+          // advertFiltered = [advertsFilter(adsList)];
         }
+        console.log('advertfiltered', advertFiltered);
         const advert = advertFiltered[0];
 
         const idUser = advert.idUser;
@@ -51,6 +60,7 @@ const useDataAdvert = () => {
         };
         setCurrentAdvert(advertObj);
       } catch (error) {
+        console.log('ESTOYYYY AQUIIIIII', error);
         if (error.status === 401) {
           navigate('/login');
         }

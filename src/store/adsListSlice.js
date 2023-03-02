@@ -17,7 +17,9 @@ export const adsListSlice = createSlice({
       state.meta = action.payload.meta;
     },
     loadThisAd: (state, action) => {
-      state.result = [...state.result, action.payload.result];
+      if (!state.result.includes(action.payload.result)) {
+        state.result = [...state.result, action.payload.result];
+      }
     },
   },
 });
