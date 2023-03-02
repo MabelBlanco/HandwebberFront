@@ -1,11 +1,15 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { getUserById } from "../auth/service";
-import useDataUser from "../auth/signUp/useDataUser";
-import { getAdvertisementDetail } from "./service";
-
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getUserById } from '../auth/service';
+import useDataUser from '../auth/signUp/useDataUser';
+import { getAdvertisementDetail } from './service';
+import {
+  loadThisAd,
+  useAdsListSelector,
+  useDispatchAdsList,
+} from '../../store/adsListSlice';
 const initialState = {
-  username: "",
+  username: '',
   _id: null,
 };
 
@@ -16,16 +20,30 @@ const useDataAdvert = () => {
   const advertId = useParams().id;
   const navigate = useNavigate();
 
-  const advertisementCall = advertId.split("-", 1)[0];
+  const advertisementCall = advertId.split('-', 1)[0];
+  const adsList = useAdsListSelector();
+  const dispatch = useDispatchAdsList();
 
   useEffect(() => {
     const execute = async () => {
       try {
-        const advert = await getAdvertisementDetail(advertisementCall);
-        const userData = await getUserById(advert.result.idUser);
-        let tags = advert.result.tags[0].split(",");
+        let advertFiltered = adsList.filter((ad) => {
+          return ad._id === advertisementCall;
+        });
+        if (advertFiltered.length === 0) {
+          // advertFiltered = await getAdvertisementDetail(advertisementCall);
+          // advertFiltered = [advertFiltered.result];
+          const advertGetted = await getAdvertisementDetail(advertisementCall);
+          dispatch(loadThisAd(advertGetted));
+        }
+        const advert = advertFiltered[0];
+
+        const idUser = advert.idUser;
+        const tags = advert.tags[0].split(',');
+        const userData = await getUserById(idUser);
+
         const advertObj = {
-          ...advert.result,
+          ...advert,
           username: userData.result.username,
           tags: tags,
           userLoggedId: user._id,
@@ -34,16 +52,16 @@ const useDataAdvert = () => {
         setCurrentAdvert(advertObj);
       } catch (error) {
         if (error.status === 401) {
-          navigate("/login");
+          navigate('/login');
         }
         if (error.status === 422) {
-          navigate("/404", { state: { message: error.statusText } });
+          navigate('/404', { state: { message: error.statusText } });
         }
-        navigate("/404", { state: { message: error.statusText } });
+        navigate('/404', { state: { message: error.statusText } });
       }
     };
     execute();
-  }, [advertId, navigate, user._id, advertisementCall]);
+  }, [adsList, advertisementCall, navigate, user._id, dispatch]);
 
   return { ...currentAdvert };
 };

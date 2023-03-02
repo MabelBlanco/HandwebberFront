@@ -16,10 +16,13 @@ export const adsListSlice = createSlice({
       state.result = action.payload.result;
       state.meta = action.payload.meta;
     },
+    loadThisAd: (state, action) => {
+      state.result = [...state.result, action.payload.result];
+    },
   },
 });
 
-export const { adsLoadSuccess } = adsListSlice.actions;
+export const { adsLoadSuccess, loadThisAd } = adsListSlice.actions;
 
 export const useAdsListSelector = () =>
   useSelector((state) => state.adsList.result);
