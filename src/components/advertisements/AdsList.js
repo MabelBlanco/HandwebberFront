@@ -42,19 +42,14 @@ export const useAdvertisement = () => {
 
   const [filters, setFilters] = useState(initialFiltersState);
 
-  const dispatch = useDispatch();
-
   //Redux adslist handles
-  const adsList = useAdsListSelector();
   const meta = useMetaSelector();
 
   //Redux UI handles
-  const dispatchUi = useDispatchUi();
   const adsIsFetching = useIsFetchingSelector();
   const error = useUiErrorSelector();
 
   //Redux pagination handles
-  const page = useActualPage();
   const firstPageSelector = useFirstPage();
   const firstPage = () => firstPageSelector(first());
   const lastPageSelector = useLastPage();
@@ -72,25 +67,7 @@ export const useAdvertisement = () => {
     setFilters({ ...filters, [event.target.name]: event.target.value });
   };
 
-  useEffect(() => {
-    const execute = async () => {
-      const skip = MAX_RESULTS_PER_PAGE * (page - 1);
-
-      dispatchUi(request());
-      // try {
-      //   dispatchAdsList(adsLoadSuccess(ads));
-      //   dispatchUi(success());
-      // } catch (err) {
-      //   dispatchUi(errorUi(err.message));
-      // }
-      dispatch(fetchAdsAction(skip, MAX_RESULTS_PER_PAGE, filters));
-      dispatchUi(success());
-    };
-    execute();
-  }, [page, filters, dispatch, dispatchUi]);
-
   return {
-    adsList,
     firstPage,
     previousPage,
     nextPage,
@@ -107,7 +84,6 @@ const AdsList = ({ ...props }) => {
   const { t } = useTranslation();
 
   const {
-    adsList: advertisements,
     firstPage,
     previousPage,
     nextPage,
@@ -119,18 +95,21 @@ const AdsList = ({ ...props }) => {
     error,
   } = useAdvertisement();
 
-  // const page = useActualPage();
-  // const dispatch = useDispatch();
-  // const dispatchUi = useDispatchUi();
+  //Redux adslist handles
+  const advertisements = useAdsListSelector();
 
-  // const skip = MAX_RESULTS_PER_PAGE * (page - 1);
+  const page = useActualPage();
+  const dispatch = useDispatch();
+  const dispatchUi = useDispatchUi();
 
-  // useEffect(() => {
-  //   dispatchUi(request());
-  //   //useDispatchFetchAdsAction(skip, MAX_RESULTS_PER_PAGE, page);
-  //   dispatch(fetchAdsAction(skip, MAX_RESULTS_PER_PAGE, filters));
-  //   dispatchUi(success());
-  // }, [dispatch, dispatchUi, filters, skip]);
+  const skip = MAX_RESULTS_PER_PAGE * (page - 1);
+
+  useEffect(() => {
+    dispatchUi(request());
+    //   //useDispatchFetchAdsAction(skip, MAX_RESULTS_PER_PAGE, page);
+    dispatch(fetchAdsAction(skip, MAX_RESULTS_PER_PAGE, filters));
+    dispatchUi(success());
+  }, [dispatchUi, dispatch, filters, skip]);
 
   return (
     <div
