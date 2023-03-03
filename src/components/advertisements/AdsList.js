@@ -2,14 +2,13 @@ import { useEffect, useState } from 'react';
 import SearchBar from './SearchBar';
 import Card from '../commons/card/Card';
 import Pagination from '../commons/pagination/Pagination';
-import { getAdvertisements } from './service';
 import { useTranslation } from 'react-i18next';
 import Spinner from '../commons/spinner/Spinner';
 import { Error } from '../commons/error/Error';
 import {
-  adsLoadSuccess,
+  fetchAdsAction,
   useAdsListSelector,
-  useDispatchAdsList,
+  useDispatchFetchAdsAction,
   useMetaSelector,
 } from '../../store/adsListSlice';
 import {
@@ -32,6 +31,7 @@ import {
   usePrevious,
   MAX_RESULTS_PER_PAGE,
 } from '../../store/paginationSlice';
+import { useDispatch } from 'react-redux';
 
 export const useAdvertisement = () => {
   const initialFiltersState = {
@@ -42,8 +42,9 @@ export const useAdvertisement = () => {
 
   const [filters, setFilters] = useState(initialFiltersState);
 
+  const dispatch = useDispatch();
+
   //Redux adslist handles
-  const dispatchAdsList = useDispatchAdsList();
   const adsList = useAdsListSelector();
   const meta = useMetaSelector();
 
@@ -76,20 +77,17 @@ export const useAdvertisement = () => {
       const skip = MAX_RESULTS_PER_PAGE * (page - 1);
 
       dispatchUi(request());
-      try {
-        const ads = await getAdvertisements(
-          skip,
-          MAX_RESULTS_PER_PAGE,
-          filters
-        );
-        dispatchAdsList(adsLoadSuccess(ads));
-        dispatchUi(success());
-      } catch (err) {
-        dispatchUi(errorUi(err.message));
-      }
+      // try {
+      //   dispatchAdsList(adsLoadSuccess(ads));
+      //   dispatchUi(success());
+      // } catch (err) {
+      //   dispatchUi(errorUi(err.message));
+      // }
+      dispatch(fetchAdsAction(skip, MAX_RESULTS_PER_PAGE, filters));
+      dispatchUi(success());
     };
     execute();
-  }, [page, filters, dispatchAdsList, dispatchUi]);
+  }, [page, filters, dispatch, dispatchUi]);
 
   return {
     adsList,
@@ -121,10 +119,24 @@ const AdsList = ({ ...props }) => {
     error,
   } = useAdvertisement();
 
+  // const page = useActualPage();
+  // const dispatch = useDispatch();
+  // const dispatchUi = useDispatchUi();
+
+  // const skip = MAX_RESULTS_PER_PAGE * (page - 1);
+
+  // useEffect(() => {
+  //   dispatchUi(request());
+  //   //useDispatchFetchAdsAction(skip, MAX_RESULTS_PER_PAGE, page);
+  //   dispatch(fetchAdsAction(skip, MAX_RESULTS_PER_PAGE, filters));
+  //   dispatchUi(success());
+  // }, [dispatch, dispatchUi, filters, skip]);
+
   return (
     <div
       className='row'
-      {...props}>
+      {...props}
+    >
       <SearchBar
         className='row'
         onChange={handleFilters}

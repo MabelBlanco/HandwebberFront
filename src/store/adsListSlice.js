@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { getAdvertisements } from '../components/advertisements/service';
 
 const initialState = {
   areLoaded: false,
@@ -24,15 +26,32 @@ export const adsListSlice = createSlice({
   },
 });
 
+//Actions
 export const { adsLoadSuccess, loadThisAd } = adsListSlice.actions;
 
+export function fetchAdsAction(skip, limit, filters) {
+  return async function (dispatch) {
+    try {
+      const ads = await getAdvertisements(skip, limit, filters);
+      dispatch(adsLoadSuccess(ads));
+    } catch (error) {
+      console.log('algún error:', error);
+    }
+  };
+}
+// export function useDispatchFetchAdsAction(skip, limit, filters) {
+//   const dispatch = useDispatch();
+//   useEffect(() => {
+//     dispatch(fetchAdsAction(skip, limit, filters));
+//   }, [dispatch, skip, limit, filters]);
+// }
+
+//Selectors
 export const useAdsListSelector = () =>
   useSelector((state) => state.adsList.result);
-
 export const useMetaSelector = () => useSelector((state) => state.adsList.meta);
 export const useNumberOfAdsSelector = () =>
   useSelector((state) => state.adsList.meta.totalNumOfAds);
-
 export const useAdsAreLoadedSelector = () =>
   useSelector((state) => state.adsList.areLoaded);
 
