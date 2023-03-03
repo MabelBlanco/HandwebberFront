@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAdvertisements } from '../components/advertisements/service';
+import { errorUi, request, success } from './uiSlice';
 
 const initialState = {
   areLoaded: false,
@@ -32,10 +33,12 @@ export const { adsLoadSuccess, loadThisAd } = adsListSlice.actions;
 export function fetchAdsAction(skip, limit, filters) {
   return async function (dispatch) {
     try {
+      dispatch(request());
       const ads = await getAdvertisements(skip, limit, filters);
       dispatch(adsLoadSuccess(ads));
+      dispatch(success());
     } catch (error) {
-      console.log('algún error:', error);
+      dispatch(errorUi(error));
     }
   };
 }

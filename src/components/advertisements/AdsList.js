@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import SearchBar from './SearchBar';
 import Card from '../commons/card/Card';
 import Pagination from '../commons/pagination/Pagination';
@@ -6,19 +6,11 @@ import { useTranslation } from 'react-i18next';
 import Spinner from '../commons/spinner/Spinner';
 import { Error } from '../commons/error/Error';
 import {
-  fetchAdsAction,
   useAdsListSelector,
   useDispatchFetchAdsAction,
   useMetaSelector,
 } from '../../store/adsListSlice';
-import {
-  request,
-  success,
-  errorUi,
-  useDispatchUi,
-  useIsFetchingSelector,
-  useUiErrorSelector,
-} from '../../store/uiSlice';
+import { useIsFetchingSelector, useUiErrorSelector } from '../../store/uiSlice';
 import {
   first,
   last,
@@ -31,7 +23,6 @@ import {
   usePrevious,
   MAX_RESULTS_PER_PAGE,
 } from '../../store/paginationSlice';
-import { useDispatch } from 'react-redux';
 
 export const useAdvertisement = () => {
   const initialFiltersState = {
@@ -44,20 +35,17 @@ export const useAdvertisement = () => {
 
   //Redux adslist handles
   const meta = useMetaSelector();
-
-  //Redux UI handles
-  const adsIsFetching = useIsFetchingSelector();
-  const error = useUiErrorSelector();
+  const { totalNumOfAds, maxPrice } = meta;
 
   //Redux pagination handles
   const firstPageSelector = useFirstPage();
   const firstPage = () => firstPageSelector(first());
   const lastPageSelector = useLastPage();
-  const lastPage = () => lastPageSelector(last(meta.totalNumOfAds));
+  const lastPage = () => lastPageSelector(last(totalNumOfAds));
   const previousPageSelector = usePrevious();
   const previousPage = () => previousPageSelector(previous());
   const nextPageSelector = useNext();
-  const nextPage = () => nextPageSelector(next(meta.totalNumOfAds));
+  const nextPage = () => nextPageSelector(next(totalNumOfAds));
 
   const handleFilters = (event) => {
     if (event.target.name === 'resetFilters') {
@@ -74,9 +62,7 @@ export const useAdvertisement = () => {
     lastPage,
     filters,
     handleFilters,
-    meta,
-    adsIsFetching,
-    error,
+    maxPrice,
   };
 };
 
@@ -90,26 +76,20 @@ const AdsList = ({ ...props }) => {
     lastPage,
     filters,
     handleFilters,
-    meta,
-    adsIsFetching,
-    error,
+    maxPrice,
   } = useAdvertisement();
+
+  //Redux UI handles
+  const adsIsFetching = useIsFetchingSelector();
+  const error = useUiErrorSelector();
+
+  //Redux pagination handles
+  const page = useActualPage();
+  const skip = MAX_RESULTS_PER_PAGE * (page - 1);
 
   //Redux adslist handles
   const advertisements = useAdsListSelector();
-
-  const page = useActualPage();
-  const dispatch = useDispatch();
-  const dispatchUi = useDispatchUi();
-
-  const skip = MAX_RESULTS_PER_PAGE * (page - 1);
-  //dispatchUi(request());
   useDispatchFetchAdsAction(skip, MAX_RESULTS_PER_PAGE, filters);
-  // useEffect(() => {
-  //   dispatchUi(request());
-  //   //dispatch(fetchAdsAction(skip, MAX_RESULTS_PER_PAGE, filters));
-  //   dispatchUi(success());
-  // }, [dispatchUi, dispatch, filters, skip]);
 
   return (
     <div
@@ -120,7 +100,7 @@ const AdsList = ({ ...props }) => {
         className='row'
         onChange={handleFilters}
         filters={filters}
-        max={meta.maxPrice}
+        max={maxPrice}
       />
       <Pagination
         handleFirst={firstPage}
