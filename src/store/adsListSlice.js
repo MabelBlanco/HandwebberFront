@@ -39,12 +39,12 @@ export function fetchAdsAction(skip, limit, filters) {
     }
   };
 }
-// export function useDispatchFetchAdsAction(skip, limit, filters) {
-//   const dispatch = useDispatch();
-//   useEffect(() => {
-//     dispatch(fetchAdsAction(skip, limit, filters));
-//   }, [dispatch, skip, limit, filters]);
-// }
+export function useDispatchFetchAdsAction(skip, limit, filters) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchAdsAction(skip, limit, filters));
+  }, [dispatch, skip, limit, filters]);
+}
 
 //Selectors
 export const useAdsListSelector = () =>

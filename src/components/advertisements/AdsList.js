@@ -103,13 +103,13 @@ const AdsList = ({ ...props }) => {
   const dispatchUi = useDispatchUi();
 
   const skip = MAX_RESULTS_PER_PAGE * (page - 1);
-
-  useEffect(() => {
-    dispatchUi(request());
-    //   //useDispatchFetchAdsAction(skip, MAX_RESULTS_PER_PAGE, page);
-    dispatch(fetchAdsAction(skip, MAX_RESULTS_PER_PAGE, filters));
-    dispatchUi(success());
-  }, [dispatchUi, dispatch, filters, skip]);
+  //dispatchUi(request());
+  useDispatchFetchAdsAction(skip, MAX_RESULTS_PER_PAGE, filters);
+  // useEffect(() => {
+  //   dispatchUi(request());
+  //   //dispatch(fetchAdsAction(skip, MAX_RESULTS_PER_PAGE, filters));
+  //   dispatchUi(success());
+  // }, [dispatchUi, dispatch, filters, skip]);
 
   return (
     <div
