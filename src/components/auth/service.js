@@ -1,4 +1,4 @@
-import client, {setAuthorizationHeader} from '../../api/client.js';
+import client, { setAuthorizationHeader } from '../../api/client.js';
 import storage from '../../utils/storage.js';
 
 const signupURL = '/api/users/signup';
@@ -44,7 +44,7 @@ export const deleteUser = async (userID) => {
 export const loginUser = async (credentials) => {
   const accessToken = await client.post(loginURL, credentials);
   storage.set('auth', accessToken);
-  console.log(accessToken)
+  console.log(accessToken);
   setAuthorizationHeader(accessToken);
   return accessToken;
 };

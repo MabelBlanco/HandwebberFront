@@ -1,34 +1,34 @@
-import "../../commons/card/card.scss";
-import { useNavigate } from "react-router-dom";
-import Button from "../../commons/button/Button";
-import { deleteUser, updateUser } from "../service";
-import { useAuth } from "../../context/AuthContext";
-import { useEffect, useState } from "react";
-import styles from "./SignUp.module.css";
+import '../../commons/card/card.scss';
+import { useNavigate } from 'react-router-dom';
+import Button from '../../commons/button/Button';
+import { deleteUser, updateUser } from '../service';
+import { useAuth } from '../../context/AuthContext';
+import { useEffect, useState } from 'react';
+import styles from './SignUp.module.css';
 import {
   deleteAdvertisement,
   getAdvertisementDetail,
-} from "../../advertisements/service";
-import { useTranslation } from "react-i18next";
-import { Error } from "../../commons/error/Error";
-import Card from "../../commons/card/Card";
-import Modal from "../../commons/modal/Modal";
-import Alert from "../../commons/feedbacks/alert/Alert";
-import FormUpdateProfile from "./FormUpdateProfile";
-import UserInfo from "./UserInfo";
+} from '../../advertisements/service';
+import { useTranslation } from 'react-i18next';
+import { Error } from '../../commons/error/Error';
+import Card from '../../commons/card/Card';
+import Modal from '../../commons/modal/Modal';
+import Alert from '../../commons/feedbacks/alert/Alert';
+import FormUpdateProfile from './FormUpdateProfile';
+import UserInfo from './UserInfo';
 
 const initialState = {
-  username: "",
-  mail: "",
-  password: "",
-  image: "",
+  username: '',
+  mail: '',
+  password: '',
+  image: '',
 };
 
 const ProfilePage = ({ className, title, ...props }) => {
   //const { user, isFetching, setUser } = useDataUser({ initialState });
   const { isLogged, handleLogOut, user, isFetching, setUser } = useAuth();
   const [credentials, setCredentials] = useState(initialState);
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
   const [activeForm, setActiveForm] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
@@ -42,7 +42,9 @@ const ProfilePage = ({ className, title, ...props }) => {
 
   const resetError = () => setError(null);
 
-  const goToMyAds = () => navigate(`/profile/user/${user.username}`);
+  //TODO cambiado a utilizar el id
+  //const goToMyAds = () => navigate(`/profile/user/${user.username}`);
+  const goToMyAds = () => navigate(`/profile/user/${user._id}`);
 
   const getMyFavorites = async () => {
     setActiveFavorits(!activeFavorits);
@@ -88,10 +90,10 @@ const ProfilePage = ({ className, title, ...props }) => {
 
     const formData = new FormData();
 
-    username && formData.append("username", username.toLowerCase());
-    mail && formData.append("mail", mail);
-    password && formData.append("password", password);
-    image && formData.append("image", image);
+    username && formData.append('username', username.toLowerCase());
+    mail && formData.append('mail', mail);
+    password && formData.append('password', password);
+    image && formData.append('image', image);
 
     try {
       const { result } = await updateUser(user._id, formData);
@@ -108,7 +110,6 @@ const ProfilePage = ({ className, title, ...props }) => {
       }
       setError(errors);
     }
-    
   };
 
   const deleteAccount = async () => {
@@ -117,13 +118,13 @@ const ProfilePage = ({ className, title, ...props }) => {
       for (let ad of userAds) {
         await deleteAdvertisement(ad._id);
       }
-      const response = await deleteUser(user._id);   
+      const response = await deleteUser(user._id);
       setIsDelete(true);
-      setTimeout(() =>{
+      setTimeout(() => {
         handleLogOut();
-        navigate("/advertisements");
+        navigate('/advertisements');
         setIsDelete(false);
-      }, 1500);    
+      }, 1500);
       return response;
     } catch (error) {
       setError(error);
@@ -131,63 +132,75 @@ const ProfilePage = ({ className, title, ...props }) => {
   };
 
   useEffect(() => {
-    !isLogged && navigate("/");
+    !isLogged && navigate('/');
   }, [isLogged, navigate]);
 
   return (
-    <div className="row">
+    <div className='row'>
       {isLogged && !isDelete && (
-        <div className="col-sm-12 py-2 my-1 text-center">
+        <div className='col-sm-12 py-2 my-1 text-center'>
           <UserInfo user={user} />
-          <ul className="list-group list-group-flush my-3">
-            <li key="subscriptions" className="list-group-item">
-              <span>{t("ProfilePage.Favorites")}: </span>
+          <ul className='list-group list-group-flush my-3'>
+            <li
+              key='subscriptions'
+              className='list-group-item'
+            >
+              <span>{t('ProfilePage.Favorites')}: </span>
               <Button
-                type="button"
-                className="btn btn-secondary mx-3 my-3"
+                type='button'
+                className='btn btn-secondary mx-3 my-3'
                 onClick={getMyFavorites}
               >
-                {t("ProfilePage.SEE MY FAVORITS ADS")}
+                {t('ProfilePage.SEE MY FAVORITS ADS')}
               </Button>
-              <div className="row">
+              <div className='row'>
                 {activeFavorits &&
                   favorits?.map((element) => {
                     const newProps = { ...props, ...element };
                     return (
                       <Card
-                        className="col-sm-12 col-lg-3 mx-2 my-5"
+                        className='col-sm-12 col-lg-3 mx-2 my-5'
                         key={element._id}
                         {...newProps}
                         link_1={`/advertisements/${element._id}`}
-                        label_link_1={t("UserAdsList.See more")}
+                        label_link_1={t('UserAdsList.See more')}
                       />
                     );
                   })}
               </div>
             </li>
-            <li key="ads" className="list-group-item">
-              <span>{t("ProfilePage.My advertisements")}: </span>
+            <li
+              key='ads'
+              className='list-group-item'
+            >
+              <span>{t('ProfilePage.My advertisements')}: </span>
               <Button
-                type="button"
-                className="btn btn-secondary mx-3 my-3"
+                type='button'
+                className='btn btn-secondary mx-3 my-3'
                 onClick={goToMyAds}
               >
-                {t("ProfilePage.GO TO MY ADVERTISEMENTS LIST")}
+                {t('ProfilePage.GO TO MY ADVERTISEMENTS LIST')}
               </Button>
             </li>
-            <li key="update" className="list-group-item">
+            <li
+              key='update'
+              className='list-group-item'
+            >
               <Button
-                type="button"
-                className="btn btn-secondary mx-3 my-3"
+                type='button'
+                className='btn btn-secondary mx-3 my-3'
                 onClick={handleActiveForm}
               >
-                {t("ProfilePage.CLICK FOR UPDATE YOUR PROFILE")}
+                {t('ProfilePage.CLICK FOR UPDATE YOUR PROFILE')}
               </Button>
               {error && (
-            <Error className={styles.signup__error} arrayErrors={error} />
-          )}
+                <Error
+                  className={styles.signup__error}
+                  arrayErrors={error}
+                />
+              )}
               {activeForm && (
-                <FormUpdateProfile 
+                <FormUpdateProfile
                   updateAccount={updateAccount}
                   handleCredentials={handleCredentials}
                   credentials={credentials}
@@ -195,32 +208,34 @@ const ProfilePage = ({ className, title, ...props }) => {
                   confirmPassword={confirmPassword}
                   handleImage={handleImage}
                   isFetching={isFetching}
-                />            
+                />
               )}
             </li>
-            <li key="delet" className="list-group-item">
-              <Modal 
-              hasConfirm
-              modalTitle={t("ProfilePage.DELETE ACCOUNT")}
-              doTask={deleteAccount}
-              classNameBtn="ms-2 btn-secondary"
-              classNameBtnClose="btn-secondary"
-              classNameBtnConfirm="btn-primary"
-              classNameContent="body"
-              label_confirm={t(`AdsDetailPage.Delete`)}
-              label_cancel={t(`AdsDetailPage.Cancel`)}
-              label_btn={t("ProfilePage.DELETE ACCOUNT")}
-              modalId="deleteUser"
-              >{t("ProfilePage.Are you sure for delete account?")}
-              </Modal>            
+            <li
+              key='delet'
+              className='list-group-item'
+            >
+              <Modal
+                hasConfirm
+                modalTitle={t('ProfilePage.DELETE ACCOUNT')}
+                doTask={deleteAccount}
+                classNameBtn='ms-2 btn-secondary'
+                classNameBtnClose='btn-secondary'
+                classNameBtnConfirm='btn-primary'
+                classNameContent='body'
+                label_confirm={t(`AdsDetailPage.Delete`)}
+                label_cancel={t(`AdsDetailPage.Cancel`)}
+                label_btn={t('ProfilePage.DELETE ACCOUNT')}
+                modalId='deleteUser'
+              >
+                {t('ProfilePage.Are you sure for delete account?')}
+              </Modal>
             </li>
           </ul>
         </div>
       )}
       {isDelete && (
-        <Alert className="alert-success">
-        Borrado correctamente
-      </Alert>
+        <Alert className='alert-success'>Borrado correctamente</Alert>
       )}
     </div>
   );

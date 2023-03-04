@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
-import { getUserByUsername } from "../auth/service";
-import UserInfo from "../auth/signUp/UserInfo";
-import Card from "../commons/card/Card";
-import "../commons/card/card.scss";
-import { getUserAdvertisements } from "./service";
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
+import { getUserById, getUserByUsername } from '../auth/service';
+import UserInfo from '../auth/signUp/UserInfo';
+import Card from '../commons/card/Card';
+import '../commons/card/card.scss';
+import { getUserAdvertisements } from './service';
 
 const initialState = {
-  username: "",
-  mail: "",
-  password: "",
-  image: "",
+  username: '',
+  mail: '',
+  password: '',
+  image: '',
   ads: [],
 };
 
@@ -26,7 +26,9 @@ const UserAdsList = ({ ...props }) => {
 
   useEffect(() => {
     const execute = async () => {
-      const userSearchData = await getUserByUsername(userSearchUsername);
+      //TODO activar búsqueda por username. Por ahora lo cambio a búsqueda por id
+      //const userSearchData = await getUserByUsername(userSearchUsername);
+      const userSearchData = await getUserById(userSearchUsername);
       const resultSearch = userSearchData.result;
       const userSearchAds = await getUserAdvertisements(resultSearch._id);
       resultSearch.ads = userSearchAds.result;
@@ -37,21 +39,25 @@ const UserAdsList = ({ ...props }) => {
 
   return (
     <>
-      <div className="row">
-        <div className="col-sm-12 py-2 my-1 text-center">
+      <div className='row'>
+        <div className='col-sm-12 py-2 my-1 text-center'>
           <UserInfo user={userSearch} />
         </div>
       </div>
-      <div className="row">
+      <div className='row'>
         {advertisements?.map((element) => {
-          const newProps = { ...props, ...element, username: userSearch.username };
+          const newProps = {
+            ...props,
+            ...element,
+            username: userSearch.username,
+          };
           return (
             <Card
-              className="col-sm-12 col-lg-3 mx-2"
+              className='col-sm-12 col-lg-3 mx-2'
               key={element._id}
               {...newProps}
               link_1={`/advertisements/${element._id}-${element.name}`}
-              label_link_1={t("UserAdsList.See more")}
+              label_link_1={t('UserAdsList.See more')}
             />
           );
         })}
