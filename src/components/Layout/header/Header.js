@@ -1,8 +1,8 @@
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import Button from "../../commons/button/Button";
 import { useAuth } from "../../context/AuthContext";
 import "./Header.scss";
-import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const { isLogged } = useAuth();
@@ -11,9 +11,9 @@ const Header = () => {
     <header className="bd-navbar fixed-top">
       <nav className="navbar navbar-expand-lg">
         <div className="container">
-          <a className="navbar-brand me-2" href="/advertisements">
+          <Link className="navbar-brand me-2" to="/advertisements">
             handWebber
-          </a>
+          </Link>
           <Button
             className="navbar-toggler"
             type="button"
@@ -28,29 +28,33 @@ const Header = () => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a
+                <Link
                   className="nav-link active"
                   aria-current="page"
-                  href="/advertisements"
+                  to="/advertisements"
                 >
                   {t("Header.Home")}
-                </a>
+                </Link>
               </li>
               {isLogged && (
                 <li className="nav-item">
-                  <a
+                  <Link
                     className="nav-link active"
                     aria-current="page"
-                    href="/advertisements/new"
+                    to="/advertisements/new"
                   >
                     {t("Header.New Advertisement")}
-                  </a>
+                  </Link>
                 </li>
               )}
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="/test">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/test"
+                >
                   {t("Header.Comp List")}
-                </a>
+                </Link>
               </li>
             </ul>
             <div className="d-flex align-items-center">

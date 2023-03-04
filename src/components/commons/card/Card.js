@@ -1,8 +1,10 @@
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import Button from "../button/Button";
 import NoImage from "../noImage/NoImage";
+import Tags from "../tags/Tags";
 import "./card.scss";
-import { useTranslation } from "react-i18next";
 
 /**
  *
@@ -34,7 +36,9 @@ const Card = ({
   custom,
   active,
   description,
+  subscribers,
   date,
+  addFavorites,
   ...props
 }) => {
   const { t } = useTranslation();
@@ -67,9 +71,9 @@ const Card = ({
           <span>{t("Card.Price")}: </span>
           {price}
         </li>
-        <li key="tags" className="list-group-item">
-          <span>{t("Card.Tags")}: </span>
-          {tags && tags.join(", ")}
+        <li key="tags" className="list-group-item tags-container">
+          <p className="label-info">Tags: </p>
+          <Tags tagsArray={tags} />
         </li>
         <li key="date" className="list-group-item">
           <span>{t("Card.Date")}: </span>
@@ -78,21 +82,30 @@ const Card = ({
         <li key="stock" className="list-group-item">
           <span>{t("Card.Stock")}: </span>
           {stock}
+        </li>{" "}
+        <li key="favorites" className="list-group-item favorites">
+          <i className="bi bi-heart-fill" onClick={addFavorites}></i>{" "}
+          <span className="px-1">{subscribers && subscribers.length}</span>
         </li>
         <li key="user" className="list-group-item">
           <span>{t("Card.User")}: </span>
-          <a href={`/profile/user/${username}`} className="card-link">
-            {username}
-          </a>
+          {username && (
+            <Link
+              to={`/profile/user/${username ? username : idUser}`}
+              className="card-link"
+            >
+              {username ? username : idUser}
+            </Link>
+          )}
         </li>
         <li key="custom" className="list-group-item">
           {custom ? <span> {t("Card.Custom Product")} </span> : ""}
         </li>
       </ul>
       <div className="card-body actions">
-        <a href={link_1} className="card-link">
+        <Link to={link_1} className="card-link">
           {label_link_1}
-        </a>
+        </Link>
         {label_button_1 && (
           <Button type="button" className="btn btn-secondary mx-3">
             {label_button_1}

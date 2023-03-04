@@ -1,37 +1,29 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getUserById } from "../auth/service";
-import useDataUser from "../auth/signUp/useDataUser";
+import { useAuth } from "../context/AuthContext";
 import { getAdvertisementDetail } from "./service";
-
-const initialState = {
-  username: "",
-  _id: null,
-};
 
 const useDataAdvert = () => {
   const [currentAdvert, setCurrentAdvert] = useState({});
-  const { user } = useDataUser({ initialState });
-
+  const { isLogged, user } = useAuth();
   const advertId = useParams().id;
   const navigate = useNavigate();
 
   const advertisementCall = advertId.split("-", 1)[0];
-
+  console.log(advertisementCall);
   useEffect(() => {
     const execute = async () => {
       try {
         const advert = await getAdvertisementDetail(advertisementCall);
-        const userData = await getUserById(advert.result.idUser);
+        const userLoggedId = user._id;
         let tags = advert.result.tags[0].split(",");
         const advertObj = {
           ...advert.result,
-          username: userData.result.username,
           tags: tags,
-          userLoggedId: user._id,
-          favorites: 50,
+          userLoggedId: isLogged && userLoggedId,
         };
         setCurrentAdvert(advertObj);
+        localStorage.setItem("current", JSON.stringify(advertObj));
       } catch (error) {
         if (error.status === 401) {
           navigate("/login");
@@ -43,7 +35,7 @@ const useDataAdvert = () => {
       }
     };
     execute();
-  }, [advertId, navigate, user._id, advertisementCall]);
+  }, [advertId, navigate, advertisementCall, user, isLogged]);
 
   return { ...currentAdvert };
 };

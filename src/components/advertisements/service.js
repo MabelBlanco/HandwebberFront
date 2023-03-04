@@ -1,11 +1,11 @@
-import client from '../../api/client';
+import client from "../../api/client";
 
-const advertisementsURL = '/api/advertisement';
+const advertisementsURL = "/api/advertisement";
 
 export const getAdvertisements = (skip, limit, filters) => {
   const sk = skip ? skip : 0;
   const lim = limit ? limit : 10;
-  let filtersToApply = '';
+  let filtersToApply = "";
   filtersToApply = filters.name
     ? `${filtersToApply}&name=${filters.name}`
     : filtersToApply;
@@ -18,7 +18,7 @@ export const getAdvertisements = (skip, limit, filters) => {
 
   //Request chaine
   let request = `${advertisementsURL}?skip=${sk}&limit=${lim}&sort=-update`;
-  if (filtersToApply !== '') {
+  if (filtersToApply !== "") {
     request = `${request}${filtersToApply}`;
   }
   return client.get(request);
@@ -38,8 +38,15 @@ export const getAdvertisementDetail = (advertId) => {
   return client.get(url);
 };
 
-export const deleteAdvertisement = (id) => {
-  console.log(id);
-  const url = `${advertisementsURL}/${id}`;
+export const deleteAdvertisement = (advertId) => {
+  console.log(advertId);
+  const url = `${advertisementsURL}/${advertId}`;
   return client.delete(url);
+};
+export const updateAdvertisement = async (advertId, body) => {
+  console.log(advertId);
+  console.log(JSON.stringify(body));
+  // const response = await client.put(`${advertisementsURL}/${advertId}`, body);
+  // console.log(response);
+  // return response;
 };
