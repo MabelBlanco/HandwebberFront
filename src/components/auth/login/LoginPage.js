@@ -53,10 +53,10 @@ export function LoginPage() {
     try {
       await updatePassword(emailValue);
 
-      window.alert(t("LoginPage.A new password has been sent to your email"));
-
       const to = "/login";
       navigate(to);
+
+      window.alert(t("LoginPage.A new password has been sent to your email"));
     } catch (error) {
       const errors = [];
       if (Array.isArray(error.message)) {
