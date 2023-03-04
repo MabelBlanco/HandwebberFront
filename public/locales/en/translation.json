@@ -3,7 +3,11 @@
     "Sorry, you are loggin now. If you want singin with another count, close this session first.": "Sorry, you are loggin now. If you want singin with another count, close this session first.",
     "Email": "Email",
     "Password": "Password",
-    "Login": "Login"
+    "Login": "Login",
+    "A new password has been sent to your email": "A new password has been sent to your email",
+    "Don't remember your password?": "Don't remember your password?",
+    "Send me a new password": "Send me a new password",
+    "Send Password": "Send Password"
   },
 
   "AdsList": {
@@ -67,20 +71,20 @@
     "SIGNUP": "SIGNUP",
     "Sorry, you are already registered. If you want register a new count, close this session first": "Sorry, you are already registered. If you want register a new count, close this session first"
   },
-  "NotFoundPage":{
+  "NotFoundPage": {
     "Unprocessable Entity": "Entidad no procesable",
     "NOT FOUND": "NO ENCONTRADO",
     "Close": "Cerrar"
   },
-  "AdsDetailPage":{
+  "AdsDetailPage": {
     "Edit": "Editar",
-    "Delete" : "Borrar",
-    "Price" : "Precio",
+    "Delete": "Borrar",
+    "Price": "Precio",
     "Description": "Descripción",
-    "Contact" : "Contactar",
-    "Active":"Activo",
+    "Contact": "Contactar",
+    "Active": "Activo",
     "Inactive": "Inactivo",
-    "ModalText" : "Are you sure to remove the advertisement? This action can not be undone",
+    "ModalText": "Are you sure to remove the advertisement? This action can not be undone",
     "Cancel": "Cancelar",
     "ModalTitle": "Delete advertisement"
   },

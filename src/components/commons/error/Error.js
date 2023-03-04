@@ -61,7 +61,7 @@ export function Error({ arrayErrors, ...props }) {
           } else if (error === "Network Error") {
             errorTranslate = t("Error.Network Error");
           } else {
-            errorTranslate = t("Error.An unexpected error has occurred");
+            errorTranslate = error;
           }
           return (
             <p key={error} {...props}>
