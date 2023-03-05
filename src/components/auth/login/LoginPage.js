@@ -128,12 +128,12 @@ export function LoginPage() {
           <Error arrayErrors={errors} />
         </form>
         {!unknowPassword ? (
-          <>
+          <div className="recoverPassword">
             <p>{t("LoginPage.Don't remember your password?")}</p>
             <Link onClick={recoverPassword}>
               {t("LoginPage.Send me a new password")}
             </Link>
-          </>
+          </div>
         ) : (
           ""
         )}
