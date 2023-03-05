@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { getUserById, getUserByUsername } from '../auth/service';
+import { getUserById } from '../auth/service';
 import UserInfo from '../auth/signUp/UserInfo';
 import Card from '../commons/card/Card';
 import '../commons/card/card.scss';
@@ -20,22 +20,23 @@ const UserAdsList = ({ ...props }) => {
 
   const { t } = useTranslation();
 
-  const userSearchUsername = useParams().username;
+  //TODO Changed advertisement search by username to advertisement search by id.
+  //const userSearchUsername = useParams().username;
+  const userSearchId = useParams().username;
 
   const advertisements = userSearch.ads;
 
   useEffect(() => {
     const execute = async () => {
-      //TODO activar búsqueda por username. Por ahora lo cambio a búsqueda por id
       //const userSearchData = await getUserByUsername(userSearchUsername);
-      const userSearchData = await getUserById(userSearchUsername);
+      const userSearchData = await getUserById(userSearchId);
       const resultSearch = userSearchData.result;
       const userSearchAds = await getUserAdvertisements(resultSearch._id);
       resultSearch.ads = userSearchAds.result;
       setUserSearch(resultSearch);
     };
     execute();
-  }, [userSearchUsername]);
+  }, [userSearchId]);
 
   return (
     <>

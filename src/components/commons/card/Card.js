@@ -31,7 +31,6 @@ const Card = ({
   tags,
   stock,
   idUser,
-  username,
   custom,
   active,
   description,

@@ -90,7 +90,6 @@ const AdsList = ({ ...props }) => {
   //Redux adslist handles
   const advertisements = useAdsListSelector();
   useDispatchFetchAdsAction(skip, MAX_RESULTS_PER_PAGE, filters);
-  console.log(advertisements);
 
   return (
     <div
