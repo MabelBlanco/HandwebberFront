@@ -4,10 +4,12 @@
     "Email": "Correo electrónico",
     "Password": "Contraseña",
     "Login": "Iniciar Sesión",
-    "A new password has been sent to your email": "Se ha enviado una nueva contraseña a tu email.",
     "Don't remember your password?": "¿No recuerdas tu contraseña?",
     "Send me a new password": "Envíame una nueva contraseña",
-    "Send Password": "Enviar Contraseña"
+    "Send Password": "Enviar Contraseña",
+    "Better not": "Mejor no",
+    "Confirm password change": "Confirmar cambio de contraseña",
+    "If you press OK, we will send you a new password to your email and you will not be able to access with the current one. Do you agree?": "Si pulsas OK, te enviaremos una nueva contraseña a tu email y no podrás acceder con la actual. ¿Estás de acuerdo?"
   },
 
   "AdsList": {

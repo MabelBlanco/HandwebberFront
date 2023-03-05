@@ -4,10 +4,12 @@
     "Email": "Email",
     "Password": "Password",
     "Login": "Login",
-    "A new password has been sent to your email": "A new password has been sent to your email",
     "Don't remember your password?": "Don't remember your password?",
     "Send me a new password": "Send me a new password",
-    "Send Password": "Send Password"
+    "Send Password": "Send Password",
+    "Better not": "Better not",
+    "Confirm password change": "Confirm password change",
+    "If you press OK, we will send you a new password to your email and you will not be able to access with the current one. Do you agree?": "If you press OK, we will send you a new password to your email and you will not be able to access with the current one. Do you agree?"
   },
 
   "AdsList": {

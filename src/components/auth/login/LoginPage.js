@@ -7,6 +7,7 @@ import Button from "../../commons/button/Button";
 import { useAuth } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
 import { Error } from "../../commons/error/Error";
+import Modal from "../../commons/modal/Modal";
 
 export function LoginPage() {
   const [emailValue, setEmailValue] = useState("");
@@ -47,16 +48,15 @@ export function LoginPage() {
   };
 
   // Ask a new password with this email
-  const submitRecoverEvent = async (event) => {
-    event.preventDefault();
-
+  const sendEmailPassword = async () => {
     try {
       await updatePassword(emailValue);
 
+      setUnknowPassword(false);
+      setErrors([]);
+
       const to = "/login";
       navigate(to);
-
-      window.alert(t("LoginPage.A new password has been sent to your email"));
     } catch (error) {
       const errors = [];
       if (Array.isArray(error.message)) {
@@ -76,10 +76,7 @@ export function LoginPage() {
   } else {
     return (
       <>
-        <form
-          id="login"
-          onSubmit={!unknowPassword ? submitEvent : submitRecoverEvent}
-        >
+        <form id="login" onSubmit={submitEvent}>
           <div className="emailContainer">
             <Input
               value={emailValue}
@@ -104,16 +101,32 @@ export function LoginPage() {
           ) : (
             ""
           )}
-          <Button type="submit" form="login" className="loginButton">
-            {!unknowPassword
-              ? t("LoginPage.Login")
-              : t("LoginPage.Send Password")}
-          </Button>
+          {!unknowPassword ? (
+            <Button type="submit" form="login" className="loginButton">
+              {t("LoginPage.Login")}
+            </Button>
+          ) : (
+            <Modal
+              modalTitle={t("LoginPage.Confirm password change")}
+              doTask={sendEmailPassword}
+              hasConfirm
+              classNameBtn="m-2 btn-secondary"
+              classNameBtnClose="btn-secondary"
+              classNameBtnConfirm="btn-primary"
+              classNameContent="body"
+              label_confirm="OK"
+              label_cancel={t("LoginPage.Better not")}
+              label_btn={t("LoginPage.Send Password")}
+              modalId="SendPassword"
+            >
+              {t(
+                "LoginPage.If you press OK, we will send you a new password to your email and you will not be able to access with the current one. Do you agree?"
+              )}
+            </Modal>
+          )}
+
           <Error arrayErrors={errors} />
         </form>
-        {
-          //TODO translation
-        }
         {!unknowPassword ? (
           <>
             <p>{t("LoginPage.Don't remember your password?")}</p>
