@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import storage from "../../utils/storage";
+import useDataUser from "../auth/signUp/useDataUser";
 
 const AuthContext = createContext();
 
@@ -10,6 +11,8 @@ AuthContext.displayName = "Auth Context";
 export function AuthContextProvider({ children, haveInitialToken }) {
   const [isLogged, setIsLogged] = useState(haveInitialToken);
 
+  const { user, isFetching, setUser, errorDataUser, setErrorDataUser } = useDataUser({})
+
   const handleLogin = () => setIsLogged(true);
   const handleLogOut = () => {
     setIsLogged(false);
@@ -17,7 +20,7 @@ export function AuthContextProvider({ children, haveInitialToken }) {
   }
   return (
     <AuthContext.Provider
-      value={{ isLogged: isLogged, handleLogin, handleLogOut }}
+      value={{ isLogged: isLogged, handleLogin, handleLogOut, user, isFetching, setUser, errorDataUser, setErrorDataUser }}
     >
       {children}
     </AuthContext.Provider>

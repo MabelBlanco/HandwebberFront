@@ -8,11 +8,22 @@
     & [class*="col-"] {
       margin-bottom: -99999px;
       padding-bottom: 99999px;
+      &.image {
+          overflow: hidden;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          & img {
+            width: 100%;
+            height: auto;
+          }
+        }
       & .ads-info {
         background-color: var(--color-static-white);
         & .stock {
           padding: 20px;
         }
+        
       }
       & .description {
         padding-bottom: 20px;
