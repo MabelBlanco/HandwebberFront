@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useNavigate /*, useParams*/ } from 'react-router-dom';
-// import { getUserById } from "../auth/service";
-// import useDataUser from "../auth/signUp/useDataUser";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Alert from '../commons/feedbacks/alert/Alert';
 import AdsDetailPage from './AdsDetailPage/AdsDetailPage';
 import './advertisements.scss';
@@ -13,22 +11,15 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   const navigate = useNavigate();
   const advert = useDataAdvert();
 
-  useEffect(() => {
-    let isMounted = true;
-    if (isMounted) {
-      const execute = async () => {};
-      execute();
-    }
-
-    return () => {
-      isMounted = false;
-    };
-  }, [advert]);
-
+  const setCurrentData = () => {
+    const tempAdvert = localStorage.getItem('current');
+    console.log(JSON.parse(tempAdvert));
+    return tempAdvert;
+  };
+  const temp = setCurrentData();
   const onEdit = async () => {
     try {
       navigate(`/advertisements/edit/${advert._id}-${advert.name}`);
-      // await deleteAdvertisement(id).then(navigate("/advertisements"));
     } catch (error) {
       console.log(error);
     }
@@ -57,6 +48,20 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
         {advert?._id && !isDelete && (
           <AdsDetailPage
             {...advert}
+            fncontact={onContact}
+            fndelete={onDelete}
+            fnedit={onEdit}></AdsDetailPage>
+        )}
+        {!advert && !isDelete && (
+          <AdsDetailPage
+            {...temp}
+            fncontact={onContact}
+            fndelete={onDelete}
+            fnedit={onEdit}></AdsDetailPage>
+        )}
+        {!advert && !isDelete && (
+          <AdsDetailPage
+            {...temp}
             fncontact={onContact}
             fndelete={onDelete}
             fnedit={onEdit}></AdsDetailPage>

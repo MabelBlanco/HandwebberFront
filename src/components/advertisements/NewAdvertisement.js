@@ -7,75 +7,70 @@ import Input from "../commons/forms/input/Input";
 import InputFile from "../commons/forms/inputFile/InputFile";
 import Select from "../commons/forms/select/Select";
 import Textarea from "../commons/forms/textarea/Textarea";
+import { useAuth } from "../context/AuthContext";
 import "./advertisements.scss";
 import { createAdvertisement } from "./service";
 
 const NewAdvertisement = ({ ...props }) => {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
-  const [stock, setStock] = useState(0);
-  const [description, setDescription] = useState("");
-  const [active, setActive] = useState(false);
-  const [custom, setCustom] = useState(false);
-  const [tags, setTags] = useState([]);
-  const [photo, setPhoto] = useState();
   const navigate = useNavigate();
+  const { user, isLogged } = useAuth();
   const { t } = useTranslation();
   const tagsOpt = ["lifestyle", "sport", "motor", "players"];
 
-  // useEffect(() => {
-  //   const execute = async () => {
-  //     try {
-  //       // const optTags = await getAdversTags();
-  //       // setTagsOpt(optTags);
-  //     } catch (error) {
-  //       if (error.statusCode === 401) {
-  //         navigate("/login");
-  //       }
-  //       if (error.statusCode === 404) {
-  //         navigate("/404", { state: { message: error.statusCode } });
-  //       }
-  //       navigate("/404", { state: { message: error } });
-  //     }
-  //   };
-  //   execute();
-  // }, [navigate]);
+  const [form, setForm] = useState({
+    name: "",
+    price: 0,
+    stock: 0,
+    description: "",
+    active: false,
+    custom: false,
+    tags: [],
+    photo: "",
+  });
 
-  const handleChangeName = (e) => setName(e.target.value);
-  const handleChangeDescription = (e) => setDescription(e.target.value);
-  const handleChangePrice = (e) => setPrice(e.target.value);
-  const handleChangeStock = (e) => setStock(e.target.value);
-  const handleChangeActive = (e) => setActive(e.target.checked);
-  const handleChangeCustom = (e) => setCustom(e.target.checked);
-  const handleChangeSelect = (e) => {
-    var options = e.target.options;
-    var values = [];
-    for (var i = 0, l = options.length; i < l; i++) {
-      if (options[i].selected) {
-        values.push(options[i].value.toString());
-      }
+  const enterElementHandleChange = (event) => {
+    console.log(user.username, isLogged);
+    // console.log(event.target.type);
+    // console.log(form);
+
+    if (
+      event.target.type === "text" ||
+      event.target.tagName === "TEXTAREA" ||
+      event.target.type === "number"
+    ) {
+      setForm({ ...form, [event.target.name]: event.target.value });
     }
-    setTags(values);
+
+    if (event.target.type === "checkbox") {
+      const value = event.target.checked;
+      setForm({ ...form, [event.target.name]: value });
+    }
+
+    if (event.target.tagName === "SELECT") {
+      console.log(event.target.tagName);
+      const { selectedOptions } = event.target;
+      const tags = [...selectedOptions].map((value) => value.value);
+      setForm({ ...form, [event.target.name]: tags });
+    }
+    if (event.target.type === "file") {
+      setForm({ ...form, [event.target.name]: event.target.files[0] });
+    }
   };
-  const handleChangeImage = (e) => {
-    setPhoto(e.target.files[0]);
-  };
-  const validPrice = (price) => price > 0 && !Number.isNaN(price);
-  const validTags = (tags) => !!tags.length;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const bodyFormData = new FormData();
-    bodyFormData.append("name", name);
-    bodyFormData.append("price", price);
-    bodyFormData.append("tags", tags);
-    bodyFormData.append("description", description);
-    bodyFormData.append("custom", custom);
-    bodyFormData.append("stock", stock);
-    bodyFormData.append("active", active);
-    photo && bodyFormData.append("image", photo);
-
+    bodyFormData.append("name", form.name);
+    bodyFormData.append("price", form.price);
+    bodyFormData.append("tags", form.tags);
+    bodyFormData.append("description", form.description);
+    bodyFormData.append("custom", form.custom);
+    bodyFormData.append("stock", form.stock);
+    bodyFormData.append("active", form.active);
+    bodyFormData.append("username", user.username);
+    form.photo && bodyFormData.append("image", form.photo);
+    console.log({ ...form });
     try {
       const advert = await createAdvertisement(bodyFormData);
       navigate(`/advertisements/${advert.result._id}-${advert.result.name} `);
@@ -90,10 +85,17 @@ const NewAdvertisement = ({ ...props }) => {
     }
   };
 
+  const validPrice = (price) => form.price > 0 && !Number.isNaN(form.price);
+  const validTags = (tags) => !!form.tags.length;
+  const validName = (name) => form.name;
   const isDisabled = useMemo(() => {
-    return !!(name && validPrice(price) && validTags(tags));
-  }, [name, price, tags]);
-
+    return !!(
+      validName(form.name) &&
+      validPrice(form.price) &&
+      validTags(form.tags)
+    );
+    // eslint-disable-next-line
+  }, [form.name, form.price, form.tags]);
   return (
     <div className="row">
       <h1 className="col-sm-12 py-5">{props.title}</h1>
@@ -105,8 +107,8 @@ const NewAdvertisement = ({ ...props }) => {
             name="name"
             label={t("NewAdvertisement.Name")}
             required
-            onChange={handleChangeName}
-            value={name}
+            onChange={enterElementHandleChange}
+            value={form.name}
           />
           <Input
             type="number"
@@ -114,32 +116,34 @@ const NewAdvertisement = ({ ...props }) => {
             className="col-sm-4 col-lg-4 mb-5"
             name="price"
             required
-            onChange={handleChangePrice}
-            value={price}
+            onChange={enterElementHandleChange}
+            value={form.price}
           />
           <Input
             type="number"
             label={t("NewAdvertisement.Stock")}
             className="col-sm-4 col-lg-4 mb-5"
-            name="price"
+            name="stock"
             required
-            onChange={handleChangeStock}
-            value={stock}
+            onChange={enterElementHandleChange}
+            value={form.stock}
           />
           <Textarea
             className="col-sm-12 mb-5"
             label={t("NewAdvertisement.Description")}
-            value={description}
-            onChange={handleChangeDescription}
+            value={form.description}
+            onChange={enterElementHandleChange}
+            name="description"
           ></Textarea>
           <Select
             label={t("NewAdvertisement.Tags")}
             className="col-md-6 col-lg-6 mb-5"
             optionarray={tagsOpt}
-            onChange={handleChangeSelect}
-            value={tags}
+            onChange={enterElementHandleChange}
+            value={form.tags}
             required
             multiple={true}
+            name="tags"
           />
 
           <InputFile
@@ -147,20 +151,22 @@ const NewAdvertisement = ({ ...props }) => {
             className="col-md-6 mb-5"
             name="photo"
             id="photo"
-            onChange={handleChangeImage}
+            onChange={enterElementHandleChange}
           />
 
           <Checkbox
             label={t("NewAdvertisement.Active")}
             className="col-md-4 mb-2"
-            value={active}
-            onChange={handleChangeActive}
+            name="active"
+            value={form.active}
+            onChange={enterElementHandleChange}
           />
           <Checkbox
             label={t("NewAdvertisement.Custom")}
             className="col-md-4 mb-2"
-            value={custom}
-            onChange={handleChangeCustom}
+            name="custom"
+            value={form.custom}
+            onChange={enterElementHandleChange}
           />
           <Button
             type="submit"

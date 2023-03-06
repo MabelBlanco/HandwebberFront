@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { format } from 'date-fns';
 import { t } from 'i18next';
+import { Link } from 'react-router-dom';
 import Button from '../../commons/button/Button';
 import Modal from '../../commons/modal/Modal';
 import NoImage from '../../commons/noImage/NoImage';
@@ -25,10 +26,10 @@ const AdsDetailPage = ({
   active,
   description,
   update,
-  favorites,
   //  username,
   children,
   addFavorites,
+  subscribers,
   ...props
 }) => {
   return (
@@ -119,7 +120,7 @@ const AdsDetailPage = ({
               <i
                 className='bi bi-heart-fill'
                 onClick={addFavorites}></i>{' '}
-              <span className='px-1'>{favorites}</span>
+              <span className='px-1'>{subscribers && subscribers.length}</span>
             </div>
             {idUser._id === userLoggedId && (
               <div className='mt-5 actions'>

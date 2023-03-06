@@ -4,6 +4,7 @@ import NoImage from '../noImage/NoImage';
 import './card.scss';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
+import Tags from '../tags/Tags';
 
 /**
  *
@@ -34,7 +35,9 @@ const Card = ({
   custom,
   active,
   description,
+  subscribers,
   date,
+  addFavorites,
   ...props
 }) => {
   const { t } = useTranslation();
@@ -42,8 +45,7 @@ const Card = ({
   return (
     <div
       className={classNames(`card ${active ? 'active' : ''}`, className)}
-      {...props}
-    >
+      {...props}>
       <div className='header-card'>
         {image ? (
           <img
@@ -65,72 +67,70 @@ const Card = ({
       <ul className='list-group list-group-flush'>
         <li
           key='price'
-          className='list-group-item'
-        >
+          className='list-group-item'>
           <span>{t('Card.Price')}: </span>
           {price}
         </li>
         <li
           key='tags'
-          className='list-group-item'
-        >
-          <span>{t('Card.Tags')}: </span>
-          {tags && tags.join(', ')}
+          className='list-group-item tags-container'>
+          <p className='label-info'>Tags: </p>
+          <Tags tagsArray={tags} />
         </li>
         <li
           key='date'
-          className='list-group-item'
-        >
+          className='list-group-item'>
           <span>{t('Card.Date')}: </span>
           {date}
         </li>
         <li
           key='stock'
-          className='list-group-item'
-        >
+          className='list-group-item'>
           <span>{t('Card.Stock')}: </span>
           {stock}
+        </li>{' '}
+        <li
+          key='favorites'
+          className='list-group-item favorites'>
+          <i
+            className='bi bi-heart-fill'
+            onClick={addFavorites}></i>{' '}
+          <span className='px-1'>{subscribers && subscribers.length}</span>
         </li>
         <li
           key='user'
-          className='list-group-item'
-        >
+          className='list-group-item'>
           <span>{t('Card.User')}: </span>
           <NavLink
             to={`/profile/user/${idUser._id}`}
             className='card-link'
-            end
-          >
+            end>
             {idUser.username}
           </NavLink>
         </li>
         <li
           key='custom'
-          className='list-group-item'
-        >
+          className='list-group-item'>
           {custom ? <span> {t('Card.Custom Product')} </span> : ''}
         </li>
       </ul>
       <div className='card-body actions'>
         <NavLink
           to={link_1}
-          className='card-link'
-        >
+          className='card-link'>
           {label_link_1}
         </NavLink>
         {label_button_1 && (
           <Button
             type='button'
-            className='btn btn-secondary mx-3'
-          >
+            className='btn btn-secondary mx-3'>
             {label_button_1}
           </Button>
         )}
         {label_button_2 && (
           <Button
             type='button'
-            className='btn btn-secondary'
-          >
+            className='btn btn-secondary'>
             {label_button_2}
           </Button>
         )}

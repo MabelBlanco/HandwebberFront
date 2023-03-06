@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { t } from "i18next";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "../commons/button/Button";
 import Input from "../commons/forms/input/Input";
 import InputFile from "../commons/forms/inputFile/InputFile";
@@ -13,41 +13,62 @@ import useDataAdvert from "./useDataAdvert";
 
 const EditAdvertisement = ({ className, ...props }) => {
   const advert = useDataAdvert();
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [stock, setStock] = useState("");
-  const [description, setDescription] = useState("");
-  const [photo, setPhoto] = useState();
-  const [tags, setTags] = useState([]);
   const tagsOpt = ["lifestyle", "sport", "motor", "players"];
 
-  const handleChangeName = (e) => setName(e.target.value);
-  const handleChangePrice = (e) => setPrice(e.target.value);
-  const handleChangeStock = (e) => setStock(e.target.value);
-  const handleChangeDescription = (e) => setDescription(e.target.value);
-  const handleChangeImage = (e) => setPhoto(e.target.files[0]);
-  const handleChangeSelect = (e) => {
-    var options = e.target.options;
-    var values = [];
-    for (var i = 0, l = options.length; i < l; i++) {
-      if (options[i].selected) {
-        values.push(options[i].value.toString());
-      }
+  const [form, setForm] = useState({ ...advert });
+  const enterElementHandleChange = (event) => {
+    if (
+      event.target.type === "text" ||
+      event.target.tagName === "TEXTAREA" ||
+      event.target.type === "number"
+    ) {
+      setForm({ ...form, [event.target.name]: event.target.value });
     }
-    setTags(values);
-  };
 
-  const handleSubmit = (e) => {
+    if (event.target.type === "checkbox") {
+      const value = event.target.checked;
+      setForm({ ...form, [event.target.name]: value });
+    }
+
+    if (event.target.tagName === "SELECT") {
+      console.log(event.target.tagName);
+      const { selectedOptions } = event.target;
+      const tags = [...selectedOptions].map((value) => value.value);
+      setForm({ ...form, [event.target.name]: tags });
+    }
+    if (event.target.type === "file") {
+      setForm({ ...form, [event.target.name]: event.target.files[0] });
+    }
+  };
+  // const updateAdvert = async (event) => {
+  //   event.preventDefault();
+
+  //   const formData = new FormData();
+
+  //   try {
+  //     const { result } = await updateAdvertisement(user._id, formData);
+  //     console.log(result);
+  //   } catch (error) {
+  //     const errors = [];
+  //     if (Array.isArray(error.message)) {
+  //       error.message.map((e) => errors.push(e.msg));
+  //     } else {
+  //       errors.push(error.message);
+  //     }
+  //     setError(errors);
+  //   }
+  // };
+  const updateAdvert = (e) => {
     e.preventDefault();
     const bodyFormData = new FormData();
-    bodyFormData.append("name", name ? name : advert.name);
-    bodyFormData.append("price", price ? price : advert.price);
-    bodyFormData.append("stock", stock ? stock : advert.stock);
+    bodyFormData.append("name", form.name ? form.name : advert.name);
+    bodyFormData.append("price", form.price ? form.price : advert.price);
+    bodyFormData.append("stock", form.stock ? form.stock : advert.stock);
     bodyFormData.append(
       "description",
-      description ? description : advert.description
+      form.description ? form.description : advert.description
     );
-    bodyFormData.append("image", photo ? photo : advert.image);
+    bodyFormData.append("image", form.photo ? form.photo : advert.image);
     console.log("bodyform", {
       name: bodyFormData.get("name"),
       price: bodyFormData.get("price"),
@@ -60,23 +81,27 @@ const EditAdvertisement = ({ className, ...props }) => {
   const onDelete = () => {
     console.log("delete");
   };
-  useEffect(() => {
-    let isMounted = true;
-    if (isMounted) {
-      const execute = async () => {};
-      execute();
-    }
+  // useEffect(() => {
+  //   let isMounted = true;
+  //   if (isMounted) {
+  //     const execute = async () => {
+  //         useEffect(() => {
+  //   localStorage.setItem("myKey", state);
+  // }, [state]);
+  //     };
+  //     execute();
+  //   }
 
-    return () => {
-      isMounted = false;
-    };
-  }, [advert]);
+  //   return () => {
+  //     isMounted = false;
+  //   };
+  // }, [advert, form]);
 
   return (
     <form
       className={classNames("py-5 ads-edit-form blur-secondary-800", className)}
       {...props}
-      onSubmit={handleSubmit}
+      onSubmit={updateAdvert}
     >
       <div className="container px-4 px-lg-5 my-5">
         <div className="row gx-4 gx-lg-5 ">
@@ -96,7 +121,7 @@ const EditAdvertisement = ({ className, ...props }) => {
                 className="mt-3"
                 name="photo"
                 id="photo"
-                onChange={handleChangeImage}
+                onChange={enterElementHandleChange}
               />
             </div>
           </div>
@@ -111,8 +136,8 @@ const EditAdvertisement = ({ className, ...props }) => {
                 name="name"
                 label={t("NewAdvertisement.Name")}
                 placeholder={advert.name}
-                value={name}
-                onChange={handleChangeName}
+                value={form.name}
+                onChange={enterElementHandleChange}
               />
             </div>
             <div className="edit-price mb-3 bg-light px-3 py-2">
@@ -127,8 +152,8 @@ const EditAdvertisement = ({ className, ...props }) => {
                 label={t("NewAdvertisement.Price")}
                 name="price"
                 placeholder={advert.price}
-                onChange={handleChangePrice}
-                value={price}
+                onChange={enterElementHandleChange}
+                value={form.price}
               />
             </div>
             <div className="edit-stock mb-3 bg-light px-3 py-2">
@@ -143,8 +168,8 @@ const EditAdvertisement = ({ className, ...props }) => {
                 label="Stock"
                 name="stock"
                 placeholder={advert.stock}
-                onChange={handleChangeStock}
-                value={stock}
+                onChange={enterElementHandleChange}
+                value={form.stock}
               />
             </div>
             <div className="edit-description mb-3 bg-light px-3 py-2">
@@ -156,8 +181,9 @@ const EditAdvertisement = ({ className, ...props }) => {
                 className=""
                 label={t("NewAdvertisement.Description")}
                 placeholder={advert.description}
-                value={description}
-                onChange={handleChangeDescription}
+                value={form.description}
+                name="description"
+                onChange={enterElementHandleChange}
               ></Textarea>
             </div>
             <div className="edit-tags mb-3 bg-light px-3 py-3">
@@ -168,9 +194,10 @@ const EditAdvertisement = ({ className, ...props }) => {
               <Select
                 label={t("NewAdvertisement.Tags")}
                 className="w-50"
+                name="tags"
                 optionarray={tagsOpt}
-                onChange={handleChangeSelect}
-                value={tags}
+                onChange={enterElementHandleChange}
+                value={form.tags}
                 required
                 multiple={true}
               />
