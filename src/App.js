@@ -19,8 +19,7 @@ function App() {
       <Routes>
         <Route
           path='/login'
-          element={<Layout title='Login' />}
-        >
+          element={<Layout title='Login' />}>
           <Route
             path=''
             element={<LoginPage />}
@@ -29,8 +28,7 @@ function App() {
 
         <Route
           path='/signup'
-          element={<Layout title='Sign Up' />}
-        >
+          element={<Layout title='Sign Up' />}>
           <Route
             path=''
             element={<SignUp />}
@@ -39,8 +37,7 @@ function App() {
 
         <Route
           path='/profile'
-          element={<Layout title='Profile' />}
-        >
+          element={<Layout title='Profile' />}>
           <Route
             index
             element={
@@ -50,7 +47,7 @@ function App() {
             }
           />
           <Route
-            path='user/:username'
+            path='user/:idUser'
             element={<UserAdsList />}
           />
         </Route>
@@ -62,8 +59,7 @@ function App() {
 
         <Route
           path='/advertisements'
-          element={<Layout title='Advertisments' />}
-        >
+          element={<Layout title='Advertisments' />}>
           <Route
             index
             element={<AdsList title='Advertisement List' />}
@@ -97,8 +93,7 @@ function App() {
 
         <Route
           path='/404'
-          element={<Layout title='NOT FOUND' />}
-        >
+          element={<Layout title='NOT FOUND' />}>
           <Route
             path=''
             element={<NotFoundPage />}

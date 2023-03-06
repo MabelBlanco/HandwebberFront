@@ -15,6 +15,9 @@ export const getAdvertisements = (skip, limit, filters) => {
   filtersToApply = filters.price
     ? `${filtersToApply}&price=-${filters.price}`
     : filtersToApply;
+  filtersToApply = filters.idUser
+    ? `${filtersToApply}&idUser=${filters.idUser}`
+    : filtersToApply;
 
   //Request chaine
   let request = `${advertisementsURL}?skip=${sk}&limit=${lim}&sort=-update`;
@@ -25,7 +28,7 @@ export const getAdvertisements = (skip, limit, filters) => {
 };
 
 export const getUserAdvertisements = (idUser) => {
-  return client.get(`${advertisementsURL}?idUser=${idUser}&skip=0&limit=1`);
+  return client.get(`${advertisementsURL}?idUser=${idUser}`);
 };
 
 export const createAdvertisement = (advertData) => {

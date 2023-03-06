@@ -31,36 +31,46 @@ const useDataAdvert = () => {
       });
     };
 
+    let advertFiltered = advertsFilter(adsList);
+
+    console.log(
+      '¿he filtrado?',
+      adsList,
+      advertFiltered,
+      advertFiltered.length
+    );
+
     const execute = async () => {
       try {
-        let advertFiltered = advertsFilter(adsList);
-
         if (advertFiltered.length === 0) {
+          console.log('estoy añadiendo', advertFiltered.length);
           advertFiltered = await getAdvertisementDetail(advertisementCall);
           dispatch(loadThisAd(advertFiltered));
           advertFiltered = [advertFiltered.result];
+          console.log('He añadido:', advertFiltered);
           // const advertGetted = await getAdvertisementDetail(advertisementCall);
           // console.log('advertgetted: ', advertGetted.result);
 
           // advertFiltered = [advertsFilter(adsList)];
         }
-        console.log('advertfiltered', advertFiltered);
-        const advert = advertFiltered[0];
 
-        const idUser = advert.idUser;
-        const tags = advert.tags[0].split(',');
-        const userData = await getUserById(idUser);
+        const advert = advertFiltered[0];
+        //TODO
+        //        console.log('advert:', advert);
+        const idUser = advert.idUser._id;
+        const tags = advert.tags;
+
+        //        const userData = await getUserById(idUser);
 
         const advertObj = {
           ...advert,
-          username: userData.result.username,
+          //          username: userData.result.username,
           tags: tags,
           userLoggedId: user._id,
           favorites: 50,
         };
         setCurrentAdvert(advertObj);
       } catch (error) {
-        console.log('ESTOYYYY AQUIIIIII', error);
         if (error.status === 401) {
           navigate('/login');
         }

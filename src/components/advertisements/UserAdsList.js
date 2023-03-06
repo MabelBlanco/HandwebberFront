@@ -5,7 +5,7 @@ import { getUserById } from '../auth/service';
 import UserInfo from '../auth/signUp/UserInfo';
 import Card from '../commons/card/Card';
 import '../commons/card/card.scss';
-import { getUserAdvertisements } from './service';
+import { getAdvertisements, getUserAdvertisements } from './service';
 
 const initialState = {
   username: '',
@@ -22,17 +22,24 @@ const UserAdsList = ({ ...props }) => {
 
   //TODO Changed advertisement search by username to advertisement search by id.
   //const userSearchUsername = useParams().username;
-  const userSearchId = useParams().username;
+  const userSearchId = useParams().idUser;
 
   const advertisements = userSearch.ads;
 
   useEffect(() => {
     const execute = async () => {
       //const userSearchData = await getUserByUsername(userSearchUsername);
-      const userSearchData = await getUserById(userSearchId);
-      const resultSearch = userSearchData.result;
-      const userSearchAds = await getUserAdvertisements(resultSearch._id);
+      //const userSearchData = await getUserById(userSearchId);
+      //const resultSearch = userSearchData.result;
+
+      //      const userSearchAds = await getUserAdvertisements(resultSearch._id);
+      const filter = { idUser: userSearchId };
+      const userSearchAds = await getAdvertisements(0, 10000, filter);
+      let resultSearch = {};
       resultSearch.ads = userSearchAds.result;
+      resultSearch.username = userSearchAds.result[0].idUser.username;
+      resultSearch.mail = userSearchAds.result[0].idUser.mail;
+      resultSearch.image = userSearchAds.result[0].idUser.image;
       setUserSearch(resultSearch);
     };
     execute();
@@ -50,7 +57,6 @@ const UserAdsList = ({ ...props }) => {
           const newProps = {
             ...props,
             ...element,
-            username: userSearch.username,
           };
           return (
             <Card

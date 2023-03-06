@@ -26,7 +26,7 @@ const AdsDetailPage = ({
   description,
   update,
   favorites,
-  username,
+  //  username,
   children,
   addFavorites,
   ...props
@@ -99,10 +99,11 @@ const AdsDetailPage = ({
               className='list-group-item user'>
               <span className='label-info'>Usuario: </span>
               <NavLink
-                to={`/profile/user/${username}`}
+                //                to={`/profile/user/${username}`}
+                to={`/profile/user/${idUser._id}`}
                 className='card-link'
                 end>
-                {username}
+                {idUser.username}
               </NavLink>
             </div>
             {custom && (
@@ -120,7 +121,7 @@ const AdsDetailPage = ({
                 onClick={addFavorites}></i>{' '}
               <span className='px-1'>{favorites}</span>
             </div>
-            {idUser === userLoggedId && (
+            {idUser._id === userLoggedId && (
               <div className='mt-5 actions'>
                 <Button
                   type='button'
@@ -144,7 +145,7 @@ const AdsDetailPage = ({
                 </Modal>
               </div>
             )}
-            {idUser !== userLoggedId && (
+            {idUser._id !== userLoggedId && (
               <div className='mt-5 actions'>
                 <Button
                   type='button'

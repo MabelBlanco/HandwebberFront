@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import { useNavigate /*, useParams*/ } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useNavigate /*, useParams*/ } from 'react-router-dom';
 // import { getUserById } from "../auth/service";
 // import useDataUser from "../auth/signUp/useDataUser";
-import Alert from "../commons/feedbacks/alert/Alert";
-import AdsDetailPage from "./AdsDetailPage/AdsDetailPage";
-import "./advertisements.scss";
-import { deleteAdvertisement } from "./service";
-import useDataAdvert from "./useDataAdvert";
+import Alert from '../commons/feedbacks/alert/Alert';
+import AdsDetailPage from './AdsDetailPage/AdsDetailPage';
+import './advertisements.scss';
+import { deleteAdvertisement } from './service';
+import useDataAdvert from './useDataAdvert';
 
 const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   const [isDelete, setIsDelete] = useState(false);
@@ -39,31 +39,32 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
       await deleteAdvertisement(advert._id);
       setIsDelete(true);
     } catch (error) {
-      console.log("err", error);
+      console.log('err', error);
     }
   };
   const onContact = async () => {
-    console.log("contact");
+    console.log('contact');
   };
   const handleClickAlert = (e) => {
     e.preventDefault();
-    navigate("/advertisements");
+    navigate('/advertisements');
   };
 
   return (
-    <div className="row">
-      <h1 className="col-sm-12 py-5">{props.title}</h1>
-      <div className="container advert-content-detail">
-        {advert && !isDelete && (
+    <div className='row'>
+      <h1 className='col-sm-12 py-5'>{props.title}</h1>
+      <div className='container advert-content-detail'>
+        {advert?._id && !isDelete && (
           <AdsDetailPage
             {...advert}
             fncontact={onContact}
             fndelete={onDelete}
-            fnedit={onEdit}
-          ></AdsDetailPage>
+            fnedit={onEdit}></AdsDetailPage>
         )}
         {isDelete && (
-          <Alert className="alert-success" alertTask={handleClickAlert}>
+          <Alert
+            className='alert-success'
+            alertTask={handleClickAlert}>
             Borrado correctamente
           </Alert>
         )}
