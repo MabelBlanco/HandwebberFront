@@ -15,6 +15,9 @@ import { AuthContextProvider } from "./components/context/AuthContext";
 import storage from "./utils/storage";
 import { setAuthorizationHeader } from "./api/client";
 import "./utils/i18n";
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost/3001");
 
 const initialToken = storage.get("auth");
 if (initialToken) {
