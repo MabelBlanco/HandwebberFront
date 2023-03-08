@@ -28,6 +28,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Root
+      initialToken={initialToken}
       haveInitialToken={!!initialToken}
       store={store}
       router={router}

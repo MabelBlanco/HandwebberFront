@@ -17,6 +17,8 @@ const initialState = {
 const useDataAdvert = () => {
   const [currentAdvert, setCurrentAdvert] = useState({});
   const { isLogged, user } = useAuth();
+  //TODO
+  console.log('user', user, 'islogged:', isLogged);
   //const { user } = useDataUser({ initialState });
   const advertId = useParams().id;
   const navigate = useNavigate();
@@ -31,7 +33,6 @@ const useDataAdvert = () => {
         return ad._id === advertisementCall;
       });
     };
-
     let advertFiltered = advertsFilter(adsList);
 
     console.log(

@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import { format } from 'date-fns';
 import { t } from 'i18next';
-import { Link } from 'react-router-dom';
 import Button from '../../commons/button/Button';
 import Modal from '../../commons/modal/Modal';
 import NoImage from '../../commons/noImage/NoImage';

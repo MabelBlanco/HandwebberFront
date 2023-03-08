@@ -20,7 +20,9 @@ export const adsListSlice = createSlice({
       state.meta = action.payload.meta;
     },
     loadThisAd: (state, action) => {
-      if (!state.result.includes(action.payload.result)) {
+      //TODO
+      console.log('payload:', action.payload);
+      if (!state.result.includes(action.payload.result._id)) {
         state.result = [...state.result, action.payload.result];
       }
     },
@@ -30,7 +32,7 @@ export const adsListSlice = createSlice({
 //Actions
 export const { adsLoadSuccess, loadThisAd } = adsListSlice.actions;
 
-export function fetchAdsAction(skip, limit, filters) {
+function fetchAdsAction(skip, limit, filters) {
   return async function (dispatch) {
     try {
       dispatch(request());
