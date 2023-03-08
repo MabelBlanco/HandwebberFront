@@ -55,9 +55,11 @@ function fetchLoggedAction() {
 export const useDispatchLoggedAction = () => {
   const dispatch = useDispatch();
 
+  const { isLogged } = useIsLoggedSelector();
   useEffect(() => {
+    if (isLogged) return;
     dispatch(fetchLoggedAction());
-  }, [dispatch]);
+  }, [dispatch, isLogged]);
 };
 
 export function dispatchLogoutAction() {
