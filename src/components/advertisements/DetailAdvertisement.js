@@ -50,26 +50,30 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
             {...advert}
             fncontact={onContact}
             fndelete={onDelete}
-            fnedit={onEdit}></AdsDetailPage>
+            fnedit={onEdit}
+          ></AdsDetailPage>
         )}
         {!advert && !isDelete && (
           <AdsDetailPage
             {...temp}
             fncontact={onContact}
             fndelete={onDelete}
-            fnedit={onEdit}></AdsDetailPage>
+            fnedit={onEdit}
+          ></AdsDetailPage>
         )}
         {!advert && !isDelete && (
           <AdsDetailPage
             {...temp}
             fncontact={onContact}
             fndelete={onDelete}
-            fnedit={onEdit}></AdsDetailPage>
+            fnedit={onEdit}
+          ></AdsDetailPage>
         )}
         {isDelete && (
           <Alert
             className='alert-success'
-            alertTask={handleClickAlert}>
+            alertTask={handleClickAlert}
+          >
             Borrado correctamente
           </Alert>
         )}

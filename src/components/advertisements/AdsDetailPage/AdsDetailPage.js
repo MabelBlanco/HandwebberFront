@@ -7,6 +7,7 @@ import NoImage from '../../commons/noImage/NoImage';
 import Tags from '../../commons/tags/Tags';
 import './adsDetailPage.scss';
 import { NavLink } from 'react-router-dom';
+import { useIsLoggedSelector } from '../../../store/authSlice';
 
 const AdsDetailPage = ({
   className,
@@ -20,7 +21,7 @@ const AdsDetailPage = ({
   tags,
   stock,
   idUser,
-  userLoggedId,
+  //  userLoggedId,
   custom,
   active,
   description,
@@ -31,13 +32,17 @@ const AdsDetailPage = ({
   subscribers,
   ...props
 }) => {
+  const { user } = useIsLoggedSelector();
+  const userLoggedId = user._id;
+
   return (
     <section
       className={classNames(
         'py-5 ads-detail-page blur-secondary-800',
         className
       )}
-      {...props}>
+      {...props}
+    >
       <div className='container px-4 px-lg-5 my-5'>
         <div className='row gx-4 gx-lg-5 '>
           <div className='col-md-6 image'>
@@ -54,71 +59,83 @@ const AdsDetailPage = ({
           <div className='col-md-6 ads-info'>
             <h1
               className='display-5 fw-bolder name'
-              key='name'>
+              key='name'
+            >
               {name}
             </h1>
             <div
               key='date'
-              className='date'>
+              className='date'
+            >
               <span className='label-info'>Date: </span>
               <time dateTime={update}>{format(new Date(), 'MM/dd/yyy')}</time>
             </div>
             <div className='fs-5 mb-5 price'>
               <span
                 key='price'
-                className='label-info'>
+                className='label-info'
+              >
                 {t('AdsDetailPage.Price')}:
               </span>
               <span> {price}€</span>
             </div>
             <div
               className='lead description'
-              key='description'>
+              key='description'
+            >
               <p className='label-info'>{t('AdsDetailPage.Description')}:</p>
               <p>{description}</p>
             </div>
             <div
               key='tags'
-              className='list-group-item tags-container'>
+              className='list-group-item tags-container'
+            >
               <p className='label-info'>Tags: </p>
               <Tags tagsArray={tags} />
             </div>
             <div
               key='stock'
-              className='list-group-item stock'>
+              className='list-group-item stock'
+            >
               <span className='label-info'>Stock: </span>
               {stock}
             </div>
             <div
               key='active'
-              className='list-group-item active'>
+              className='list-group-item active'
+            >
               {active ? t(`AdsDetailPage.Active`) : t(`AdsDetailPage.Inactive`)}
             </div>
             <div
               key='user'
-              className='list-group-item user'>
+              className='list-group-item user'
+            >
               <span className='label-info'>Usuario: </span>
               <NavLink
                 //                to={`/profile/user/${username}`}
                 to={`/profile/user/${idUser._id}`}
                 className='card-link'
-                end>
+                end
+              >
                 {idUser.username}
               </NavLink>
             </div>
             {custom && (
               <div
                 key='custom'
-                className='list-group-item custom'>
+                className='list-group-item custom'
+              >
                 <span>Custom Product</span>
               </div>
             )}
             <div
               key='favorites'
-              className='list-group-item favorites'>
+              className='list-group-item favorites'
+            >
               <i
                 className='bi bi-heart-fill'
-                onClick={addFavorites}></i>{' '}
+                onClick={addFavorites}
+              ></i>{' '}
               <span className='px-1'>{subscribers && subscribers.length}</span>
             </div>
             {idUser._id === userLoggedId && (
@@ -126,7 +143,8 @@ const AdsDetailPage = ({
                 <Button
                   type='button'
                   className='btn btn-secondary blur-secondary-800 radius-2  '
-                  onClick={fnedit}>
+                  onClick={fnedit}
+                >
                   {t(`AdsDetailPage.Edit`)}
                 </Button>
                 <Modal
@@ -140,7 +158,8 @@ const AdsDetailPage = ({
                   label_confirm={t(`AdsDetailPage.Delete`)}
                   label_cancel={t(`AdsDetailPage.Cancel`)}
                   label_btn={t(`AdsDetailPage.Delete`)}
-                  modalId='deleteAdvert'>
+                  modalId='deleteAdvert'
+                >
                   {t(`AdsDetailPage.ModalText`)}
                 </Modal>
               </div>
@@ -150,7 +169,8 @@ const AdsDetailPage = ({
                 <Button
                   type='button'
                   className='btn btn-secondary blur-secondary-800 radius-2 ms-3'
-                  onClick={fncontact}>
+                  onClick={fncontact}
+                >
                   {t(`AdsDetailPage.Contact`)}
                 </Button>
               </div>

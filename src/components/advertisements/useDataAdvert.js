@@ -9,6 +9,7 @@ import {
   useAdsListSelector,
   useDispatchAdsList,
 } from '../../store/adsListSlice';
+import { useIsLoggedSelector } from '../../store/authSlice';
 const initialState = {
   username: '',
   _id: null,
@@ -16,10 +17,9 @@ const initialState = {
 
 const useDataAdvert = () => {
   const [currentAdvert, setCurrentAdvert] = useState({});
-  const { isLogged, user } = useAuth();
   //TODO
-  console.log('user', user, 'islogged:', isLogged);
-  //const { user } = useDataUser({ initialState });
+  //const { isLogged, user } = useAuth();
+  const { isLogged, user } = useIsLoggedSelector();
   const advertId = useParams().id;
   const navigate = useNavigate();
 
@@ -44,7 +44,6 @@ const useDataAdvert = () => {
 
     const execute = async () => {
       try {
-        const userLoggedId = user._id;
         if (advertFiltered.length === 0) {
           console.log('estoy añadiendo', advertFiltered.length);
           advertFiltered = await getAdvertisementDetail(advertisementCall);
@@ -58,23 +57,9 @@ const useDataAdvert = () => {
         }
 
         const advert = advertFiltered[0];
-        //TODO
-        //        console.log('advert:', advert);
-        const idUser = advert.idUser._id;
-        const tags = advert.tags;
 
-        //        const userData = await getUserById(idUser);
-
-        const advertObj = {
-          ...advert,
-          //          username: userData.result.username,
-          tags: tags,
-          //          userLoggedId: isLogged && userLoggedId,
-          userLoggedId: user._id,
-          //          favorites: 50,
-        };
-        setCurrentAdvert(advertObj);
-        localStorage.setItem('current', JSON.stringify(advertObj));
+        setCurrentAdvert(advert);
+        localStorage.setItem('current', JSON.stringify(advert));
       } catch (error) {
         if (error.status === 401) {
           navigate('/login');
@@ -92,7 +77,7 @@ const useDataAdvert = () => {
     user._id,
     advertisementCall,
     user,
-    isLogged,
+    //    isLogged,
     adsList,
     dispatch,
   ]);
