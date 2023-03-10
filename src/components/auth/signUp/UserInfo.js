@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 const UserInfo = ({ user }) => {
   const { t } = useTranslation();
 
+  //TODO
+  console.log('usuario perfil', user);
   return (
     <>
       <div className='card-body py-3'>
@@ -22,7 +24,10 @@ const UserInfo = ({ user }) => {
         )}
       </div>
       <ul className='list-group list-group-flush my-3'>
-        <li key='mail' className='list-group-item'>
+        <li
+          key='mail'
+          className='list-group-item'
+        >
           <span>{t('ProfilePage.Mail')}: </span>
           {user?.mail}
         </li>

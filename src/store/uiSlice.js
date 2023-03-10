@@ -34,4 +34,15 @@ export const useUiErrorSelector = () => useSelector((state) => state.ui.error);
 
 export const useDispatchUi = () => useDispatch();
 
+export const setUiIsFetching = () => {
+  return function (dispatch) {
+    dispatch(success());
+  };
+};
+export const setUiSuccess = () => {
+  return function (dispatch) {
+    dispatch(request());
+  };
+};
+
 export default uiSlice.reducer;

@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import Button from '../../commons/button/Button';
 import '../../commons/card/card.scss';
 import NoImage from '../../commons/noImage/NoImage';
-//import { useAuth } from '../../context/AuthContext';
 import './profile.scss';
 import { useTranslation } from 'react-i18next';
 import {
@@ -12,8 +11,6 @@ import {
 import { useDispatch } from 'react-redux';
 
 const Profile = ({ className, title, ...props }) => {
-  //const { isLogged, handleLogOut, user } = useAuth();
-  //const { handleLogOut } = useAuth();
   const { isLogged, user } = useIsLoggedSelector();
   const dispatch = useDispatch();
   const handleLogOut = () => {
@@ -48,14 +45,16 @@ const Profile = ({ className, title, ...props }) => {
               <Button
                 as={Link}
                 to='/profile'
-                className='btn-link'>
+                className='btn-link'
+              >
                 {t('Profile.Profile')}
               </Button>
               <Button
                 as={Link}
                 type='button'
                 className='btn-primary'
-                onClick={handleLogOut}>
+                onClick={handleLogOut}
+              >
                 {t('Profile.Logout')}
               </Button>
             </div>

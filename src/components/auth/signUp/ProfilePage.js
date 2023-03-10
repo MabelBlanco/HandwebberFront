@@ -16,6 +16,11 @@ import Modal from '../../commons/modal/Modal';
 import Alert from '../../commons/feedbacks/alert/Alert';
 import FormUpdateProfile from './FormUpdateProfile';
 import UserInfo from './UserInfo';
+import {
+  dispatchLogoutAction,
+  useIsLoggedSelector,
+} from '../../../store/authSlice';
+import { useDispatch } from 'react-redux';
 
 const initialState = {
   username: '',
@@ -26,7 +31,12 @@ const initialState = {
 
 const ProfilePage = ({ className, title, ...props }) => {
   //const { user, isFetching, setUser } = useDataUser({ initialState });
-  const { isLogged, handleLogOut, user, isFetching, setUser } = useAuth();
+  //const { isLogged, handleLogOut, user, isFetching, setUser } = useAuth();
+
+  //TODO
+  //Traer los datos del endpoint privado y tratarlos sólo aquí.
+
+  const { isFetching, user, setUser } = useAuth();
   const [credentials, setCredentials] = useState(initialState);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
@@ -35,6 +45,12 @@ const ProfilePage = ({ className, title, ...props }) => {
   const { t } = useTranslation();
   const [favorits, setFavorits] = useState([]);
   const [activeFavorits, setActiveFavorits] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleLogOut = () => {
+    dispatch(dispatchLogoutAction());
+  };
+  const { isLogged } = useIsLoggedSelector();
 
   const handleActiveForm = () => setActiveForm(!activeForm);
 
