@@ -9,6 +9,7 @@ import { LoginPage } from "./components/auth/login/LoginPage";
 import RequireAuth from "./components/auth/RequireAuth";
 import ProfilePage from "./components/auth/signUp/ProfilePage";
 import SignUp from "./components/auth/signUp/SignUp";
+import { Chat } from "./components/Chat/chat";
 import NotFoundPage from "./components/commons/feedbacks/NotFound/NotFoundPage";
 import Layout from "./components/Layout/Layout";
 import LayoutTest from "./components/Layout/LayoutTest";
@@ -35,6 +36,7 @@ function App() {
           />
           <Route path="user/:username" element={<UserAdsList />} />
         </Route>
+        <Route path="chat" element={<Chat></Chat>} />
         <Route path="/404" element={<Layout title="NOT FOUND" />}>
           <Route path="" element={<NotFoundPage />} />
         </Route>
