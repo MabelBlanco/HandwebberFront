@@ -1,21 +1,23 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getAdById } from '../../store/adsListSlice';
+import { useIsLoggedSelector } from '../../store/authSlice';
 import Alert from '../commons/feedbacks/alert/Alert';
 import AdsDetailPage from './AdsDetailPage/AdsDetailPage';
 import './advertisements.scss';
 import { deleteAdvertisement } from './service';
-import useDataAdvert from './useDataAdvert';
 
 const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   const [isDelete, setIsDelete] = useState(false);
   const navigate = useNavigate();
-  const advert = useDataAdvert();
 
-  const setCurrentData = () => {
-    const tempAdvert = localStorage.getItem('current');
-    return tempAdvert;
-  };
-  const temp = setCurrentData();
+  const advertId = useParams().id.split('-', 1)[0];
+  const advert = useSelector(getAdById(advertId));
+
+  const { user } = useIsLoggedSelector();
+  const userLoggedId = user._id;
+
   const onEdit = async () => {
     try {
       navigate(`/advertisements/edit/${advert._id}-${advert.name}`);
@@ -47,27 +49,13 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
         {advert?._id && !isDelete && (
           <AdsDetailPage
             {...advert}
+            userLoggedId={userLoggedId}
             fncontact={onContact}
             fndelete={onDelete}
             fnedit={onEdit}
           ></AdsDetailPage>
         )}
-        {!advert && !isDelete && (
-          <AdsDetailPage
-            {...temp}
-            fncontact={onContact}
-            fndelete={onDelete}
-            fnedit={onEdit}
-          ></AdsDetailPage>
-        )}
-        {!advert && !isDelete && (
-          <AdsDetailPage
-            {...temp}
-            fncontact={onContact}
-            fndelete={onDelete}
-            fnedit={onEdit}
-          ></AdsDetailPage>
-        )}
+
         {isDelete && (
           <Alert
             className='alert-success'
@@ -79,6 +67,46 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
       </div>
     </div>
   );
+
+  // return (
+  //   <div className='row'>
+  //     <h1 className='col-sm-12 py-5'>{props.title}</h1>
+  //     <div className='container advert-content-detail'>
+  //       {advert?._id && !isDelete && (
+  //         <AdsDetailPage
+  //           {...advert}
+  //           fncontact={onContact}
+  //           fndelete={onDelete}
+  //           fnedit={onEdit}
+  //         ></AdsDetailPage>
+  //       )}
+  //       {!advert && !isDelete && (
+  //         <AdsDetailPage
+  //           {...temp}
+  //           fncontact={onContact}
+  //           fndelete={onDelete}
+  //           fnedit={onEdit}
+  //         ></AdsDetailPage>
+  //       )}
+  //       {!advert && !isDelete && (
+  //         <AdsDetailPage
+  //           {...temp}
+  //           fncontact={onContact}
+  //           fndelete={onDelete}
+  //           fnedit={onEdit}
+  //         ></AdsDetailPage>
+  //       )}
+  //       {isDelete && (
+  //         <Alert
+  //           className='alert-success'
+  //           alertTask={handleClickAlert}
+  //         >
+  //           Borrado correctamente
+  //         </Alert>
+  //       )}
+  //     </div>
+  //   </div>
+  // );
 };
 
 export default DetailAdvertisement;

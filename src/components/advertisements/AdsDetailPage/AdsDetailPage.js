@@ -7,7 +7,6 @@ import NoImage from '../../commons/noImage/NoImage';
 import Tags from '../../commons/tags/Tags';
 import './adsDetailPage.scss';
 import { NavLink } from 'react-router-dom';
-import { useIsLoggedSelector } from '../../../store/authSlice';
 
 const AdsDetailPage = ({
   className,
@@ -21,20 +20,16 @@ const AdsDetailPage = ({
   tags,
   stock,
   idUser,
-  //  userLoggedId,
+  userLoggedId,
   custom,
   active,
   description,
   update,
-  //  username,
   children,
   addFavorites,
   subscribers,
   ...props
 }) => {
-  const { user } = useIsLoggedSelector();
-  const userLoggedId = user._id;
-
   return (
     <section
       className={classNames(
@@ -112,7 +107,6 @@ const AdsDetailPage = ({
             >
               <span className='label-info'>Usuario: </span>
               <NavLink
-                //                to={`/profile/user/${username}`}
                 to={`/profile/user/${idUser._id}`}
                 className='card-link'
                 end
