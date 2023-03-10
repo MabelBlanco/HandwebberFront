@@ -29,10 +29,6 @@ const NewAdvertisement = ({ ...props }) => {
   });
 
   const enterElementHandleChange = (event) => {
-    console.log(user.username, isLogged);
-    // console.log(event.target.type);
-    // console.log(form);
-
     if (
       event.target.type === 'text' ||
       event.target.tagName === 'TEXTAREA' ||
@@ -47,8 +43,6 @@ const NewAdvertisement = ({ ...props }) => {
     }
 
     if (event.target.tagName === 'SELECT') {
-      //TODO
-      console.log(event.target.tagName);
       const { selectedOptions } = event.target;
       const tags = [...selectedOptions].map((value) => value.value);
       setForm({ ...form, [event.target.name]: tags });
@@ -71,7 +65,7 @@ const NewAdvertisement = ({ ...props }) => {
     bodyFormData.append('active', form.active);
     bodyFormData.append('username', user.username);
     form.photo && bodyFormData.append('image', form.photo);
-    console.log({ ...form });
+
     try {
       const advert = await createAdvertisement(bodyFormData);
       navigate(`/advertisements/${advert.result._id}-${advert.result.name} `);

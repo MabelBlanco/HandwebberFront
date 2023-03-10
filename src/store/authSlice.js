@@ -16,7 +16,6 @@ export const authSlice = createSlice({
     authSuccess: (state, action) => {
       state.isLogged = true;
       state.user = { ...action.payload };
-      console.log('payload', action.payload);
     },
     authLogout: (state) => {
       state.isLogged = false;

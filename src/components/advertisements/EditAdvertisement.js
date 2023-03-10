@@ -1,7 +1,9 @@
 import classNames from 'classnames';
 import { t } from 'i18next';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { editAdAction, getAdById } from '../../store/adsListSlice';
 import { useIsLoggedSelector } from '../../store/authSlice';
 import Button from '../commons/button/Button';
 import Checkbox from '../commons/forms/checkbox/Checkbox';
@@ -16,17 +18,21 @@ import { updateAdvertisement } from './service';
 import useDataAdvert from './useDataAdvert';
 
 const EditAdvertisement = ({ className, ...props }) => {
-  const advert = useDataAdvert();
-  const navigate = useNavigate();
+  //const advert = useDataAdvert();
+  const advertId = useParams().id.split('-', 1)[0];
 
-  //TODO
-  console.log('anuncio', advert);
+  const advert = useSelector(getAdById(advertId));
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   //TODO deshardcodear los tags
   const tagsOpt = ['lifestyle', 'sport', 'motor', 'players'];
   const { user } = useIsLoggedSelector();
   const userLoggedId = user._id;
 
-  const [form, setForm] = useState({ ...advert });
+  const [form, setForm] = useState(advert);
+
   const enterElementHandleChange = (event) => {
     if (
       event.target.type === 'text' ||
@@ -42,12 +48,9 @@ const EditAdvertisement = ({ className, ...props }) => {
     }
 
     if (event.target.name === 'tags') {
-      //TODO
       const { selectedOptions } = event.target;
-      console.log('selección', selectedOptions);
       const tags = [...selectedOptions].map((option) => option.value);
-      console.log('tags', tags);
-      // const tags = [...selectedOptions].map((value) => value.value);
+
       setForm({ ...form, [event.target.name]: tags });
     }
     if (event.target.type === 'file') {
@@ -59,6 +62,7 @@ const EditAdvertisement = ({ className, ...props }) => {
     e.preventDefault();
     const bodyFormData = new FormData();
     bodyFormData.append('name', form.name ? form.name : advert.name);
+
     bodyFormData.append('price', form.price ? form.price : advert.price);
     bodyFormData.append('stock', form.stock ? form.stock : advert.stock);
     bodyFormData.append(
@@ -79,7 +83,8 @@ const EditAdvertisement = ({ className, ...props }) => {
 
     try {
       const response = await updateAdvertisement(advert._id, bodyFormData);
-      const to = `/advertisements/${advert._id}`;
+      dispatch(editAdAction(response.result));
+      const to = `/advertisements/${advert._id}-${advert.name}`;
       navigate(to);
     } catch (error) {
       //TODO

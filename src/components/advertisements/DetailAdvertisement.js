@@ -13,7 +13,6 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
 
   const setCurrentData = () => {
     const tempAdvert = localStorage.getItem('current');
-    console.log(JSON.parse(tempAdvert));
     return tempAdvert;
   };
   const temp = setCurrentData();

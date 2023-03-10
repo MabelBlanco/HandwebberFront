@@ -95,7 +95,8 @@ const AdsList = ({ ...props }) => {
   return (
     <div
       className='row'
-      {...props}>
+      {...props}
+    >
       <SearchBar
         className='row'
         onChange={handleFilters}

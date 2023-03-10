@@ -10,7 +10,6 @@ const useDataUser = ({ initialState, ...props }) => {
   //const { userId } = decodeToken(storage.get('auth')) || {};
 
   const { isLogged, user: userData } = useIsLoggedSelector();
-  console.log('user', userData);
   const { _id: userId, username, image } = userData;
 
   const resetErrorDataUser = () => setErrorDataUser(null);

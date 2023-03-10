@@ -47,10 +47,6 @@ export const deleteAdvertisement = (advertId) => {
   return client.delete(url);
 };
 export const updateAdvertisement = async (advertId, body) => {
-  //TODO
-  console.log(advertId);
-  console.log(body);
   const response = await client.put(`${advertisementsURL}/${advertId}`, body);
-  console.log(response);
   return response;
 };

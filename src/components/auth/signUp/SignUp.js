@@ -69,7 +69,8 @@ const SignUp = ({ className, title, ...props }) => {
       const newUser = await createUser(formData);
 
       await loginUser({ mail, password });
-      console.log(newUser);
+      //TODO
+      //console.log(newUser);
       handleLogin();
       navigate('/advertisements');
       return newUser;
@@ -93,11 +94,17 @@ const SignUp = ({ className, title, ...props }) => {
         <h1>Sign up</h1>
         <div className={styles.signup__page}>
           {error && (
-            <Error className={styles.signup__error} arrayErrors={error} />
+            <Error
+              className={styles.signup__error}
+              arrayErrors={error}
+            />
           )}
           <div className='card-body actions'>
             {!isLogged && (
-              <form className={styles.signup__form} onSubmit={handleSubmit}>
+              <form
+                className={styles.signup__form}
+                onSubmit={handleSubmit}
+              >
                 <Input
                   type='text'
                   name='username'

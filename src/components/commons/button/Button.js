@@ -1,6 +1,6 @@
-import classNames from "classnames";
-import styled from "styled-components";
-import "./button.scss";
+import classNames from 'classnames';
+import styled from 'styled-components';
+import './button.scss';
 
 const CustomizedButton = styled.button`
   opacity: ${(styleProps) => (styleProps.disabled ? 0.5 : 1)};
@@ -8,12 +8,13 @@ const CustomizedButton = styled.button`
 `;
 
 const Button = ({ className, classNameContainer, ...props }) => {
+  //TODO
   // console.log(props);
   return (
-    <div className={classNames("", classNameContainer)}>
+    <div className={classNames('', classNameContainer)}>
       <CustomizedButton
         {...props}
-        className={classNames("btn", className)}
+        className={classNames('btn', className)}
       ></CustomizedButton>
     </div>
   );
