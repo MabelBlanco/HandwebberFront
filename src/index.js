@@ -16,6 +16,7 @@ import './utils/i18n';
 import { store } from './store/store';
 import { Root } from './Root';
 import { createBrowserRouter } from 'react-router-dom';
+import { Suspense } from 'react';
 
 const initialToken = storage.get('auth');
 if (initialToken) {
@@ -27,12 +28,14 @@ const router = createBrowserRouter([{ path: '*', element: <App /> }]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Root
-      initialToken={initialToken}
-      haveInitialToken={!!initialToken}
-      store={store}
-      router={router}
-    />
+    <Suspense fallback='Starting page...'>
+      <Root
+        initialToken={initialToken}
+        haveInitialToken={!!initialToken}
+        store={store}
+        router={router}
+      />
+    </Suspense>
   </React.StrictMode>
 );
 

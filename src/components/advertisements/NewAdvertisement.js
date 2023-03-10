@@ -7,14 +7,15 @@ import Input from '../commons/forms/input/Input';
 import InputFile from '../commons/forms/inputFile/InputFile';
 import Select from '../commons/forms/select/Select';
 import Textarea from '../commons/forms/textarea/Textarea';
-import { useAuth } from '../context/AuthContext';
 import './advertisements.scss';
 import { createAdvertisement } from './service';
 
 const NewAdvertisement = ({ ...props }) => {
   const navigate = useNavigate();
-  const { user, isLogged } = useAuth();
+
   const { t } = useTranslation();
+  //TODO
+  //No hardcodear las etiquetas
   const tagsOpt = ['lifestyle', 'sport', 'motor', 'players'];
 
   const [form, setForm] = useState({
@@ -63,7 +64,6 @@ const NewAdvertisement = ({ ...props }) => {
     bodyFormData.append('custom', form.custom);
     bodyFormData.append('stock', form.stock);
     bodyFormData.append('active', form.active);
-    bodyFormData.append('username', user.username);
     form.photo && bodyFormData.append('image', form.photo);
 
     try {
