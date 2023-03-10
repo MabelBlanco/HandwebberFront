@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getUserById } from '../auth/service';
-import useDataUser from '../auth/signUp/useDataUser';
-import { useAuth } from '../context/AuthContext';
-import { getAdvertisementDetail } from './service';
+import { getUserById } from '../src/components/auth/service';
+import useDataUser from '../src/components/auth/signUp/useDataUser';
+import { useAuth } from '../src/components/context/AuthContext';
+import { getAdvertisementDetail } from '../src/components/advertisements/service';
 import {
   loadThisAd,
   useAdsListSelector,
   useDispatchAdsList,
-} from '../../store/adsListSlice';
-import { useIsLoggedSelector } from '../../store/authSlice';
+} from '../src/store/adsListSlice';
+import { useIsLoggedSelector } from '../src/store/authSlice';
 const initialState = {
   username: '',
   _id: null,

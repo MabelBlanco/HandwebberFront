@@ -15,10 +15,8 @@ import Modal from '../commons/modal/Modal';
 import NoImage from '../commons/noImage/NoImage';
 import Tags from '../commons/tags/Tags';
 import { updateAdvertisement } from './service';
-import useDataAdvert from './useDataAdvert';
 
 const EditAdvertisement = ({ className, ...props }) => {
-  //const advert = useDataAdvert();
   const advertId = useParams().id.split('-', 1)[0];
 
   const advert = useSelector(getAdById(advertId));

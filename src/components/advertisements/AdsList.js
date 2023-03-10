@@ -110,7 +110,9 @@ const AdsList = ({ ...props }) => {
         handleLast={lastPage}
       />
       {adsIsFetching && <Spinner />}
+
       {error.length ? <Error arrayErrors={error} /> : <div></div>}
+
       {advertisements.map((element) => {
         const newProps = { ...props, ...element };
         return (
