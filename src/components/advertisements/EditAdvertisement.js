@@ -41,11 +41,13 @@ const EditAdvertisement = ({ className, ...props }) => {
       setForm({ ...form, [event.target.name]: value });
     }
 
-    if (event.target.tagName === 'SELECT') {
+    if (event.target.name === 'tags') {
       //TODO
-      console.log(event.target.tagName);
       const { selectedOptions } = event.target;
-      const tags = [...selectedOptions].map((value) => value.value);
+      console.log('selección', selectedOptions);
+      const tags = [...selectedOptions].map((option) => option.value);
+      console.log('tags', tags);
+      // const tags = [...selectedOptions].map((value) => value.value);
       setForm({ ...form, [event.target.name]: tags });
     }
     if (event.target.type === 'file') {
@@ -63,18 +65,17 @@ const EditAdvertisement = ({ className, ...props }) => {
       'description',
       form.description ? form.description : advert.description
     );
-    if (form.photo) {
-      bodyFormData.append('image', form.photo ? form.photo : advert.image);
-    }
 
-    //TODO
-    console.log('custom', form.custom ? 'true' : 'false');
     bodyFormData.append('custom', form.custom ? form.custom : advert.custom);
 
     bodyFormData.append('active', form.active ? form.active : advert.active);
     bodyFormData.append('tags', form.tags ? form.tags : advert.tags);
 
     bodyFormData.append('idUser', advert.idUser._id);
+
+    if (form.photo) {
+      bodyFormData.append('image', form.photo ? form.photo : advert.image);
+    }
 
     try {
       const response = await updateAdvertisement(advert._id, bodyFormData);
@@ -94,7 +95,8 @@ const EditAdvertisement = ({ className, ...props }) => {
     <form
       className={classNames('py-5 ads-edit-form blur-secondary-800', className)}
       {...props}
-      onSubmit={updateAdvert}>
+      onSubmit={updateAdvert}
+    >
       <div className='container px-4 px-lg-5 my-5'>
         <div className='row gx-4 gx-lg-5 '>
           <div className='col-md-6 image'>
@@ -121,7 +123,8 @@ const EditAdvertisement = ({ className, ...props }) => {
             <div className='edit-name mb-3 bg-light px-3 py-2'>
               <h1
                 className='display-5 fw-bolder name'
-                key='name'>
+                key='name'
+              >
                 {advert.name}
               </h1>
               <Input
@@ -138,7 +141,8 @@ const EditAdvertisement = ({ className, ...props }) => {
               <div className='price'>
                 <span
                   key='price'
-                  className='label-info'>
+                  className='label-info'
+                >
                   {t('AdsDetailPage.Price')}:
                 </span>
                 <span> {advert.price}€</span>
@@ -156,7 +160,8 @@ const EditAdvertisement = ({ className, ...props }) => {
               <div className='stock'>
                 <span
                   key='stock'
-                  className='label-info'>
+                  className='label-info'
+                >
                   Stock:
                 </span>
                 <span> {advert.stock}</span>
@@ -173,7 +178,8 @@ const EditAdvertisement = ({ className, ...props }) => {
             <div className='edit-description mb-3 bg-light px-3 py-2'>
               <div
                 className='description'
-                key='description'>
+                key='description'
+              >
                 <p className='label-info'>{t('AdsDetailPage.Description')}:</p>
                 <p>{advert.description}</p>
               </div>
@@ -183,7 +189,8 @@ const EditAdvertisement = ({ className, ...props }) => {
                 placeholder={advert.description}
                 value={form.description}
                 name='description'
-                onChange={enterElementHandleChange}></Textarea>
+                onChange={enterElementHandleChange}
+              ></Textarea>
             </div>
             <div className='edit-tags mb-3 bg-light px-3 py-3'>
               <div className='tags'>
@@ -220,7 +227,8 @@ const EditAdvertisement = ({ className, ...props }) => {
               <div className='mt-5 actions'>
                 <Button
                   type='submit'
-                  className='btn btn-secondary blur-secondary-800 radius-2  '>
+                  className='btn btn-secondary blur-secondary-800 radius-2  '
+                >
                   {t(`AdsDetailPage.Edit`)}
                 </Button>
                 <Modal
@@ -234,7 +242,8 @@ const EditAdvertisement = ({ className, ...props }) => {
                   label_confirm={t(`AdsDetailPage.Delete`)}
                   label_cancel={t(`AdsDetailPage.Cancel`)}
                   label_btn={t(`AdsDetailPage.Delete`)}
-                  modalId='deleteAdvert'>
+                  modalId='deleteAdvert'
+                >
                   {t(`AdsDetailPage.ModalText`)}
                 </Modal>
               </div>
