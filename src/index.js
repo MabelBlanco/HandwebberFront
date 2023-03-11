@@ -23,19 +23,40 @@ if (initialToken) {
   setAuthorizationHeader(initialToken);
 }
 
-const router = createBrowserRouter([{ path: '*', element: <App /> }]);
+const router = createBrowserRouter([
+  {
+    path: '*',
+    element: (
+      <Suspense
+        fallback={
+          <div
+            style={{
+              color: 'white',
+              backgroundColor: 'black',
+              width: '1800px',
+              height: '1800px',
+              fontSize: '1,5em',
+            }}
+          >
+            'Starting page...'
+          </div>
+        }
+      >
+        <App />
+      </Suspense>
+    ),
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Suspense fallback='Starting page...'>
-      <Root
-        initialToken={initialToken}
-        haveInitialToken={!!initialToken}
-        store={store}
-        router={router}
-      />
-    </Suspense>
+    <Root
+      initialToken={initialToken}
+      haveInitialToken={!!initialToken}
+      store={store}
+      router={router}
+    />
   </React.StrictMode>
 );
 
