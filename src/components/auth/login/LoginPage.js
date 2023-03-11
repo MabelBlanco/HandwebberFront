@@ -21,7 +21,7 @@ export function LoginPage() {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const { isLogged, user } = useIsLoggedSelector();
+  const { isLogged } = useIsLoggedSelector();
   const handleLogin = () => {
     dispatch(fetchLoggedAction());
   };
