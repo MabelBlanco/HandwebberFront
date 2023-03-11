@@ -10,11 +10,13 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter as Router } from "react-router-dom";
-import { AuthContextProvider } from "./components/context/AuthContext";
 import storage from "./utils/storage";
 import { setAuthorizationHeader } from "./api/client";
 import "./utils/i18n";
+import { store } from "./store/store";
+import { Root } from "./Root";
+import { createBrowserRouter } from "react-router-dom";
+import { Suspense } from "react";
 import io from "socket.io-client";
 
 export const socket = io("http://localhost:3001");
@@ -24,14 +26,40 @@ if (initialToken) {
   setAuthorizationHeader(initialToken);
 }
 
+const router = createBrowserRouter([
+  {
+    path: "*",
+    element: (
+      <Suspense
+        fallback={
+          <div
+            style={{
+              color: "white",
+              backgroundColor: "black",
+              width: "1800px",
+              height: "1800px",
+              fontSize: "1,5em",
+            }}
+          >
+            'Starting page...'
+          </div>
+        }
+      >
+        <App />
+      </Suspense>
+    ),
+  },
+]);
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Router>
-      <AuthContextProvider haveInitialToken={!!initialToken}>
-        <App />
-      </AuthContextProvider>
-    </Router>
+    <Root
+      initialToken={initialToken}
+      haveInitialToken={!!initialToken}
+      store={store}
+      router={router}
+    />
   </React.StrictMode>
 );
 

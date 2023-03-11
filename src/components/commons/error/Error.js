@@ -64,8 +64,12 @@ export function Error({ arrayErrors, ...props }) {
             errorTranslate = t("Error.This username is not available");
           } else if (error === "This email is already registered") {
             errorTranslate = t("Error.This email is already registered");
-          }else if (error === "Passwords don't match") {
+          } else if (error === "Passwords don't match") {
             errorTranslate = t("Error.Passwords don't match");
+          } else if (error === "This is not the page you're looking for...") {
+            errorTranslate = t(
+              "Error.This is not the page you're looking for..."
+            );
           } else {
             errorTranslate = error;
           }

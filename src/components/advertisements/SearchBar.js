@@ -18,22 +18,19 @@ const SearchBar = ({ className, filters, max, onChange, ...props }) => {
   return (
     <div
       className={classNames(styles.searchBar, className)}
-      {...props}
-    >
+      {...props}>
       <Input
         label='Search by name'
         name='name'
         value={filters.name}
         onChange={onChange}
-        className={classNames(className, 'col-sm-12 col-lg-5 m-2')}
-      ></Input>
+        className={classNames(className, 'col-sm-12 col-lg-5 m-2')}></Input>
       <Input
         label='Search by tag'
         name='tag'
         value={filters.tag}
         onChange={onChange}
-        className={classNames(className, 'col-sm-12 col-lg-5 m-2')}
-      ></Input>
+        className={classNames(className, 'col-sm-12 col-lg-5 m-2')}></Input>
       <Range
         label='Price Range'
         id='priceRange'
@@ -42,8 +39,7 @@ const SearchBar = ({ className, filters, max, onChange, ...props }) => {
         max={max}
         value={filters.price}
         onChange={onChange}
-        className={classNames(className, 'col-12')}
-      >
+        className={classNames(className, 'col-12')}>
         {options.map((element) => {
           return (
             <option
@@ -58,8 +54,7 @@ const SearchBar = ({ className, filters, max, onChange, ...props }) => {
         className={classNames(className, 'btn btn-secondary col-3')}
         name='resetFilters'
         onClick={onChange}
-        {...props}
-      >
+        {...props}>
         Reset Filters
       </Button>
     </div>

@@ -11,16 +11,27 @@ AuthContext.displayName = "Auth Context";
 export function AuthContextProvider({ children, haveInitialToken }) {
   const [isLogged, setIsLogged] = useState(haveInitialToken);
 
-  const { user, isFetching, setUser, errorDataUser, setErrorDataUser } = useDataUser({})
+  const { user, isFetching, setUser, errorDataUser, setErrorDataUser } =
+    useDataUser({});
 
   const handleLogin = () => setIsLogged(true);
   const handleLogOut = () => {
     setIsLogged(false);
-    storage.remove('auth');
-  }
+    storage.remove("auth");
+  };
+
   return (
     <AuthContext.Provider
-      value={{ isLogged: isLogged, handleLogin, handleLogOut, user, isFetching, setUser, errorDataUser, setErrorDataUser }}
+      value={{
+        isLogged: isLogged,
+        handleLogin,
+        handleLogOut,
+        user,
+        isFetching,
+        setUser,
+        errorDataUser,
+        setErrorDataUser,
+      }}
     >
       {children}
     </AuthContext.Provider>

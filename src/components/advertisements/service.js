@@ -15,6 +15,9 @@ export const getAdvertisements = (skip, limit, filters) => {
   filtersToApply = filters.price
     ? `${filtersToApply}&price=-${filters.price}`
     : filtersToApply;
+  filtersToApply = filters.idUser
+    ? `${filtersToApply}&idUser=${filters.idUser}`
+    : filtersToApply;
 
   //Request chaine
   let request = `${advertisementsURL}?skip=${sk}&limit=${lim}&sort=-update`;
@@ -25,7 +28,7 @@ export const getAdvertisements = (skip, limit, filters) => {
 };
 
 export const getUserAdvertisements = (idUser) => {
-  return client.get(`${advertisementsURL}?idUser=${idUser}&skip=0&limit=1`);
+  return client.get(`${advertisementsURL}?idUser=${idUser}`);
 };
 
 export const createAdvertisement = (advertData) => {
@@ -38,8 +41,12 @@ export const getAdvertisementDetail = (advertId) => {
   return client.get(url);
 };
 
-export const deleteAdvertisement = (id) => {
-  console.log(id);
-  const url = `${advertisementsURL}/${id}`;
+export const deleteAdvertisement = (advertId) => {
+  console.log(advertId);
+  const url = `${advertisementsURL}/${advertId}`;
   return client.delete(url);
+};
+export const updateAdvertisement = async (advertId, body) => {
+  const response = await client.put(`${advertisementsURL}/${advertId}`, body);
+  return response;
 };

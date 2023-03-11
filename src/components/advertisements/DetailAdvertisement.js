@@ -1,34 +1,26 @@
-import { useEffect, useState } from "react";
-import { useNavigate /*, useParams*/ } from "react-router-dom";
-// import { getUserById } from "../auth/service";
-// import useDataUser from "../auth/signUp/useDataUser";
-import Alert from "../commons/feedbacks/alert/Alert";
-import AdsDetailPage from "./AdsDetailPage/AdsDetailPage";
-import "./advertisements.scss";
-import { deleteAdvertisement } from "./service";
-import useDataAdvert from "./useDataAdvert";
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getAdById } from '../../store/adsListSlice';
+import { useIsLoggedSelector } from '../../store/authSlice';
+import Alert from '../commons/feedbacks/alert/Alert';
+import AdsDetailPage from './AdsDetailPage/AdsDetailPage';
+import './advertisements.scss';
+import { deleteAdvertisement } from './service';
 
 const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   const [isDelete, setIsDelete] = useState(false);
   const navigate = useNavigate();
-  const advert = useDataAdvert();
 
-  useEffect(() => {
-    let isMounted = true;
-    if (isMounted) {
-      const execute = async () => {};
-      execute();
-    }
+  const advertId = useParams().id.split('-', 1)[0];
+  const advert = useSelector(getAdById(advertId));
 
-    return () => {
-      isMounted = false;
-    };
-  }, [advert]);
+  const { user } = useIsLoggedSelector();
+  const userLoggedId = user._id;
 
   const onEdit = async () => {
     try {
       navigate(`/advertisements/edit/${advert._id}-${advert.name}`);
-      // await deleteAdvertisement(id).then(navigate("/advertisements"));
     } catch (error) {
       console.log(error);
     }
@@ -39,37 +31,82 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
       await deleteAdvertisement(advert._id);
       setIsDelete(true);
     } catch (error) {
-      console.log("err", error);
+      console.log('err', error);
     }
   };
   const onContact = async () => {
-    console.log("contact");
+    console.log('contact');
   };
   const handleClickAlert = (e) => {
     e.preventDefault();
-    navigate("/advertisements");
+    navigate('/advertisements');
   };
 
   return (
-    <div className="row">
-      <h1 className="col-sm-12 py-5">{props.title}</h1>
-      <div className="container advert-content-detail">
-        {advert && !isDelete && (
+    <div className='row'>
+      <h1 className='col-sm-12 py-5'>{props.title}</h1>
+      <div className='container advert-content-detail'>
+        {advert?._id && !isDelete && (
           <AdsDetailPage
             {...advert}
+            userLoggedId={userLoggedId}
             fncontact={onContact}
             fndelete={onDelete}
             fnedit={onEdit}
           ></AdsDetailPage>
         )}
+
         {isDelete && (
-          <Alert className="alert-success" alertTask={handleClickAlert}>
+          <Alert
+            className='alert-success'
+            alertTask={handleClickAlert}
+          >
             Borrado correctamente
           </Alert>
         )}
       </div>
     </div>
   );
+
+  // return (
+  //   <div className='row'>
+  //     <h1 className='col-sm-12 py-5'>{props.title}</h1>
+  //     <div className='container advert-content-detail'>
+  //       {advert?._id && !isDelete && (
+  //         <AdsDetailPage
+  //           {...advert}
+  //           fncontact={onContact}
+  //           fndelete={onDelete}
+  //           fnedit={onEdit}
+  //         ></AdsDetailPage>
+  //       )}
+  //       {!advert && !isDelete && (
+  //         <AdsDetailPage
+  //           {...temp}
+  //           fncontact={onContact}
+  //           fndelete={onDelete}
+  //           fnedit={onEdit}
+  //         ></AdsDetailPage>
+  //       )}
+  //       {!advert && !isDelete && (
+  //         <AdsDetailPage
+  //           {...temp}
+  //           fncontact={onContact}
+  //           fndelete={onDelete}
+  //           fnedit={onEdit}
+  //         ></AdsDetailPage>
+  //       )}
+  //       {isDelete && (
+  //         <Alert
+  //           className='alert-success'
+  //           alertTask={handleClickAlert}
+  //         >
+  //           Borrado correctamente
+  //         </Alert>
+  //       )}
+  //     </div>
+  //   </div>
+  // );
 };
 
 export default DetailAdvertisement;

@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
-import decodeToken from '../../../utils/decodeToken';
-import storage from '../../../utils/storage';
-import { getUserById } from '../service';
 import { getUserAdvertisements } from '../../advertisements/service';
-
+import { useIsLoggedSelector } from '../../../store/authSlice';
 
 const useDataUser = ({ initialState, ...props }) => {
   const [user, setUser] = useState(initialState);
   const [isFetching, setIsFetching] = useState(false);
   const [errorDataUser, setErrorDataUser] = useState(null);
 
-  const { userId } = decodeToken(storage.get('auth')) || {};
+  //const { userId } = decodeToken(storage.get('auth')) || {};
+
+  const { isLogged, user: userData } = useIsLoggedSelector();
+  const { _id: userId, username, image } = userData;
 
   const resetErrorDataUser = () => setErrorDataUser(null);
 
@@ -19,10 +19,13 @@ const useDataUser = ({ initialState, ...props }) => {
       resetErrorDataUser();
       setIsFetching(true);
       try {
-        const userData = await getUserById(userId);
-        const result = userData.result;
         const ads = await getUserAdvertisements(userId);
+        const result = {
+          ...userData,
+          ads: ads.result,
+        };
         result.ads = ads.result;
+
         setUser(result);
       } catch (error) {
         setErrorDataUser(error);
@@ -30,9 +33,16 @@ const useDataUser = ({ initialState, ...props }) => {
       setIsFetching(false);
     };
     execute();
-  }, [userId]);
+  }, [userId, userData]);
 
-  return { user, isFetching, setUser, errorDataUser, setErrorDataUser, ...props };
+  return {
+    user,
+    isFetching,
+    setUser,
+    errorDataUser,
+    setErrorDataUser,
+    ...props,
+  };
 };
 
 export default useDataUser;

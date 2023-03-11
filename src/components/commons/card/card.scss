@@ -11,10 +11,19 @@
     align-items: center;
     border-bottom: 2px solid var(--color-secondary-800);
     padding: 0px;
-
     img {
       width: 100%;
       height: auto;
+    }
+  }
+  & .favorites {
+    border-bottom: 1px solid var(--bs-gray-200);
+    padding: 10px 15px;
+    & i {
+      &:hover {
+        color: var(--color-primary-500);
+        cursor: pointer;
+      }
     }
   }
   & .card-body {

@@ -6,8 +6,7 @@ const Range = ({ className, label, id, children, ...props }) => {
     <div className={classNames('', className)}>
       <label
         htmlFor={id}
-        className='form-label'
-      >
+        className='form-label'>
         {label}
       </label>
       <input

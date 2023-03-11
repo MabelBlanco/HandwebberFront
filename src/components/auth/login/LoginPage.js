@@ -7,6 +7,10 @@ import Button from "../../commons/button/Button";
 import { useAuth } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
 import { Error } from "../../commons/error/Error";
+import {
+  useDispatchLoggedAction,
+  useIsLoggedSelector,
+} from "../../../store/authSlice";
 import Modal from "../../commons/modal/Modal";
 
 export function LoginPage() {
@@ -17,7 +21,11 @@ export function LoginPage() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const { handleLogin, isLogged } = useAuth();
+  //const { handleLogin, isLogged } = useAuth();
+
+  const handleLogin = useDispatchLoggedAction();
+  const { isLogged, user } = useIsLoggedSelector();
+
   const { t } = useTranslation();
 
   const loginMessageError = t(

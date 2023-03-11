@@ -1,6 +1,8 @@
 import classNames from "classnames";
+import { Link } from "react-router-dom";
 import Input from "../../commons/forms/input/Input";
 import "./Footer.scss";
+
 const Footer = ({ className, ...props }) => {
   return (
     <footer
@@ -9,24 +11,24 @@ const Footer = ({ className, ...props }) => {
     >
       <div className="container p-4">
         <section className="mb-4">
-          <a className="btn btn-floating m-1" href="!#" role="button">
+          <Link className="btn btn-floating m-1 " to="!#" role="button">
             <i className="fab fa-facebook-f"></i>
-          </a>
-          <a className="btn  btn-floating m-1" href="!#" role="button">
+          </Link>
+          <Link className="btn  btn-floating m-1 " to="!#" role="button">
             <i className="fab fa-twitter"></i>
-          </a>
-          <a className="btn btn-floating m-1" href="!#" role="button">
+          </Link>
+          <Link className="btn btn-floating m-1 " to="!#" role="button">
             <i className="bi bi-youtube"></i>
-          </a>
-          <a className="btn btn-floating m-1" href="!#" role="button">
+          </Link>
+          <Link className="btn btn-floating m-1 " to="!#" role="button">
             <i className="bi bi-facebook"></i>
-          </a>
-          <a className="btn btn-floating m-1" href="!#" role="button">
+          </Link>
+          <Link className="btn btn-floating m-1 " to="!#" role="button">
             <i className="bi bi-linkedin"></i>
-          </a>
-          <a className="btn  m-1" href="!#" role="button">
+          </Link>
+          <Link className="btn  m-1 " to="!#" role="button">
             <i className="bi bi-twitter"></i>
-          </a>
+          </Link>
         </section>
 
         <section className="">
@@ -69,24 +71,24 @@ const Footer = ({ className, ...props }) => {
 
               <ul className="list-unstyled mb-0">
                 <li>
-                  <a href="!#" className="text-white">
+                  <Link to="!#" className="text-white">
                     Link 1
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="!#" className="text-white">
+                  <Link to="!#" className="text-white">
                     Link 2
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="!#" className="text-white">
+                  <Link to="!#" className="text-white">
                     Link 3
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="!#" className="text-white">
+                  <Link to="!#" className="text-white">
                     Link 4
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -96,24 +98,24 @@ const Footer = ({ className, ...props }) => {
 
               <ul className="list-unstyled mb-0">
                 <li>
-                  <a href="!#" className="text-white">
+                  <Link to="!#" className="text-white">
                     Link 1
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="!#" className="text-white">
+                  <Link to="!#" className="text-white">
                     Link 2
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="!#" className="text-white">
+                  <Link to="!#" className="text-white">
                     Link 3
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="!#" className="text-white">
+                  <Link to="!#" className="text-white">
                     Link 4
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -123,24 +125,24 @@ const Footer = ({ className, ...props }) => {
 
               <ul className="list-unstyled mb-0">
                 <li>
-                  <a href="!#" className="text-white">
+                  <Link to="!#" className="text-white">
                     Link 1
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="!#" className="text-white">
+                  <Link to="!#" className="text-white">
                     Link 2
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="!#" className="text-white">
+                  <Link to="!#" className="text-white">
                     Link 3
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="!#" className="text-white">
+                  <Link to="!#" className="text-white">
                     Link 4
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -150,24 +152,24 @@ const Footer = ({ className, ...props }) => {
 
               <ul className="list-unstyled mb-0">
                 <li>
-                  <a href="!#" className="text-white">
+                  <Link to="!#" className="text-white">
                     Link 1
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="!#" className="text-white">
+                  <Link to="!#" className="text-white">
                     Link 2
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="!#" className="text-white">
+                  <Link to="!#" className="text-white">
                     Link 3
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="!#" className="text-white">
+                  <Link to="!#" className="text-white">
                     Link 4
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -177,9 +179,9 @@ const Footer = ({ className, ...props }) => {
 
       <div className="text-center p-3" style={{}}>
         © 2023 Copyright:
-        <a className="text-white" href="!#">
+        <Link className="text-white" to="!#">
           handWebber
-        </a>
+        </Link>
       </div>
     </footer>
   );
