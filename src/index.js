@@ -17,17 +17,12 @@ import { setAuthorizationHeader } from "./api/client";
 import "./utils/i18n";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:3001");
+export const socket = io("http://localhost:3001");
 
 const initialToken = storage.get("auth");
 if (initialToken) {
   setAuthorizationHeader(initialToken);
 }
-
-socket.emit("test", { id: 2525 });
-socket.on("Hello_world", (data) => {
-  console.log(data);
-});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
