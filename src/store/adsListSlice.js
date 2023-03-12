@@ -45,7 +45,10 @@ export const useAdsAreLoadedSelector = () =>
   useSelector((state) => state.adsList.areLoaded);
 
 export const getAdById = (adId) => (state) => {
-  let adFinded = state.adsList.data?.find(
+  if (!state.adsList.data.length) {
+    return undefined;
+  }
+  let adFinded = state.adsList?.data?.find(
     (ad) => ad._id.toString() === adId || undefined
   );
 
@@ -99,15 +102,14 @@ export function loadOneAdByIdAction(adId) {
   return async function (dispatch, getState) {
     const areLoaded = getAdById(adId)(getState());
 
-    if (areLoaded) {
-      //TODO
-      //console.log('el anuncio ya está cargado');
-      return;
-    }
+    if (areLoaded) return;
 
     try {
       setUiIsFetching();
       const advertisement = await getAdvertisementDetail(adId);
+      if (!advertisement.result) {
+        throw new Error("This advertisement doesn't exists");
+      }
       dispatch(loadOneAd(advertisement.result));
       setUiSuccess();
     } catch (error) {
