@@ -27,7 +27,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { authSuccess, authError } = authSlice.actions;
+export const { authSuccess, authError, authLogout } = authSlice.actions;
 
 export const useIsLoggedSelector = () => useSelector((state) => state.auth);
 
@@ -43,10 +43,13 @@ export function fetchLoggedAction() {
         image: user.result.image,
         ads: ads.result,
       };
-      dispatch(authSlice.actions.authSuccess(data));
+      //dispatch(authSlice.actions.authSuccess(data));
+      dispatch(authSuccess(data));
     } catch (error) {
-      console.log('error', error);
-      dispatch(authSlice.actions.authError());
+      //TODO
+      //console.log('error', error);
+      //dispatch(authSlice.actions.authError());
+      dispatch(authError());
     }
   };
 }

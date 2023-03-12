@@ -5,13 +5,7 @@ import {
   getAdvertisementDetail,
   getAdvertisements,
 } from '../components/advertisements/service';
-import {
-  errorUi,
-  request,
-  setUiIsFetching,
-  setUiSuccess,
-  success,
-} from './uiSlice';
+import { errorUi, setUiIsFetching, setUiSuccess } from './uiSlice';
 
 const initialState = {
   areLoaded: false,
