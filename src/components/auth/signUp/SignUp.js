@@ -97,6 +97,7 @@ const SignUp = ({ className, title, ...props }) => {
             <Error
               className={styles.signup__error}
               arrayErrors={error}
+              resetError={resetError}
             />
           )}
           <div className='card-body actions'>

@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Button from '../button/Button';
+import './error.scss';
 
-export function Error({ arrayErrors, ...props }) {
+export function Error({ arrayErrors, resetError, ...props }) {
   const [errors, setErrors] = useState(arrayErrors);
 
   const { t } = useTranslation();
@@ -66,19 +68,25 @@ export function Error({ arrayErrors, ...props }) {
             errorTranslate = t('Error.This email is already registered');
           } else if (error === "Passwords don't match") {
             errorTranslate = t("Error.Passwords don't match");
-          } else if (error === "This is not the page you're looking for...") {
-            errorTranslate = t(
-              "Error.This is not the page you're looking for..."
-            );
           } else {
-            errorTranslate = t('Error.An unexpected error has occurred');
+            errorTranslate = error;
           }
           return (
-            <p
-              key={error}
-              {...props}>
-              {errorTranslate}
-            </p>
+            <div key={error} className='error-container'>
+              <div className='error-body'>
+                <p>ERROR</p>
+                <p key={error} {...props}>
+                  {errorTranslate}
+                </p>
+                <Button
+                  type='button'
+                  className='error-close'
+                  onClick={resetError}
+                >
+                  <i className='bi bi-x-square-fill'></i>
+                </Button>
+              </div>
+            </div>
           );
         })}
       </div>
