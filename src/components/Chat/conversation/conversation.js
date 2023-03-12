@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
-import { socket } from "../..";
-import Button from "../commons/button/Button";
-import Input from "../commons/forms/input/Input";
+import { socket } from "../../..";
+import Button from "../../commons/button/Button";
+import Input from "../../commons/forms/input/Input";
 
-import "./chat.css";
+import "./conversation.css";
 
-export function Chat() {
+export function Conversation({ advertisement, userTo }) {
   const [message, setMessage] = useState("");
   const [conversation, setConversation] = useState([]);
+
+  console.log(advertisement);
+  console.log(userTo);
 
   function handleSubmit(event) {
     event.preventDefault();

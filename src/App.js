@@ -9,7 +9,7 @@ import { LoginPage } from "./components/auth/login/LoginPage";
 import RequireAuth from "./components/auth/RequireAuth";
 import ProfilePage from "./components/auth/signUp/ProfilePage";
 import SignUp from "./components/auth/signUp/SignUp";
-import { Chat } from "./components/Chat/chat";
+import { Chat } from "./components/Chat/chat/Chat.js";
 import NotFoundPage from "./components/commons/feedbacks/NotFound/NotFoundPage";
 import Layout from "./components/Layout/Layout";
 import LayoutTest from "./components/Layout/LayoutTest";
@@ -38,7 +38,7 @@ function App() {
           <Route path="user/:idUser" element={<UserAdsList />} />
         </Route>
 
-        <Route path="chat" element={<Chat></Chat>} />
+        <Route path="chat" element={<Chat />} />
         <Route path="/" element={<Navigate to="/advertisements" />} />
 
         <Route
