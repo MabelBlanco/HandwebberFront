@@ -4,13 +4,13 @@ import './loginPage.css';
 import { loginUser } from '../service';
 import Input from '../../commons/forms/input/Input';
 import Button from '../../commons/button/Button';
-import { useAuth } from '../../context/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { Error } from '../../commons/error/Error';
 import {
-  useDispatchLoggedAction,
+  fetchLoggedAction,
   useIsLoggedSelector,
 } from '../../../store/authSlice';
+import { useDispatch } from 'react-redux';
 
 export function LoginPage() {
   const [emailValue, setEmailValue] = useState('');
@@ -19,16 +19,20 @@ export function LoginPage() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  //const { handleLogin, isLogged } = useAuth();
+  const dispatch = useDispatch();
 
-  const handleLogin = useDispatchLoggedAction();
-  const { isLogged, user } = useIsLoggedSelector();
+  const { isLogged } = useIsLoggedSelector();
+  const handleLogin = () => {
+    dispatch(fetchLoggedAction());
+  };
 
   const { t } = useTranslation();
 
-  const loginMessageError = t(
-    'LoginPage.Sorry, you are loggin now. If you want singin with another count, close this session first.'
-  );
+  // const loginMessageError = t(
+  //   'LoginPage.Sorry, you are loggin now. If you want singin with another count, close this session first.'
+  // );
+  const loginMessageError =
+    'Sorry, you are loggin now. If you want singin with another count, close this session first.';
 
   const submitEvent = async (event) => {
     event.preventDefault();
@@ -59,7 +63,8 @@ export function LoginPage() {
     return (
       <form
         id='login'
-        onSubmit={submitEvent}>
+        onSubmit={submitEvent}
+      >
         <div className='emailContainer'>
           <Input
             value={emailValue}
@@ -83,7 +88,8 @@ export function LoginPage() {
         <Button
           type='submit'
           form='login'
-          className='loginButton'>
+          className='loginButton'
+        >
           {t('LoginPage.Login')}
         </Button>
         <Error arrayErrors={errors} />

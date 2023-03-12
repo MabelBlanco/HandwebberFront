@@ -1,22 +1,51 @@
+import { useEffect, useRef } from 'react';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getAdById } from '../../store/adsListSlice';
+import {
+  getAdById,
+  loadOneAd,
+  loadOneAdByIdAction,
+} from '../../store/adsListSlice';
 import { useIsLoggedSelector } from '../../store/authSlice';
 import Alert from '../commons/feedbacks/alert/Alert';
 import AdsDetailPage from './AdsDetailPage/AdsDetailPage';
 import './advertisements.scss';
-import { deleteAdvertisement } from './service';
+import { deleteAdvertisement, getAdvertisementDetail } from './service';
 
 const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   const [isDelete, setIsDelete] = useState(false);
   const navigate = useNavigate();
-
-  const advertId = useParams().id.split('-', 1)[0];
-  const advert = useSelector(getAdById(advertId));
+  const dispatch = useDispatch();
 
   const { user } = useIsLoggedSelector();
   const userLoggedId = user._id;
+
+  const advertId = useParams().id.split('-', 1)[0];
+  const advert = useSelector(getAdById(advertId));
+  useRef(advert);
+  useEffect(() => {
+    //dispatch(loadOneAdByIdAction(advertId));
+    const execute = async () => {
+      if (advert) {
+        console.log('el anuncio ya está cargado');
+        return;
+      }
+
+      try {
+        //setUiIsFetching();
+        //dispatch(request);
+        const advertisement = await getAdvertisementDetail(advertId);
+        dispatch(loadOneAd(advertisement.result));
+        //setUiSuccess();
+        //dispatch(success);
+      } catch (error) {
+        //dispatch(errorUi(error.message));
+      }
+    };
+    execute();
+  }, [dispatch, advertId]);
+  //}, [dispatch, advertId]);
 
   const onEdit = async () => {
     try {

@@ -77,10 +77,10 @@
     "Borrar": "Delete",
     "Precio": "Price",
     "Descripcion": "Description",
-    "Contactar" : "Contact",
+    "Contactar": "Contact",
     "Activo": "Active",
-    "Inactivo" : "Inactive",
-    "ModalText" : "¿Estás seguro de eliminar el anuncio? Esta acción no se puede deshacer",
+    "Inactivo": "Inactive",
+    "ModalText": "¿Estás seguro de eliminar el anuncio? Esta acción no se puede deshacer",
     "Cancelar": "Cancel",
     "ModalTitle": "Borrar anuncio"
   },
@@ -136,6 +136,7 @@
     "This username is not available": "Este nombre de usuario no está disponible",
     "This email is already registered": "Este mail ya está registrado",
     "Passwords don't match": "Las contraseñas no coinciden",
-    "This is not the page you're looking for...": "Esta no es la página que estás buscando..."
+    "This is not the page you're looking for...": "Esta no es la página que estás buscando...",
+    "Sorry, you are loggin now. If you want singin with another count, close this session first.": "Lo siento, ya estás logeado. Si quieres entrar con otra cuenta, cierra esta sesión primero."
   }
 }

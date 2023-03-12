@@ -31,7 +31,7 @@ export const { authSuccess, authError } = authSlice.actions;
 
 export const useIsLoggedSelector = () => useSelector((state) => state.auth);
 
-function fetchLoggedAction() {
+export function fetchLoggedAction() {
   return async function (dispatch) {
     try {
       const { userId } = decodeToken(storage.get('auth')) || {};
