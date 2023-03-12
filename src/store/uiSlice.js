@@ -22,6 +22,9 @@ export const uiSlice = createSlice({
       }
       state.isFetching = false;
     },
+    resetErrorUi: (state) => {
+      state.error = [];
+    },
   },
 });
 
@@ -36,12 +39,12 @@ export const useDispatchUi = () => useDispatch();
 
 export const setUiIsFetching = () => {
   return function (dispatch) {
-    dispatch(success());
+    dispatch(request());
   };
 };
 export const setUiSuccess = () => {
   return function (dispatch) {
-    dispatch(request());
+    dispatch(setUiSuccess());
   };
 };
 
