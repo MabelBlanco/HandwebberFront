@@ -72,10 +72,10 @@ export const { adsLoadSuccess, loadOneAd, updateThisAd } = adsListSlice.actions;
 function fetchAdsAction(skip, limit, filters) {
   return async function (dispatch) {
     try {
-      dispatch(request());
+      dispatch(setUiIsFetching());
       const ads = await getAdvertisements(skip, limit, filters);
       dispatch(adsLoadSuccess(ads));
-      dispatch(success());
+      dispatch(setUiSuccess());
     } catch (error) {
       dispatch(errorUi(error));
     }
@@ -103,23 +103,19 @@ export function editAdAction(updatedAd) {
 
 export function loadOneAdByIdAction(adId) {
   return async function (dispatch, getState) {
-    //TODO
-    debugger;
-    console.log('estado', getState());
     const areLoaded = getAdById(adId)(getState());
 
     if (areLoaded) {
-      console.log('el anuncio ya está cargado');
+      //TODO
+      //console.log('el anuncio ya está cargado');
       return;
     }
 
     try {
-      //setUiIsFetching();
-      //dispatch(request);
+      setUiIsFetching();
       const advertisement = await getAdvertisementDetail(adId);
       dispatch(loadOneAd(advertisement.result));
-      //setUiSuccess();
-      //dispatch(success);
+      setUiSuccess();
     } catch (error) {
       dispatch(errorUi(error.message));
     }
