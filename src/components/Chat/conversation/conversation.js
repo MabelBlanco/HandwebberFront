@@ -1,13 +1,30 @@
 import { useEffect, useState } from "react";
 import { socket } from "../../..";
+import { useIsLoggedSelector } from "../../../store/authSlice";
 import Button from "../../commons/button/Button";
 import Input from "../../commons/forms/input/Input";
 
 import "./conversation.css";
+import { getConversation } from "./service";
 
 export function Conversation({ advertisement, userTo }) {
   const [message, setMessage] = useState("");
   const [conversation, setConversation] = useState([]);
+
+  const { user } = useIsLoggedSelector();
+
+  const askConversation = async () => {
+    try {
+      const response = await getConversation(advertisement, [userTo, user._id]);
+      console.log(response);
+    } catch (error) {
+      if (error.message === "This conversation do not exist") {
+        console.log("creo una nueva conversacion");
+        return;
+      }
+      console.log(error);
+    }
+  };
 
   console.log(advertisement);
   console.log(userTo);
@@ -19,6 +36,8 @@ export function Conversation({ advertisement, userTo }) {
   }
 
   useEffect(() => {
+    askConversation();
+
     const newMessageSendFunction = (data) => {
       const newMessage = data;
       setConversation([...conversation, newMessage]);
