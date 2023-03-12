@@ -142,6 +142,7 @@
     "This username is not available": "This username is not available",
     "This email is already registered": "This email is already registered",
     "Passwords don't match": "Passwords don't match",
-    "This is not the page you're looking for...": "This is not the page you're looking for..."
+    "This is not the page you're looking for...": "This is not the page you're looking for...",
+    "Sorry, you are loggin now. If you want singin with another count, close this session first.": "Sorry, you are loggin now. If you want singin with another count, close this session first."
   }
 }

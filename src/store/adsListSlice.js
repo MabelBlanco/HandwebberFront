@@ -5,7 +5,13 @@ import {
   getAdvertisementDetail,
   getAdvertisements,
 } from '../components/advertisements/service';
-import { errorUi, request, success } from './uiSlice';
+import {
+  errorUi,
+  request,
+  setUiIsFetching,
+  setUiSuccess,
+  success,
+} from './uiSlice';
 
 const initialState = {
   areLoaded: false,
@@ -22,12 +28,9 @@ export const adsListSlice = createSlice({
       state.data = action.payload.result;
       state.meta = action.payload.meta;
     },
-    loadThisAd: (state, action) => {
-      //TODO
-      //console.log('payload:', action.payload);
-      if (!state.data.includes(action.payload.result._id)) {
-        state.data = [...state.data, action.payload.result];
-      }
+    loadOneAd: (state, action) => {
+      state.data = state.data.concat([action.payload]);
+      //state.data.push(action.payload);
     },
     updateThisAd: (state, action) => {
       state.data[action.payload.adIndex] = action.payload.updatedAd;
@@ -35,9 +38,36 @@ export const adsListSlice = createSlice({
   },
 });
 
+//Selectors
+export const useAdsListSelector = () =>
+  useSelector((state) => state.adsList.data);
+
+export const useMetaSelector = () => useSelector((state) => state.adsList.meta);
+
+export const useNumberOfAdsSelector = () =>
+  useSelector((state) => state.adsList.meta.totalNumOfAds);
+
+export const useAdsAreLoadedSelector = () =>
+  useSelector((state) => state.adsList.areLoaded);
+
+export const getAdById = (adId) => (state) => {
+  let adFinded = state.adsList.data?.find(
+    (ad) => ad._id.toString() === adId || undefined
+  );
+
+  return adFinded;
+};
+
+export const getAdIndexById = (adId) => (state) => {
+  const idsEquals = (element) => {
+    return element._id.toString() === adId;
+  };
+  const index = state.adsList.data?.findIndex(idsEquals);
+  return index;
+};
+
 //Actions
-export const { adsLoadSuccess, loadThisAd, updateThisAd } =
-  adsListSlice.actions;
+export const { adsLoadSuccess, loadOneAd, updateThisAd } = adsListSlice.actions;
 
 function fetchAdsAction(skip, limit, filters) {
   return async function (dispatch) {
@@ -71,36 +101,30 @@ export function editAdAction(updatedAd) {
   };
 }
 
-//Selectors
-export const useAdsListSelector = () =>
-  useSelector((state) => state.adsList.data);
+export function loadOneAdByIdAction(adId) {
+  return async function (dispatch, getState) {
+    //TODO
+    debugger;
+    console.log('estado', getState());
+    const areLoaded = getAdById(adId)(getState());
 
-export const useMetaSelector = () => useSelector((state) => state.adsList.meta);
+    if (areLoaded) {
+      console.log('el anuncio ya está cargado');
+      return;
+    }
 
-export const useNumberOfAdsSelector = () =>
-  useSelector((state) => state.adsList.meta.totalNumOfAds);
-
-export const useAdsAreLoadedSelector = () =>
-  useSelector((state) => state.adsList.areLoaded);
-
-export const getAdById = (adId) => (state) => {
-  let adFinded = state.adsList.data?.find(
-    (ad) => ad._id.toString() === adId || undefined
-  );
-  if (!adFinded) {
-    //TODO buscar el anuncio en la base de datos y cargarlo
-    console.log('El anuncio no está ahora mismo en el estado');
-  }
-  return adFinded;
-};
-
-export const getAdIndexById = (adId) => (state) => {
-  const idsEquals = (element) => {
-    return element._id.toString() === adId;
+    try {
+      //setUiIsFetching();
+      //dispatch(request);
+      const advertisement = await getAdvertisementDetail(adId);
+      dispatch(loadOneAd(advertisement.result));
+      //setUiSuccess();
+      //dispatch(success);
+    } catch (error) {
+      dispatch(errorUi(error.message));
+    }
   };
-  const index = state.adsList.data?.findIndex(idsEquals);
-  return index;
-};
+}
 
 export const useDispatchAdsList = () => useDispatch();
 

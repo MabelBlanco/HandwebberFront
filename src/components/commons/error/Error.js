@@ -70,6 +70,13 @@ export function Error({ arrayErrors, ...props }) {
             errorTranslate = t(
               "Error.This is not the page you're looking for..."
             );
+          } else if (
+            error ===
+            "Sorry, you are loggin now. If you want singin with another count, close this session first."
+          ) {
+            errorTranslate = t(
+              "Error.Sorry, you are loggin now. If you want singin with another count, close this session first."
+            );
           } else {
             errorTranslate = error;
           }

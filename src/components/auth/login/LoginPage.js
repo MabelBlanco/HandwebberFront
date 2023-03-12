@@ -8,10 +8,11 @@ import { useAuth } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
 import { Error } from "../../commons/error/Error";
 import {
-  useDispatchLoggedAction,
+  fetchLoggedAction,
   useIsLoggedSelector,
 } from "../../../store/authSlice";
 import Modal from "../../commons/modal/Modal";
+import { useDispatch } from "react-redux";
 
 export function LoginPage() {
   const [emailValue, setEmailValue] = useState("");
@@ -21,10 +22,12 @@ export function LoginPage() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  //const { handleLogin, isLogged } = useAuth();
+  const dispatch = useDispatch();
 
-  const handleLogin = useDispatchLoggedAction();
-  const { isLogged, user } = useIsLoggedSelector();
+  const { isLogged } = useIsLoggedSelector();
+  const handleLogin = () => {
+    dispatch(fetchLoggedAction());
+  };
 
   const { t } = useTranslation();
 
