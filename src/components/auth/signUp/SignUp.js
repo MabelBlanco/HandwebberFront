@@ -6,10 +6,15 @@ import CheckBox from '../../commons/forms/checkbox/Checkbox';
 import styles from './SignUp.module.css';
 import { createUser, loginUser } from '../service';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
 import '../../commons/card/card.scss';
 import { useTranslation } from 'react-i18next';
 import { Error } from '../../commons/error/Error';
+import { useUiErrorSelector, errorUi } from '../../../store/uiSlice';
+import {
+  fetchLoggedAction,
+  useIsLoggedSelector,
+} from '../../../store/authSlice';
+import { useDispatch } from 'react-redux';
 
 const initialState = {
   username: '',
@@ -22,18 +27,22 @@ const SignUp = ({ className, title, ...props }) => {
   const [credentials, setCredentials] = useState(initialState);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [check, setCheck] = useState(false);
-  const [error, setError] = useState(null);
+
+  const  error  = useUiErrorSelector();
 
   const { t } = useTranslation();
 
-  const { handleLogin, isLogged } = useAuth();
+  const { isLogged } = useIsLoggedSelector();
+
+  const handleLogin = () => {
+    dispatch(fetchLoggedAction());
+  };
 
   const navigate = useNavigate();
 
-  const resetError = () => setError(null);
+  const dispatch = useDispatch();
 
   const handleCredentials = (event) => {
-    resetError();
     setCredentials({ ...credentials, [event.target.name]: event.target.value });
   };
 
@@ -45,7 +54,6 @@ const SignUp = ({ className, title, ...props }) => {
   };
 
   const handleConfirmPassword = (event) => {
-    resetError();
     setConfirmPassword(event.target.value);
   };
 
@@ -53,11 +61,11 @@ const SignUp = ({ className, title, ...props }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    resetError();
     const { image, username, mail, password } = credentials;
     if (password !== confirmPassword) {
-      setError(["Passwords don't match"]);
-      throw error;
+      const errorMessage = ["Passwords don't match"];
+      dispatch(errorUi(errorMessage));
+      throw errorMessage;
     }
 
     const formData = new FormData();
@@ -81,7 +89,7 @@ const SignUp = ({ className, title, ...props }) => {
       } else {
         errors.push(error.message);
       }
-      setError(errors);
+      dispatch(errorUi(errors))
     }
   };
 
@@ -97,7 +105,6 @@ const SignUp = ({ className, title, ...props }) => {
             <Error
               className={styles.signup__error}
               arrayErrors={error}
-              resetError={resetError}
             />
           )}
           <div className='card-body actions'>

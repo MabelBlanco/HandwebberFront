@@ -1,9 +1,11 @@
 import NoImage from '../../commons/noImage/NoImage';
 import '../../commons/card/card.scss';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 
 const UserInfo = ({ user }) => {
   const { t } = useTranslation();
+  const location = useLocation().pathname;
 
   //TODO
   console.log('usuario perfil', user);
@@ -23,7 +25,7 @@ const UserInfo = ({ user }) => {
           <NoImage className='card-img-top' />
         )}
       </div>
-      <ul className='list-group list-group-flush my-3'>
+      {location === '/profile' ? (<ul className='list-group list-group-flush my-3'>
         <li
           key='mail'
           className='list-group-item'
@@ -31,7 +33,7 @@ const UserInfo = ({ user }) => {
           <span>{t('ProfilePage.Mail')}: </span>
           {user?.mail}
         </li>
-      </ul>
+      </ul>) : null}
     </>
   );
 };

@@ -9,9 +9,17 @@ import Select from '../commons/forms/select/Select';
 import Textarea from '../commons/forms/textarea/Textarea';
 import './advertisements.scss';
 import { createAdvertisement } from './service';
+import { useUiErrorSelector, errorUi } from '../../store/uiSlice';
+import { useDispatch } from 'react-redux';
+import { Error } from '../commons/error/Error';
+import styles from '../auth/signUp/SignUp.module.css';
 
 const NewAdvertisement = ({ ...props }) => {
   const navigate = useNavigate();
+
+  const  error  = useUiErrorSelector();
+
+  const dispatch = useDispatch();
 
   const { t } = useTranslation();
   //TODO
@@ -76,6 +84,7 @@ const NewAdvertisement = ({ ...props }) => {
       if (error.statusCode === 404) {
         navigate('/404');
       }
+      dispatch(errorUi(error.message))
       console.log(error);
     }
   };
@@ -93,6 +102,12 @@ const NewAdvertisement = ({ ...props }) => {
   }, [form.name, form.price, form.tags]);
   return (
     <div className='row'>
+      {error && (
+                <Error
+                  className={styles.signup__error}
+                  arrayErrors={error}
+                />
+              )}
       <h1 className='col-sm-12 py-5'>{props.title}</h1>
       <div className='col-sm-12'>
         <form

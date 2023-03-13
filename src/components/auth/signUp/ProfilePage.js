@@ -17,9 +17,11 @@ import Alert from '../../commons/feedbacks/alert/Alert';
 import FormUpdateProfile from './FormUpdateProfile';
 import UserInfo from './UserInfo';
 import {
+  authSuccess,
   dispatchLogoutAction,
   useIsLoggedSelector,
 } from '../../../store/authSlice';
+import { useUiErrorSelector, errorUi } from '../../../store/uiSlice';
 import { useDispatch } from 'react-redux';
 
 const initialState = {
@@ -36,27 +38,27 @@ const ProfilePage = ({ className, title, ...props }) => {
   //TODO
   //Traer los datos del endpoint privado y tratarlos sólo aquí.
 
-  const { isFetching, user, setUser } = useAuth();
+  const { isFetching } = useAuth();
   const [credentials, setCredentials] = useState(initialState);
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState(null);
   const [activeForm, setActiveForm] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const { t } = useTranslation();
   const [favorits, setFavorits] = useState([]);
   const [activeFavorits, setActiveFavorits] = useState(false);
+
+  const  error  = useUiErrorSelector();
+
   const dispatch = useDispatch();
 
   const handleLogOut = () => {
     dispatch(dispatchLogoutAction());
   };
-  const { isLogged } = useIsLoggedSelector();
+  const { isLogged, user } = useIsLoggedSelector();
 
   const handleActiveForm = () => setActiveForm(!activeForm);
 
   const navigate = useNavigate();
-
-  const resetError = () => setError(null);
 
   //TODO cambiado a utilizar el id
   //const goToMyAds = () => navigate(`/profile/user/${user.username}`);
@@ -74,12 +76,12 @@ const ProfilePage = ({ className, title, ...props }) => {
         setFavorits(ads);
       }
     } catch (error) {
-      setError(error);
+      console.log(error)
+      dispatch(errorUi(error.message))
     }
   };
 
   const handleCredentials = (event) => {
-    resetError();
     setCredentials({ ...credentials, [event.target.name]: event.target.value });
   };
 
@@ -91,17 +93,16 @@ const ProfilePage = ({ className, title, ...props }) => {
   };
 
   const handleConfirmPassword = (event) => {
-    resetError();
     setConfirmPassword(event.target.value);
   };
 
   const updateAccount = async (event) => {
     event.preventDefault();
-    resetError();
     const { image, username, mail, password } = credentials;
     if (password !== confirmPassword) {
-      setError(["Passwords don't match"]);
-      throw error;
+      const errorMessage = ["Passwords don't match"];
+      dispatch(errorUi(errorMessage));
+      throw errorMessage;
     }
 
     const formData = new FormData();
@@ -114,9 +115,8 @@ const ProfilePage = ({ className, title, ...props }) => {
     try {
       const { result } = await updateUser(user._id, formData);
       result.ads = user.ads;
-      setUser(result);
+      dispatch(authSuccess(result));
       setActiveForm(false);
-      //navigate("/");
     } catch (error) {
       const errors = [];
       if (Array.isArray(error.message)) {
@@ -124,17 +124,20 @@ const ProfilePage = ({ className, title, ...props }) => {
       } else {
         errors.push(error.message);
       }
-      setError(errors);
+      dispatch(errorUi(errors))
     }
   };
 
   const deleteAccount = async () => {
     try {
       const userAds = user.ads;
+
+      const response = await deleteUser(user._id);
+
       for (let ad of userAds) {
         await deleteAdvertisement(ad._id);
       }
-      const response = await deleteUser(user._id);
+      
       setIsDelete(true);
       setTimeout(() => {
         handleLogOut();
@@ -143,7 +146,7 @@ const ProfilePage = ({ className, title, ...props }) => {
       }, 1500);
       return response;
     } catch (error) {
-      setError(error);
+      dispatch(errorUi([error.message]))
     }
   };
 
