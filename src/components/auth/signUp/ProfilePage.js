@@ -110,6 +110,7 @@ const ProfilePage = ({ className, title, ...props }) => {
     username && formData.append('username', username.toLowerCase());
     mail && formData.append('mail', mail);
     password && formData.append('password', password);
+    formData.append('idUser', user._id)
     image && formData.append('image', image);
 
     try {
