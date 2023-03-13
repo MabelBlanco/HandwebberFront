@@ -3,11 +3,21 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '../button/Button';
 import './error.scss';
+import { resetErrorUi } from '../../../store/uiSlice';
+import { useDispatch } from 'react-redux';
 
-export function Error({ arrayErrors, resetError, ...props }) {
+export function Error({ arrayErrors, ...props }) {
   const [errors, setErrors] = useState(arrayErrors);
 
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
+  const resetError = () => setErrors([]);
+
+  const resetUiError = () => {
+    dispatch(resetErrorUi());
+    resetError();
+  };
 
   useEffect(() => {
     setErrors(arrayErrors);
@@ -81,7 +91,7 @@ export function Error({ arrayErrors, resetError, ...props }) {
                 <Button
                   type='button'
                   className='error-close'
-                  onClick={resetError}
+                  onClick={resetUiError}
                 >
                   <i className='bi bi-x-square-fill'></i>
                 </Button>

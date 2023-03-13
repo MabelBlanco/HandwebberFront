@@ -28,12 +28,12 @@ export function LoginPage() {
 
   const { t } = useTranslation();
 
-  // const loginMessageError = t(
-  //   'LoginPage.Sorry, you are loggin now. If you want singin with another count, close this session first.'
-  // );
-  const loginMessageError =
+   const loginMessageError = t(
+     'LoginPage.Sorry, you are loggin now. If you want singin with another count, close this session first.'
+   );
+  /* const loginMessageError =
     'Sorry, you are loggin now. If you want singin with another count, close this session first.';
-
+ */
   const submitEvent = async (event) => {
     event.preventDefault();
 
@@ -58,7 +58,7 @@ export function LoginPage() {
   };
 
   if (isLogged) {
-    return <Error arrayErrors={[loginMessageError]} />;
+    return <p>{loginMessageError}</p>;
   } else {
     return (
       <form

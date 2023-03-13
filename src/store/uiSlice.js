@@ -28,7 +28,7 @@ export const uiSlice = createSlice({
   },
 });
 
-export const { request, success, errorUi } = uiSlice.actions;
+export const { request, success, errorUi, resetErrorUi } = uiSlice.actions;
 
 export const useIsFetchingSelector = () =>
   useSelector((state) => state.ui.isFetching);
