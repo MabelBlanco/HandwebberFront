@@ -36,7 +36,7 @@ const ProfilePage = ({ className, title, ...props }) => {
   //TODO
   //Traer los datos del endpoint privado y tratarlos sólo aquí.
 
-  const { isFetching, user, setUser } = useAuth();
+  const { isFetching, setUser } = useAuth();
   const [credentials, setCredentials] = useState(initialState);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
@@ -50,7 +50,7 @@ const ProfilePage = ({ className, title, ...props }) => {
   const handleLogOut = () => {
     dispatch(dispatchLogoutAction());
   };
-  const { isLogged } = useIsLoggedSelector();
+  const { isLogged, user } = useIsLoggedSelector();
 
   const handleActiveForm = () => setActiveForm(!activeForm);
 
@@ -109,6 +109,7 @@ const ProfilePage = ({ className, title, ...props }) => {
     username && formData.append('username', username.toLowerCase());
     mail && formData.append('mail', mail);
     password && formData.append('password', password);
+    formData.append('idUser', user._id);
     image && formData.append('image', image);
 
     try {
@@ -159,14 +160,12 @@ const ProfilePage = ({ className, title, ...props }) => {
           <ul className='list-group list-group-flush my-3'>
             <li
               key='subscriptions'
-              className='list-group-item'
-            >
+              className='list-group-item'>
               <span>{t('ProfilePage.Favorites')}: </span>
               <Button
                 type='button'
                 className='btn btn-secondary mx-3 my-3'
-                onClick={getMyFavorites}
-              >
+                onClick={getMyFavorites}>
                 {t('ProfilePage.SEE MY FAVORITS ADS')}
               </Button>
               <div className='row'>
@@ -187,26 +186,22 @@ const ProfilePage = ({ className, title, ...props }) => {
             </li>
             <li
               key='ads'
-              className='list-group-item'
-            >
+              className='list-group-item'>
               <span>{t('ProfilePage.My advertisements')}: </span>
               <Button
                 type='button'
                 className='btn btn-secondary mx-3 my-3'
-                onClick={goToMyAds}
-              >
+                onClick={goToMyAds}>
                 {t('ProfilePage.GO TO MY ADVERTISEMENTS LIST')}
               </Button>
             </li>
             <li
               key='update'
-              className='list-group-item'
-            >
+              className='list-group-item'>
               <Button
                 type='button'
                 className='btn btn-secondary mx-3 my-3'
-                onClick={handleActiveForm}
-              >
+                onClick={handleActiveForm}>
                 {t('ProfilePage.CLICK FOR UPDATE YOUR PROFILE')}
               </Button>
               {error && (
@@ -229,8 +224,7 @@ const ProfilePage = ({ className, title, ...props }) => {
             </li>
             <li
               key='delet'
-              className='list-group-item'
-            >
+              className='list-group-item'>
               <Modal
                 hasConfirm
                 modalTitle={t('ProfilePage.DELETE ACCOUNT')}
@@ -242,8 +236,7 @@ const ProfilePage = ({ className, title, ...props }) => {
                 label_confirm={t(`AdsDetailPage.Delete`)}
                 label_cancel={t(`AdsDetailPage.Cancel`)}
                 label_btn={t('ProfilePage.DELETE ACCOUNT')}
-                modalId='deleteUser'
-              >
+                modalId='deleteUser'>
                 {t('ProfilePage.Are you sure for delete account?')}
               </Modal>
             </li>
