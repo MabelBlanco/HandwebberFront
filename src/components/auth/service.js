@@ -22,6 +22,11 @@ export const getUserById = async (userID) => {
 
   return response;
 };
+export const getUserPrivateDataById = async (userID) => {
+  const response = await client.get(`${usersURL}/private/${userID}`);
+
+  return response;
+};
 
 export const createUser = async (body) => {
   const response = await client.post(signupURL, body);

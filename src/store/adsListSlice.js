@@ -110,10 +110,11 @@ export function loadOneAdByIdAction(adId) {
       if (!advertisement.result) {
         throw new Error("This advertisement doesn't exists");
       }
+
       dispatch(loadOneAd(advertisement.result));
       setUiSuccess();
     } catch (error) {
-      dispatch(errorUi(error.message));
+      dispatch(errorUi([error.message]));
     }
   };
 }

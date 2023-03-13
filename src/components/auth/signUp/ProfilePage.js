@@ -1,7 +1,7 @@
 import '../../commons/card/card.scss';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../commons/button/Button';
-import { deleteUser, updateUser } from '../service';
+import { deleteUser, getUserPrivateDataById, updateUser } from '../service';
 import { useAuth } from '../../context/AuthContext';
 import { useEffect, useState } from 'react';
 import styles from './SignUp.module.css';
@@ -46,6 +46,10 @@ const ProfilePage = ({ className, title, ...props }) => {
   const { t } = useTranslation();
   const [favorits, setFavorits] = useState([]);
   const [activeFavorits, setActiveFavorits] = useState(false);
+  const [userPrivateData, setUserPrivateData] = useState({
+    mail: '',
+    subscriptions: [],
+  });
 
   const error = useUiErrorSelector();
 
@@ -152,8 +156,16 @@ const ProfilePage = ({ className, title, ...props }) => {
   };
 
   useEffect(() => {
-    !isLogged && navigate('/');
-  }, [isLogged, navigate]);
+    if (!isLogged) {
+      navigate('/');
+      return;
+    }
+    const getPrivateData = async () => {
+      const response = await getUserPrivateDataById(user._id);
+      setUserPrivateData(response.result);
+    };
+    getPrivateData();
+  }, [isLogged, navigate, user._id]);
 
   return (
     <div className='row'>

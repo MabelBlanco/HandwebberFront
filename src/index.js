@@ -36,12 +36,10 @@ const router = createBrowserRouter([
               width: '1800px',
               height: '1800px',
               fontSize: '1,5em',
-            }}
-          >
+            }}>
             'Starting page...'
           </div>
-        }
-      >
+        }>
         <App />
       </Suspense>
     ),
