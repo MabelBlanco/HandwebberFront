@@ -3,7 +3,13 @@
     "Sorry, you are loggin now. If you want singin with another count, close this session first.": "Sorry, you are loggin now. If you want singin with another count, close this session first.",
     "Email": "Email",
     "Password": "Password",
-    "Login": "Login"
+    "Login": "Login",
+    "Don't remember your password?": "Don't remember your password?",
+    "Send me a new password": "Send me a new password",
+    "Send Password": "Send Password",
+    "Better not": "Better not",
+    "Confirm password change": "Confirm password change",
+    "If you press OK, we will send you a new password to your email and you will not be able to access with the current one. Do you agree?": "If you press OK, we will send you a new password to your email and you will not be able to access with the current one. Do you agree?"
   },
 
   "AdsList": {

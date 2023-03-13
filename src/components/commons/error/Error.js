@@ -78,21 +78,28 @@ export function Error({ arrayErrors, ...props }) {
             errorTranslate = t('Error.This email is already registered');
           } else if (error === "Passwords don't match") {
             errorTranslate = t("Error.Passwords don't match");
+          } else if (error === "This is not the page you're looking for...") {
+            errorTranslate = t(
+              "Error.This is not the page you're looking for..."
+            );
           } else {
             errorTranslate = error;
           }
           return (
-            <div key={error} className='error-container'>
+            <div
+              key={error}
+              className='error-container'>
               <div className='error-body'>
                 <p>ERROR</p>
-                <p key={error} {...props}>
+                <p
+                  key={error}
+                  {...props}>
                   {errorTranslate}
                 </p>
                 <Button
                   type='button'
                   className='error-close'
-                  onClick={resetUiError}
-                >
+                  onClick={resetUiError}>
                   <i className='bi bi-x-square-fill'></i>
                 </Button>
               </div>

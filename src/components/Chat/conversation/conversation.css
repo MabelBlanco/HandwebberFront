@@ -1,0 +1,43 @@
+.chatContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+}
+
+.chatNav {
+  height: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.chatConversation {
+  height: 80%;
+  background-color: burlywood;
+}
+
+.textAndSendButton {
+  height: 10%;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.textAndSendButton form {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-content: space-between;
+}
+
+.textMessage {
+  width: 90%;
+}
+
+.sendButton {
+  width: 10%;
+  position: fixed;
+  right: 0;
+}

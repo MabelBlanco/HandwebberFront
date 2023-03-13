@@ -61,7 +61,7 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
     }
   };
   const onContact = async () => {
-    console.log('contact');
+    navigate(`/chat?ad_id=${advertId}&user_id=${advert.idUser._id}`);
   };
   const handleClickAlert = (e) => {
     e.preventDefault();
