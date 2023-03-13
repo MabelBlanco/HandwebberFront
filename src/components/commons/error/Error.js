@@ -1,11 +1,23 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Button from '../button/Button';
+import './error.scss';
+import { resetErrorUi } from '../../../store/uiSlice';
+import { useDispatch } from 'react-redux';
 
 export function Error({ arrayErrors, ...props }) {
   const [errors, setErrors] = useState(arrayErrors);
 
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
+  const resetError = () => setErrors([]);
+
+  const resetUiError = () => {
+    dispatch(resetErrorUi());
+    resetError();
+  };
 
   useEffect(() => {
     setErrors(arrayErrors);
@@ -66,27 +78,25 @@ export function Error({ arrayErrors, ...props }) {
             errorTranslate = t('Error.This email is already registered');
           } else if (error === "Passwords don't match") {
             errorTranslate = t("Error.Passwords don't match");
-          } else if (error === "This is not the page you're looking for...") {
-            errorTranslate = t(
-              "Error.This is not the page you're looking for..."
-            );
-          } else if (
-            error ===
-            'Sorry, you are loggin now. If you want singin with another count, close this session first.'
-          ) {
-            errorTranslate = t(
-              'Error.Sorry, you are loggin now. If you want singin with another count, close this session first.'
-            );
           } else {
-            errorTranslate = t('Error.An unexpected error has occurred');
+            errorTranslate = error;
           }
           return (
-            <p
-              key={error}
-              {...props}
-            >
-              {errorTranslate}
-            </p>
+            <div key={error} className='error-container'>
+              <div className='error-body'>
+                <p>ERROR</p>
+                <p key={error} {...props}>
+                  {errorTranslate}
+                </p>
+                <Button
+                  type='button'
+                  className='error-close'
+                  onClick={resetUiError}
+                >
+                  <i className='bi bi-x-square-fill'></i>
+                </Button>
+              </div>
+            </div>
           );
         })}
       </div>

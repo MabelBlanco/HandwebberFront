@@ -23,6 +23,7 @@ import {
   usePrevious,
   MAX_RESULTS_PER_PAGE,
 } from '../../store/paginationSlice';
+import styles from '../auth/signUp/SignUp.module.css'
 
 export const useAdvertisement = () => {
   const initialFiltersState = {
@@ -111,7 +112,7 @@ const AdsList = ({ ...props }) => {
       />
       {adsIsFetching && <Spinner />}
 
-      {error.length ? <Error arrayErrors={error} /> : <div></div>}
+      {error && <Error className={styles.signup__error} arrayErrors={error} />}
 
       {advertisements.map((element) => {
         const newProps = { ...props, ...element };

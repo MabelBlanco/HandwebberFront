@@ -10,12 +10,18 @@ import {
   fetchLoggedAction,
   useIsLoggedSelector,
 } from '../../../store/authSlice';
+import { useUiErrorSelector, errorUi } from '../../../store/uiSlice';
 import { useDispatch } from 'react-redux';
+import styles from '../signUp/SignUp.module.css'
 
 export function LoginPage() {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
-  const [errors, setErrors] = useState([]);
+  //const [errors, setErrors] = useState([]);
+
+  const  error  = useUiErrorSelector();
+
+  console.log(error)
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,12 +34,12 @@ export function LoginPage() {
 
   const { t } = useTranslation();
 
-  // const loginMessageError = t(
-  //   'LoginPage.Sorry, you are loggin now. If you want singin with another count, close this session first.'
-  // );
-  const loginMessageError =
+  const loginMessageError = t(
+    'LoginPage.Sorry, you are loggin now. If you want singin with another count, close this session first.'
+  );
+  /* const loginMessageError =
     'Sorry, you are loggin now. If you want singin with another count, close this session first.';
-
+ */
   const submitEvent = async (event) => {
     event.preventDefault();
 
@@ -53,18 +59,18 @@ export function LoginPage() {
       } else {
         errors.push(error.message);
       }
-      setErrors(errors);
+      dispatch(errorUi(errors))
+      console.log(errors)
+  
+      //setErrors(errors);
     }
   };
 
   if (isLogged) {
-    return <Error arrayErrors={[loginMessageError]} />;
+    return <p className='h5'>{loginMessageError}</p>;
   } else {
     return (
-      <form
-        id='login'
-        onSubmit={submitEvent}
-      >
+      <form id='login' onSubmit={submitEvent}>
         <div className='emailContainer'>
           <Input
             value={emailValue}
@@ -85,14 +91,12 @@ export function LoginPage() {
             onChange={(event) => setPasswordValue(event.target.value)}
           />
         </div>
-        <Button
-          type='submit'
-          form='login'
-          className='loginButton'
-        >
+        <Button type='submit' form='login' className='loginButton'>
           {t('LoginPage.Login')}
         </Button>
-        <Error arrayErrors={errors} />
+        
+          {error && <Error className={styles.signup__error} arrayErrors={error} />}
+        
       </form>
     );
   }

@@ -41,6 +41,7 @@ export function fetchLoggedAction() {
         _id: user.result._id,
         username: user.result.username,
         image: user.result.image,
+        subscriptions: user.result.subscriptions,
         ads: ads.result,
       };
       //dispatch(authSlice.actions.authSuccess(data));

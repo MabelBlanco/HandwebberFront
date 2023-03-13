@@ -74,7 +74,7 @@ function fetchAdsAction(skip, limit, filters) {
       dispatch(adsLoadSuccess(ads));
       dispatch(setUiSuccess());
     } catch (error) {
-      dispatch(errorUi(error));
+      dispatch(errorUi(error.message));
     }
   };
 }

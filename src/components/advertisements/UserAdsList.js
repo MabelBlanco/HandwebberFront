@@ -29,17 +29,18 @@ const UserAdsList = ({ ...props }) => {
   useEffect(() => {
     const execute = async () => {
       //const userSearchData = await getUserByUsername(userSearchUsername);
-      //const userSearchData = await getUserById(userSearchId);
+      const userSearchData = await getUserById(userSearchId);
       //const resultSearch = userSearchData.result;
 
       //      const userSearchAds = await getUserAdvertisements(resultSearch._id);
       const filter = { idUser: userSearchId };
       const userSearchAds = await getAdvertisements(0, 10000, filter);
+      console.log(userSearchData)
       let resultSearch = {};
       resultSearch.ads = userSearchAds.result;
-      resultSearch.username = userSearchAds.result[0].idUser.username;
-      resultSearch.mail = userSearchAds.result[0].idUser.mail;
-      resultSearch.image = userSearchAds.result[0].idUser.image;
+      resultSearch.username = userSearchData.result.username;
+      resultSearch.image = userSearchData.result.image;
+      console.log(resultSearch)
       setUserSearch(resultSearch);
     };
     execute();
