@@ -81,6 +81,7 @@ const AdsList = ({ ...props }) => {
 
   //Redux UI handles
   const adsIsFetching = useIsFetchingSelector();
+
   const error = useUiErrorSelector();
 
   //Redux pagination handles
@@ -95,8 +96,7 @@ const AdsList = ({ ...props }) => {
   return (
     <div
       className='row'
-      {...props}
-    >
+      {...props}>
       <SearchBar
         className='row'
         onChange={handleFilters}

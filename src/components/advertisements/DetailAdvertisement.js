@@ -2,16 +2,12 @@ import { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import {
-  getAdById,
-  loadOneAd,
-  loadOneAdByIdAction,
-} from '../../store/adsListSlice';
+import { getAdById, loadOneAdByIdAction } from '../../store/adsListSlice';
 import { useIsLoggedSelector } from '../../store/authSlice';
 import Alert from '../commons/feedbacks/alert/Alert';
 import AdsDetailPage from './AdsDetailPage/AdsDetailPage';
 import './advertisements.scss';
-import { deleteAdvertisement, getAdvertisementDetail } from './service';
+import { deleteAdvertisement } from './service';
 
 const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   const [isDelete, setIsDelete] = useState(false);
@@ -25,27 +21,28 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   const advert = useSelector(getAdById(advertId));
   useRef(advert);
   useEffect(() => {
-    //dispatch(loadOneAdByIdAction(advertId));
-    const execute = async () => {
-      if (advert) {
-        console.log('el anuncio ya está cargado');
-        return;
-      }
+    dispatch(loadOneAdByIdAction(advertId));
+    //   const execute = async () => {
+    //     if (advert) {
+    //       //TODO
+    //       //console.log('el anuncio ya está cargado');
+    //       return;
+    //     }
 
-      try {
-        //setUiIsFetching();
-        //dispatch(request);
-        const advertisement = await getAdvertisementDetail(advertId);
-        dispatch(loadOneAd(advertisement.result));
-        //setUiSuccess();
-        //dispatch(success);
-      } catch (error) {
-        //dispatch(errorUi(error.message));
-      }
-    };
-    execute();
+    //     try {
+    //       //setUiIsFetching();
+    //       //dispatch(request);
+    //       const advertisement = await getAdvertisementDetail(advertId);
+    //       dispatch(loadOneAd(advertisement.result));
+    //       //setUiSuccess();
+    //       //dispatch(success);
+    //     } catch (error) {
+    //       //dispatch(errorUi(error.message));
+    //     }
+    //   };
+    //   execute();
+    // }, [dispatch, advertId]);
   }, [dispatch, advertId]);
-  //}, [dispatch, advertId]);
 
   const onEdit = async () => {
     try {
@@ -81,15 +78,13 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
             userLoggedId={userLoggedId}
             fncontact={onContact}
             fndelete={onDelete}
-            fnedit={onEdit}
-          ></AdsDetailPage>
+            fnedit={onEdit}></AdsDetailPage>
         )}
 
         {isDelete && (
           <Alert
             className='alert-success'
-            alertTask={handleClickAlert}
-          >
+            alertTask={handleClickAlert}>
             Borrado correctamente
           </Alert>
         )}

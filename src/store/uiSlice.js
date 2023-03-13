@@ -44,7 +44,7 @@ export const setUiIsFetching = () => {
 };
 export const setUiSuccess = () => {
   return function (dispatch) {
-    dispatch(setUiSuccess());
+    dispatch(success());
   };
 };
 
