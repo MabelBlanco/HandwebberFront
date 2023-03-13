@@ -35,15 +35,18 @@ const UserAdsList = ({ ...props }) => {
       //      const userSearchAds = await getUserAdvertisements(resultSearch._id);
       const filter = { idUser: userSearchId };
       const userSearchAds = await getAdvertisements(0, 10000, filter);
-      console.log(userSearchData)
+
+      //TODO
+      console.log(userSearchData);
       let resultSearch = {};
       resultSearch.ads = userSearchAds.result;
       resultSearch.username = userSearchData.result.username;
       resultSearch.image = userSearchData.result.image;
-      console.log(resultSearch)
+      //TODO
+      console.log(resultSearch);
       setUserSearch(resultSearch);
     };
-    execute();
+    if (userSearchId) execute();
   }, [userSearchId]);
 
   return (

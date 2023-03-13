@@ -26,7 +26,6 @@ export function LoginPage() {
 
   const error = useUiErrorSelector();
 
-  console.log(error);
   const [unknowPassword, setUnknowPassword] = useState(false);
 
   const navigate = useNavigate();
