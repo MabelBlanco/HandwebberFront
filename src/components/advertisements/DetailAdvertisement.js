@@ -75,6 +75,7 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
         {advert?._id && !isDelete && (
           <AdsDetailPage
             {...advert}
+            advert={advert}
             userLoggedId={userLoggedId}
             fncontact={onContact}
             fndelete={onDelete}

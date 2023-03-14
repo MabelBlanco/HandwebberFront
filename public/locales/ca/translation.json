@@ -82,7 +82,8 @@
       "Inactive": "Inactiu",
       "ModalText" : "Esteu segur d'eliminar l'anunci? Aquesta acció no es pot desfer",
       "Cancel": "Cancelar",
-      "ModalTitle": "Borrar anunci"
+      "ModalTitle": "Borrar anunci",
+      "Share": "Compartir"
     },
 
     "Card": {

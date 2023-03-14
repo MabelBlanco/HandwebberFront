@@ -7,6 +7,8 @@ import NoImage from '../../commons/noImage/NoImage';
 import Tags from '../../commons/tags/Tags';
 import './adsDetailPage.scss';
 import { NavLink } from 'react-router-dom';
+import { FacebookShareButton, TwitterShareButton } from 'react-share';
+import { FacebookIcon, TwitterIcon } from 'react-share';
 
 const AdsDetailPage = ({
   className,
@@ -28,6 +30,7 @@ const AdsDetailPage = ({
   children,
   addFavorites,
   subscribers,
+  advert,
   ...props
 }) => {
   return (
@@ -52,59 +55,35 @@ const AdsDetailPage = ({
             )}
           </div>
           <div className='col-md-6 ads-info'>
-            <h1
-              className='display-5 fw-bolder name'
-              key='name'
-            >
+            <h1 className='display-5 fw-bolder name' key='name'>
               {name}
             </h1>
-            <div
-              key='date'
-              className='date'
-            >
+            <div key='date' className='date'>
               <span className='label-info'>Date: </span>
               <time dateTime={update}>{format(new Date(), 'MM/dd/yyy')}</time>
             </div>
             <div className='fs-5 mb-5 price'>
-              <span
-                key='price'
-                className='label-info'
-              >
+              <span key='price' className='label-info'>
                 {t('AdsDetailPage.Price')}:
               </span>
               <span> {price}€</span>
             </div>
-            <div
-              className='lead description'
-              key='description'
-            >
+            <div className='lead description' key='description'>
               <p className='label-info'>{t('AdsDetailPage.Description')}:</p>
               <p>{description}</p>
             </div>
-            <div
-              key='tags'
-              className='list-group-item tags-container'
-            >
+            <div key='tags' className='list-group-item tags-container'>
               <p className='label-info'>Tags: </p>
               <Tags tagsArray={tags} />
             </div>
-            <div
-              key='stock'
-              className='list-group-item stock'
-            >
+            <div key='stock' className='list-group-item stock'>
               <span className='label-info'>Stock: </span>
               {stock}
             </div>
-            <div
-              key='active'
-              className='list-group-item active'
-            >
+            <div key='active' className='list-group-item active'>
               {active ? t(`AdsDetailPage.Active`) : t(`AdsDetailPage.Inactive`)}
             </div>
-            <div
-              key='user'
-              className='list-group-item user'
-            >
+            <div key='user' className='list-group-item user'>
               <span className='label-info'>Usuario: </span>
               <NavLink
                 to={`/profile/user/${idUser._id}`}
@@ -115,21 +94,12 @@ const AdsDetailPage = ({
               </NavLink>
             </div>
             {custom && (
-              <div
-                key='custom'
-                className='list-group-item custom'
-              >
+              <div key='custom' className='list-group-item custom'>
                 <span>Custom Product</span>
               </div>
             )}
-            <div
-              key='favorites'
-              className='list-group-item favorites'
-            >
-              <i
-                className='bi bi-heart-fill'
-                onClick={addFavorites}
-              ></i>{' '}
+            <div key='favorites' className='list-group-item favorites'>
+              <i className='bi bi-heart-fill' onClick={addFavorites}></i>{' '}
               <span className='px-1'>{subscribers && subscribers.length}</span>
             </div>
             {idUser._id === userLoggedId && (
@@ -169,6 +139,16 @@ const AdsDetailPage = ({
                 </Button>
               </div>
             )}
+          </div>
+          <div className='text-center mt-5'>
+            <FacebookShareButton
+              url={`${process.env.REACT_APP_DOMAIN_URL}/advertisements/${advert._id}-${advert.name}`}
+              className='Demo__some-network__share-button'
+              quote='HandWebber'
+              hashtag={`#${advert.name}`}
+            >
+              <FacebookIcon size={24} round /> {t(`AdsDetailPage.Share`)} 
+            </FacebookShareButton>
           </div>
         </div>
       </div>

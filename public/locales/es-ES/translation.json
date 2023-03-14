@@ -88,7 +88,8 @@
     "Inactivo": "Inactive",
     "ModalText": "¿Estás seguro de eliminar el anuncio? Esta acción no se puede deshacer",
     "Cancelar": "Cancel",
-    "ModalTitle": "Borrar anuncio"
+    "ModalTitle": "Borrar anuncio",
+    "Share": "Compartir"
   },
 
   "Card": {
