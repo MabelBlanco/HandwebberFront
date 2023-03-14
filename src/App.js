@@ -38,7 +38,16 @@ function App() {
           <Route path="user/:idUser" element={<UserAdsList />} />
         </Route>
 
-        <Route path="chat" element={<Chat />} />
+        <Route path="chat" element={<Layout title="Chat" />}>
+          <Route
+            index
+            element={
+              <RequireAuth>
+                <Chat />
+              </RequireAuth>
+            }
+          />
+        </Route>
         <Route path="/" element={<Navigate to="/advertisements" />} />
 
         <Route

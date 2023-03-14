@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { socket } from "../../..";
-import { getAdById } from "../../../store/adsListSlice";
+import { getAdById, loadOneAdByIdAction } from "../../../store/adsListSlice";
 import { useIsLoggedSelector } from "../../../store/authSlice";
 import Button from "../../commons/button/Button";
 import Input from "../../commons/forms/input/Input";
@@ -10,8 +10,12 @@ import "./conversation.css";
 // import { createConversation, getConversation } from "./service";
 
 export function Conversation({ advertisement, userToId, userToName }) {
+  const dispatch = useDispatch();
   const { user } = useIsLoggedSelector();
   const advert = useSelector(getAdById(advertisement));
+  if (!advert) {
+    dispatch(loadOneAdByIdAction(advertisement));
+  }
 
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -21,47 +25,45 @@ export function Conversation({ advertisement, userToId, userToName }) {
     event.preventDefault();
     const date = Date.now();
     socket.emit("new_message", {
-      from: user._id,
-      date,
-      body: message,
-      read: false,
+      conversationId,
+      message: {
+        from: user._id,
+        date,
+        body: message,
+      },
     });
+
+    setMessage("");
   }
 
   useEffect(() => {
-    const askConversation = async () => {
+    // Declarate Functions
+    const askConversation = () => {
       socket.emit("ask_conversation", {
         advertisement,
         users: [userToId, user._id],
       });
     };
-    // try {
-    //   const response = await getConversation(advertisement, [
-    //     userToId,
-    //     user._id,
-    //   ]);
-    //   console.log(response);
-    //   setMessages(response.messages);
-    // } catch (error) {
-    //   if (error.message === "This conversation do not exist") {
-    //     const newConversation = await createConversation(advertisement, [
-    //       userToId,
-    //       user._id,
-    //     ]);
-    //     setConversationId(newConversation._id);
-    //     return;
-    //   } else {
-    //     console.log(error);
-    //   }
-    // }
-    // };
 
+    const conversationReceived = (data) => {
+      console.log("Conversación recibida: ", data);
+      setMessages(data.messages);
+      setConversationId(data._id);
+    };
+
+    // Execute functions
     askConversation();
+    socket.on("send_conversation", conversationReceived);
+
+    // Delete suscriptions socket.io events
+    return () => {
+      socket.off("send_conversation", conversationReceived);
+    };
   }, [advertisement, user._id, userToId]);
 
   useEffect(() => {
     const newMessageSendFunction = (data) => {
-      const newMessage = data;
+      const newMessage = data.message;
       setMessages([...messages, newMessage]);
     };
     socket.on("new_message_send", newMessageSendFunction);
@@ -80,7 +82,9 @@ export function Conversation({ advertisement, userToId, userToName }) {
         {messages.map((message) => {
           return (
             <div>
-              <p>{user._id === message.from ? user.username : userToName}:</p>
+              <p key={message.date}>
+                {user._id === message.from ? user.username : userToName}:
+              </p>
               <p key={message.body}>{message.body}</p>
             </div>
           );

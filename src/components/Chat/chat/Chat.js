@@ -12,23 +12,27 @@ export function Chat() {
   const userTo = searchParams.get("user_id");
 
   useEffect(() => {
-    try {
-      const userName = getUserById(userTo);
-      setUserToName(userName);
-    } catch (error) {
-      console.log(error);
+    if (userTo) {
+      try {
+        const userName = getUserById(userTo);
+        setUserToName(userName);
+      } catch (error) {
+        console.log(error);
+      }
     }
   }, [userTo]);
 
-  if (advertisement && userTo) {
-    return (
-      <Conversation
-        advertisement={advertisement}
-        userToId={userTo}
-        userToName={userToName}
-      ></Conversation>
-    );
-  } else {
-    <div>Aquí irían todas las conversaciones</div>;
-  }
+  return (
+    <>
+      {advertisement && userTo ? (
+        <Conversation
+          advertisement={advertisement}
+          userToId={userTo}
+          userToName={userToName}
+        ></Conversation>
+      ) : (
+        <div>Aquí irían todas las conversaciones</div>
+      )}
+    </>
+  );
 }
