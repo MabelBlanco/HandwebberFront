@@ -1,62 +1,89 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { socket } from "../../..";
+import { getAdById } from "../../../store/adsListSlice";
 import { useIsLoggedSelector } from "../../../store/authSlice";
 import Button from "../../commons/button/Button";
 import Input from "../../commons/forms/input/Input";
 
 import "./conversation.css";
-import { getConversation } from "./service";
+// import { createConversation, getConversation } from "./service";
 
-export function Conversation({ advertisement, userTo }) {
-  const [message, setMessage] = useState("");
-  const [conversation, setConversation] = useState([]);
-
+export function Conversation({ advertisement, userToId, userToName }) {
   const { user } = useIsLoggedSelector();
+  const advert = useSelector(getAdById(advertisement));
 
-  const askConversation = async () => {
-    try {
-      const response = await getConversation(advertisement, [userTo, user._id]);
-      console.log(response);
-    } catch (error) {
-      if (error.message === "This conversation do not exist") {
-        console.log("creo una nueva conversacion");
-        return;
-      }
-      console.log(error);
-    }
-  };
-
-  console.log(advertisement);
-  console.log(userTo);
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [conversationId, setConversationId] = useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
     const date = Date.now();
-    socket.emit("new_message", { date, body: message });
+    socket.emit("new_message", {
+      from: user._id,
+      date,
+      body: message,
+      read: false,
+    });
   }
 
   useEffect(() => {
-    askConversation();
+    const askConversation = async () => {
+      socket.emit("ask_conversation", {
+        advertisement,
+        users: [userToId, user._id],
+      });
+    };
+    // try {
+    //   const response = await getConversation(advertisement, [
+    //     userToId,
+    //     user._id,
+    //   ]);
+    //   console.log(response);
+    //   setMessages(response.messages);
+    // } catch (error) {
+    //   if (error.message === "This conversation do not exist") {
+    //     const newConversation = await createConversation(advertisement, [
+    //       userToId,
+    //       user._id,
+    //     ]);
+    //     setConversationId(newConversation._id);
+    //     return;
+    //   } else {
+    //     console.log(error);
+    //   }
+    // }
+    // };
 
+    askConversation();
+  }, [advertisement, user._id, userToId]);
+
+  useEffect(() => {
     const newMessageSendFunction = (data) => {
       const newMessage = data;
-      setConversation([...conversation, newMessage]);
+      setMessages([...messages, newMessage]);
     };
     socket.on("new_message_send", newMessageSendFunction);
 
     return () => {
       socket.off("new_message_send", newMessageSendFunction);
     };
-  }, [conversation]);
+  }, [messages]);
   return (
     <div className="chatContainer">
       <div className="chatNav">
-        <h2>Título del anuncio</h2>
+        <h2>{advert.name}</h2>
         <Button>X</Button>
       </div>
       <div className="chatConversation">
-        {conversation.map((message) => {
-          return <p key={message.body}>{message.body}</p>;
+        {messages.map((message) => {
+          return (
+            <div>
+              <p>{user._id === message.from ? user.username : userToName}:</p>
+              <p key={message.body}>{message.body}</p>
+            </div>
+          );
         })}
       </div>
       <div className="textAndSendButton">
