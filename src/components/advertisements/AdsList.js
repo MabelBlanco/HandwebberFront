@@ -23,6 +23,7 @@ import {
   usePrevious,
   MAX_RESULTS_PER_PAGE,
 } from '../../store/paginationSlice';
+import styles from '../auth/signUp/SignUp.module.css'
 
 export const useAdvertisement = () => {
   const initialFiltersState = {
@@ -81,6 +82,7 @@ const AdsList = ({ ...props }) => {
 
   //Redux UI handles
   const adsIsFetching = useIsFetchingSelector();
+
   const error = useUiErrorSelector();
 
   //Redux pagination handles
@@ -95,8 +97,7 @@ const AdsList = ({ ...props }) => {
   return (
     <div
       className='row'
-      {...props}
-    >
+      {...props}>
       <SearchBar
         className='row'
         onChange={handleFilters}
@@ -111,7 +112,7 @@ const AdsList = ({ ...props }) => {
       />
       {adsIsFetching && <Spinner />}
 
-      {error.length ? <Error arrayErrors={error} /> : <div></div>}
+      {error && <Error className={styles.signup__error} arrayErrors={error} />}
 
       {advertisements.map((element) => {
         const newProps = { ...props, ...element };

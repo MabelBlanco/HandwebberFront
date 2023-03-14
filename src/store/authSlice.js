@@ -27,26 +27,28 @@ export const authSlice = createSlice({
   },
 });
 
-export const { authSuccess, authError } = authSlice.actions;
+export const { authSuccess, authError, authLogout } = authSlice.actions;
 
 export const useIsLoggedSelector = () => useSelector((state) => state.auth);
 
 export function fetchLoggedAction() {
   return async function (dispatch) {
+    const { userId } = decodeToken(storage.get('auth')) || {};
+    if (!userId) return;
     try {
-      const { userId } = decodeToken(storage.get('auth')) || {};
       const user = await getUserById(userId);
       const ads = await getUserAdvertisements(userId);
       const data = {
         _id: user.result._id,
         username: user.result.username,
         image: user.result.image,
+        subscriptions: user.result.subscriptions,
         ads: ads.result,
       };
-      dispatch(authSlice.actions.authSuccess(data));
+      //dispatch(authSlice.actions.authSuccess(data));
+      dispatch(authSuccess(data));
     } catch (error) {
-      console.log('error', error);
-      dispatch(authSlice.actions.authError());
+      dispatch(authError());
     }
   };
 }

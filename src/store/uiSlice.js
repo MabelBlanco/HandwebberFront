@@ -20,6 +20,7 @@ export const uiSlice = createSlice({
       if (!state.error.includes(action.payload)) {
         state.error = state.error.concat([action.payload]);
       }
+      /* state.error = action.payload */
       state.isFetching = false;
     },
     resetErrorUi: (state) => {
@@ -28,7 +29,7 @@ export const uiSlice = createSlice({
   },
 });
 
-export const { request, success, errorUi } = uiSlice.actions;
+export const { request, success, errorUi, resetErrorUi } = uiSlice.actions;
 
 export const useIsFetchingSelector = () =>
   useSelector((state) => state.ui.isFetching);
@@ -44,7 +45,7 @@ export const setUiIsFetching = () => {
 };
 export const setUiSuccess = () => {
   return function (dispatch) {
-    dispatch(setUiSuccess());
+    dispatch(success());
   };
 };
 

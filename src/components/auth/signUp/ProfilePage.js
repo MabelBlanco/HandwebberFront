@@ -1,7 +1,7 @@
 import '../../commons/card/card.scss';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../commons/button/Button';
-import { deleteUser, updateUser } from '../service';
+import { deleteUser, getUserPrivateDataById, updateUser } from '../service';
 import { useAuth } from '../../context/AuthContext';
 import { useEffect, useState } from 'react';
 import styles from './SignUp.module.css';
@@ -17,9 +17,11 @@ import Alert from '../../commons/feedbacks/alert/Alert';
 import FormUpdateProfile from './FormUpdateProfile';
 import UserInfo from './UserInfo';
 import {
+  authSuccess,
   dispatchLogoutAction,
   useIsLoggedSelector,
 } from '../../../store/authSlice';
+import { useUiErrorSelector, errorUi } from '../../../store/uiSlice';
 import { useDispatch } from 'react-redux';
 
 const initialState = {
@@ -36,27 +38,31 @@ const ProfilePage = ({ className, title, ...props }) => {
   //TODO
   //Traer los datos del endpoint privado y tratarlos sólo aquí.
 
-  const { isFetching, user, setUser } = useAuth();
+  const { isFetching } = useAuth();
   const [credentials, setCredentials] = useState(initialState);
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState(null);
   const [activeForm, setActiveForm] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const { t } = useTranslation();
   const [favorits, setFavorits] = useState([]);
   const [activeFavorits, setActiveFavorits] = useState(false);
+  const [userPrivateData, setUserPrivateData] = useState({
+    mail: '',
+    subscriptions: [],
+  });
+
+  const error = useUiErrorSelector();
+
   const dispatch = useDispatch();
 
   const handleLogOut = () => {
     dispatch(dispatchLogoutAction());
   };
-  const { isLogged } = useIsLoggedSelector();
+  const { isLogged, user } = useIsLoggedSelector();
 
   const handleActiveForm = () => setActiveForm(!activeForm);
 
   const navigate = useNavigate();
-
-  const resetError = () => setError(null);
 
   //TODO cambiado a utilizar el id
   //const goToMyAds = () => navigate(`/profile/user/${user.username}`);
@@ -74,12 +80,12 @@ const ProfilePage = ({ className, title, ...props }) => {
         setFavorits(ads);
       }
     } catch (error) {
-      setError(error);
+      console.log(error);
+      dispatch(errorUi(error.message));
     }
   };
 
   const handleCredentials = (event) => {
-    resetError();
     setCredentials({ ...credentials, [event.target.name]: event.target.value });
   };
 
@@ -91,17 +97,16 @@ const ProfilePage = ({ className, title, ...props }) => {
   };
 
   const handleConfirmPassword = (event) => {
-    resetError();
     setConfirmPassword(event.target.value);
   };
 
   const updateAccount = async (event) => {
     event.preventDefault();
-    resetError();
     const { image, username, mail, password } = credentials;
     if (password !== confirmPassword) {
-      setError(["Passwords don't match"]);
-      throw error;
+      const errorMessage = ["Passwords don't match"];
+      dispatch(errorUi(errorMessage));
+      throw errorMessage;
     }
 
     const formData = new FormData();
@@ -109,14 +114,14 @@ const ProfilePage = ({ className, title, ...props }) => {
     username && formData.append('username', username.toLowerCase());
     mail && formData.append('mail', mail);
     password && formData.append('password', password);
+    formData.append('idUser', user._id);
     image && formData.append('image', image);
 
     try {
       const { result } = await updateUser(user._id, formData);
       result.ads = user.ads;
-      setUser(result);
+      dispatch(authSuccess(result));
       setActiveForm(false);
-      //navigate("/");
     } catch (error) {
       const errors = [];
       if (Array.isArray(error.message)) {
@@ -124,17 +129,20 @@ const ProfilePage = ({ className, title, ...props }) => {
       } else {
         errors.push(error.message);
       }
-      setError(errors);
+      dispatch(errorUi(errors));
     }
   };
 
   const deleteAccount = async () => {
     try {
       const userAds = user.ads;
+
+      const response = await deleteUser(user._id);
+
       for (let ad of userAds) {
         await deleteAdvertisement(ad._id);
       }
-      const response = await deleteUser(user._id);
+
       setIsDelete(true);
       setTimeout(() => {
         handleLogOut();
@@ -143,13 +151,21 @@ const ProfilePage = ({ className, title, ...props }) => {
       }, 1500);
       return response;
     } catch (error) {
-      setError(error);
+      dispatch(errorUi([error.message]));
     }
   };
 
   useEffect(() => {
-    !isLogged && navigate('/');
-  }, [isLogged, navigate]);
+    if (!isLogged) {
+      navigate('/');
+      return;
+    }
+    const getPrivateData = async () => {
+      const response = await getUserPrivateDataById(user._id);
+      setUserPrivateData(response.result);
+    };
+    getPrivateData();
+  }, [isLogged, navigate, user._id]);
 
   return (
     <div className='row'>
@@ -159,14 +175,12 @@ const ProfilePage = ({ className, title, ...props }) => {
           <ul className='list-group list-group-flush my-3'>
             <li
               key='subscriptions'
-              className='list-group-item'
-            >
+              className='list-group-item'>
               <span>{t('ProfilePage.Favorites')}: </span>
               <Button
                 type='button'
                 className='btn btn-secondary mx-3 my-3'
-                onClick={getMyFavorites}
-              >
+                onClick={getMyFavorites}>
                 {t('ProfilePage.SEE MY FAVORITS ADS')}
               </Button>
               <div className='row'>
@@ -187,26 +201,22 @@ const ProfilePage = ({ className, title, ...props }) => {
             </li>
             <li
               key='ads'
-              className='list-group-item'
-            >
+              className='list-group-item'>
               <span>{t('ProfilePage.My advertisements')}: </span>
               <Button
                 type='button'
                 className='btn btn-secondary mx-3 my-3'
-                onClick={goToMyAds}
-              >
+                onClick={goToMyAds}>
                 {t('ProfilePage.GO TO MY ADVERTISEMENTS LIST')}
               </Button>
             </li>
             <li
               key='update'
-              className='list-group-item'
-            >
+              className='list-group-item'>
               <Button
                 type='button'
                 className='btn btn-secondary mx-3 my-3'
-                onClick={handleActiveForm}
-              >
+                onClick={handleActiveForm}>
                 {t('ProfilePage.CLICK FOR UPDATE YOUR PROFILE')}
               </Button>
               {error && (
@@ -229,8 +239,7 @@ const ProfilePage = ({ className, title, ...props }) => {
             </li>
             <li
               key='delet'
-              className='list-group-item'
-            >
+              className='list-group-item'>
               <Modal
                 hasConfirm
                 modalTitle={t('ProfilePage.DELETE ACCOUNT')}
@@ -242,8 +251,7 @@ const ProfilePage = ({ className, title, ...props }) => {
                 label_confirm={t(`AdsDetailPage.Delete`)}
                 label_cancel={t(`AdsDetailPage.Cancel`)}
                 label_btn={t('ProfilePage.DELETE ACCOUNT')}
-                modalId='deleteUser'
-              >
+                modalId='deleteUser'>
                 {t('ProfilePage.Are you sure for delete account?')}
               </Modal>
             </li>

@@ -1,17 +1,13 @@
-import { useEffect, useRef } from "react";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import {
-  getAdById,
-  loadOneAd,
-  loadOneAdByIdAction,
-} from "../../store/adsListSlice";
-import { useIsLoggedSelector } from "../../store/authSlice";
-import Alert from "../commons/feedbacks/alert/Alert";
-import AdsDetailPage from "./AdsDetailPage/AdsDetailPage";
-import "./advertisements.scss";
-import { deleteAdvertisement, getAdvertisementDetail } from "./service";
+import { useEffect, useRef } from 'react';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getAdById, loadOneAdByIdAction } from '../../store/adsListSlice';
+import { useIsLoggedSelector } from '../../store/authSlice';
+import Alert from '../commons/feedbacks/alert/Alert';
+import AdsDetailPage from './AdsDetailPage/AdsDetailPage';
+import './advertisements.scss';
+import { deleteAdvertisement } from './service';
 
 const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   const [isDelete, setIsDelete] = useState(false);
@@ -21,31 +17,32 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   const { user } = useIsLoggedSelector();
   const userLoggedId = user._id;
 
-  const advertId = useParams().id.split("-", 1)[0];
+  const advertId = useParams().id.split('-', 1)[0];
   const advert = useSelector(getAdById(advertId));
   useRef(advert);
   useEffect(() => {
-    //dispatch(loadOneAdByIdAction(advertId));
-    const execute = async () => {
-      if (advert) {
-        console.log("el anuncio ya está cargado");
-        return;
-      }
+    dispatch(loadOneAdByIdAction(advertId));
+    //   const execute = async () => {
+    //     if (advert) {
+    //       //TODO
+    //       //console.log('el anuncio ya está cargado');
+    //       return;
+    //     }
 
-      try {
-        //setUiIsFetching();
-        //dispatch(request);
-        const advertisement = await getAdvertisementDetail(advertId);
-        dispatch(loadOneAd(advertisement.result));
-        //setUiSuccess();
-        //dispatch(success);
-      } catch (error) {
-        //dispatch(errorUi(error.message));
-      }
-    };
-    execute();
+    //     try {
+    //       //setUiIsFetching();
+    //       //dispatch(request);
+    //       const advertisement = await getAdvertisementDetail(advertId);
+    //       dispatch(loadOneAd(advertisement.result));
+    //       //setUiSuccess();
+    //       //dispatch(success);
+    //     } catch (error) {
+    //       //dispatch(errorUi(error.message));
+    //     }
+    //   };
+    //   execute();
+    // }, [dispatch, advertId]);
   }, [dispatch, advertId]);
-  //}, [dispatch, advertId]);
 
   const onEdit = async () => {
     try {
@@ -60,7 +57,7 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
       await deleteAdvertisement(advert._id);
       setIsDelete(true);
     } catch (error) {
-      console.log("err", error);
+      console.log('err', error);
     }
   };
   const onContact = async () => {
@@ -68,25 +65,26 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   };
   const handleClickAlert = (e) => {
     e.preventDefault();
-    navigate("/advertisements");
+    navigate('/advertisements');
   };
 
   return (
-    <div className="row">
-      <h1 className="col-sm-12 py-5">{props.title}</h1>
-      <div className="container advert-content-detail">
+    <div className='row'>
+      <h1 className='col-sm-12 py-5'>{props.title}</h1>
+      <div className='container advert-content-detail'>
         {advert?._id && !isDelete && (
           <AdsDetailPage
             {...advert}
             userLoggedId={userLoggedId}
             fncontact={onContact}
             fndelete={onDelete}
-            fnedit={onEdit}
-          ></AdsDetailPage>
+            fnedit={onEdit}></AdsDetailPage>
         )}
 
         {isDelete && (
-          <Alert className="alert-success" alertTask={handleClickAlert}>
+          <Alert
+            className='alert-success'
+            alertTask={handleClickAlert}>
             Borrado correctamente
           </Alert>
         )}

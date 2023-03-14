@@ -5,13 +5,7 @@ import {
   getAdvertisementDetail,
   getAdvertisements,
 } from '../components/advertisements/service';
-import {
-  errorUi,
-  request,
-  setUiIsFetching,
-  setUiSuccess,
-  success,
-} from './uiSlice';
+import { errorUi, setUiIsFetching, setUiSuccess } from './uiSlice';
 
 const initialState = {
   areLoaded: false,
@@ -51,7 +45,10 @@ export const useAdsAreLoadedSelector = () =>
   useSelector((state) => state.adsList.areLoaded);
 
 export const getAdById = (adId) => (state) => {
-  let adFinded = state.adsList.data?.find(
+  if (!state.adsList.data.length) {
+    return undefined;
+  }
+  let adFinded = state.adsList?.data?.find(
     (ad) => ad._id.toString() === adId || undefined
   );
 
@@ -72,12 +69,12 @@ export const { adsLoadSuccess, loadOneAd, updateThisAd } = adsListSlice.actions;
 function fetchAdsAction(skip, limit, filters) {
   return async function (dispatch) {
     try {
-      dispatch(request());
+      dispatch(setUiIsFetching());
       const ads = await getAdvertisements(skip, limit, filters);
       dispatch(adsLoadSuccess(ads));
-      dispatch(success());
+      dispatch(setUiSuccess());
     } catch (error) {
-      dispatch(errorUi(error));
+      dispatch(errorUi(error.message));
     }
   };
 }
@@ -103,25 +100,21 @@ export function editAdAction(updatedAd) {
 
 export function loadOneAdByIdAction(adId) {
   return async function (dispatch, getState) {
-    //TODO
-    debugger;
-    console.log('estado', getState());
     const areLoaded = getAdById(adId)(getState());
 
-    if (areLoaded) {
-      console.log('el anuncio ya está cargado');
-      return;
-    }
+    if (areLoaded) return;
 
     try {
-      //setUiIsFetching();
-      //dispatch(request);
+      setUiIsFetching();
       const advertisement = await getAdvertisementDetail(adId);
+      if (!advertisement.result) {
+        throw new Error("This advertisement doesn't exists");
+      }
+
       dispatch(loadOneAd(advertisement.result));
-      //setUiSuccess();
-      //dispatch(success);
+      setUiSuccess();
     } catch (error) {
-      dispatch(errorUi(error.message));
+      dispatch(errorUi([error.message]));
     }
   };
 }
