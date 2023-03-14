@@ -7,8 +7,8 @@ import NoImage from '../../commons/noImage/NoImage';
 import Tags from '../../commons/tags/Tags';
 import './adsDetailPage.scss';
 import { NavLink } from 'react-router-dom';
-import { FacebookShareButton, TwitterShareButton } from 'react-share';
-import { FacebookIcon, TwitterIcon } from 'react-share';
+import { FacebookShareButton, LinkedinShareButton } from 'react-share';
+import { FacebookIcon, LinkedinIcon } from 'react-share';
 
 const AdsDetailPage = ({
   className,
@@ -140,15 +140,23 @@ const AdsDetailPage = ({
               </div>
             )}
           </div>
-          <div className='text-center mt-5'>
+          <div className='mt-5 d-flex align-items-center justify-content-center gap-3'>
             <FacebookShareButton
               url={`${process.env.REACT_APP_DOMAIN_URL}/advertisements/${advert._id}-${advert.name}`}
               className='Demo__some-network__share-button'
               quote='HandWebber'
               hashtag={`#${advert.name}`}
             >
-              <FacebookIcon size={24} round /> {t(`AdsDetailPage.Share`)} 
+              <FacebookIcon size={24} round /> {t(`AdsDetailPage.Share`)}
             </FacebookShareButton>
+            <LinkedinShareButton
+								url={`${process.env.REACT_APP_DOMAIN_URL}/advertisements/${advert._id}-${advert.name}`}
+								title={`Info about Advertisement ${advert.name}`}
+								summary={`DESCRIPTION: ${advert.description}`}
+								quote={`HandWebber`}
+							>
+								<LinkedinIcon size={24} round /> {t(`AdsDetailPage.Share`)}
+							</LinkedinShareButton>
           </div>
         </div>
       </div>
