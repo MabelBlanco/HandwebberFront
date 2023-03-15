@@ -27,7 +27,6 @@ const UserAdsList = ({ ...props }) => {
     let userSearchId = null;
     const execute = async () => {
       const userSearchData = await getUserByUsername(userSearchUsername);
-      console.log('userSearchData', userSearchData);
       userSearchId = userSearchData.result._id;
 
       const filter = { idUser: userSearchId };
