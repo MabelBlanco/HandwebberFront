@@ -16,6 +16,7 @@ const Modal = ({
   selfOpen,
   modalTitle,
   doTask,
+  classNameContainer,
   ...props
 }) => {
   const handleConfirm = (e) => {
@@ -23,7 +24,7 @@ const Modal = ({
     doTask();
   };
   return (
-    <>
+    <div className={classNameContainer}>
       <Button
         type="button"
         className={classNames(`btn btn-primary `, classNameBtn)}
@@ -83,7 +84,7 @@ const Modal = ({
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 export default Modal;

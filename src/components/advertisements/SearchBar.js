@@ -1,8 +1,7 @@
-import classNames from 'classnames';
-import Button from '../commons/button/Button';
-import Input from '../commons/forms/input/Input';
-import Range from '../commons/forms/range/Range';
-import styles from './SearchBar.module.css';
+import classNames from "classnames";
+import Button from "../commons/button/Button";
+import Input from "../commons/forms/input/Input";
+import Range from "../commons/forms/range/Range";
 
 const SearchBar = ({ className, filters, max, onChange, ...props }) => {
   const rangeLabels = () => {
@@ -17,44 +16,43 @@ const SearchBar = ({ className, filters, max, onChange, ...props }) => {
   const options = rangeLabels();
   return (
     <div
-      className={classNames(styles.searchBar, className)}
-      {...props}>
+      className={classNames(/*styles.searchBar*/ "row", className)}
+      {...props}
+    >
       <Input
-        label='Search by name'
-        name='name'
+        label="Search by name"
+        name="name"
         value={filters.name}
         onChange={onChange}
-        className={classNames(className, 'col-sm-12 col-lg-5 m-2')}></Input>
+        className={classNames("col-sm-12 col-lg-6 mb-3 ", className)}
+      ></Input>
       <Input
-        label='Search by tag'
-        name='tag'
+        label="Search by tag"
+        name="tag"
         value={filters.tag}
         onChange={onChange}
-        className={classNames(className, 'col-sm-12 col-lg-5 m-2')}></Input>
+        className={classNames("col-sm-12 col-lg-6 mb-3", className)}
+      ></Input>
       <Range
-        label='Price Range'
-        id='priceRange'
-        name='price'
-        min='0'
+        label="Price Range"
+        id="priceRange"
+        name="price"
+        min="0"
         max={max}
         value={filters.price}
         onChange={onChange}
-        className={classNames(className, 'col-12')}>
+        className={classNames("col-sm-12 range", className)}
+      >
         {options.map((element) => {
-          return (
-            <option
-              value={element}
-              label={element}
-              key={element}
-            />
-          );
+          return <option value={element} label={element} key={element} />;
         })}
       </Range>
       <Button
-        className={classNames(className, 'btn btn-secondary col-3')}
-        name='resetFilters'
+        className={classNames("btn btn-secondary align-self-end", className)}
+        name="resetFilters"
         onClick={onChange}
-        {...props}>
+        {...props}
+      >
         Reset Filters
       </Button>
     </div>
