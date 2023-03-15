@@ -22,7 +22,7 @@ const Profile = ({ className, title, handleLinkClick, ...props }) => {
   return (
     <>
       {isLogged && (
-        <div className="profile-top">
+        <div className="profile-top" {...props}>
           <div className="container">
             <div className="profile-top_text_container">
               <div className={"profile-top_avatar"}>

@@ -1,11 +1,19 @@
 import classNames from "classnames";
 import "./Input.scss";
 
-const Input = ({ className, label, ...props }) => {
+const Input = ({
+  className,
+  label,
+  inputGroup,
+  children,
+  classNameInput,
+  ...props
+}) => {
   return (
     <div className={classNames("", className)}>
-      <label>{label}</label>
-      <input {...props} />
+      {inputGroup && <span className="input-group-text">{children}</span>}
+      {!inputGroup && <label>{label}</label>}
+      <input {...props} className={classNameInput} />
     </div>
   );
 };
