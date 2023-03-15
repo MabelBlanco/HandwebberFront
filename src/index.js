@@ -19,7 +19,9 @@ import { createBrowserRouter } from 'react-router-dom';
 import { Suspense } from 'react';
 import io from 'socket.io-client';
 
-export const socket = io('http://localhost:3001');
+const socketUrl = process.env.CONF_SOCKET_URL;
+
+export const socket = io(socketUrl);
 
 const initialToken = storage.get('auth');
 if (initialToken) {
