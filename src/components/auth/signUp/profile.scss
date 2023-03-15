@@ -14,7 +14,7 @@
       align-items: center;
       justify-content: flex-start;
       color: var(--color-static-dark);
-      gap: 20px;
+      gap: 10px;
     }
     & .profile-top_avatar {
       background-color: red;
@@ -28,6 +28,10 @@
     }
     & .profile-top_username {
       color: var(--color-static-dark);
+      font-size: 16px;
+      & span {
+        font-weight: 600;
+      }
     }
     & .profile-top_actions {
       display: flex;

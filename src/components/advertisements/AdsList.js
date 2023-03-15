@@ -19,6 +19,7 @@ import {
 } from "../../store/paginationSlice";
 import { useIsFetchingSelector, useUiErrorSelector } from "../../store/uiSlice";
 import styles from "../auth/signUp/SignUp.module.css";
+import Accordion from "../commons/accordion/Accordion";
 import Card from "../commons/card/Card";
 import { Error } from "../commons/error/Error";
 import Pagination from "../commons/pagination/Pagination";
@@ -96,7 +97,19 @@ const AdsList = ({ ...props }) => {
 
   return (
     <div className="row" {...props}>
-      <SearchBar onChange={handleFilters} filters={filters} max={maxPrice} />
+      <Accordion
+        title={t("AdsList.Filter")}
+        children=""
+        icon
+        iconType="bi-funnel-fill"
+        classBody="bg-light p-4 my-2"
+        classButton="btn btn-secondary btn-accordion"
+        itemTarget="filter"
+        itemId="filterId"
+      >
+        <SearchBar onChange={handleFilters} filters={filters} max={maxPrice} />
+      </Accordion>
+
       <Pagination
         handleFirst={firstPage}
         handlePrevious={previousPage}

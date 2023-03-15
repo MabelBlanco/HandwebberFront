@@ -10,7 +10,7 @@ import "../../commons/card/card.scss";
 import NoImage from "../../commons/noImage/NoImage";
 import "./profile.scss";
 
-const Profile = ({ className, title, ...props }) => {
+const Profile = ({ className, title, handleLinkClick, ...props }) => {
   const { isLogged, user } = useIsLoggedSelector();
   const dispatch = useDispatch();
   const handleLogOut = () => {
@@ -42,7 +42,12 @@ const Profile = ({ className, title, ...props }) => {
               </div>
             </div>
             <div className="profile-top_actions">
-              <Button as={Link} to="/profile" className="btn-link">
+              <Button
+                as={Link}
+                to="/profile"
+                className="btn-link"
+                onClick={handleLinkClick}
+              >
                 {t("Profile.Profile")}
               </Button>
               <Button

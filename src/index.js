@@ -1,55 +1,56 @@
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../src/style.scss';
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../src/style.scss";
 
 // import Popper from "popper.js";
-import 'bootstrap/dist/js/bootstrap.bundle.min';
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
-import storage from './utils/storage';
-import { setAuthorizationHeader } from './api/client';
-import './utils/i18n';
-import { store } from './store/store';
-import { Root } from './Root';
-import { createBrowserRouter } from 'react-router-dom';
-import { Suspense } from 'react';
-import io from 'socket.io-client';
+import React, { Suspense } from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter } from "react-router-dom";
+import io from "socket.io-client";
+import { setAuthorizationHeader } from "./api/client";
+import App from "./App";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import { Root } from "./Root";
+import { store } from "./store/store";
+import "./utils/i18n";
+import storage from "./utils/storage";
 
-export const socket = io('http://localhost:3001');
+export const socket = io("http://localhost:3001");
 
-const initialToken = storage.get('auth');
+const initialToken = storage.get("auth");
 if (initialToken) {
   setAuthorizationHeader(initialToken);
 }
 
 const router = createBrowserRouter([
   {
-    path: '*',
+    path: "*",
     element: (
       <Suspense
         fallback={
           <div
             style={{
-              color: 'white',
-              backgroundColor: 'black',
-              width: '1800px',
-              height: '1800px',
-              fontSize: '1,5em',
-            }}>
+              color: "white",
+              backgroundColor: "black",
+              width: "1800px",
+              height: "1800px",
+              fontSize: "1,5em",
+            }}
+          >
             'Starting page...'
           </div>
-        }>
+        }
+      >
         <App />
       </Suspense>
     ),
   },
 ]);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Root
