@@ -24,15 +24,15 @@
   --color-secondary-700: #156B71;
   --color-secondary-800: #0D4F5B;
   --color-secondary-900: #083A4B;
-  --color-primary-100: #FDEDDC;
-  --color-primary-200: #FCD6BA;
-  --color-primary-300: #F7B897;
-  --color-primary-400: #F09B7B;
-  --color-primary-500: #E76F51;
-  --color-primary-600: #C64C3B;
-  --color-primary-700: #A62F28;
-  --color-primary-800: #85191C;
-  --color-primary-900: #6E0F18;
+  --color-primary-100: #FFF5D7;
+  --color-primary-200: #FFE9B0;
+  --color-primary-300: #FFD988;
+  --color-primary-400: #FFCA6B;
+  --color-primary-500: #FFB13A;
+  --color-primary-600: #DB8E2A;
+  --color-primary-700: #B76E1D;
+  --color-primary-800: #935112;
+  --color-primary-900: #7A3C0B;
   --color-success-100: #F3FDDB;
   --color-success-200: #E5FBB8;
   --color-success-300: #CFF392;
@@ -117,8 +117,10 @@ body {
                forms 
    ================================  */
 
-label {
-  margin-bottom: 10px;
+
+
+button:focus:not(:focus-visible){
+  outline: none;
 }
 
 

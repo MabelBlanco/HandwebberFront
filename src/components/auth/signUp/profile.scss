@@ -1,11 +1,4 @@
 .profile-top {
-  background: var(--color-primary-100);
-  height: 140px;
-  position: fixed;
-  z-index: 3;
-  width: 100vw;
-  top: 0px;
-  right: 0px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -20,13 +13,13 @@
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      color: var(--color-primary-300);
+      color: var(--color-static-dark);
       gap: 20px;
     }
     & .profile-top_avatar {
       background-color: red;
-      width: 50px;
-      height: 50px;
+      width: 30px;
+      height: 30px;
       overflow: hidden;
       align-items: center;
       justify-content: center;
@@ -34,20 +27,75 @@
       border-radius: 50%;
     }
     & .profile-top_username {
-      color: var(--color-primary-300);
+      color: var(--color-static-dark);
     }
     & .profile-top_actions {
       display: flex;
       gap: 10px;
       & a {
         &.btn-link {
-          color: var(--color-primary-500);
-          font-weight: 700;
+          color: var(--color-secondary-800);
+          font-weight: 600;
         }
       }
     }
     & .profile-top_noImage {
       font-size: 16px;
+    }
+  }
+}
+
+@media (max-width: 460px) {
+  .profile-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-direction: column;
+    padding-bottom: 10px;
+    width: 100%;
+    & .container {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 25px;
+      width: 100%;
+      padding: 0px;
+      flex-direction: column;
+
+      & .profile-top_text_container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        color: var(--color-static-dark);
+        gap: 20px;
+        width: 100%;
+      }
+      & .profile-top_avatar {
+        background-color: red;
+        width: 30px;
+        height: 30px;
+        overflow: hidden;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        border-radius: 50%;
+      }
+      & .profile-top_username {
+        color: var(--color-static-dark);
+      }
+      & .profile-top_actions {
+        display: flex;
+        gap: 10px;
+        & a {
+          &.btn-link {
+            color: var(--color-secondary-800);
+            font-weight: 700;
+          }
+        }
+      }
+      & .profile-top_noImage {
+        font-size: 16px;
+      }
     }
   }
 }

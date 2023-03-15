@@ -1,19 +1,14 @@
-import { useState } from 'react';
-import SearchBar from './SearchBar';
-import Card from '../commons/card/Card';
-import Pagination from '../commons/pagination/Pagination';
-import { useTranslation } from 'react-i18next';
-import Spinner from '../commons/spinner/Spinner';
-import { Error } from '../commons/error/Error';
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   useAdsListSelector,
   useDispatchFetchAdsAction,
   useMetaSelector,
-} from '../../store/adsListSlice';
-import { useIsFetchingSelector, useUiErrorSelector } from '../../store/uiSlice';
+} from "../../store/adsListSlice";
 import {
   first,
   last,
+  MAX_RESULTS_PER_PAGE,
   next,
   previous,
   useActualPage,
@@ -21,15 +16,20 @@ import {
   useLastPage,
   useNext,
   usePrevious,
-  MAX_RESULTS_PER_PAGE,
-} from '../../store/paginationSlice';
-import styles from '../auth/signUp/SignUp.module.css'
+} from "../../store/paginationSlice";
+import { useIsFetchingSelector, useUiErrorSelector } from "../../store/uiSlice";
+import styles from "../auth/signUp/SignUp.module.css";
+import Card from "../commons/card/Card";
+import { Error } from "../commons/error/Error";
+import Pagination from "../commons/pagination/Pagination";
+import Spinner from "../commons/spinner/Spinner";
+import SearchBar from "./SearchBar";
 
 export const useAdvertisement = () => {
   const initialFiltersState = {
-    name: '',
-    tag: '',
-    price: '',
+    name: "",
+    tag: "",
+    price: "",
   };
 
   const [filters, setFilters] = useState(initialFiltersState);
@@ -49,7 +49,7 @@ export const useAdvertisement = () => {
   const nextPage = () => nextPageSelector(next(totalNumOfAds));
 
   const handleFilters = (event) => {
-    if (event.target.name === 'resetFilters') {
+    if (event.target.name === "resetFilters") {
       setFilters(initialFiltersState);
       return;
     }
@@ -95,15 +95,8 @@ const AdsList = ({ ...props }) => {
   useDispatchFetchAdsAction(skip, MAX_RESULTS_PER_PAGE, filters);
 
   return (
-    <div
-      className='row'
-      {...props}>
-      <SearchBar
-        className='row'
-        onChange={handleFilters}
-        filters={filters}
-        max={maxPrice}
-      />
+    <div className="row" {...props}>
+      <SearchBar onChange={handleFilters} filters={filters} max={maxPrice} />
       <Pagination
         handleFirst={firstPage}
         handlePrevious={previousPage}
@@ -118,11 +111,11 @@ const AdsList = ({ ...props }) => {
         const newProps = { ...props, ...element };
         return (
           <Card
-            className='col-sm-12 col-lg-3 m-2'
+            className="col-sm-12 col-lg-3 m-2"
             key={element._id}
             {...newProps}
             link_1={`/advertisements/${element._id}-${element.name}`}
-            label_link_1={t('AdsList.See more')}
+            label_link_1={t("AdsList.See more")}
           />
         );
       })}
