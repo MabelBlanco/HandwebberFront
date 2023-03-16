@@ -1,7 +1,18 @@
 footer {
   background-color: var(--color-secondary-800);
+  position: absolute;
+  bottom: -85px;
+  left: 0px;
+
+  width: 100vw;
   .bi {
     color: var(--color-static-white);
     font-size: 24px;
+  }
+}
+
+@media (max-width: 475px) {
+  footer {
+    flex-direction: column;
   }
 }

@@ -84,8 +84,18 @@
   text-align: center;
 } */
 @media (max-width: 475px) {
-  #login {
-    width: calc(100vw - 10vw);
+  .login-container {
+    background-color: #07152795;
     height: max-content;
+    margin: 0px auto;
+    width: 90vw;
+    & #login {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 0px;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }
