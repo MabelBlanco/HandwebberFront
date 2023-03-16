@@ -52,17 +52,31 @@ const Header = () => {
                 </NavLink>
               </li>
               {isLogged && (
-                <li className="nav-item active">
-                  <NavLink
-                    className="nav-link"
-                    aria-current="page"
-                    to={"/advertisements/new"}
-                    onClick={handleLinkClick}
-                    end
-                  >
-                    {t("Header.New Advertisement")}
-                  </NavLink>
-                </li>
+                <>
+                  <li className="nav-item active">
+                    <NavLink
+                      className="nav-link"
+                      aria-current="page"
+                      to={"/advertisements/new"}
+                      onClick={handleLinkClick}
+                      end
+                    >
+                      {t("Header.New Advertisement")}
+                    </NavLink>
+                  </li>
+
+                  <li className="nav-item active">
+                    <NavLink
+                      className="nav-link"
+                      aria-current="page"
+                      to={"/chat"}
+                      onClick={handleLinkClick}
+                      end
+                    >
+                      Chat
+                    </NavLink>
+                  </li>
+                </>
               )}
               <li className="nav-item active">
                 <NavLink
