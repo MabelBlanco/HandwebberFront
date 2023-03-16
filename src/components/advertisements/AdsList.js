@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import SearchBar from './SearchBar';
 import Card from '../commons/card/Card';
 import Pagination from '../commons/pagination/Pagination';
@@ -6,11 +6,12 @@ import { useTranslation } from 'react-i18next';
 import Spinner from '../commons/spinner/Spinner';
 import { Error } from '../commons/error/Error';
 import {
+  adsLoadSuccess,
   useAdsListSelector,
-  useDispatchFetchAdsAction,
+  //useDispatchFetchAdsAction,
   useMetaSelector,
 } from '../../store/adsListSlice';
-import { useIsFetchingSelector, useUiErrorSelector } from '../../store/uiSlice';
+import { errorUi, setUiIsFetching, setUiSuccess, useIsFetchingSelector, useUiErrorSelector } from '../../store/uiSlice';
 import {
   first,
   last,
@@ -23,7 +24,10 @@ import {
   usePrevious,
   MAX_RESULTS_PER_PAGE,
 } from '../../store/paginationSlice';
-import styles from '../auth/signUp/SignUp.module.css'
+import styles from '../auth/signUp/SignUp.module.css';
+import debounceFunction from '../../utils/debounceFunction';
+import { getAdvertisements } from './service';
+import { useDispatch } from 'react-redux';
 
 export const useAdvertisement = () => {
   const initialFiltersState = {
@@ -70,6 +74,8 @@ export const useAdvertisement = () => {
 const AdsList = ({ ...props }) => {
   const { t } = useTranslation();
 
+  const dispatch = useDispatch();
+
   const {
     firstPage,
     previousPage,
@@ -92,7 +98,37 @@ const AdsList = ({ ...props }) => {
   //Redux adslist handles
   const advertisements = useAdsListSelector();
 
-  useDispatchFetchAdsAction(skip, MAX_RESULTS_PER_PAGE, filters);
+  const debouncedFetchAdsAction = useMemo(function () {
+    async function fetchAdsAction (skip, limit, filters) {
+      try {
+        dispatch(setUiIsFetching());
+        const ads = await getAdvertisements(skip, limit, filters);
+        dispatch(adsLoadSuccess(ads));
+        dispatch(setUiSuccess());
+      } catch (error) {
+        dispatch(errorUi(error.message));
+      }
+    }
+    return debounceFunction(fetchAdsAction, 350)
+  }, [dispatch])
+/*   const fetchAdsAction = async (skip, limit, filters) => {
+      try {
+        dispatch(setUiIsFetching());
+        const ads = await getAdvertisements(skip, limit, filters);
+        dispatch(adsLoadSuccess(ads));
+        dispatch(setUiSuccess());
+      } catch (error) {
+        dispatch(errorUi(error.message));
+      }
+    
+  } */
+  useEffect(
+    function () {
+      debouncedFetchAdsAction(skip, MAX_RESULTS_PER_PAGE, filters)
+    }, [debouncedFetchAdsAction, skip, filters]
+  )
+
+  //debounceFunction(useDispatchFetchAdsAction(skip, MAX_RESULTS_PER_PAGE, filters),2500);
 
   return (
     <div
