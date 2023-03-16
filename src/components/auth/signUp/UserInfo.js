@@ -7,8 +7,6 @@ const UserInfo = ({ user }) => {
   const { t } = useTranslation();
   const location = useLocation().pathname;
 
-  //TODO
-  console.log('usuario perfil', user);
   return (
     <>
       <div className='card-body py-3'>
@@ -25,15 +23,16 @@ const UserInfo = ({ user }) => {
           <NoImage className='card-img-top' />
         )}
       </div>
-      {location === '/profile' ? (<ul className='list-group list-group-flush my-3'>
-        <li
-          key='mail'
-          className='list-group-item'
-        >
-          <span>{t('ProfilePage.Mail')}: </span>
-          {user?.mail}
-        </li>
-      </ul>) : null}
+      {location === '/profile' ? (
+        <ul className='list-group list-group-flush my-3'>
+          <li
+            key='mail'
+            className='list-group-item'>
+            <span>{t('ProfilePage.Mail')}: </span>
+            {user?.mail}
+          </li>
+        </ul>
+      ) : null}
     </>
   );
 };

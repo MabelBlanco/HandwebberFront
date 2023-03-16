@@ -89,7 +89,8 @@
     "Inactive": "Inactivo",
     "ModalText": "Are you sure to remove the advertisement? This action can not be undone",
     "Cancel": "Cancelar",
-    "ModalTitle": "Delete advertisement"
+    "ModalTitle": "Delete advertisement",
+    "Share": "Share"
   },
 
   "Card": {

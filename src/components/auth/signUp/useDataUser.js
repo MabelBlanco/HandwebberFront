@@ -7,10 +7,8 @@ const useDataUser = ({ initialState, ...props }) => {
   const [isFetching, setIsFetching] = useState(false);
   const [errorDataUser, setErrorDataUser] = useState(null);
 
-  //const { userId } = decodeToken(storage.get('auth')) || {};
-
-  const { isLogged, user: userData } = useIsLoggedSelector();
-  const { _id: userId, username, image } = userData;
+  const { user: userData } = useIsLoggedSelector();
+  const { _id: userId } = userData;
 
   const resetErrorDataUser = () => setErrorDataUser(null);
 

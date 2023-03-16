@@ -102,7 +102,7 @@ const Card = ({
           className='list-group-item'>
           <span>{t('Card.User')}: </span>
           <NavLink
-            to={`/profile/user/${idUser._id}`}
+            to={`/profile/user/${idUser.username}`}
             className='card-link'
             end>
             {idUser.username}

@@ -32,12 +32,6 @@ const initialState = {
 };
 
 const ProfilePage = ({ className, title, ...props }) => {
-  //const { user, isFetching, setUser } = useDataUser({ initialState });
-  //const { isLogged, handleLogOut, user, isFetching, setUser } = useAuth();
-
-  //TODO
-  //Traer los datos del endpoint privado y tratarlos sólo aquí.
-
   const { isFetching } = useAuth();
   const [credentials, setCredentials] = useState(initialState);
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -64,9 +58,7 @@ const ProfilePage = ({ className, title, ...props }) => {
 
   const navigate = useNavigate();
 
-  //TODO cambiado a utilizar el id
-  //const goToMyAds = () => navigate(`/profile/user/${user.username}`);
-  const goToMyAds = () => navigate(`/profile/user/${user._id}`);
+  const goToMyAds = () => navigate(`/profile/user/${user.username}`);
 
   const getMyFavorites = async () => {
     setActiveFavorits(!activeFavorits);
@@ -114,7 +106,6 @@ const ProfilePage = ({ className, title, ...props }) => {
     username && formData.append('username', username.toLowerCase());
     mail && formData.append('mail', mail);
     password && formData.append('password', password);
-    formData.append('idUser', user._id);
     image && formData.append('image', image);
 
     try {
@@ -162,16 +153,17 @@ const ProfilePage = ({ className, title, ...props }) => {
     }
     const getPrivateData = async () => {
       const response = await getUserPrivateDataById(user._id);
-      setUserPrivateData(response.result);
+      const data = { ...response.result, ...user };
+      setUserPrivateData(data);
     };
     getPrivateData();
-  }, [isLogged, navigate, user._id]);
+  }, [isLogged, navigate, user._id, user]);
 
   return (
     <div className='row'>
       {isLogged && !isDelete && (
         <div className='col-sm-12 py-2 my-1 text-center'>
-          <UserInfo user={user} />
+          <UserInfo user={userPrivateData} />
           <ul className='list-group list-group-flush my-3'>
             <li
               key='subscriptions'

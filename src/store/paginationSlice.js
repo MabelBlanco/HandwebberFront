@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { useSelector, useDispatch } from 'react-redux';
-export const MAX_RESULTS_PER_PAGE = 1;
+export const MAX_RESULTS_PER_PAGE = 12;
 
 const initialState = {
   page: 1,
