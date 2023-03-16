@@ -16,16 +16,16 @@ header {
       font-weight: bolder;
       border: none;
       outline: none;
-      color: var(--color-primary-500);
+      color: var(--color-secondary-900);
       &:focus {
         border: none;
         box-shadow: none;
       }
-      &[aria-expanded="true"] {
-        & i::before {
-          content: "\F659";
-        }
-      }
+      // &:not(.show) {
+      //   & i::before {
+      //     content: "\F659";
+      //   }
+      // }
     }
   }
 }
