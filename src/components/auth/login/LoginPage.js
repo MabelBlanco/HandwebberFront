@@ -1,32 +1,31 @@
-import { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import './loginPage.css';
-import { loginUser, updatePassword } from '../service';
-import Input from '../../commons/forms/input/Input';
-import Button from '../../commons/button/Button';
-import { useTranslation } from 'react-i18next';
-import { Error } from '../../commons/error/Error';
-import styles from '../signUp/SignUp.module.css';
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   fetchLoggedAction,
   useIsLoggedSelector,
-} from '../../../store/authSlice';
-import Modal from '../../commons/modal/Modal';
+} from "../../../store/authSlice";
 import {
-  useUiErrorSelector,
   errorUi,
   resetErrorUi,
-} from '../../../store/uiSlice';
-import { useDispatch } from 'react-redux';
+  useUiErrorSelector,
+} from "../../../store/uiSlice";
+import Button from "../../commons/button/Button";
+import { Error } from "../../commons/error/Error";
+import Input from "../../commons/forms/input/Input";
+import Modal from "../../commons/modal/Modal";
+import { loginUser, updatePassword } from "../service";
+import styles from "../signUp/SignUp.module.css";
+import "./loginPage.scss";
 
 export function LoginPage() {
-  const [emailValue, setEmailValue] = useState('');
-  const [passwordValue, setPasswordValue] = useState('');
+  const [emailValue, setEmailValue] = useState("");
+  const [passwordValue, setPasswordValue] = useState("");
   //const [errors, setErrors] = useState([]);
 
   const error = useUiErrorSelector();
 
-  console.log(error);
   const [unknowPassword, setUnknowPassword] = useState(false);
 
   const navigate = useNavigate();
@@ -41,7 +40,7 @@ export function LoginPage() {
   const { t } = useTranslation();
 
   const loginMessageError = t(
-    'LoginPage.Sorry, you are loggin now. If you want singin with another count, close this session first.'
+    "LoginPage.Sorry, you are loggin now. If you want singin with another count, close this session first."
   );
   /* const loginMessageError =
     'Sorry, you are loggin now. If you want singin with another count, close this session first.';
@@ -56,7 +55,7 @@ export function LoginPage() {
       });
 
       handleLogin();
-      const to = location.state?.from?.pathname || '/';
+      const to = location.state?.from?.pathname || "/";
       navigate(to);
     } catch (err) {
       const errors = [];
@@ -81,7 +80,7 @@ export function LoginPage() {
       //setErrors([]);
       dispatch(resetErrorUi());
 
-      const to = '/login';
+      const to = "/login";
       navigate(to);
     } catch (err) {
       const errors = [];
@@ -99,79 +98,89 @@ export function LoginPage() {
   };
 
   if (isLogged) {
-    return <p className='h5'>{loginMessageError}</p>;
+    return <p className="h5">{loginMessageError}</p>;
   } else {
     return (
-      <>
-        <form
-          id='login'
-          onSubmit={submitEvent}>
-          <div className='emailContainer'>
+      <div className="login-container">
+        <form id="login" onSubmit={submitEvent} className="row">
+          <div className="col-12 title">
+            <h2 className="text-center">{t("LoginPage.Login")}</h2>
+          </div>
+          <div className="emailContainer col-sm-12 col-md-8">
             <Input
               value={emailValue}
-              type='text'
-              label={t('LoginPage.Email') + ':'}
-              name='loginEmail'
-              id='loginEmail'
+              type="text"
+              label={t("LoginPage.Email") + ":"}
+              name="loginEmail"
+              id="loginEmail"
+              inputGroup
+              className="input-group no-border"
               onChange={(event) => setEmailValue(event.target.value)}
-            />
+            >
+              <i className="bi bi-person-fill"></i>
+            </Input>
           </div>
           {!unknowPassword ? (
-            <div className='passwordContainer'>
+            <div className="passwordContainer col-sm-12 col-md-8 ">
               <Input
                 value={passwordValue}
-                type='password'
-                label={t('LoginPage.Password') + ':'}
-                name='loginPassword'
-                id='loginPassword'
+                type="password"
+                label={t("LoginPage.Password") + ":"}
+                name="loginPassword"
+                id="loginPassword"
+                inputGroup
+                className="input-group no-border"
                 onChange={(event) => setPasswordValue(event.target.value)}
-              />
+              >
+                <i className="bi bi-lock-fill"></i>
+              </Input>
             </div>
           ) : (
-            ''
+            ""
           )}
           {!unknowPassword ? (
             <Button
-              type='submit'
-              form='login'
-              className='loginButton'>
-              {t('LoginPage.Login')}
+              type="submit"
+              form="login"
+              className="loginButton btn btn-secondary"
+              classNameContainer="d-flex justify-content-center"
+            >
+              {t("LoginPage.Login")}
             </Button>
           ) : (
             <Modal
-              modalTitle={t('LoginPage.Confirm password change')}
+              modalTitle={t("LoginPage.Confirm password change")}
               doTask={sendEmailPassword}
               hasConfirm
-              classNameBtn='m-2 btn-secondary'
-              classNameBtnClose='btn-secondary'
-              classNameBtnConfirm='btn-primary'
-              classNameContent='body'
-              label_confirm='OK'
-              label_cancel={t('LoginPage.Better not')}
-              label_btn={t('LoginPage.Send Password')}
-              modalId='SendPassword'>
+              classNameContainer="d-flex justify-content-center"
+              classNameBtn="m-2 btn-secondary "
+              classNameBtnClose="btn-secondary"
+              classNameBtnConfirm="btn-primary"
+              classNameContent="body"
+              label_confirm="OK"
+              label_cancel={t("LoginPage.Better not")}
+              label_btn={t("LoginPage.Send Password")}
+              modalId="SendPassword"
+            >
               {t(
-                'LoginPage.If you press OK, we will send you a new password to your email and you will not be able to access with the current one. Do you agree?'
+                "LoginPage.If you press OK, we will send you a new password to your email and you will not be able to access with the current one. Do you agree?"
               )}
             </Modal>
           )}
 
-          <Error
-            className={styles.signup__error}
-            arrayErrors={error}
-          />
+          <Error className={styles.signup__error} arrayErrors={error} />
         </form>
         {!unknowPassword ? (
-          <div className='recoverPassword'>
+          <div className="recoverPassword">
             <p>{t("LoginPage.Don't remember your password?")}</p>
-            <Link onClick={recoverPassword}>
-              {t('LoginPage.Send me a new password')}
+            <Link onClick={recoverPassword} className="btn-primary-link">
+              {t("LoginPage.Send me a new password")}
             </Link>
           </div>
         ) : (
-          ''
+          ""
         )}
-      </>
+      </div>
     );
   }
 }

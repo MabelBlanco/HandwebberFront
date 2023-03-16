@@ -1,0 +1,91 @@
+.login-container {
+  background-color: #07152795;
+  width: calc(100vw - 50vw);
+  height: max-content;
+  margin: 0px auto;
+  padding: 30px;
+
+  & #login {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    & .title {
+      color: var(--color-static-white);
+    }
+    &::after {
+      position: fixed;
+      z-index: -9999;
+      left: 0;
+      bottom: 0;
+      top: 0;
+      right: 0;
+      content: "";
+      width: 100vw;
+      height: 100vh;
+      background-image: url("../../../../public/assets/images/artesania_1.jpg");
+      background-size: cover;
+    }
+    & .input-group {
+      position: relative;
+      &.no-border {
+        border-bottom: none !important;
+        & input {
+          border-bottom: none !important;
+          padding-left: 60px !important;
+        }
+      }
+      & .input-group-text {
+        color: var(--color-static-white);
+        position: absolute;
+        height: 100%;
+        left: -1px;
+        bottom: 0;
+        top: 0;
+        background-color: var(--color-secondary-900);
+      }
+    }
+  }
+  .recoverPassword {
+    color: var(--color-static-white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 10px;
+    & p {
+      margin-bottom: 5px;
+    }
+  }
+}
+/*
+.emailContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+}
+
+.passwordContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+}
+
+.loginButton {
+  margin: 10px;
+  width: 100%;
+}
+
+.recoverPassword {
+  text-align: center;
+} */
+@media (max-width: 475px) {
+  #login {
+    width: calc(100vw - 10vw);
+    height: max-content;
+  }
+}

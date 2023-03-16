@@ -3,23 +3,24 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../src/style.scss';
 
 // import Popper from "popper.js";
-import 'bootstrap/dist/js/bootstrap.bundle.min';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
+import { createBrowserRouter } from 'react-router-dom';
+import io from 'socket.io-client';
+import { setAuthorizationHeader } from './api/client';
 import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import storage from './utils/storage';
-import { setAuthorizationHeader } from './api/client';
-import './utils/i18n';
-import { store } from './store/store';
 import { Root } from './Root';
-import { createBrowserRouter } from 'react-router-dom';
-import { Suspense } from 'react';
-import io from 'socket.io-client';
+import { store } from './store/store';
+import './utils/i18n';
+import storage from './utils/storage';
 
-export const socket = io('http://localhost:3001');
+const socketUrl = process.env.CONF_SOCKET_URL;
+
+export const socket = io(socketUrl);
 
 const initialToken = storage.get('auth');
 if (initialToken) {

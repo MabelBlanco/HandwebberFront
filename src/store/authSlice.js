@@ -33,8 +33,9 @@ export const useIsLoggedSelector = () => useSelector((state) => state.auth);
 
 export function fetchLoggedAction() {
   return async function (dispatch) {
+    const { userId } = decodeToken(storage.get('auth')) || {};
+    if (!userId) return;
     try {
-      const { userId } = decodeToken(storage.get('auth')) || {};
       const user = await getUserById(userId);
       const ads = await getUserAdvertisements(userId);
       const data = {
@@ -47,9 +48,6 @@ export function fetchLoggedAction() {
       //dispatch(authSlice.actions.authSuccess(data));
       dispatch(authSuccess(data));
     } catch (error) {
-      //TODO
-      //console.log('error', error);
-      //dispatch(authSlice.actions.authError());
       dispatch(authError());
     }
   };

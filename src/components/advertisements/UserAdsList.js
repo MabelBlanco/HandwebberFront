@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { getUserById } from '../auth/service';
+import { getUserByUsername } from '../auth/service';
 import UserInfo from '../auth/signUp/UserInfo';
 import Card from '../commons/card/Card';
 import '../commons/card/card.scss';
-import { getAdvertisements, getUserAdvertisements } from './service';
+import { getAdvertisements } from './service';
 
 const initialState = {
+  _id: '',
   username: '',
-  mail: '',
-  password: '',
   image: '',
   ads: [],
 };
@@ -20,31 +19,29 @@ const UserAdsList = ({ ...props }) => {
 
   const { t } = useTranslation();
 
-  //TODO Changed advertisement search by username to advertisement search by id.
-  //const userSearchUsername = useParams().username;
-  const userSearchId = useParams().idUser;
+  const userSearchUsername = useParams().username;
 
   const advertisements = userSearch.ads;
 
   useEffect(() => {
+    let userSearchId = null;
     const execute = async () => {
-      //const userSearchData = await getUserByUsername(userSearchUsername);
-      const userSearchData = await getUserById(userSearchId);
-      //const resultSearch = userSearchData.result;
+      const userSearchData = await getUserByUsername(userSearchUsername);
+      userSearchId = userSearchData.result._id;
 
-      //      const userSearchAds = await getUserAdvertisements(resultSearch._id);
       const filter = { idUser: userSearchId };
       const userSearchAds = await getAdvertisements(0, 10000, filter);
-      console.log(userSearchData)
+
       let resultSearch = {};
       resultSearch.ads = userSearchAds.result;
+      resultSearch._id = userSearchData.result._id;
       resultSearch.username = userSearchData.result.username;
       resultSearch.image = userSearchData.result.image;
-      console.log(resultSearch)
+
       setUserSearch(resultSearch);
     };
-    execute();
-  }, [userSearchId]);
+    if (userSearchUsername) execute();
+  }, [userSearchUsername]);
 
   return (
     <>

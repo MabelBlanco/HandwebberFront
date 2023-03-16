@@ -1,20 +1,15 @@
-import { useEffect, useMemo, useState } from 'react';
-import SearchBar from './SearchBar';
-import Card from '../commons/card/Card';
-import Pagination from '../commons/pagination/Pagination';
-import { useTranslation } from 'react-i18next';
-import Spinner from '../commons/spinner/Spinner';
-import { Error } from '../commons/error/Error';
+import {useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   adsLoadSuccess,
   useAdsListSelector,
   //useDispatchFetchAdsAction,
   useMetaSelector,
-} from '../../store/adsListSlice';
-import { errorUi, setUiIsFetching, setUiSuccess, useIsFetchingSelector, useUiErrorSelector } from '../../store/uiSlice';
+} from "../../store/adsListSlice";
 import {
   first,
   last,
+  MAX_RESULTS_PER_PAGE,
   next,
   previous,
   useActualPage,
@@ -22,18 +17,24 @@ import {
   useLastPage,
   useNext,
   usePrevious,
-  MAX_RESULTS_PER_PAGE,
-} from '../../store/paginationSlice';
-import styles from '../auth/signUp/SignUp.module.css';
+} from "../../store/paginationSlice";
+import { errorUi, setUiIsFetching, setUiSuccess,useIsFetchingSelector, useUiErrorSelector } from "../../store/uiSlice";
+import styles from "../auth/signUp/SignUp.module.css";
+import Accordion from "../commons/accordion/Accordion";
+import Card from "../commons/card/Card";
+import { Error } from "../commons/error/Error";
+import Pagination from "../commons/pagination/Pagination";
+import Spinner from "../commons/spinner/Spinner";
+import SearchBar from "./SearchBar";
 import debounceFunction from '../../utils/debounceFunction';
 import { getAdvertisements } from './service';
 import { useDispatch } from 'react-redux';
 
 export const useAdvertisement = () => {
   const initialFiltersState = {
-    name: '',
-    tag: '',
-    price: '',
+    name: "",
+    tag: "",
+    price: "",
   };
 
   const [filters, setFilters] = useState(initialFiltersState);
@@ -53,7 +54,7 @@ export const useAdvertisement = () => {
   const nextPage = () => nextPageSelector(next(totalNumOfAds));
 
   const handleFilters = (event) => {
-    if (event.target.name === 'resetFilters') {
+    if (event.target.name === "resetFilters") {
       setFilters(initialFiltersState);
       return;
     }
@@ -131,15 +132,20 @@ const AdsList = ({ ...props }) => {
   //debounceFunction(useDispatchFetchAdsAction(skip, MAX_RESULTS_PER_PAGE, filters),2500);
 
   return (
-    <div
-      className='row'
-      {...props}>
-      <SearchBar
-        className='row'
-        onChange={handleFilters}
-        filters={filters}
-        max={maxPrice}
-      />
+    <div className="row" {...props}>
+      <Accordion
+        title={t("AdsList.Filter")}
+        children=""
+        icon
+        iconType="bi-funnel-fill"
+        classBody="bg-light p-4 my-2"
+        classButton="btn btn-secondary btn-accordion"
+        itemTarget="filter"
+        itemId="filterId"
+      >
+        <SearchBar onChange={handleFilters} filters={filters} max={maxPrice} />
+      </Accordion>
+
       <Pagination
         handleFirst={firstPage}
         handlePrevious={previousPage}
@@ -154,11 +160,11 @@ const AdsList = ({ ...props }) => {
         const newProps = { ...props, ...element };
         return (
           <Card
-            className='col-sm-12 col-lg-3 m-2'
+            className="col-sm-12 col-lg-3 m-2"
             key={element._id}
             {...newProps}
             link_1={`/advertisements/${element._id}-${element.name}`}
-            label_link_1={t('AdsList.See more')}
+            label_link_1={t("AdsList.See more")}
           />
         );
       })}

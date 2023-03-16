@@ -1,0 +1,9 @@
+.accordion-item {
+  & .btn-accordion {
+    width: min-content;
+    padding: 5px 20px;
+    background-color: var(--color-secondary-800);
+    color: var(--color-static-white);
+    border-radius: 5px !important;
+  }
+}

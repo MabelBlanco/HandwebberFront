@@ -1,6 +1,6 @@
 import classNames from "classnames";
-import "./pagination.scss";
 import { useTranslation } from "react-i18next";
+import "./pagination.scss";
 
 const Pagination = ({
   clasName,
@@ -17,27 +17,31 @@ const Pagination = ({
   //.then((currentValue) => setNewValue(currentValue));
   //}, []);
   return (
-    <div className={classNames("py-5", clasName)}>
+    <div className={classNames("pagination-container py-5", clasName)}>
       <nav aria-label="Page navigation example" {...props}>
         <ul className="pagination">
           <li className="page-item">
             <span className="page-link" onClick={handleFirst}>
-              <i className="bi bi-arrow-bar-left"></i> First
+              <i className="bi bi-arrow-bar-left"></i>{" "}
+              <span className="text">First</span>
             </span>
           </li>
           <li className="page-item">
             <span className="page-link" onClick={handlePrevious}>
-              <i className="bi bi-arrow-left"></i> {t("Pagination.Previous")}
+              <i className="bi bi-arrow-left"></i>
+              <span className="text">{t("Pagination.Previous")}</span>
             </span>
           </li>
           <li className="page-item">
             <span className="page-link" onClick={handleNext}>
-              {t("Pagination.Next")} <i className="bi bi-arrow-right"></i>
+              <span className="text">{t("Pagination.Next")}</span>
+              <i className="bi bi-arrow-right"></i>
             </span>
           </li>
           <li className="page-item">
             <span className="page-link" onClick={handleLast}>
-              {t("Pagination.Last")} <i className="bi bi-arrow-bar-right"></i>
+              <span className="text"> {t("Pagination.Last")} </span>
+              <i className="bi bi-arrow-bar-right"></i>
             </span>
           </li>
         </ul>
