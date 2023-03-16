@@ -1,10 +1,49 @@
-input[type="range"] {
-  border: none;
-  &::-webkit-slider-thumb {
-    width: 12px;
-    -webkit-appearance: none;
-    height: 20px;
-    background: var(--color-secondary-800);
-    border-radius: 2px;
+.range {
+  & .range-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 5%;
+    margin-bottom: 50px;
+    & > div {
+      width: 50%;
+    }
+  }
+  & input[type="range"] {
+    border: none;
+    &::-webkit-slider-thumb {
+      width: 12px;
+      -webkit-appearance: none;
+      height: 20px;
+      background: var(--color-secondary-800);
+      border-radius: 2px;
+    }
+  }
+  & datalist {
+    display: flex;
+    justify-content: space-between;
+    & option:after {
+      content: "\02193";
+      color: var(--color-secondary-800);
+      margin-right: 4px;
+    }
+  }
+}
+@media (max-width: 460px) {
+  .range {
+    & .range-input {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 5%;
+      margin-bottom: 50px;
+      & > div {
+        width: 100%;
+        &.range-number {
+          margin-bottom: 30px;
+        }
+      }
+    }
   }
 }

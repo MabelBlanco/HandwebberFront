@@ -10,3 +10,25 @@
     }
   }
 }
+@media (max-width: 460px) {
+  .pagination-container {
+    padding: 20px 10px 10px !important;
+
+    .pagination {
+      justify-content: flex-start;
+      & span {
+        &.page-link {
+          color: var(--color-secondary-800);
+          &:hover {
+            color: var(--color-static-white);
+            cursor: pointer;
+            background-color: var(--color-secondary-800);
+          }
+          & .text {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

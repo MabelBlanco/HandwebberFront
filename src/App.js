@@ -35,7 +35,7 @@ function App() {
               </RequireAuth>
             }
           />
-          <Route path="user/:idUser" element={<UserAdsList />} />
+          <Route path="user/:username" element={<UserAdsList />} />
         </Route>
 
         <Route path="chat" element={<Layout title="Chat" />}>

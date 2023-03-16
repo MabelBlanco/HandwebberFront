@@ -1,11 +1,11 @@
 header {
   &.bd-navbar {
-    background-color: transparent;
+    background-color: var(--color-primary-400);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15),
       inset 0 -1px 0 rgba(255, 255, 255, 0.15);
   }
   nav {
-    background-color: var(--color-static-light);
+    // background-color: var(--color-static-light);
     & .navbar-brand {
       font-weight: lighter;
       color: var(--color-primary-light);
@@ -15,7 +15,29 @@ header {
       font-size: 50px;
       font-weight: bolder;
       border: none;
-      color: var(--color-static-dark);
+      outline: none;
+      color: var(--color-primary-500);
+      &:focus {
+        border: none;
+        box-shadow: none;
+      }
+      &[aria-expanded="true"] {
+        & i::before {
+          content: "\F659";
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  nav {
+    padding: 0px;
+    & .header-actions {
+      flex-direction: column;
+      border-top: 2px solid var(--color-primary-500);
+      padding: 10px;
+      align-items: flex-end;
     }
   }
 }
