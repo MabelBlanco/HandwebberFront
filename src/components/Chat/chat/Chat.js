@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useIsLoggedSelector } from "../../../store/authSlice";
 import { getAdvertisementDetail } from "../../advertisements/service";
 import { getUserById } from "../../auth/service";
@@ -9,7 +9,7 @@ import { getConversations } from "../conversation/service";
 
 export function Chat() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [userToName, setUserToName] = useState("");
+  const [userToComplete, setUserToComplete] = useState("");
   const { user } = useIsLoggedSelector();
 
   const [conversations, setConversations] = useState([]);
@@ -34,6 +34,7 @@ export function Chat() {
           const userNameConversation = userConversation.result.username;
 
           conver.advertisementName = advertisementNameConversation;
+          conver.userToId = userNameTo[0];
           conver.userToName = userNameConversation;
 
           console.log(conver);
@@ -44,9 +45,9 @@ export function Chat() {
       setConversations(conversationsMap);
     };
 
-    const getUserNameTo = async (user) => {
-      const userName = await getUserById(user);
-      setUserToName(userName);
+    const getUserTo = async (user) => {
+      const userToComplete = await getUserById(user);
+      setUserToComplete(userToComplete.result);
     };
 
     const getConversationsByUserId = async (userId) => {
@@ -56,7 +57,7 @@ export function Chat() {
     // Use functions
     if (userTo) {
       try {
-        getUserNameTo(userTo);
+        getUserTo(userTo);
       } catch (error) {
         console.log(error);
       }
@@ -80,7 +81,7 @@ export function Chat() {
         <Conversation
           advertisement={advertisement}
           userToId={userTo}
-          userToName={userToName}
+          userToComplete={userToComplete}
         ></Conversation>
       ) : (
         <div>
@@ -88,14 +89,18 @@ export function Chat() {
             <ul>
               {conversations.map((conversation) => {
                 return (
-                  <div key={conversation._id}>
-                    <p key={conversation.advertisementName}>
-                      {conversation.advertisementName}
-                    </p>
-                    <p key={conversation.userToName}>
-                      {conversation.userToName}
-                    </p>
-                  </div>
+                  <li key={conversation._id}>
+                    <Link
+                      to={`/chat?ad_id=${conversation.advertisement}&user_id=${conversation.userToId}`}
+                    >
+                      <p key={conversation.advertisementName}>
+                        {conversation.advertisementName}
+                      </p>
+                      <p key={conversation.userToName}>
+                        {conversation.userToName}
+                      </p>
+                    </Link>
+                  </li>
                 );
               })}
             </ul>

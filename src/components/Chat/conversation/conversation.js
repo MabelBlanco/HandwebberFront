@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { socket } from "../../..";
-import { getAdById, loadOneAdByIdAction } from "../../../store/adsListSlice";
+import { getAdById } from "../../../store/adsListSlice";
 import { useIsLoggedSelector } from "../../../store/authSlice";
+import { getAdvertisementDetail } from "../../advertisements/service";
 import Button from "../../commons/button/Button";
 import Input from "../../commons/forms/input/Input";
 
 import "./conversation.css";
 // import { createConversation, getConversation } from "./service";
 
-export function Conversation({ advertisement, userToId, userToName }) {
-  const dispatch = useDispatch();
+export function Conversation({ advertisement, userToId, userToComplete }) {
   const { user } = useIsLoggedSelector();
-  const advert = useSelector(getAdById(advertisement));
+  let advert = useSelector(getAdById(advertisement));
   if (!advert) {
-    dispatch(loadOneAdByIdAction(advertisement));
+    advert = getAdvertisementDetail(advertisement);
   }
 
   const [message, setMessage] = useState("");
@@ -64,6 +64,7 @@ export function Conversation({ advertisement, userToId, userToName }) {
   useEffect(() => {
     const newMessageSendFunction = (data) => {
       const newMessage = data.message;
+      console.log(data);
       setMessages([...messages, newMessage]);
     };
     socket.on("new_message_send", newMessageSendFunction);
@@ -81,10 +82,12 @@ export function Conversation({ advertisement, userToId, userToName }) {
       <div className="chatConversation">
         {messages.map((message) => {
           return (
-            <div>
-              <p key={message.date}>
-                {user._id === message.from ? user.username : userToName}:
-              </p>
+            <div key={message._id}>
+              {user._id === message.from ? (
+                <p>{user.username}</p>
+              ) : (
+                <p>{userToComplete.username}</p>
+              )}
               <p key={message.body}>{message.body}</p>
             </div>
           );
