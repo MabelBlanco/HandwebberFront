@@ -18,7 +18,7 @@ import { Root } from "./Root";
 import { createBrowserRouter } from "react-router-dom";
 import { Suspense } from "react";
 import io from "socket.io-client";
-const socketUrl = process.env.CONF_SOCKET_URL;
+const socketUrl = process.env.REACT_APP_CONF_SOCKET_URL;
 
 export const socket = io(socketUrl);
 

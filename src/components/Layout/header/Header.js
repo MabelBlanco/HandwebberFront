@@ -67,6 +67,7 @@ const Header = () => {
                       className="nav-link"
                       aria-current="page"
                       to={"/chat"}
+                      onClick={handleLinkClick}
                       end
                     >
                       Chat
