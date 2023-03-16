@@ -46,10 +46,10 @@ export function fetchLoggedAction() {
         subscriptions: user.result.subscriptions,
         ads: ads.result,
       };
-      //dispatch(authSlice.actions.authSuccess(data));
-      dispatch(authSuccess(data));
       // The user connect with socket.io
       socket.emit("join", userId);
+      //dispatch(authSlice.actions.authSuccess(data));
+      dispatch(authSuccess(data));
     } catch (error) {
       dispatch(authError());
     }
@@ -71,7 +71,6 @@ export function dispatchLogoutAction() {
     removeAuthorizationHeader();
     storage.remove("auth");
     dispatch(authSlice.actions.authLogout());
-    socket.disconnect();
   };
 }
 

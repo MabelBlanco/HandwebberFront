@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useIsLoggedSelector } from "../../../store/authSlice";
 import { getAdvertisementDetail } from "../../advertisements/service";
 import { getUserById } from "../../auth/service";
@@ -9,9 +9,10 @@ import { getConversations } from "../conversation/service";
 
 export function Chat() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [userToComplete, setUserToComplete] = useState("");
-  const { user } = useIsLoggedSelector();
+  const { user, isLogged } = useIsLoggedSelector();
+  const navigate = useNavigate();
 
+  const [userToComplete, setUserToComplete] = useState("");
   const [conversations, setConversations] = useState([]);
 
   const advertisement = searchParams.get("ad_id");
@@ -37,11 +38,9 @@ export function Chat() {
           conver.userToId = userNameTo[0];
           conver.userToName = userNameConversation;
 
-          console.log(conver);
           return conver;
         })
       );
-      console.log(conversationsMap);
       setConversations(conversationsMap);
     };
 
@@ -55,7 +54,9 @@ export function Chat() {
       await addNamesById(convers);
     };
     // Use functions
-    if (userTo) {
+    if (!isLogged) {
+      navigate(`/`);
+    } else if (userTo) {
       try {
         getUserTo(userTo);
       } catch (error) {
@@ -73,7 +74,7 @@ export function Chat() {
         }
       }
     }
-  }, [userTo, user._id]);
+  }, [userTo, user._id, isLogged, navigate]);
 
   return (
     <>

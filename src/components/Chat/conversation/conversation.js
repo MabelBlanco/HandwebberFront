@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import { socket } from "../../..";
-import { getAdById } from "../../../store/adsListSlice";
 import { useIsLoggedSelector } from "../../../store/authSlice";
 import { getAdvertisementDetail } from "../../advertisements/service";
 import Button from "../../commons/button/Button";
@@ -12,14 +11,13 @@ import "./conversation.css";
 
 export function Conversation({ advertisement, userToId, userToComplete }) {
   const { user } = useIsLoggedSelector();
-  let advert = useSelector(getAdById(advertisement));
-  if (!advert) {
-    advert = getAdvertisementDetail(advertisement);
-  }
 
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [conversationId, setConversationId] = useState("");
+  const [advert, setAdvert] = useState("");
+
+  const navigate = useNavigate();
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -36,13 +34,29 @@ export function Conversation({ advertisement, userToId, userToComplete }) {
     setMessage("");
   }
 
+  function closeConversation() {
+    const to = `/chat`;
+    navigate(to);
+  }
+
   useEffect(() => {
     // Declarate Functions
+    const getAdvert = async (idAdvert) => {
+      const advertFromApi = await getAdvertisementDetail(idAdvert);
+      setAdvert(advertFromApi.result);
+    };
     const askConversation = () => {
       socket.emit("ask_conversation", {
         advertisement,
         users: [userToId, user._id],
       });
+      console.log(
+        "solicitando conversación del anuncio ",
+        advertisement,
+        "y los usuarios ",
+        userToId,
+        user._id
+      );
     };
 
     const conversationReceived = (data) => {
@@ -53,6 +67,7 @@ export function Conversation({ advertisement, userToId, userToComplete }) {
 
     // Execute functions
     askConversation();
+    getAdvert(advertisement);
     socket.on("send_conversation", conversationReceived);
 
     // Delete suscriptions socket.io events
@@ -77,7 +92,7 @@ export function Conversation({ advertisement, userToId, userToComplete }) {
     <div className="chatContainer">
       <div className="chatNav">
         <h2>{advert.name}</h2>
-        <Button>X</Button>
+        <Button onClick={closeConversation}>X</Button>
       </div>
       <div className="chatConversation">
         {messages.map((message) => {
