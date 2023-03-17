@@ -55,6 +55,7 @@
     align-items: center;
     justify-content: center;
     padding-bottom: 10px;
+    text-align: center;
     & p {
       margin-bottom: 5px;
     }
@@ -83,9 +84,22 @@
 .recoverPassword {
   text-align: center;
 } */
-@media (max-width: 475px) {
-  #login {
-    width: calc(100vw - 10vw);
+@media (max-width: 768px) {
+  .login-container {
+    background-color: #07152795;
     height: max-content;
+    margin: 0px auto;
+    width: 90vw;
+    & #login {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 0px;
+      align-items: center;
+      justify-content: center;
+    }
+    & .recoverPassword {
+      margin-top: 25px;
+    }
   }
 }

@@ -1,34 +1,34 @@
-import { useState } from 'react';
-import Input from '../../commons/forms/input/Input';
-import InputFile from '../../commons/forms/inputFile/InputFile';
-import Button from '../../commons/button/Button';
-import CheckBox from '../../commons/forms/checkbox/Checkbox';
-import styles from './SignUp.module.css';
-import { createUser, loginUser } from '../service';
-import { useNavigate } from 'react-router-dom';
-import '../../commons/card/card.scss';
-import { useTranslation } from 'react-i18next';
-import { Error } from '../../commons/error/Error';
-import { useUiErrorSelector, errorUi } from '../../../store/uiSlice';
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   fetchLoggedAction,
   useIsLoggedSelector,
-} from '../../../store/authSlice';
-import { useDispatch } from 'react-redux';
+} from "../../../store/authSlice";
+import { errorUi, useUiErrorSelector } from "../../../store/uiSlice";
+import Button from "../../commons/button/Button";
+import "../../commons/card/card.scss";
+import { Error } from "../../commons/error/Error";
+import CheckBox from "../../commons/forms/checkbox/Checkbox";
+import Input from "../../commons/forms/input/Input";
+import InputFile from "../../commons/forms/inputFile/InputFile";
+import { createUser, loginUser } from "../service";
+import styles from "./SignUp.module.css";
 
 const initialState = {
-  username: '',
-  mail: '',
-  password: '',
-  image: '',
+  username: "",
+  mail: "",
+  password: "",
+  image: "",
 };
 
 const SignUp = ({ className, title, ...props }) => {
   const [credentials, setCredentials] = useState(initialState);
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [check, setCheck] = useState(false);
 
-  const  error  = useUiErrorSelector();
+  const error = useUiErrorSelector();
 
   const { t } = useTranslation();
 
@@ -69,10 +69,10 @@ const SignUp = ({ className, title, ...props }) => {
     }
 
     const formData = new FormData();
-    formData.append('username', username.toLowerCase());
-    formData.append('mail', mail);
-    formData.append('password', password);
-    image && formData.append('image', image);
+    formData.append("username", username.toLowerCase());
+    formData.append("mail", mail);
+    formData.append("password", password);
+    image && formData.append("image", image);
     try {
       const newUser = await createUser(formData);
 
@@ -80,7 +80,7 @@ const SignUp = ({ className, title, ...props }) => {
       //TODO
       //console.log(newUser);
       handleLogin();
-      navigate('/advertisements');
+      navigate("/advertisements");
       return newUser;
     } catch (error) {
       const errors = [];
@@ -89,7 +89,7 @@ const SignUp = ({ className, title, ...props }) => {
       } else {
         errors.push(error.message);
       }
-      dispatch(errorUi(errors))
+      dispatch(errorUi(errors));
     }
   };
 
@@ -97,90 +97,88 @@ const SignUp = ({ className, title, ...props }) => {
     credentials.username && credentials.mail && credentials.password && check;
 
   return (
-    <div className='row'>
-      <div className='col-sm-12 py-5 my-5 text-center'>
+    <div className="row signup-page">
+      <div className="col-sm-12 text-center title">
         <h1>Sign up</h1>
-        <div className={styles.signup__page}>
-          {error && (
-            <Error
-              className={styles.signup__error}
-              arrayErrors={error}
-            />
-          )}
-          <div className='card-body actions'>
-            {!isLogged && (
-              <form
-                className={styles.signup__form}
-                onSubmit={handleSubmit}
+      </div>
+      <div className="col-sm-12">
+        {error && (
+          <Error className={styles.signup__error} arrayErrors={error} />
+        )}
+        <div className="form-container">
+          {!isLogged && (
+            <form
+              className="row form-container_form justify-content-center align-items-end"
+              onSubmit={handleSubmit}
+            >
+              <Input
+                type="text"
+                name="username"
+                label={t("SignUp.username")}
+                className="col-md-12 col-lg-6 my-3"
+                onChange={handleCredentials}
+                value={credentials.username}
+              />
+
+              <Input
+                type="email"
+                name="mail"
+                label={t("SignUp.mail")}
+                className="col-md-12 col-lg-6 my-3"
+                onChange={handleCredentials}
+                value={credentials.mail}
+              />
+
+              <Input
+                type="password"
+                name="password"
+                label={t("SignUp.password") + " (min 8 characters)"}
+                className="col-md-12 col-lg-6 my-3"
+                onChange={handleCredentials}
+                value={credentials.password}
+              />
+              <Input
+                type="password"
+                name="passwordConfirm"
+                label={t("SignUp.confirm password") + " (min 8 characters)"}
+                className="col-md-12 col-lg-6 my-3"
+                onChange={handleConfirmPassword}
+                value={confirmPassword}
+              />
+
+              <InputFile
+                name="image"
+                id="image"
+                label={t("SignUp.Upload picture")}
+                className="col-md-12 col-lg-12 my-3"
+                onChange={handleImage}
+              />
+
+              <CheckBox
+                name="check"
+                label={t("SignUp.I accept the conditions")}
+                className="col-md-12 col-lg-12 my-3 d-flex gap-3"
+                onChange={handleCheck}
+                checked={check}
+              />
+              <Button
+                type="submit"
+                classNameContainer="col-xs-12 d-flex justify-content-end"
+                className="btn-secondary"
+                disabled={!isEnabledButton()}
               >
-                <Input
-                  type='text'
-                  name='username'
-                  label={t('SignUp.username')}
-                  className={styles.signup__field}
-                  onChange={handleCredentials}
-                  value={credentials.username}
-                />
-
-                <Input
-                  type='email'
-                  name='mail'
-                  label={t('SignUp.mail')}
-                  className={styles.signup__field}
-                  onChange={handleCredentials}
-                  value={credentials.mail}
-                />
-
-                <Input
-                  type='password'
-                  name='password'
-                  label={t('SignUp.password') + ' (min 8 characters)'}
-                  className={styles.signup__field}
-                  onChange={handleCredentials}
-                  value={credentials.password}
-                />
-
-                <Input
-                  type='password'
-                  name='passwordConfirm'
-                  label={t('SignUp.confirm password')}
-                  className={styles.signup__field}
-                  onChange={handleConfirmPassword}
-                  value={confirmPassword}
-                />
-
-                <InputFile
-                  name='image'
-                  id='image'
-                  label={t('SignUp.Upload picture')}
-                  className={styles.signup__field}
-                  onChange={handleImage}
-                />
-
-                <CheckBox
-                  name='check'
-                  label={t('SignUp.I accept the conditions')}
-                  onChange={handleCheck}
-                  checked={check}
-                />
-                <Button
-                  type='submit'
-                  className={styles.signup__submit}
-                  disabled={!isEnabledButton()}
-                >
-                  {t('SignUp.SIGNUP')}
-                </Button>
-              </form>
-            )}
-          </div>
-          {isLogged && (
-            <p className='h5'>
-              {t(
-                'SignUp.Sorry, you are already registered. If you want register a new count, close this session first'
-              )}
-            </p>
+                {t("SignUp.SIGNUP")}
+              </Button>
+            </form>
           )}
         </div>
+        {isLogged && (
+          <p className="h5">
+            {t(
+              "SignUp.Sorry, you are already registered. If you want register a new count, close this session first"
+            )}
+          </p>
+        )}
       </div>
     </div>
   );
