@@ -66,7 +66,7 @@ export const getAdIndexById = (adId) => (state) => {
 //Actions
 export const { adsLoadSuccess, loadOneAd, updateThisAd } = adsListSlice.actions;
 
-function fetchAdsAction(skip, limit, filters) {
+export function fetchAdsAction(skip, limit, filters) {
   return async function (dispatch) {
     try {
       dispatch(setUiIsFetching());
