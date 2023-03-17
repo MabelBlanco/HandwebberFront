@@ -18,7 +18,7 @@ import { store } from './store/store';
 import './utils/i18n';
 import storage from './utils/storage';
 
-const socketUrl = process.env.CONF_SOCKET_URL;
+const socketUrl = process.env.REACT_APP_CONF_SOCKET_URL;
 
 export const socket = io(socketUrl);
 
@@ -40,10 +40,12 @@ const router = createBrowserRouter([
               width: '1800px',
               height: '1800px',
               fontSize: '1,5em',
-            }}>
+            }}
+          >
             'Starting page...'
           </div>
-        }>
+        }
+      >
         <App />
       </Suspense>
     ),
