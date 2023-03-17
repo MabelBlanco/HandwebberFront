@@ -90,10 +90,6 @@ export function useDispatchFetchAdsAction(skip, limit, filters) {
     return debounceFunction(trigger, 350);
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(fetchAdsAction(skip, limit, filters));
-  // }, [dispatch, skip, limit, filters]);
-
   useEffect(
     function () {
       debouncedFetchAdsAction(skip, limit, filters);
