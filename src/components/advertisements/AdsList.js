@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  fetchAdsAction,
   useAdsListSelector,
+  useDispatchFetchAdsAction,
   useMetaSelector,
 } from '../../store/adsListSlice';
 import {
@@ -25,8 +25,6 @@ import { Error } from '../commons/error/Error';
 import Pagination from '../commons/pagination/Pagination';
 import Spinner from '../commons/spinner/Spinner';
 import SearchBar from './SearchBar';
-import debounceFunction from '../../utils/debounceFunction';
-import { useDispatch } from 'react-redux';
 
 export const useAdvertisement = () => {
   const initialFiltersState = {
@@ -73,8 +71,6 @@ export const useAdvertisement = () => {
 const AdsList = ({ ...props }) => {
   const { t } = useTranslation();
 
-  const dispatch = useDispatch();
-
   const {
     firstPage,
     previousPage,
@@ -97,19 +93,7 @@ const AdsList = ({ ...props }) => {
   //Redux adslist handles
   const advertisements = useAdsListSelector();
 
-  const debouncedFetchAdsAction = useMemo(() => {
-    const trigger = (skip, limit, filters) => {
-      dispatch(fetchAdsAction(skip, limit, filters));
-    };
-    return debounceFunction(trigger, 350);
-  }, [dispatch]);
-
-  useEffect(
-    function () {
-      debouncedFetchAdsAction(skip, MAX_RESULTS_PER_PAGE, filters);
-    },
-    [debouncedFetchAdsAction, skip, filters]
-  );
+  useDispatchFetchAdsAction(skip, MAX_RESULTS_PER_PAGE, filters);
 
   return (
     <div
