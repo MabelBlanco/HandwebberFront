@@ -29,10 +29,31 @@ datalist {
           display: flex;
           justify-content: space-between;
           align-items: flex-start;
+          @media (max-width: 768px) {
+            flex-direction: column;
+            gap: 5px;
+          }
         }
       }
       & .tags {
         display: flex;
+      }
+      & .select-edit-tags {
+        width: 50%;
+        @media (max-width: 768px) {
+          width: 100%;
+        }
+      }
+      & .edit-description {
+        & textarea {
+          width: 100%;
+        }
+      }
+      & .input-edit {
+        width: 50%;
+        @media (max-width: 768px) {
+          width: 100%;
+        }
       }
       & .description {
         padding-bottom: 20px;
@@ -43,7 +64,6 @@ datalist {
           height: auto;
         }
       }
-
       & .actions {
         display: flex;
         align-items: flex-end;

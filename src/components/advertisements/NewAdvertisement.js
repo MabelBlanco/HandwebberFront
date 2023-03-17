@@ -1,62 +1,62 @@
-import { useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import Button from '../commons/button/Button';
-import Checkbox from '../commons/forms/checkbox/Checkbox';
-import Input from '../commons/forms/input/Input';
-import InputFile from '../commons/forms/inputFile/InputFile';
-import Select from '../commons/forms/select/Select';
-import Textarea from '../commons/forms/textarea/Textarea';
-import './advertisements.scss';
-import { createAdvertisement } from './service';
-import { useUiErrorSelector, errorUi } from '../../store/uiSlice';
-import { useDispatch } from 'react-redux';
-import { Error } from '../commons/error/Error';
-import styles from '../auth/signUp/SignUp.module.css';
+import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { errorUi, useUiErrorSelector } from "../../store/uiSlice";
+import styles from "../auth/signUp/SignUp.module.css";
+import Button from "../commons/button/Button";
+import { Error } from "../commons/error/Error";
+import Checkbox from "../commons/forms/checkbox/Checkbox";
+import Input from "../commons/forms/input/Input";
+import InputFile from "../commons/forms/inputFile/InputFile";
+import Select from "../commons/forms/select/Select";
+import Textarea from "../commons/forms/textarea/Textarea";
+import "./advertisements.scss";
+import { createAdvertisement } from "./service";
 
 const NewAdvertisement = ({ ...props }) => {
   const navigate = useNavigate();
 
-  const  error  = useUiErrorSelector();
+  const error = useUiErrorSelector();
 
   const dispatch = useDispatch();
 
   const { t } = useTranslation();
   //TODO
   //No hardcodear las etiquetas
-  const tagsOpt = ['lifestyle', 'sport', 'motor', 'players'];
+  const tagsOpt = ["lifestyle", "sport", "motor", "players"];
 
   const [form, setForm] = useState({
-    name: '',
+    name: "",
     price: 0,
     stock: 0,
-    description: '',
+    description: "",
     active: false,
     custom: false,
     tags: [],
-    photo: '',
+    photo: "",
   });
 
   const enterElementHandleChange = (event) => {
     if (
-      event.target.type === 'text' ||
-      event.target.tagName === 'TEXTAREA' ||
-      event.target.type === 'number'
+      event.target.type === "text" ||
+      event.target.tagName === "TEXTAREA" ||
+      event.target.type === "number"
     ) {
       setForm({ ...form, [event.target.name]: event.target.value });
     }
 
-    if (event.target.type === 'checkbox') {
+    if (event.target.type === "checkbox") {
       const value = event.target.checked;
       setForm({ ...form, [event.target.name]: value });
     }
 
-    if (event.target.tagName === 'SELECT') {
+    if (event.target.tagName === "SELECT") {
       const { selectedOptions } = event.target;
       const tags = [...selectedOptions].map((value) => value.value);
       setForm({ ...form, [event.target.name]: tags });
     }
-    if (event.target.type === 'file') {
+    if (event.target.type === "file") {
       setForm({ ...form, [event.target.name]: event.target.files[0] });
     }
   };
@@ -65,26 +65,26 @@ const NewAdvertisement = ({ ...props }) => {
     e.preventDefault();
 
     const bodyFormData = new FormData();
-    bodyFormData.append('name', form.name);
-    bodyFormData.append('price', form.price);
-    bodyFormData.append('tags', form.tags);
-    bodyFormData.append('description', form.description);
-    bodyFormData.append('custom', form.custom);
-    bodyFormData.append('stock', form.stock);
-    bodyFormData.append('active', form.active);
-    form.photo && bodyFormData.append('image', form.photo);
+    bodyFormData.append("name", form.name);
+    bodyFormData.append("price", form.price);
+    bodyFormData.append("tags", form.tags);
+    bodyFormData.append("description", form.description);
+    bodyFormData.append("custom", form.custom);
+    bodyFormData.append("stock", form.stock);
+    bodyFormData.append("active", form.active);
+    form.photo && bodyFormData.append("image", form.photo);
 
     try {
       const advert = await createAdvertisement(bodyFormData);
       navigate(`/advertisements/${advert.result._id}-${advert.result.name} `);
     } catch (error) {
       if (error.statusCode === 401) {
-        navigate('/login');
+        navigate("/login");
       }
       if (error.statusCode === 404) {
-        navigate('/404');
+        navigate("/404");
       }
-      dispatch(errorUi(error.message))
+      dispatch(errorUi(error.message));
       console.log(error);
     }
   };
@@ -101,93 +101,88 @@ const NewAdvertisement = ({ ...props }) => {
     // eslint-disable-next-line
   }, [form.name, form.price, form.tags]);
   return (
-    <div className='row'>
-      {error && (
-                <Error
-                  className={styles.signup__error}
-                  arrayErrors={error}
-                />
-              )}
-      <h1 className='col-sm-12 py-5'>{props.title}</h1>
-      <div className='col-sm-12'>
+    <div className="row">
+      {error && <Error className={styles.signup__error} arrayErrors={error} />}
+      <h1 className="col-sm-12 py-3">{props.title}</h1>
+      <div className="col-sm-12">
         <form
-          className='row bg-light p-5'
+          className="row bg-light p-2 p-md-4 p-lg-5 mb-5"
           onSubmit={handleSubmit}
         >
           <Input
-            className='col-md-4 col-lg-4 mb-5'
-            type='text'
-            name='name'
-            label={t('NewAdvertisement.Name')}
+            className="col-md-4 col-lg-4 mb-5"
+            type="text"
+            name="name"
+            label={t("NewAdvertisement.Name")}
             required
             onChange={enterElementHandleChange}
             value={form.name}
           />
           <Input
-            type='number'
-            label={t('NewAdvertisement.Price')}
-            className='col-sm-4 col-lg-4 mb-5'
-            name='price'
+            type="number"
+            label={t("NewAdvertisement.Price")}
+            className="col-sm-4 col-lg-4 mb-5"
+            name="price"
             required
             onChange={enterElementHandleChange}
             value={form.price}
           />
           <Input
-            type='number'
-            label={t('NewAdvertisement.Stock')}
-            className='col-sm-4 col-lg-4 mb-5'
-            name='stock'
+            type="number"
+            label={t("NewAdvertisement.Stock")}
+            className="col-sm-4 col-lg-4 mb-5"
+            name="stock"
             required
             onChange={enterElementHandleChange}
             value={form.stock}
           />
           <Textarea
-            className='col-sm-12 mb-5'
-            label={t('NewAdvertisement.Description')}
+            className="col-sm-12 mb-5"
+            label={t("NewAdvertisement.Description")}
             value={form.description}
             onChange={enterElementHandleChange}
-            name='description'
+            name="description"
           ></Textarea>
           <Select
-            label={t('NewAdvertisement.Tags')}
-            className='col-md-6 col-lg-6 mb-5'
+            label={t("NewAdvertisement.Tags")}
+            className="col-md-6 col-lg-6 mb-5"
             optionarray={tagsOpt}
             onChange={enterElementHandleChange}
             value={form.tags}
             required
             multiple={true}
-            name='tags'
+            name="tags"
           />
 
           <InputFile
-            label={t('NewAdvertisement.Photo')}
-            className='col-md-6 mb-5'
-            name='photo'
-            id='photo'
+            label={t("NewAdvertisement.Photo")}
+            className="col-md-6 mb-5"
+            name="photo"
+            id="photo"
             onChange={enterElementHandleChange}
           />
 
           <Checkbox
-            label={t('NewAdvertisement.Active')}
-            className='col-md-4 mb-2'
-            name='active'
+            label={t("NewAdvertisement.Active")}
+            className="col-md-4 mb-2"
+            name="active"
             value={form.active}
             onChange={enterElementHandleChange}
           />
           <Checkbox
-            label={t('NewAdvertisement.Custom')}
-            className='col-md-4 mb-2'
-            name='custom'
+            label={t("NewAdvertisement.Custom")}
+            className="col-md-4 mb-2"
+            name="custom"
             value={form.custom}
             onChange={enterElementHandleChange}
           />
           <Button
-            type='submit'
-            classNameContainer='col-md-12 mt-5 align-right'
-            className='btn-secondary mb-2'
+            type="submit"
+            classNameContainer="col-md-12 mt-5 align-right"
+            className="btn-secondary mb-2"
             disabled={!isDisabled}
           >
-            {t('NewAdvertisement.Add Advertisement')}
+            {t("NewAdvertisement.Add Advertisement")}
           </Button>
         </form>
       </div>

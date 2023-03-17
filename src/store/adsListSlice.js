@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   getAdvertisementDetail,
   getAdvertisements,
 } from '../components/advertisements/service';
+import debounceFunction from '../utils/debounceFunction';
 import { errorUi, setUiIsFetching, setUiSuccess } from './uiSlice';
 
 const initialState = {
@@ -66,7 +67,7 @@ export const getAdIndexById = (adId) => (state) => {
 //Actions
 export const { adsLoadSuccess, loadOneAd, updateThisAd } = adsListSlice.actions;
 
-function fetchAdsAction(skip, limit, filters) {
+export function fetchAdsAction(skip, limit, filters) {
   return async function (dispatch) {
     try {
       dispatch(setUiIsFetching());
@@ -78,11 +79,23 @@ function fetchAdsAction(skip, limit, filters) {
     }
   };
 }
+
 export function useDispatchFetchAdsAction(skip, limit, filters) {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchAdsAction(skip, limit, filters));
-  }, [dispatch, skip, limit, filters]);
+
+  const debouncedFetchAdsAction = useMemo(() => {
+    const trigger = (skip, limit, filters) => {
+      dispatch(fetchAdsAction(skip, limit, filters));
+    };
+    return debounceFunction(trigger, 350);
+  }, [dispatch]);
+
+  useEffect(
+    function () {
+      debouncedFetchAdsAction(skip, limit, filters);
+    },
+    [debouncedFetchAdsAction, skip, limit, filters]
+  );
 }
 
 export function editAdAction(updatedAd) {

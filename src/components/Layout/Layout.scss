@@ -11,6 +11,8 @@
    ================================  */
 main {
   //   background-color: var(--color-white);
+  height: max-content;
+  min-height: calc(100vh - 200px);
   margin-top: 50px;
-  margin-bottom: 5%;
+  margin-bottom: 50px;
 }

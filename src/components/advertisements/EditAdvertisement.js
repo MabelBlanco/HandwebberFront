@@ -153,13 +153,13 @@ const EditAdvertisement = ({ className, ...props }) => {
                 {advert?.name}
               </h1>
               <Input
-                className='mb-2'
                 type='text'
                 name='name'
                 label={t('NewAdvertisement.Name')}
                 placeholder={advert?.name}
                 value={form?.name}
                 onChange={enterElementHandleChange}
+                className='input-edit my-2'
               />
             </div>
             <div className='edit-price mb-3 bg-light px-3 py-2'>
@@ -179,6 +179,7 @@ const EditAdvertisement = ({ className, ...props }) => {
                 placeholder={advert?.price}
                 onChange={enterElementHandleChange}
                 value={form?.price}
+                className='input-edit my-2'
               />
             </div>
             <div className='edit-stock mb-3 bg-light px-3 py-2'>
@@ -198,6 +199,7 @@ const EditAdvertisement = ({ className, ...props }) => {
                 placeholder={advert?.stock}
                 onChange={enterElementHandleChange}
                 value={form?.stock}
+                className='input-edit my-2'
               />
             </div>
             <div className='edit-description mb-3 bg-light px-3 py-2'>
@@ -209,7 +211,6 @@ const EditAdvertisement = ({ className, ...props }) => {
                 <p>{advert?.description}</p>
               </div>
               <Textarea
-                className=''
                 label={t('NewAdvertisement.Description')}
                 placeholder={advert?.description}
                 value={form?.description}
@@ -224,7 +225,7 @@ const EditAdvertisement = ({ className, ...props }) => {
               </div>
               <Select
                 label={t('NewAdvertisement.Tags')}
-                className='w-50'
+                className='select-edit-tags'
                 name='tags'
                 optionarray={tagsOpt}
                 onChange={enterElementHandleChange}

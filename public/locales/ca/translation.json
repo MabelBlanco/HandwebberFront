@@ -1,142 +1,150 @@
 {
-    "LoginPage": {
-      "Sorry, you are loggin now. If you want singin with another count, close this session first.": "Ho sento, ja estàs logejat. Si vols entrar amb un altre compte, tanca aquesta sessió primer.",
-      "Email": "Correu electrònic",
-      "Password": "Contrasenya",
-      "Login": "Iniciar Sessió"
-    },
-  
-    "AdsList": {
-      "See more": "Veure més"
-    },
-  
-    "DetailAdvertisement": {
-      "Delete": "Borra",
-      "Edit": "Edita"
-    },
-  
-    "NewAdvertisement": {
-      "Name": "Nom",
-      "Price": "Preu",
-      "Stock": "Quantitat",
-      "Description": "Descripció",
-      "Tags": "Etiquetes",
-      "Photo": "Foto",
-      "Active": "Actiu",
-      "Custom": "Personalitzat",
-      "Add Advertisement": "Afegir Anunci"
-    },
-  
-    "UserAdsList": {
-      "Mail": "Correu electrónic",
-      "See more": "Veure més"
-    },
-  
-    "Profile": {
-      "Hello": "Hola",
-      "Profile": "Perfil",
-      "Logout": "Tancar Sessió"
-    },
-  
-    "ProfilePage": {
-      "Mail": "Correu electrónic",
-      "Favorites": "Favorits",
-      "SEE MY FAVORITS ADS": "VEURE ELS MEUS ANUNCIS FAVORITS",
-      "My advertisements": "Els meus anuncis",
-      "GO TO MY ADVERTISEMENTS LIST": "ANAR AL LLISTAT DELS MEUS ANUNCIS",
-      "CLICK FOR UPDATE YOUR PROFILE": "FES CLICK PER ACTUALITZAR EL TEU PERFIL",
-      "New username": "Nou nom d'usuari",
-      "New mail": "Nou correu electrónic",
-      "New password": "Nova contrasenya",
-      "Confirm new password": "Confirma la contrasenya nova",
-      "Upload new picture": "Pujar una nova imatge",
-      "CLICK FOR UPDATE": "FES CLICK PER ACTUALITZAR",
-      "DELETE ACCOUNT": "ESBORRAR COMPTE",
-      "Are you sure for delete account?": "Estàs segur que vols esborrar el compte?",
-      "YES": "SI",
-      "NO": "NO"
-    },
-  
-    "SignUp": {
-      "username": "nom d'usuari",
-      "mail": "correu electrónic",
-      "password": "contrasenya",
-      "confirm password": "confirmar contrasenya",
-      "Upload picture": "Pujar image",
-      "I accept the conditions": "Accepto les condicions",
-      "SIGNUP": "REGISTRAR-ME",
-      "Sorry, you are already registered. If you want register a new count, close this session first": "Ho sento, ja estàs registrat. Si vols registrar un nou compte, tanca aquesta sessió primer"
-    },
-    "NotFoundPage":{
-      "Unprocessable Entity": "Entitat no processable",
-      "NOT FOUND": "NO TROBAT",
-      "Close": "Tanca"
-    },
-    "AdsDetailPage":{
-      "Edit": "Editar",
-      "Delete" : "Borrar",
-      "Price" : "Preu",
-      "Description": "Descripció",
-      "Contact" : "Contactar",
-      "Active":"Actiu",
-      "Inactive": "Inactiu",
-      "ModalText" : "Esteu segur d'eliminar l'anunci? Aquesta acció no es pot desfer",
-      "Cancel": "Cancelar",
-      "ModalTitle": "Borrar anunci",
-      "Share": "Compartir"
-    },
+  "LoginPage": {
+    "Sorry, you are loggin now. If you want singin with another count, close this session first.": "Ho sento, ja estàs logejat. Si vols entrar amb un altre compte, tanca aquesta sessió primer.",
+    "Email": "Correu electrònic",
+    "Password": "Contrasenya",
+    "Login": "Iniciar Sessió",
+    "Don't remember your password?": "No recordes la teva contrasenya?",
+    "Send me a new password": "Envia'm una nova contrasenya",
+    "Send Password": "Enviar Contrasenya",
+    "Better not": "Millor no",
+    "Confirm password change": "Confirmar canvi de contrasenya",
+    "If you press OK, we will send you a new password to your email and you will not be able to access with the current one. Do you agree?": "Si prems OK, t'enviarem una contrasenya nova al teu email i no podràs accedir amb l'actual. Estàs d'acord?"
+  },
 
-    "Card": {
-      "Description": "Descripció",
-      "Price": "Preu",
-      "Tags": "Etiquetes",
-      "Date": "Data",
-      "Stock": "Quantitat",
-      "User": "Usuari",
-      "Custom Product": "Producte Personalitzat"
-    },
-  
-    "NoImage": {
-      "No image": "Sense image"
-    },
-  
-    "Pagination": {
-      "First": "Primer",
-      "Previous": "Anterior",
-      "Next": "Següent",
-      "Last": "Ùltim"
-    },
-  
-    "Header": {
-      "Home": "Inici",
-      "New Advertisement": "Nou Anunci",
-      "Comp List": "Llista de Components",
-      "Login": "Entrar",
-      "Sign up for free": "Registra't gratis"
-    },
-  
-    "Error": {
-      "Username must be alphanumeric": "El nom d'usuari deu ser alfanumèric",
-      "Insert a valid mail please": "Inseriu un correu electrònic vàlid, si us plau",
-      "Password min length 8 characters": "La longitud mínima de la contrasenya és de 8 caràcters",
-      "ERROR in DB": "ERROR en la Base de Dades",
-      "User not found": "Usuari no trobat",
-      "Bad Request": "Sol.licitud Incorrecta",
-      "User not in DB": "El Usuari no està a la Base de Dades",
-      "Advertisements are not available in this moment": "Els Anuncis no estan disponibles en aquest moment",
-      "Internal Error: Impossible create the advertisement": "Error Intern: Imposible crear l'Anunci",
-      "Advertisement not in DB": "L'Anunci no està a la Base de Dades",
-      "This email do not have an account": "Aquest correu electrònic no té compte",
-      "Wrong password": "Contrasenya incorrecta",
-      "Internal Server Error": "Error Intern del Servidor",
-      "no jwtToken provided": "No te credencials",
-      "Invalid jwtToken": "Credencials invàlides",
-      "The file must be an image": "L'archivu deu ser una image",
-      "Network Error": "Error de xarxa. Revisa la teva connexió. Pot ser un problema del servidor",
-      "An unexpected error has occurred": "Ha passat un error inesperat",
-      "This username is not available": "Aquest nom d'usuari no està disponible",
-      "This email is already registered": "Aquest mail ja està registrat",
-      "Passwords don't match": "Les contrasenyes no coincideixen"
-    }
+  "AdsList": {
+    "See more": "Veure més",
+    "Filter": "Filtre"
+  },
+
+  "DetailAdvertisement": {
+    "Delete": "Borra",
+    "Edit": "Edita"
+  },
+
+  "NewAdvertisement": {
+    "Name": "Nom",
+    "Price": "Preu",
+    "Stock": "Quantitat",
+    "Description": "Descripció",
+    "Tags": "Etiquetes",
+    "Photo": "Foto",
+    "Active": "Actiu",
+    "Custom": "Personalitzat",
+    "Add Advertisement": "Afegir Anunci"
+  },
+
+  "UserAdsList": {
+    "Mail": "Correu electrónic",
+    "See more": "Veure més"
+  },
+
+  "Profile": {
+    "Hello": "Hola",
+    "Profile": "Perfil",
+    "Logout": "Tancar Sessió"
+  },
+
+  "ProfilePage": {
+    "Mail": "Correu electrónic",
+    "Favorites": "Favorits",
+    "SEE MY FAVORITS ADS": "VEURE ELS MEUS ANUNCIS FAVORITS",
+    "My advertisements": "Els meus anuncis",
+    "GO TO MY ADVERTISEMENTS LIST": "ANAR AL LLISTAT DELS MEUS ANUNCIS",
+    "CLICK FOR UPDATE YOUR PROFILE": "FES CLICK PER ACTUALITZAR EL TEU PERFIL",
+    "New username": "Nou nom d'usuari",
+    "New mail": "Nou correu electrónic",
+    "New password": "Nova contrasenya",
+    "Confirm new password": "Confirma la contrasenya nova",
+    "Upload new picture": "Pujar una nova imatge",
+    "CLICK FOR UPDATE": "FES CLICK PER ACTUALITZAR",
+    "DELETE ACCOUNT": "ESBORRAR COMPTE",
+    "Are you sure for delete account?": "Estàs segur que vols esborrar el compte?",
+    "YES": "SI",
+    "NO": "NO"
+  },
+
+  "SignUp": {
+    "username": "nom d'usuari",
+    "mail": "correu electrónic",
+    "password": "contrasenya",
+    "confirm password": "confirmar contrasenya",
+    "Upload picture": "Pujar image",
+    "I accept the conditions": "Accepto les condicions",
+    "SIGNUP": "REGISTRAR-ME",
+    "Sorry, you are already registered. If you want register a new count, close this session first": "Ho sento, ja estàs registrat. Si vols registrar un nou compte, tanca aquesta sessió primer"
+  },
+  "NotFoundPage": {
+    "Unprocessable Entity": "Entitat no processable",
+    "NOT FOUND": "NO TROBAT",
+    "Close": "Tanca"
+  },
+  "AdsDetailPage": {
+    "Edit": "Editar",
+    "Delete": "Borrar",
+    "Price": "Preu",
+    "Description": "Descripció",
+    "Contact": "Contactar",
+    "Active": "Actiu",
+    "Inactive": "Inactiu",
+    "ModalText": "Esteu segur d'eliminar l'anunci? Aquesta acció no es pot desfer",
+    "Cancel": "Cancelar",
+    "ModalTitle": "Borrar anunci",
+    "Share": "Compartir"
+  },
+
+  "Card": {
+    "Description": "Descripció",
+    "Price": "Preu",
+    "Tags": "Etiquetes",
+    "Date": "Data",
+    "Stock": "Quantitat",
+    "User": "Usuari",
+    "Custom Product": "Producte Personalitzat"
+  },
+
+  "NoImage": {
+    "No image": "Sense image"
+  },
+
+  "Pagination": {
+    "First": "Primer",
+    "Previous": "Anterior",
+    "Next": "Següent",
+    "Last": "Ùltim"
+  },
+
+  "Header": {
+    "Home": "Inici",
+    "New Advertisement": "Nou Anunci",
+    "Comp List": "Llista de Components",
+    "Login": "Entrar",
+    "Sign up for free": "Registra't gratis"
+  },
+
+  "Error": {
+    "Username must be alphanumeric": "El nom d'usuari deu ser alfanumèric",
+    "Insert a valid mail please": "Inseriu un correu electrònic vàlid, si us plau",
+    "Password min length 8 characters": "La longitud mínima de la contrasenya és de 8 caràcters",
+    "ERROR in DB": "ERROR en la Base de Dades",
+    "User not found": "Usuari no trobat",
+    "Bad Request": "Sol.licitud Incorrecta",
+    "User not in DB": "El Usuari no està a la Base de Dades",
+    "Advertisements are not available in this moment": "Els Anuncis no estan disponibles en aquest moment",
+    "Internal Error: Impossible create the advertisement": "Error Intern: Imposible crear l'Anunci",
+    "Advertisement not in DB": "L'Anunci no està a la Base de Dades",
+    "This email do not have an account": "Aquest correu electrònic no té compte",
+    "Wrong password": "Contrasenya incorrecta",
+    "Internal Server Error": "Error Intern del Servidor",
+    "no jwtToken provided": "No te credencials",
+    "Invalid jwtToken": "Credencials invàlides",
+    "The file must be an image": "L'archivu deu ser una image",
+    "Network Error": "Error de xarxa. Revisa la teva connexió. Pot ser un problema del servidor",
+    "An unexpected error has occurred": "Ha passat un error inesperat",
+    "This username is not available": "Aquest nom d'usuari no està disponible",
+    "This email is already registered": "Aquest mail ja està registrat",
+    "Passwords don't match": "Les contrasenyes no coincideixen",
+    "This is not the page you're looking for...": "Aquesta no és la pàgina que cerques...",
+    "Sorry, you are loggin now. If you want singin with another count, close this session first.": "Em sap greu, ja estàs logejat. Si vols entrar amb un altre compte, tanca aquesta sessió primer."
   }
-  
+}
