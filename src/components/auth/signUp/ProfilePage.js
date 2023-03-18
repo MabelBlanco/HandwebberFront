@@ -126,13 +126,7 @@ const ProfilePage = ({ className, title, ...props }) => {
 
   const deleteAccount = async () => {
     try {
-      const userAds = user.ads;
-
       const response = await deleteUser(user._id);
-
-      for (let ad of userAds) {
-        await deleteAdvertisement(ad._id);
-      }
 
       setIsDelete(true);
       setTimeout(() => {
