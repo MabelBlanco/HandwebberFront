@@ -61,7 +61,8 @@
     "DELETE ACCOUNT": "DELETE ACCOUNT",
     "Are you sure for delete account?": "Are you sure for delete account?",
     "YES": "YES",
-    "NO": "NO"
+    "NO": "NO",
+    "Deleted successfully": "Deleted successfully"
   },
 
   "SignUp": {

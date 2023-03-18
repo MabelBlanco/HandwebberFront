@@ -61,7 +61,8 @@
     "DELETE ACCOUNT": "ESBORRAR COMPTE",
     "Are you sure for delete account?": "Estàs segur que vols esborrar el compte?",
     "YES": "SI",
-    "NO": "NO"
+    "NO": "NO",
+    "Deleted successfully": "Esborrat correctament"
   },
 
   "SignUp": {

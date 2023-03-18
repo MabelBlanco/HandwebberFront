@@ -61,7 +61,8 @@
     "DELETE ACCOUNT": "BORRAR CUENTA",
     "Are you sure for delete account?": "¿Estás seguro de que quieres borrar la cuenta?",
     "YES": "SI",
-    "NO": "NO"
+    "NO": "NO",
+    "Deleted successfully": "Borrado correctamente"
   },
 
   "SignUp": {

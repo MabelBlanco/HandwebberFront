@@ -6,7 +6,6 @@ import { useAuth } from '../../context/AuthContext';
 import { useEffect, useState } from 'react';
 import styles from './SignUp.module.css';
 import {
-  deleteAdvertisement,
   getAdvertisementDetail,
 } from '../../advertisements/service';
 import { useTranslation } from 'react-i18next';
@@ -245,7 +244,7 @@ const ProfilePage = ({ className, title, ...props }) => {
         </div>
       )}
       {isDelete && (
-        <Alert className='alert-success'>Borrado correctamente</Alert>
+        <Alert className='alert-success'>{t('ProfilePage.Deleted successfully')}</Alert>
       )}
     </div>
   );
