@@ -1,0 +1,145 @@
+/*********************************************/
+/*          FORM UPDATE     */
+/*********************************************/
+.signup-page {
+  background-color: #07152795;
+  width: calc(100vw - 50vw);
+  height: max-content;
+  margin: 0px auto;
+  padding: 30px;
+  color: var(--color-static-white);
+  & .title {
+    color: var(--color-static-white);
+  }
+
+  & form {
+    &::after {
+      position: fixed;
+      z-index: -9999;
+      left: 0;
+      bottom: 0;
+      top: 0;
+      right: 0;
+      content: "";
+      width: 100vw;
+      height: 100vh;
+      background-image: url("../../../../public/assets/images/artesania_1.jpg");
+      background-size: cover;
+    }
+  }
+}
+@media (max-width: 1024px) {
+  .signup-page {
+    background-color: #07152795;
+    width: calc(90vw);
+  }
+}
+
+/*********************************************/
+/*          PROFILE     */
+/*********************************************/
+.profile-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  & .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+
+    & .profile-top_text_container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      color: var(--color-static-dark);
+      gap: 10px;
+    }
+    & .profile-top_avatar {
+      background-color: red;
+      width: 30px;
+      height: 30px;
+      overflow: hidden;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      border-radius: 50%;
+    }
+    & .profile-top_username {
+      color: var(--color-static-dark);
+      font-size: 16px;
+      & span {
+        font-weight: 600;
+      }
+    }
+    & .profile-top_actions {
+      display: flex;
+      gap: 10px;
+      & a {
+        &.btn-link {
+          color: var(--color-secondary-800);
+          font-weight: 600;
+        }
+      }
+    }
+    & .profile-top_noImage {
+      font-size: 16px;
+    }
+  }
+}
+
+@media (max-width: 460px) {
+  .profile-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-direction: column;
+    padding-bottom: 10px;
+    width: 100%;
+    & .container {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 25px;
+      width: 100%;
+      padding: 0px;
+      flex-direction: column;
+
+      & .profile-top_text_container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        color: var(--color-static-dark);
+        gap: 20px;
+        width: 100%;
+      }
+      & .profile-top_avatar {
+        background-color: red;
+        width: 30px;
+        height: 30px;
+        overflow: hidden;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        border-radius: 50%;
+      }
+      & .profile-top_username {
+        color: var(--color-static-dark);
+      }
+      & .profile-top_actions {
+        display: flex;
+        gap: 10px;
+        & a {
+          &.btn-link {
+            color: var(--color-secondary-800);
+            font-weight: 700;
+          }
+        }
+      }
+      & .profile-top_noImage {
+        font-size: 16px;
+      }
+    }
+  }
+}

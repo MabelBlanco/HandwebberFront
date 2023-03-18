@@ -8,7 +8,7 @@ import {
 import Button from "../../commons/button/Button";
 import "../../commons/card/card.scss";
 import NoImage from "../../commons/noImage/NoImage";
-import "./profile.scss";
+import "./signUp.scss";
 
 const Profile = ({ className, title, handleLinkClick, ...props }) => {
   const { isLogged, user } = useIsLoggedSelector();

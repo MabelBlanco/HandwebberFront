@@ -102,7 +102,7 @@ export function LoginPage() {
   } else {
     return (
       <div className="login-container">
-        <form id="login" onSubmit={submitEvent} className="row">
+        <form id="login" onSubmit={submitEvent} className="row px-xs-0">
           <div className="col-12 title">
             <h2 className="text-center">{t("LoginPage.Login")}</h2>
           </div>

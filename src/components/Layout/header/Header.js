@@ -9,12 +9,12 @@ import "./Header.scss";
 const Header = () => {
   const { isLogged } = useIsLoggedSelector();
   const { t } = useTranslation();
-  const [isOpen, setIsOpen] = useState("hide");
+  const [isOpen, setIsOpen] = useState(false);
   const handleLinkClick = () => {
-    setIsOpen("hide");
+    setIsOpen(false);
   };
   const handleButtonClick = () => {
-    setIsOpen("show");
+    isOpen === true ? setIsOpen(false) : setIsOpen(true);
   };
 
   return (
@@ -34,9 +34,12 @@ const Header = () => {
             aria-label="Toggle navigation"
             onClick={handleButtonClick}
           >
-            <i className="bi bi-list"></i>
+            <i className={`bi ${!isOpen ? "bi-list" : "bi-x-lg"}`}></i>
           </Button>
-          <div className={`collapse navbar-collapse ${isOpen}`} id="navbarNav">
+          <div
+            className={`collapse navbar-collapse ${isOpen ? "show" : "hide"}`}
+            id="navbarNav"
+          >
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item active">
                 <NavLink
@@ -49,17 +52,31 @@ const Header = () => {
                 </NavLink>
               </li>
               {isLogged && (
-                <li className="nav-item active">
-                  <NavLink
-                    className="nav-link"
-                    aria-current="page"
-                    to={"/advertisements/new"}
-                    onClick={handleLinkClick}
-                    end
-                  >
-                    {t("Header.New Advertisement")}
-                  </NavLink>
-                </li>
+                <>
+                  <li className="nav-item active">
+                    <NavLink
+                      className="nav-link"
+                      aria-current="page"
+                      to={"/advertisements/new"}
+                      onClick={handleLinkClick}
+                      end
+                    >
+                      {t("Header.New Advertisement")}
+                    </NavLink>
+                  </li>
+
+                  <li className="nav-item active">
+                    <NavLink
+                      className="nav-link"
+                      aria-current="page"
+                      to={"/chat"}
+                      onClick={handleLinkClick}
+                      end
+                    >
+                      Chat
+                    </NavLink>
+                  </li>
+                </>
               )}
               <li className="nav-item active">
                 <NavLink

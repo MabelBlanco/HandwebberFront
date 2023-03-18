@@ -9,7 +9,15 @@ import {
   loadOneAdByIdAction,
 } from '../../store/adsListSlice';
 import { useIsLoggedSelector } from '../../store/authSlice';
+import {
+  useIsFetchingSelector,
+  useUiErrorSelector,
+  errorUi,
+  request,
+  success,
+} from '../../store/uiSlice';
 import Button from '../commons/button/Button';
+import { Error } from '../commons/error/Error';
 import Checkbox from '../commons/forms/checkbox/Checkbox';
 import Input from '../commons/forms/input/Input';
 import InputFile from '../commons/forms/inputFile/InputFile';
@@ -17,6 +25,7 @@ import Select from '../commons/forms/select/Select';
 import Textarea from '../commons/forms/textarea/Textarea';
 import Modal from '../commons/modal/Modal';
 import NoImage from '../commons/noImage/NoImage';
+import Spinner from '../commons/spinner/Spinner';
 import Tags from '../commons/tags/Tags';
 import { updateAdvertisement } from './service';
 
@@ -27,6 +36,8 @@ const EditAdvertisement = ({ className, ...props }) => {
   const advertId = useParams().id.split('-', 1)[0];
 
   const advert = useSelector(getAdById(advertId));
+  const isFetching = useIsFetchingSelector();
+  const isError = useUiErrorSelector();
 
   if (!advert) {
     dispatch(loadOneAdByIdAction(advertId));
@@ -34,8 +45,6 @@ const EditAdvertisement = ({ className, ...props }) => {
 
   //TODO deshardcodear los tags
   const tagsOpt = ['lifestyle', 'sport', 'motor', 'players'];
-  //TODO
-  //Tratar pantalla de error si no hay anuncios (en estado de error de redux)
   const { user } = useIsLoggedSelector();
   const userLoggedId = user._id;
 
@@ -90,13 +99,14 @@ const EditAdvertisement = ({ className, ...props }) => {
     }
 
     try {
+      dispatch(request());
       const response = await updateAdvertisement(advert._id, bodyFormData);
       dispatch(editAdAction(response.result));
+      dispatch(success());
       const to = `/advertisements/${advert._id}-${advert.name}`;
       navigate(to);
     } catch (error) {
-      //TODO
-      console.log(error);
+      dispatch(errorUi(error.message));
     }
   };
 
@@ -108,11 +118,14 @@ const EditAdvertisement = ({ className, ...props }) => {
     <form
       className={classNames('py-5 ads-edit-form blur-secondary-800', className)}
       {...props}
-      onSubmit={updateAdvert}>
+      onSubmit={updateAdvert}
+    >
       <div className='container px-4 px-lg-5 my-5'>
         <div className='row gx-4 gx-lg-5 '>
           <div className='col-md-6 image'>
             <div className='edit-image mb-3 bg-light px-3 py-4'>
+              {isFetching && <Spinner />}
+              {isError.length && <Error arrayErrors={isError} />}
               {advert?.image ? (
                 <img
                   src={`${process.env.REACT_APP_API_BASE_URL}/${advert.image}`}
@@ -135,24 +148,26 @@ const EditAdvertisement = ({ className, ...props }) => {
             <div className='edit-name mb-3 bg-light px-3 py-2'>
               <h1
                 className='display-5 fw-bolder name'
-                key='name'>
+                key='name'
+              >
                 {advert?.name}
               </h1>
               <Input
-                className='mb-2'
                 type='text'
                 name='name'
                 label={t('NewAdvertisement.Name')}
                 placeholder={advert?.name}
                 value={form?.name}
                 onChange={enterElementHandleChange}
+                className='input-edit my-2'
               />
             </div>
             <div className='edit-price mb-3 bg-light px-3 py-2'>
               <div className='price'>
                 <span
                   key='price'
-                  className='label-info'>
+                  className='label-info'
+                >
                   {t('AdsDetailPage.Price')}:
                 </span>
                 <span> {advert?.price}€</span>
@@ -164,13 +179,15 @@ const EditAdvertisement = ({ className, ...props }) => {
                 placeholder={advert?.price}
                 onChange={enterElementHandleChange}
                 value={form?.price}
+                className='input-edit my-2'
               />
             </div>
             <div className='edit-stock mb-3 bg-light px-3 py-2'>
               <div className='stock'>
                 <span
                   key='stock'
-                  className='label-info'>
+                  className='label-info'
+                >
                   Stock:
                 </span>
                 <span> {advert?.stock}</span>
@@ -182,22 +199,24 @@ const EditAdvertisement = ({ className, ...props }) => {
                 placeholder={advert?.stock}
                 onChange={enterElementHandleChange}
                 value={form?.stock}
+                className='input-edit my-2'
               />
             </div>
             <div className='edit-description mb-3 bg-light px-3 py-2'>
               <div
                 className='description'
-                key='description'>
+                key='description'
+              >
                 <p className='label-info'>{t('AdsDetailPage.Description')}:</p>
                 <p>{advert?.description}</p>
               </div>
               <Textarea
-                className=''
                 label={t('NewAdvertisement.Description')}
                 placeholder={advert?.description}
                 value={form?.description}
                 name='description'
-                onChange={enterElementHandleChange}></Textarea>
+                onChange={enterElementHandleChange}
+              ></Textarea>
             </div>
             <div className='edit-tags mb-3 bg-light px-3 py-3'>
               <div className='tags'>
@@ -206,7 +225,7 @@ const EditAdvertisement = ({ className, ...props }) => {
               </div>
               <Select
                 label={t('NewAdvertisement.Tags')}
-                className='w-50'
+                className='select-edit-tags'
                 name='tags'
                 optionarray={tagsOpt}
                 onChange={enterElementHandleChange}
@@ -230,11 +249,13 @@ const EditAdvertisement = ({ className, ...props }) => {
                 onChange={enterElementHandleChange}
               />
             </div>
+            {isFetching && <Spinner />}
             {advert?.idUser?._id === userLoggedId && (
               <div className='mt-5 actions'>
                 <Button
                   type='submit'
-                  className='btn btn-secondary blur-secondary-800 radius-2  '>
+                  className='btn btn-secondary blur-secondary-800 radius-2  '
+                >
                   {t(`AdsDetailPage.Edit`)}
                 </Button>
                 <Modal
@@ -248,7 +269,8 @@ const EditAdvertisement = ({ className, ...props }) => {
                   label_confirm={t(`AdsDetailPage.Delete`)}
                   label_cancel={t(`AdsDetailPage.Cancel`)}
                   label_btn={t(`AdsDetailPage.Delete`)}
-                  modalId='deleteAdvert'>
+                  modalId='deleteAdvert'
+                >
                   {t(`AdsDetailPage.ModalText`)}
                 </Modal>
               </div>
