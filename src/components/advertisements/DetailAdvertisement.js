@@ -1,18 +1,18 @@
-import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   editAdAction,
   getAdById,
   loadOneAdByIdAction,
-} from "../../store/adsListSlice";
-import { useIsLoggedSelector } from "../../store/authSlice";
-import { updateUser } from "../auth/service";
-import Alert from "../commons/feedbacks/alert/Alert";
-import Favorites from "../favorites/Favorites";
-import AdsDetailPage from "./AdsDetailPage/AdsDetailPage";
-import "./advertisements.scss";
-import { deleteAdvertisement, updateAdsSubscriptions } from "./service";
+} from '../../store/adsListSlice';
+import { useIsLoggedSelector } from '../../store/authSlice';
+import { updateUser } from '../auth/service';
+import Alert from '../commons/feedbacks/alert/Alert';
+import Favorites from '../favorites/Favorites';
+import AdsDetailPage from './AdsDetailPage/AdsDetailPage';
+import './advertisements.scss';
+import { deleteAdvertisement, updateAdsSubscriptions } from './service';
 
 const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   const [isDelete, setIsDelete] = useState(false);
@@ -23,7 +23,7 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   const dispatch = useDispatch();
   const { user } = useIsLoggedSelector();
   const userLoggedId = user._id;
-  const advertId = useParams().id.split("-", 1)[0];
+  const advertId = useParams().id.split('-', 1)[0];
   const advert = useSelector(getAdById(advertId));
 
   const setFavorite = () => {
@@ -33,19 +33,31 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
 
   const addSusbscriptor = (propertyArray, id) => {
     let newSubcriptions = [...propertyArray];
+    // const noExists = !newSubcriptions.find((s) => s === id);
+    // console.log("antes", newSubcriptions, id);
+    // if (noExists) {
+    //   newSubcriptions.push(id);
+    //   // console.log("result of add", id, newSubcriptions);
+    //   setIsFavorite(true);
+    // } else {
+    //   const resultOfDelete = newSubcriptions.filter((f) => f !== id);
+    //   console.log("result of delete", id, resultOfDelete);
+    //   setIsFavorite(false);
+    //   newSubcriptions = resultOfDelete;
+    // }
     const noExists = !newSubcriptions.find((s) => s === id);
-    console.log("antes", newSubcriptions, id);
-    if (noExists) {
+    console.log('antes', newSubcriptions, id);
+    if (!newSubcriptions.includes(id)) {
       newSubcriptions.push(id);
       // console.log("result of add", id, newSubcriptions);
       setIsFavorite(true);
     } else {
       const resultOfDelete = newSubcriptions.filter((f) => f !== id);
-      console.log("result of delete", id, resultOfDelete);
+      console.log('result of delete', id, resultOfDelete);
       setIsFavorite(false);
       newSubcriptions = resultOfDelete;
     }
-    console.log("despues", newSubcriptions);
+    console.log('despues', newSubcriptions);
     return newSubcriptions;
   };
 
@@ -55,21 +67,21 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
     setAdsSubscriptions(newSubscriptions);
     // console.log("advert", adsSubscriptions, userLoggedId);
     Object.keys(advert).forEach(function (key, index) {
-      key !== "image" &&
-        key !== "idUser" &&
-        key !== "subscriptions" &&
+      key !== 'image' &&
+        key !== 'idUser' &&
+        key !== 'subscriptions' &&
         bodyFormData.append(key, advert[key]);
     });
-    bodyFormData.append("subscriptions", newSubscriptions);
-    bodyFormData.append("idUser", advert.idUser._id);
+    bodyFormData.append('subscriptions', newSubscriptions);
+    bodyFormData.append('idUser', advert.idUser._id);
     if (advert.image) {
-      bodyFormData.append("image", advert.image);
+      bodyFormData.append('image', advert.image);
     }
 
     try {
       const response = await updateAdsSubscriptions(advertId, bodyFormData);
       dispatch(editAdAction(response.result));
-      console.log("responese advert", response.result.subscriptions);
+      console.log('responese advert', response.result.subscriptions);
       const to = `/advertisements/${advert._id}-${advert.name}`;
       navigate(to);
     } catch (error) {
@@ -80,12 +92,12 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
 
   const sendDataUserSubscriptions = async () => {
     const bodyUserData = new FormData();
-    bodyUserData.append("subscriptions", advert._id);
+    bodyUserData.append('subscriptions', advert._id);
 
     try {
       const response = await updateUser(userLoggedId, bodyUserData);
       dispatch(editAdAction(response.result));
-      console.log("responese user", response.result.subscriptions);
+      console.log('responese user', response.result.subscriptions);
       const to = `/advertisements/${advert._id}-${advert.name}`;
       navigate(to);
     } catch (error) {
@@ -96,7 +108,7 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   // eslint-disable-next-line
   const consoleFormData = (bodyData) => {
     for (var pair of bodyData.entries()) {
-      console.log("bodyData", pair[0] + ", " + pair[1]);
+      console.log('bodyData', pair[0] + ', ' + pair[1]);
     }
   };
 
@@ -104,7 +116,7 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   useEffect(() => {
     dispatch(loadOneAdByIdAction(advert._id));
     const execute = async () => {
-      console.log("ads useefect", advert.subscriptions);
+      console.log('ads useefect', advert.subscriptions);
       if (advert && userLoggedId) {
         setAdsSubscriptions(advert.subscriptions);
         setIsFavorite(adsSubscriptions.includes(userLoggedId) ? true : false);
@@ -137,7 +149,7 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
       await deleteAdvertisement(advert._id);
       setIsDelete(true);
     } catch (error) {
-      console.log("err", error);
+      console.log('err', error);
     }
   };
   const onContact = async () => {
@@ -145,16 +157,16 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   };
   const handleClickAlert = (e) => {
     e.preventDefault();
-    navigate("/advertisements");
+    navigate('/advertisements');
   };
 
   return (
-    <div className="row">
-      <h1 className="col-sm-12 py-5">
-        {props.title} {isFavorite ? "favorite" : "no"}
+    <div className='row'>
+      <h1 className='col-sm-12 py-5'>
+        {props.title} {isFavorite ? 'favorite' : 'no'}
       </h1>
 
-      <div className="container advert-content-detail">
+      <div className='container advert-content-detail'>
         {advert?._id && !isDelete && (
           <AdsDetailPage
             {...advert}
@@ -162,11 +174,10 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
             userLoggedId={userLoggedId}
             fncontact={onContact}
             fndelete={onDelete}
-            fnedit={onEdit}
-          >
-            {userLoggedId !== advert.idUser._id && (
+            fnedit={onEdit}>
+            {userLoggedId && userLoggedId !== advert.idUser._id && (
               <Favorites
-                styleFavoriteBtn={isFavorite ? "active" : ""}
+                styleFavoriteBtn={isFavorite ? 'active' : ''}
                 subscribers={adsSubscriptions}
                 addFavorites={setFavorite}
               />
@@ -175,7 +186,9 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
         )}
 
         {isDelete && (
-          <Alert className="alert-success" alertTask={handleClickAlert}>
+          <Alert
+            className='alert-success'
+            alertTask={handleClickAlert}>
             Borrado correctamente
           </Alert>
         )}

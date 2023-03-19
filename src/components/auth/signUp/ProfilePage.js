@@ -5,9 +5,7 @@ import { deleteUser, getUserPrivateDataById, updateUser } from '../service';
 import { useAuth } from '../../context/AuthContext';
 import { useEffect, useState } from 'react';
 import styles from './SignUp.module.css';
-import {
-  getAdvertisementDetail,
-} from '../../advertisements/service';
+import { getAdvertisementDetail } from '../../advertisements/service';
 import { useTranslation } from 'react-i18next';
 import { Error } from '../../commons/error/Error';
 import Card from '../../commons/card/Card';
@@ -62,6 +60,7 @@ const ProfilePage = ({ className, title, ...props }) => {
   const getMyFavorites = async () => {
     setActiveFavorits(!activeFavorits);
     try {
+      debugger;
       const ads = [];
       if (user.subscriptions.length !== favorits.length) {
         for (let ad of user.subscriptions) {
@@ -244,7 +243,9 @@ const ProfilePage = ({ className, title, ...props }) => {
         </div>
       )}
       {isDelete && (
-        <Alert className='alert-success'>{t('ProfilePage.Deleted successfully')}</Alert>
+        <Alert className='alert-success'>
+          {t('ProfilePage.Deleted successfully')}
+        </Alert>
       )}
     </div>
   );
