@@ -25,10 +25,14 @@ export const authSlice = createSlice({
     authError: (state) => {
       state.isLogged = false;
     },
+    userSubsUpdate: (state, action) => {
+      state.user = { ...action.payload };
+    },
   },
 });
 
-export const { authSuccess, authError, authLogout } = authSlice.actions;
+export const { authSuccess, authError, authLogout, userSubsUpdate } =
+  authSlice.actions;
 
 export const useIsLoggedSelector = () => useSelector((state) => state.auth);
 

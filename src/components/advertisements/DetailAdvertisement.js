@@ -6,7 +6,7 @@ import {
   getAdById,
   loadOneAdByIdAction,
 } from '../../store/adsListSlice';
-import { useIsLoggedSelector } from '../../store/authSlice';
+import { useIsLoggedSelector, userSubsUpdate } from '../../store/authSlice';
 import { updateUser } from '../auth/service';
 import Alert from '../commons/feedbacks/alert/Alert';
 import Favorites from '../favorites/Favorites';
@@ -86,7 +86,11 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
 
     try {
       const response = await updateUser(userLoggedId, bodyUserData);
-      dispatch(editAdAction(response.result));
+      const newDataUser = {
+        ...user,
+        subscriptions: response.result.subscriptions,
+      };
+      dispatch(userSubsUpdate(newDataUser));
       console.log('responese user', response.result.subscriptions);
       const to = `/advertisements/${advert._id}-${advert.name}`;
       navigate(to);
@@ -104,28 +108,7 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
 
   useRef(advert);
   useEffect(() => {
-    //dispatch(loadOneAdByIdAction(advert._id));
     dispatch(loadOneAdByIdAction(advertId));
-    // const execute = async () => {
-    //   console.log('ads useefect', advert.subscriptions);
-    //   if (advert && userLoggedId) {
-    //     setAdsSubscriptions(advert.subscriptions);
-    //     setIsFavorite(adsSubscriptions.includes(userLoggedId) ? true : false);
-    //     //TODO
-    //     //console.log('el anuncio ya está cargado');
-    //     // return;
-    //   }
-    // };
-    // execute();
-    // }, [
-    //   dispatch,
-    //   advert,
-    //   advertId,
-    //   userLoggedId,
-    //   isFavorite,
-    //   adsSubscriptions,
-    //   advert.subscriptions,
-    // ]);
   }, [dispatch, advertId]);
 
   const onEdit = async () => {

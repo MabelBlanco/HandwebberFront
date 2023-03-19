@@ -60,7 +60,6 @@ const ProfilePage = ({ className, title, ...props }) => {
   const getMyFavorites = async () => {
     setActiveFavorits(!activeFavorits);
     try {
-      debugger;
       const ads = [];
       if (user.subscriptions.length !== favorits.length) {
         for (let ad of user.subscriptions) {
