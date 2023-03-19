@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { t } from 'i18next';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
@@ -27,7 +27,7 @@ import Modal from '../commons/modal/Modal';
 import NoImage from '../commons/noImage/NoImage';
 import Spinner from '../commons/spinner/Spinner';
 import Tags from '../commons/tags/Tags';
-import { updateAdvertisement } from './service';
+import { updateAdvertisement, getTags } from './service';
 
 const EditAdvertisement = ({ className, ...props }) => {
   const navigate = useNavigate();
@@ -42,12 +42,11 @@ const EditAdvertisement = ({ className, ...props }) => {
   if (!advert) {
     dispatch(loadOneAdByIdAction(advertId));
   }
-
-  //TODO deshardcodear los tags
-  const tagsOpt = ['lifestyle', 'sport', 'motor', 'players'];
+  
   const { user } = useIsLoggedSelector();
   const userLoggedId = user._id;
 
+  const [tagsOpt, setTagsOpt] = useState([]);
   const [form, setForm] = useState(advert);
 
   const enterElementHandleChange = (event) => {
@@ -114,6 +113,17 @@ const EditAdvertisement = ({ className, ...props }) => {
     console.log('delete');
   };
 
+  useEffect(() => {
+    const getListTags = async () => {
+      try {
+        const tags = await getTags();
+        setTagsOpt(tags.result)
+      } catch (error) {
+        dispatch(errorUi(error.message));
+      }
+    };
+    getListTags();
+  },[dispatch])
   return (
     <form
       className={classNames('py-5 ads-edit-form blur-secondary-800', className)}
