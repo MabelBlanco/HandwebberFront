@@ -17,8 +17,6 @@ import { deleteAdvertisement, updateAdsSubscriptions } from './service';
 const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   const [isDelete, setIsDelete] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [adsSubscriptions, setAdsSubscriptions] = useState([]);
-  // const [userSubscriptions, setUserSubscriptions] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useIsLoggedSelector();
@@ -51,9 +49,12 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
 
   const sendDataAdsSubscriptions = async () => {
     const bodyFormData = new FormData();
-    const newSubscriptions = addSusbscriptor(adsSubscriptions, userLoggedId);
-    setAdsSubscriptions(newSubscriptions);
-    // console.log("advert", adsSubscriptions, userLoggedId);
+
+    const newSubscriptions = addSusbscriptor(
+      advert.subscriptions,
+      userLoggedId
+    );
+
     Object.keys(advert).forEach(function (key, index) {
       key !== 'image' &&
         key !== 'idUser' &&
@@ -153,7 +154,7 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
             {userLoggedId && userLoggedId !== advert.idUser._id && (
               <Favorites
                 styleFavoriteBtn={isFavorite ? 'active' : ''}
-                subscribers={adsSubscriptions}
+                subscribers={advert?.subscriptions}
                 addFavorites={setFavorite}
               />
             )}
