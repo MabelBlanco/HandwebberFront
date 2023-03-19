@@ -78,7 +78,6 @@ export const useDispatchLoggedAction = () => {
 
 export function dispatchLogoutAction() {
   return function (dispatch) {
-    console.log('AQUIIIIIII');
     removeAuthorizationHeader();
     storage.remove('auth');
     dispatch(authSlice.actions.authLogout());
