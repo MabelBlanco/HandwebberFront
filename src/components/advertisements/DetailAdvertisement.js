@@ -33,19 +33,7 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
 
   const addSusbscriptor = (propertyArray, id) => {
     let newSubcriptions = [...propertyArray];
-    // const noExists = !newSubcriptions.find((s) => s === id);
-    // console.log("antes", newSubcriptions, id);
-    // if (noExists) {
-    //   newSubcriptions.push(id);
-    //   // console.log("result of add", id, newSubcriptions);
-    //   setIsFavorite(true);
-    // } else {
-    //   const resultOfDelete = newSubcriptions.filter((f) => f !== id);
-    //   console.log("result of delete", id, resultOfDelete);
-    //   setIsFavorite(false);
-    //   newSubcriptions = resultOfDelete;
-    // }
-    const noExists = !newSubcriptions.find((s) => s === id);
+
     console.log('antes', newSubcriptions, id);
     if (!newSubcriptions.includes(id)) {
       newSubcriptions.push(id);
@@ -72,7 +60,9 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
         key !== 'subscriptions' &&
         bodyFormData.append(key, advert[key]);
     });
-    bodyFormData.append('subscriptions', newSubscriptions);
+    if (newSubscriptions.length > 0) {
+      bodyFormData.append('subscriptions', newSubscriptions);
+    }
     bodyFormData.append('idUser', advert.idUser._id);
     if (advert.image) {
       bodyFormData.append('image', advert.image);
@@ -114,27 +104,29 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
 
   useRef(advert);
   useEffect(() => {
-    dispatch(loadOneAdByIdAction(advert._id));
-    const execute = async () => {
-      console.log('ads useefect', advert.subscriptions);
-      if (advert && userLoggedId) {
-        setAdsSubscriptions(advert.subscriptions);
-        setIsFavorite(adsSubscriptions.includes(userLoggedId) ? true : false);
-        //TODO
-        //console.log('el anuncio ya está cargado');
-        // return;
-      }
-    };
-    execute();
-  }, [
-    dispatch,
-    advert,
-    advertId,
-    userLoggedId,
-    isFavorite,
-    adsSubscriptions,
-    advert.subscriptions,
-  ]);
+    //dispatch(loadOneAdByIdAction(advert._id));
+    dispatch(loadOneAdByIdAction(advertId));
+    // const execute = async () => {
+    //   console.log('ads useefect', advert.subscriptions);
+    //   if (advert && userLoggedId) {
+    //     setAdsSubscriptions(advert.subscriptions);
+    //     setIsFavorite(adsSubscriptions.includes(userLoggedId) ? true : false);
+    //     //TODO
+    //     //console.log('el anuncio ya está cargado');
+    //     // return;
+    //   }
+    // };
+    // execute();
+    // }, [
+    //   dispatch,
+    //   advert,
+    //   advertId,
+    //   userLoggedId,
+    //   isFavorite,
+    //   adsSubscriptions,
+    //   advert.subscriptions,
+    // ]);
+  }, [dispatch, advertId]);
 
   const onEdit = async () => {
     try {
