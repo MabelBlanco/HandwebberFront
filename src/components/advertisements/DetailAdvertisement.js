@@ -41,7 +41,7 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
       setIsFavorite(true);
     } else {
       const resultOfDelete = newSubcriptions.filter((f) => f !== id);
-      // console.log("result of delete", id, resultOfDelete);
+      console.log("result of delete", id, resultOfDelete);
       setIsFavorite(false);
       newSubcriptions = resultOfDelete;
     }

@@ -10,7 +10,7 @@ const Favorites = ({
         className={`bi bi-heart-fill ${styleFavoriteBtn}`}
         onClick={addFavorites}
       ></i>
-      <span className="px-1">{subscribers && JSON.stringify(subscribers)}</span>
+      <span className="px-1">{subscribers && subscribers.length}</span>
     </div>
   );
 };
