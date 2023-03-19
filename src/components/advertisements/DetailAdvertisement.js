@@ -7,7 +7,7 @@ import {
   loadOneAdByIdAction,
 } from "../../store/adsListSlice";
 import { useIsLoggedSelector } from "../../store/authSlice";
-import { updateUserSubscriptions } from "../auth/service";
+import { updateUser } from "../auth/service";
 import Alert from "../commons/feedbacks/alert/Alert";
 import Favorites from "../favorites/Favorites";
 import AdsDetailPage from "./AdsDetailPage/AdsDetailPage";
@@ -18,7 +18,7 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   const [isDelete, setIsDelete] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [adsSubscriptions, setAdsSubscriptions] = useState([]);
-  const [userSubscriptions, setUserSubscriptions] = useState([]);
+  // const [userSubscriptions, setUserSubscriptions] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useIsLoggedSelector();
@@ -80,24 +80,12 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
 
   const sendDataUserSubscriptions = async () => {
     const bodyUserData = new FormData();
-    const newUserSubs = addSusbscriptor(userSubscriptions, advert._id);
-    console.log("user", newUserSubs, userSubscriptions, advert._id);
+    bodyUserData.append("subscriptions", advert._id);
 
-    bodyUserData.append("_id", user._id);
-    bodyUserData.append("username", user.username);
-    if (user.image) {
-      bodyUserData.append("image", user.image);
-    }
-    bodyUserData.append("subscriptions", newUserSubs);
     try {
-      consoleFormData(bodyUserData);
-      const response = await updateUserSubscriptions(
-        userLoggedId,
-        bodyUserData
-      );
+      const response = await updateUser(userLoggedId, bodyUserData);
       dispatch(editAdAction(response.result));
       console.log("responese user", response.result.subscriptions);
-      setUserSubscriptions(newUserSubs);
       const to = `/advertisements/${advert._id}-${advert.name}`;
       navigate(to);
     } catch (error) {
@@ -105,7 +93,7 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
       console.log(error);
     }
   };
-
+  // eslint-disable-next-line
   const consoleFormData = (bodyData) => {
     for (var pair of bodyData.entries()) {
       console.log("bodyData", pair[0] + ", " + pair[1]);
@@ -133,7 +121,6 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
     userLoggedId,
     isFavorite,
     adsSubscriptions,
-    userSubscriptions,
     advert.subscriptions,
   ]);
 
