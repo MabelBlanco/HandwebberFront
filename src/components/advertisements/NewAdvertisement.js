@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ import InputFile from "../commons/forms/inputFile/InputFile";
 import Select from "../commons/forms/select/Select";
 import Textarea from "../commons/forms/textarea/Textarea";
 import "./advertisements.scss";
-import { createAdvertisement } from "./service";
+import { createAdvertisement, getTags } from "./service";
 
 const NewAdvertisement = ({ ...props }) => {
   const navigate = useNavigate();
@@ -22,10 +22,8 @@ const NewAdvertisement = ({ ...props }) => {
   const dispatch = useDispatch();
 
   const { t } = useTranslation();
-  //TODO
-  //No hardcodear las etiquetas
-  const tagsOpt = ["lifestyle", "sport", "motor", "players"];
-
+ 
+  const [tagsOpt, setTagsOpt] = useState([]);
   const [form, setForm] = useState({
     name: "",
     price: 0,
@@ -100,6 +98,18 @@ const NewAdvertisement = ({ ...props }) => {
     );
     // eslint-disable-next-line
   }, [form.name, form.price, form.tags]);
+
+  useEffect(() => {
+    const getListTags = async () => {
+      try {
+        const tags = await getTags();
+        setTagsOpt(tags.result)
+      } catch (error) {
+        dispatch(errorUi(error.message));
+      }
+    };
+    getListTags();
+  },[dispatch])
   return (
     <div className="row">
       {error && <Error className={styles.signup__error} arrayErrors={error} />}
