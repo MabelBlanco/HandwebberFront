@@ -34,6 +34,9 @@
         border-bottom: 1px solid var(--bs-gray-200);
         padding: 10px 0px;
         & i {
+          &.active {
+            color: var(--color-danger-700);
+          }
           &:hover {
             color: var(--color-primary-500);
             cursor: pointer;

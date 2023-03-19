@@ -60,3 +60,11 @@ export const loginUser = async (credentials) => {
   setAuthorizationHeader(accessToken);
   return accessToken;
 };
+
+export const updateUserSubscriptions = async (userID, body) => {
+  const response = await client.put(
+    `${usersURL}/${userID}/usersubscriptions`,
+    body
+  );
+  return response;
+};
