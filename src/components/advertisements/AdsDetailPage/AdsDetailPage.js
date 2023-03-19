@@ -1,18 +1,14 @@
 import classNames from "classnames";
 import { format } from "date-fns";
 import { t } from "i18next";
-import { NavLink } from "react-router-dom";
-import {
-  FacebookIcon,
-  FacebookShareButton,
-  LinkedinIcon,
-  LinkedinShareButton,
-} from "react-share";
 import Button from "../../commons/button/Button";
 import Modal from "../../commons/modal/Modal";
 import NoImage from "../../commons/noImage/NoImage";
 import Tags from "../../commons/tags/Tags";
 import "./adsDetailPage.scss";
+import { NavLink } from "react-router-dom";
+import { FacebookShareButton, LinkedinShareButton } from "react-share";
+import { FacebookIcon, LinkedinIcon } from "react-share";
 
 const AdsDetailPage = ({
   className,
@@ -130,7 +126,7 @@ const AdsDetailPage = ({
                 </Modal>
               </div>
             )}
-            {idUser._id !== userLoggedId && (
+            {userLoggedId && idUser._id !== userLoggedId && (
               <div className="mt-5 actions">
                 <Button
                   type="button"

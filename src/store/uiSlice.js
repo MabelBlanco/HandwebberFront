@@ -20,7 +20,6 @@ export const uiSlice = createSlice({
       if (!state.error.includes(action.payload)) {
         state.error = state.error.concat([action.payload]);
       }
-      /* state.error = action.payload */
       state.isFetching = false;
     },
     resetErrorUi: (state) => {

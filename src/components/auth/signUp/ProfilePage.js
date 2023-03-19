@@ -6,7 +6,6 @@ import { useAuth } from '../../context/AuthContext';
 import { useEffect, useState } from 'react';
 import styles from './SignUp.module.css';
 import {
-  deleteAdvertisement,
   getAdvertisementDetail,
 } from '../../advertisements/service';
 import { useTranslation } from 'react-i18next';
@@ -126,13 +125,7 @@ const ProfilePage = ({ className, title, ...props }) => {
 
   const deleteAccount = async () => {
     try {
-      const userAds = user.ads;
-
       const response = await deleteUser(user._id);
-
-      for (let ad of userAds) {
-        await deleteAdvertisement(ad._id);
-      }
 
       setIsDelete(true);
       setTimeout(() => {
@@ -251,7 +244,7 @@ const ProfilePage = ({ className, title, ...props }) => {
         </div>
       )}
       {isDelete && (
-        <Alert className='alert-success'>Borrado correctamente</Alert>
+        <Alert className='alert-success'>{t('ProfilePage.Deleted successfully')}</Alert>
       )}
     </div>
   );
