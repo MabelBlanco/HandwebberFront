@@ -80,9 +80,9 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
 
   const sendDataUserSubscriptions = async () => {
     const bodyUserData = new FormData();
-    const newUserSubs = addSusbscriptor(userSubscriptions, advertId);
-    console.log("user", newUserSubs, userSubscriptions, advertId);
-    setUserSubscriptions(newUserSubs);
+    const newUserSubs = addSusbscriptor(userSubscriptions, advert._id);
+    console.log("user", newUserSubs, userSubscriptions, advert._id);
+
     bodyUserData.append("_id", user._id);
     bodyUserData.append("username", user.username);
     if (user.image) {
@@ -97,6 +97,7 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
       );
       dispatch(editAdAction(response.result));
       console.log("responese user", response.result.subscriptions);
+      setUserSubscriptions(newUserSubs);
       const to = `/advertisements/${advert._id}-${advert.name}`;
       navigate(to);
     } catch (error) {
@@ -113,17 +114,12 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
 
   useRef(advert);
   useEffect(() => {
-    dispatch(loadOneAdByIdAction(advertId));
+    dispatch(loadOneAdByIdAction(advert._id));
     const execute = async () => {
-      if (advert && user) {
+      console.log("ads useefect", advert.subscriptions);
+      if (advert && userLoggedId) {
         setAdsSubscriptions(advert.subscriptions);
-        // setUserSubscriptions(user.subscriptions);
-        setIsFavorite(
-          adsSubscriptions.includes(userLoggedId) &&
-            userSubscriptions.includes(advertId)
-            ? true
-            : false
-        );
+        setIsFavorite(adsSubscriptions.includes(userLoggedId) ? true : false);
         //TODO
         //console.log('el anuncio ya está cargado');
         // return;
@@ -133,7 +129,6 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   }, [
     dispatch,
     advert,
-    user,
     advertId,
     userLoggedId,
     isFavorite,
@@ -182,14 +177,12 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
             fndelete={onDelete}
             fnedit={onEdit}
           >
-            {userLoggedId !== advert.Id ? (
+            {userLoggedId !== advert.idUser._id && (
               <Favorites
                 styleFavoriteBtn={isFavorite ? "active" : ""}
                 subscribers={adsSubscriptions}
                 addFavorites={setFavorite}
               />
-            ) : (
-              ""
             )}
           </AdsDetailPage>
         )}
