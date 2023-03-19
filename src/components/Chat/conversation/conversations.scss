@@ -1,0 +1,57 @@
+.chatContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-content: space-between;
+
+  & .chatNav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--color-secondary-800);
+    color: var(--color-static-white) !important;
+    position: relative;
+
+    & button {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      color: var(--color-static-white);
+    }
+  }
+  & .chatConversation {
+    height: calc(100vh - 120px);
+    background-color: var(--color-primary-300);
+    position: relative;
+    & input {
+      background-color: var(--color-primary-400);
+    }
+  }
+
+  & .textAndSendButton {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  & .textAndSendButton form {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-content: space-between;
+  }
+  & .btn-message {
+    color: var(--color-static-white);
+  }
+  & .textMessage {
+    width: 100%;
+    display: flex;
+    padding: 0;
+  }
+
+  & .sendButton {
+    width: 10%;
+    right: 0;
+  }
+}
