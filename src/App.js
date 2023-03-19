@@ -1,7 +1,4 @@
-import { useState } from "react";
-import { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { socket } from ".";
 import "./App.css";
 import AdsList from "./components/advertisements/AdsList";
 import DetailAdvertisement from "./components/advertisements/DetailAdvertisement";
@@ -14,11 +11,17 @@ import ProfilePage from "./components/auth/signUp/ProfilePage";
 import SignUp from "./components/auth/signUp/SignUp";
 import { Chat } from "./components/Chat/chat/Chat.js";
 import NotFoundPage from "./components/commons/feedbacks/NotFound/NotFoundPage";
-import { Notification } from "./components/commons/notification/Notification";
 import Layout from "./components/Layout/Layout";
 import LayoutTest from "./components/Layout/LayoutTest";
+import { socket } from ".";
+import { useEffect } from "react";
+import { useIsLoggedSelector } from "./store/authSlice";
+import { useState } from "react";
+import { Notification } from "./components/commons/notification/Notification";
 
 function App() {
+  const { user } = useIsLoggedSelector();
+
   const [notification, setNotification] = useState();
 
   const resetNotifications = () => {
@@ -28,9 +31,13 @@ function App() {
   useEffect(() => {
     const priceDropNotification = (data) => {
       const { advert, newPrice } = data;
-      setNotification(
-        `El anuncio ${advert.name}, ha bajado de ${advert.price}€ a ${newPrice}€`
-      );
+      const userNotification = data.user;
+
+      if (userNotification === user._id) {
+        setNotification(
+          `El anuncio ${advert.name}, ha bajado de ${advert.price}€ a ${newPrice}€`
+        );
+      }
     };
     socket.on("Subscription_price_drop", priceDropNotification);
 
@@ -43,6 +50,7 @@ function App() {
       {notification && (
         <Notification onClose={resetNotifications}>{notification}</Notification>
       )}
+
       <Routes>
         <Route path="/login" element={<Layout title="Login" />}>
           <Route path="" element={<LoginPage />} />
