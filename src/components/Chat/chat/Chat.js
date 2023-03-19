@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { socket } from "../../..";
 import { useIsLoggedSelector } from "../../../store/authSlice";
@@ -134,7 +133,7 @@ export function Chat() {
           userToComplete={userToComplete}
         ></Conversation>
       ) : (
-        <div className="container-fluid h-100">
+        <div className="chat container-fluid h-100">
           <div className="row justify-content-center h-100">
             <div className="col-md-4 col-xl-3 chat">
               <div className="card mb-sm-3 mb-md-0 conversations_card">
