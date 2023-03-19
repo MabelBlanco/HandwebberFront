@@ -50,3 +50,10 @@ export const updateAdvertisement = async (advertId, body) => {
   const response = await client.put(`${advertisementsURL}/${advertId}`, body);
   return response;
 };
+export const updateAdsSubscriptions = async (advertId, body) => {
+  const response = await client.put(
+    `${advertisementsURL}/${advertId}/adssubscriptions`,
+    body
+  );
+  return response;
+};

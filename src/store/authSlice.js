@@ -1,17 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { socket } from "..";
-import { removeAuthorizationHeader } from "../api/client";
-import { getUserAdvertisements } from "../components/advertisements/service";
-import { getUserById } from "../components/auth/service";
-import decodeToken from "../utils/decodeToken";
-import storage from "../utils/storage";
+import { createSlice } from '@reduxjs/toolkit';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { socket } from '..';
+import { removeAuthorizationHeader } from '../api/client';
+import { getUserAdvertisements } from '../components/advertisements/service';
+import { getUserById, testToken } from '../components/auth/service';
+import decodeToken from '../utils/decodeToken';
+import storage from '../utils/storage';
 
 const initialState = { isLogged: false, user: {} };
 
 export const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     authSuccess: (state, action) => {
@@ -34,7 +34,7 @@ export const useIsLoggedSelector = () => useSelector((state) => state.auth);
 
 export function fetchLoggedAction() {
   return async function (dispatch) {
-    const { userId } = decodeToken(storage.get("auth")) || {};
+    const { userId } = decodeToken(storage.get('auth')) || {};
     if (!userId) return;
     try {
       const user = await getUserById(userId);
@@ -47,8 +47,8 @@ export function fetchLoggedAction() {
         ads: ads.result,
       };
       // The user connect with socket.io
-      socket.emit("join", userId);
-      //dispatch(authSlice.actions.authSuccess(data));
+      socket.emit('join', userId);
+
       dispatch(authSuccess(data));
     } catch (error) {
       dispatch(authError());
@@ -61,15 +61,25 @@ export const useDispatchLoggedAction = () => {
 
   const { isLogged } = useIsLoggedSelector();
   useEffect(() => {
-    if (isLogged) return;
-    dispatch(fetchLoggedAction());
+    const testLogged = async () => {
+      if (isLogged) {
+        try {
+          await testToken();
+          return true;
+        } catch (err) {
+          dispatch(dispatchLogoutAction());
+          return false;
+        }
+      }
+    };
+    if (testLogged()) dispatch(fetchLoggedAction());
   }, [dispatch, isLogged]);
 };
 
 export function dispatchLogoutAction() {
   return function (dispatch) {
     removeAuthorizationHeader();
-    storage.remove("auth");
+    storage.remove('auth');
     dispatch(authSlice.actions.authLogout());
   };
 }

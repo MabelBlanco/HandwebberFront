@@ -30,6 +30,7 @@ const AdsDetailPage = ({
   children,
   addFavorites,
   subscribers,
+  styleFavoriteBtn,
   advert,
   ...props
 }) => {
@@ -98,10 +99,7 @@ const AdsDetailPage = ({
                 <span>Custom Product</span>
               </div>
             )}
-            <div key="favorites" className="list-group-item favorites">
-              <i className="bi bi-heart-fill" onClick={addFavorites}></i>{" "}
-              <span className="px-1">{subscribers && subscribers.length}</span>
-            </div>
+            {children}
             {idUser._id === userLoggedId && (
               <div className="mt-5 actions">
                 <Button

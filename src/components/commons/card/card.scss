@@ -19,12 +19,7 @@
   & .favorites {
     border-bottom: 1px solid var(--bs-gray-200);
     padding: 10px 15px;
-    & i {
-      &:hover {
-        color: var(--color-primary-500);
-        cursor: pointer;
-      }
-    }
+    color: var(--color-secondary-500);
   }
   & .card-body {
     &.actions {
