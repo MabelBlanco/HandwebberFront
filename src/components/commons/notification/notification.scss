@@ -1,0 +1,36 @@
+.notification-container {
+  background-color: rgba(33, 37, 37, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  z-index: 9999;
+}
+
+.notification-body {
+  background-color: white;
+  width: 50%;
+  min-width: 300px;
+  min-height: 50px;
+  border-radius: 1rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+  font-size: 30px;
+  margin-top: 70px;
+}
+
+.notification-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0.5rem;
+}
