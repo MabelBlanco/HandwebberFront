@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
+  deleteAdvertisement,
   getAdvertisementDetail,
   getAdvertisements,
 } from '../components/advertisements/service';
@@ -29,6 +30,12 @@ export const adsListSlice = createSlice({
     },
     updateThisAd: (state, action) => {
       state.data[action.payload.adIndex] = action.payload.updatedAd;
+    },
+    deleteThisAd: (state, action) => {
+      const data = state.data.filter(
+        (element) => element._id !== action.payload
+      );
+      state.data = data;
     },
   },
 });
@@ -65,7 +72,8 @@ export const getAdIndexById = (adId) => (state) => {
 };
 
 //Actions
-export const { adsLoadSuccess, loadOneAd, updateThisAd } = adsListSlice.actions;
+export const { adsLoadSuccess, loadOneAd, updateThisAd, deleteThisAd } =
+  adsListSlice.actions;
 
 export function fetchAdsAction(skip, limit, filters) {
   return async function (dispatch) {
@@ -128,6 +136,17 @@ export function loadOneAdByIdAction(adId) {
       setUiSuccess();
     } catch (error) {
       dispatch(errorUi([error.message]));
+    }
+  };
+}
+
+export function deleteOneAdById(adId) {
+  return async function (dispatch, getState) {
+    try {
+      await deleteAdvertisement(adId);
+      dispatch(deleteThisAd(adId));
+    } catch (error) {
+      dispatch(errorUi(error));
     }
   };
 }

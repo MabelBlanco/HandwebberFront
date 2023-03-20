@@ -8,7 +8,7 @@ import NoImage from "../../commons/noImage/NoImage";
 import { Conversation } from "../conversation/conversation";
 import { getConversations } from "../conversation/service";
 
-import "./chat.css";
+import "./chat.scss";
 
 export function Chat() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -133,36 +133,52 @@ export function Chat() {
           userToComplete={userToComplete}
         ></Conversation>
       ) : (
-        <div className="chat container-fluid h-100">
-          <div className="row justify-content-center h-100">
-            <div className="col-md-4 col-xl-3 chat">
-              <div className="card mb-sm-3 mb-md-0 conversations_card">
-                <div className="card-body conversations_body">
+        <div className="chat">
+          <div className="row">
+            <div className="col">
+              <div className="conversations">
+                <div className="conversations-container">
                   {conversations.length ? (
-                    <ul className="conversations">
+                    <ul className="conversations-list d-flex flex-column blur-secondary-800">
                       {conversations.map((conversation) => {
                         return (
-                          <li key={conversation._id}>
+                          <li
+                            key={conversation._id}
+                            className="conversations-list_item"
+                          >
                             <Link
                               to={`/chat?ad_id=${conversation.advertisement}&user_id=${conversation.userToId}`}
                               className="d-flex bd-highlight"
                             >
-                              <div className="img_cont">
-                                {conversation.advertisementImage ? (
-                                  <img
-                                    src={`${process.env.REACT_APP_API_BASE_URL}/${conversation.advertisementImage}`}
-                                    className="rounded-circle advert_img"
-                                    alt={conversation.advertisementName}
-                                  />
-                                ) : (
-                                  <NoImage className="rounded-circle advert_img" />
-                                )}
+                              <div className="img-cont">
+                                <div className="user-image">
+                                  {conversation.advertisementImage ? (
+                                    <div
+                                      style={{
+                                        backgroundImage: `url(${process.env.REACT_APP_API_BASE_URL}/${conversation.advertisementImage})`,
+                                      }}
+                                    ></div>
+                                  ) : (
+                                    // <img
+                                    //   src={`${process.env.REACT_APP_API_BASE_URL}/${conversation.advertisementImage}`}
+                                    //   className="rounded-circle advert-img"
+                                    //   alt={conversation.advertisementName}
+                                    // />
+                                    <NoImage className="rounded-circle advert-img" />
+                                  )}
+                                </div>
                               </div>
-                              <div className="conver_info">
-                                <span key={conversation.advertisementName}>
+                              <div className="conver-info">
+                                <h5
+                                  className="advert-name"
+                                  key={conversation.advertisementName}
+                                >
                                   {conversation.advertisementName}
-                                </span>
-                                <p key={conversation.userToName}>
+                                </h5>
+                                <p
+                                  className="user-name"
+                                  key={conversation.userToName}
+                                >
                                   {conversation.userToName}
                                 </p>
                               </div>

@@ -2,12 +2,9 @@ import '../../commons/card/card.scss';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../commons/button/Button';
 import { deleteUser, getUserPrivateDataById, updateUser } from '../service';
-import { useAuth } from '../../context/AuthContext';
 import { useEffect, useState } from 'react';
 import styles from './SignUp.module.css';
-import {
-  getAdvertisementDetail,
-} from '../../advertisements/service';
+import { getAdvertisementDetail } from '../../advertisements/service';
 import { useTranslation } from 'react-i18next';
 import { Error } from '../../commons/error/Error';
 import Card from '../../commons/card/Card';
@@ -20,8 +17,15 @@ import {
   dispatchLogoutAction,
   useIsLoggedSelector,
 } from '../../../store/authSlice';
-import { useUiErrorSelector, errorUi } from '../../../store/uiSlice';
+import {
+  useUiErrorSelector,
+  errorUi,
+  useIsFetchingSelector,
+  setUiIsFetching,
+  setUiSuccess,
+} from '../../../store/uiSlice';
 import { useDispatch } from 'react-redux';
+import Spinner from '../../commons/spinner/Spinner';
 
 const initialState = {
   username: '',
@@ -31,7 +35,7 @@ const initialState = {
 };
 
 const ProfilePage = ({ className, title, ...props }) => {
-  const { isFetching } = useAuth();
+  const isFetching = useIsFetchingSelector();
   const [credentials, setCredentials] = useState(initialState);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [activeForm, setActiveForm] = useState(false);
@@ -145,15 +149,22 @@ const ProfilePage = ({ className, title, ...props }) => {
       return;
     }
     const getPrivateData = async () => {
-      const response = await getUserPrivateDataById(user._id);
-      const data = { ...response.result, ...user };
-      setUserPrivateData(data);
+      try {
+        const response = await getUserPrivateDataById(user._id);
+        const data = { ...response.result, ...user };
+        setUserPrivateData(data);
+      } catch (error) {
+        dispatch(errorUi(error));
+      }
     };
+    dispatch(setUiIsFetching());
     getPrivateData();
-  }, [isLogged, navigate, user._id, user]);
+    dispatch(setUiSuccess());
+  }, [dispatch, isLogged, navigate, user._id, user]);
 
   return (
     <div className='row'>
+      {isFetching && <Spinner />}
       {isLogged && !isDelete && (
         <div className='col-sm-12 py-2 my-1 text-center'>
           <UserInfo user={userPrivateData} />
@@ -244,7 +255,9 @@ const ProfilePage = ({ className, title, ...props }) => {
         </div>
       )}
       {isDelete && (
-        <Alert className='alert-success'>{t('ProfilePage.Deleted successfully')}</Alert>
+        <Alert className='alert-success'>
+          {t('ProfilePage.Deleted successfully')}
+        </Alert>
       )}
     </div>
   );

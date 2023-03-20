@@ -1,6 +1,7 @@
 import client from "../../api/client";
 
 const advertisementsURL = "/api/advertisement";
+const tagsURL = "/api/tags"
 
 export const getAdvertisements = (skip, limit, filters) => {
   const sk = skip ? skip : 0;
@@ -55,5 +56,11 @@ export const updateAdsSubscriptions = async (advertId, body) => {
     `${advertisementsURL}/${advertId}/adssubscriptions`,
     body
   );
+  return response;
+};
+
+export const getTags = async () => {
+  const response = await client.get(`${tagsURL}`);
+
   return response;
 };

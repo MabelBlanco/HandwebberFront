@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { t } from 'i18next';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
@@ -27,7 +27,7 @@ import Modal from '../commons/modal/Modal';
 import NoImage from '../commons/noImage/NoImage';
 import Spinner from '../commons/spinner/Spinner';
 import Tags from '../commons/tags/Tags';
-import { updateAdvertisement } from './service';
+import { updateAdvertisement, getTags } from './service';
 
 const EditAdvertisement = ({ className, ...props }) => {
   const navigate = useNavigate();
@@ -43,11 +43,10 @@ const EditAdvertisement = ({ className, ...props }) => {
     dispatch(loadOneAdByIdAction(advertId));
   }
 
-  //TODO deshardcodear los tags
-  const tagsOpt = ['lifestyle', 'sport', 'motor', 'players'];
   const { user } = useIsLoggedSelector();
   const userLoggedId = user._id;
 
+  const [tagsOpt, setTagsOpt] = useState([]);
   const [form, setForm] = useState(advert);
 
   const enterElementHandleChange = (event) => {
@@ -87,9 +86,15 @@ const EditAdvertisement = ({ className, ...props }) => {
       form.description ? form.description : advert.description
     );
 
-    bodyFormData.append('custom', form.custom ? form.custom : advert.custom);
+    bodyFormData.append(
+      'custom',
+      form.custom !== undefined ? form.custom : advert.custom
+    );
 
-    bodyFormData.append('active', form.active ? form.active : advert.active);
+    bodyFormData.append(
+      'active',
+      form.active !== undefined ? form.active : advert.active
+    );
     bodyFormData.append('tags', form.tags ? form.tags : advert.tags);
 
     bodyFormData.append('idUser', advert.idUser._id);
@@ -114,12 +119,22 @@ const EditAdvertisement = ({ className, ...props }) => {
     console.log('delete');
   };
 
+  useEffect(() => {
+    const getListTags = async () => {
+      try {
+        const tags = await getTags();
+        setTagsOpt(tags.result);
+      } catch (error) {
+        dispatch(errorUi(error.message));
+      }
+    };
+    getListTags();
+  }, [dispatch]);
   return (
     <form
       className={classNames('py-5 ads-edit-form blur-secondary-800', className)}
       {...props}
-      onSubmit={updateAdvert}
-    >
+      onSubmit={updateAdvert}>
       <div className='container px-4 px-lg-5 my-5'>
         <div className='row gx-4 gx-lg-5 '>
           <div className='col-md-6 image'>
@@ -148,8 +163,7 @@ const EditAdvertisement = ({ className, ...props }) => {
             <div className='edit-name mb-3 bg-light px-3 py-2'>
               <h1
                 className='display-5 fw-bolder name'
-                key='name'
-              >
+                key='name'>
                 {advert?.name}
               </h1>
               <Input
@@ -166,8 +180,7 @@ const EditAdvertisement = ({ className, ...props }) => {
               <div className='price'>
                 <span
                   key='price'
-                  className='label-info'
-                >
+                  className='label-info'>
                   {t('AdsDetailPage.Price')}:
                 </span>
                 <span> {advert?.price}€</span>
@@ -186,8 +199,7 @@ const EditAdvertisement = ({ className, ...props }) => {
               <div className='stock'>
                 <span
                   key='stock'
-                  className='label-info'
-                >
+                  className='label-info'>
                   Stock:
                 </span>
                 <span> {advert?.stock}</span>
@@ -205,8 +217,7 @@ const EditAdvertisement = ({ className, ...props }) => {
             <div className='edit-description mb-3 bg-light px-3 py-2'>
               <div
                 className='description'
-                key='description'
-              >
+                key='description'>
                 <p className='label-info'>{t('AdsDetailPage.Description')}:</p>
                 <p>{advert?.description}</p>
               </div>
@@ -215,8 +226,7 @@ const EditAdvertisement = ({ className, ...props }) => {
                 placeholder={advert?.description}
                 value={form?.description}
                 name='description'
-                onChange={enterElementHandleChange}
-              ></Textarea>
+                onChange={enterElementHandleChange}></Textarea>
             </div>
             <div className='edit-tags mb-3 bg-light px-3 py-3'>
               <div className='tags'>
@@ -254,8 +264,7 @@ const EditAdvertisement = ({ className, ...props }) => {
               <div className='mt-5 actions'>
                 <Button
                   type='submit'
-                  className='btn btn-secondary blur-secondary-800 radius-2  '
-                >
+                  className='btn btn-secondary blur-secondary-800 radius-2  '>
                   {t(`AdsDetailPage.Edit`)}
                 </Button>
                 <Modal
@@ -269,8 +278,7 @@ const EditAdvertisement = ({ className, ...props }) => {
                   label_confirm={t(`AdsDetailPage.Delete`)}
                   label_cancel={t(`AdsDetailPage.Cancel`)}
                   label_btn={t(`AdsDetailPage.Delete`)}
-                  modalId='deleteAdvert'
-                >
+                  modalId='deleteAdvert'>
                   {t(`AdsDetailPage.ModalText`)}
                 </Modal>
               </div>

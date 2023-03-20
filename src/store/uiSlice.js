@@ -12,9 +12,11 @@ export const uiSlice = createSlice({
   reducers: {
     request: (state) => {
       state.isFetching = true;
+      state.error = [];
     },
     success: (state) => {
       state.isFetching = false;
+      state.error = [];
     },
     errorUi: (state, action) => {
       if (!state.error.includes(action.payload)) {

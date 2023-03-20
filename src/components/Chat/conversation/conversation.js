@@ -6,7 +6,7 @@ import { getAdvertisementDetail } from "../../advertisements/service";
 import Button from "../../commons/button/Button";
 import Input from "../../commons/forms/input/Input";
 
-import "./conversation.css";
+import "./conversations.scss";
 // import { createConversation, getConversation } from "./service";
 
 export function Conversation({ advertisement, userToId, userToComplete }) {
@@ -89,36 +89,46 @@ export function Conversation({ advertisement, userToId, userToComplete }) {
     };
   }, [messages]);
   return (
-    <div className="chatContainer">
-      <div className="chatNav">
+    <div className=" row chatContainer">
+      <div className="col-lg-4 chatNav">
         <h2>{advert.name}</h2>
         <Button onClick={closeConversation}>X</Button>
       </div>
-      <div className="chatConversation">
-        {messages.map((message) => {
-          return (
-            <div key={message._id}>
-              {user._id === message.from ? (
-                <p>{user.username}</p>
-              ) : (
-                <p>{userToComplete.username}</p>
-              )}
-              <p key={message.body}>{message.body}</p>
-            </div>
-          );
-        })}
-      </div>
-      <div className="textAndSendButton">
-        <form onSubmit={handleSubmit}>
-          <Input
-            className="textMessage"
-            onChange={(event) => setMessage(event.target.value)}
-            value={message}
-          ></Input>
-          <Button className="sendButton" type="submit">
-            Send
-          </Button>
-        </form>
+      <div className="col-lg-8 chatConversation">
+        <div className="chatConversation-list">
+          {messages.map((message) => {
+            return (
+              <div key={message._id} className="chatConversation-item">
+                {user._id === message.from ? (
+                  <p className="conversation-username">
+                    {user.username} userfrom
+                  </p>
+                ) : (
+                  <p className="conversation-username">
+                    {userToComplete.username} userfrom
+                  </p>
+                )}
+                <p className="conversation-body" key={message.body}>
+                  {message.body}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+        <div className="textAndSendButton">
+          <form onSubmit={handleSubmit} className="form-chat">
+            <Input
+              onChange={(event) => setMessage(event.target.value)}
+              value={message}
+              inputGroup
+              className="textMessage"
+            >
+              <Button className="btn-message" type="submit">
+                Send
+              </Button>
+            </Input>
+          </form>
+        </div>
       </div>
     </div>
   );
