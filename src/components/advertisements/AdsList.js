@@ -22,7 +22,6 @@ import styles from "../auth/signUp/SignUp.module.css";
 import Accordion from "../commons/accordion/Accordion";
 import Card from "../commons/card/Card";
 import { Error } from "../commons/error/Error";
-import { ReceiveNotification } from "../commons/notification/ReceiveNotification";
 import Pagination from "../commons/pagination/Pagination";
 import Spinner from "../commons/spinner/Spinner";
 import SearchBar from "./SearchBar";
