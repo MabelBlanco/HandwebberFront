@@ -1,10 +1,10 @@
 import classNames from 'classnames';
-import Button from '../button/Button';
-import NoImage from '../noImage/NoImage';
-import './card.scss';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
+import Button from '../button/Button';
+import NoImage from '../noImage/NoImage';
 import Tags from '../tags/Tags';
+import './card.scss';
 
 /**
  *
@@ -77,12 +77,17 @@ const Card = ({
           <p className='label-info'>Tags: </p>
           <Tags tagsArray={tags} />
         </li>
-        <li
-          key='date'
-          className='list-group-item'>
-          <span>{t('Card.Date')}: </span>
-          {date}
-        </li>
+        {
+          // If it's necessary to show the date, put true
+          false && (
+            <li
+              key='date'
+              className='list-group-item'>
+              <span>{t('Card.Date')}: </span>
+              {date}
+            </li>
+          )
+        }
         <li
           key='stock'
           className='list-group-item'>

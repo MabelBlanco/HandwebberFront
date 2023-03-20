@@ -15,6 +15,7 @@ export const uiSlice = createSlice({
     },
     success: (state) => {
       state.isFetching = false;
+      state.error = [];
     },
     errorUi: (state, action) => {
       if (!state.error.includes(action.payload)) {
