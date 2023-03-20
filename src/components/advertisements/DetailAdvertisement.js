@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
+  deleteOneAdById,
   editAdAction,
   getAdById,
   loadOneAdByIdAction,
@@ -12,7 +13,7 @@ import Alert from '../commons/feedbacks/alert/Alert';
 import Favorites from '../favorites/Favorites';
 import AdsDetailPage from './AdsDetailPage/AdsDetailPage';
 import './advertisements.scss';
-import { deleteAdvertisement, updateAdsSubscriptions } from './service';
+import { updateAdsSubscriptions } from './service';
 
 const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   const [isDelete, setIsDelete] = useState(false);
@@ -32,18 +33,16 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   const addSusbscriptor = (propertyArray, id) => {
     let newSubcriptions = [...propertyArray];
 
-    console.log('antes', newSubcriptions, id);
     if (!newSubcriptions.includes(id)) {
       newSubcriptions.push(id);
-      // console.log("result of add", id, newSubcriptions);
       setIsFavorite(true);
     } else {
       const resultOfDelete = newSubcriptions.filter((f) => f !== id);
-      console.log('result of delete', id, resultOfDelete);
+
       setIsFavorite(false);
       newSubcriptions = resultOfDelete;
     }
-    console.log('despues', newSubcriptions);
+
     return newSubcriptions;
   };
 
@@ -121,12 +120,8 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
   };
 
   const onDelete = async () => {
-    try {
-      await deleteAdvertisement(advert._id);
-      setIsDelete(true);
-    } catch (error) {
-      console.log('err', error);
-    }
+    dispatch(deleteOneAdById(advert._id));
+    setIsDelete(true);
   };
   const onContact = async () => {
     navigate(`/chat?ad_id=${advertId}&user_id=${advert.idUser._id}`);
@@ -171,46 +166,6 @@ const DetailAdvertisement = ({ isLoading, className, ...props }) => {
       </div>
     </div>
   );
-
-  // return (
-  //   <div className='row'>
-  //     <h1 className='col-sm-12 py-5'>{props.title}</h1>
-  //     <div className='container advert-content-detail'>
-  //       {advert?._id && !isDelete && (
-  //         <AdsDetailPage
-  //           {...advert}
-  //           fncontact={onContact}
-  //           fndelete={onDelete}
-  //           fnedit={onEdit}
-  //         ></AdsDetailPage>
-  //       )}
-  //       {!advert && !isDelete && (
-  //         <AdsDetailPage
-  //           {...temp}
-  //           fncontact={onContact}
-  //           fndelete={onDelete}
-  //           fnedit={onEdit}
-  //         ></AdsDetailPage>
-  //       )}
-  //       {!advert && !isDelete && (
-  //         <AdsDetailPage
-  //           {...temp}
-  //           fncontact={onContact}
-  //           fndelete={onDelete}
-  //           fnedit={onEdit}
-  //         ></AdsDetailPage>
-  //       )}
-  //       {isDelete && (
-  //         <Alert
-  //           className='alert-success'
-  //           alertTask={handleClickAlert}
-  //         >
-  //           Borrado correctamente
-  //         </Alert>
-  //       )}
-  //     </div>
-  //   </div>
-  // );
 };
 
 export default DetailAdvertisement;
