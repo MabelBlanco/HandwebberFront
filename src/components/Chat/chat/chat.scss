@@ -1,0 +1,70 @@
+.chat {
+  margin-top: auto;
+  margin-bottom: auto;
+  & .conversations {
+    background-color: var(--color-static-white);
+
+    & .conversations-list {
+      position: relative;
+      list-style: none;
+      padding-left: 0px;
+      & .conversations-list_item {
+        padding: 10px 0px;
+        border-bottom: 1px solid var(--color-secondary-400);
+        &:hover {
+          background-color: var(--color-secondary-500);
+          & a {
+            color: var(--color-static-white);
+          }
+        }
+        & a {
+          text-decoration: none;
+          color: var(--color-secondary-500);
+          gap: 2%;
+          padding: 10px;
+          & .img-cont {
+            & .user-image {
+              width: 70px;
+              height: 70px;
+              overflow: hidden;
+              & > div {
+                width: 100%;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                height: 100%;
+                border-radius: 50%;
+              }
+            }
+            & .noImage {
+              width: 100%;
+              font-size: 75%;
+              text-align: center;
+              line-height: 1;
+              height: 100%;
+            }
+            & .advert-img {
+              & img {
+                width: 100%;
+                height: auto;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .conversations_card {
+    margin-bottom: 15px !important;
+  }
+
+  .img_cont {
+    overflow: hidden;
+    position: relative;
+    height: 70px;
+    width: 70px;
+  }
+}

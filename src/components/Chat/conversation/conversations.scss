@@ -1,8 +1,10 @@
 .chatContainer {
-  height: 100%;
-  width: 100%;
   display: flex;
   align-content: space-between;
+  padding-bottom: 50px;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 
   & .chatNav {
     display: flex;
@@ -11,28 +13,55 @@
     background-color: var(--color-secondary-800);
     color: var(--color-static-white) !important;
     position: relative;
-
+    padding: 20px;
+    min-height: 75px;
     & button {
       position: absolute;
-      top: 5px;
-      right: 5px;
+      top: 20px;
+      right: 10px;
       color: var(--color-static-white);
+      font-size: 20px;
     }
   }
   & .chatConversation {
-    height: calc(100vh - 120px);
     background-color: var(--color-primary-300);
     position: relative;
+    padding: 0px;
+    & .chatConversation-list {
+      max-height: calc(100vh - 120px);
+      min-height: 120px;
+      overflow-y: auto;
+      height: max-content;
+      padding-bottom: 50px;
+      & .chatConversation-item {
+        padding: 5px 20px;
+        &:not(:nth-last-of-type(1)) {
+          & .conversation-body {
+            border-bottom: 1px solid var(--color-primary-400);
+          }
+        }
+        & .conversation-username {
+          font-weight: 600;
+          margin: 0px;
+        }
+        & .conversation-body {
+          font-style: italic;
+          padding-bottom: 20px;
+          margin: 0px;
+        }
+      }
+    }
+
     & input {
       background-color: var(--color-primary-400);
     }
-  }
-
-  & .textAndSendButton {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    & .textAndSendButton {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
   }
 
   & .textAndSendButton form {
@@ -40,6 +69,9 @@
     flex-direction: row;
     width: 100%;
     align-content: space-between;
+    & .input-group-text {
+      background-color: var(--color-secondary-800);
+    }
   }
   & .btn-message {
     color: var(--color-static-white);
@@ -48,6 +80,7 @@
     width: 100%;
     display: flex;
     padding: 0;
+    flex-direction: row-reverse;
   }
 
   & .sendButton {

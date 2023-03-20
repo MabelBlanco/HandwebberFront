@@ -90,23 +90,31 @@ export function Conversation({ advertisement, userToId, userToComplete }) {
   }, [messages]);
   return (
     <div className=" row chatContainer">
-      <div className="col-4 chatNav">
+      <div className="col-lg-4 chatNav">
         <h2>{advert.name}</h2>
         <Button onClick={closeConversation}>X</Button>
       </div>
-      <div className="col-8 chatConversation">
-        {messages.map((message) => {
-          return (
-            <div key={message._id}>
-              {user._id === message.from ? (
-                <p>{user.username}</p>
-              ) : (
-                <p>{userToComplete.username}</p>
-              )}
-              <p key={message.body}>{message.body}</p>
-            </div>
-          );
-        })}
+      <div className="col-lg-8 chatConversation">
+        <div className="chatConversation-list">
+          {messages.map((message) => {
+            return (
+              <div key={message._id} className="chatConversation-item">
+                {user._id === message.from ? (
+                  <p className="conversation-username">
+                    {user.username} userfrom
+                  </p>
+                ) : (
+                  <p className="conversation-username">
+                    {userToComplete.username} userfrom
+                  </p>
+                )}
+                <p className="conversation-body" key={message.body}>
+                  {message.body}
+                </p>
+              </div>
+            );
+          })}
+        </div>
         <div className="textAndSendButton">
           <form onSubmit={handleSubmit} className="form-chat">
             <Input
