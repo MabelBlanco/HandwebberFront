@@ -2,8 +2,6 @@ import '../../commons/card/card.scss';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../commons/button/Button';
 import { deleteUser, getUserPrivateDataById, updateUser } from '../service';
-//TODO
-//import { useAuth } from '../../context/AuthContext';
 import { useEffect, useState } from 'react';
 import styles from './SignUp.module.css';
 import { getAdvertisementDetail } from '../../advertisements/service';
@@ -27,6 +25,7 @@ import {
   setUiSuccess,
 } from '../../../store/uiSlice';
 import { useDispatch } from 'react-redux';
+import Spinner from '../../commons/spinner/Spinner';
 
 const initialState = {
   username: '',
@@ -36,8 +35,6 @@ const initialState = {
 };
 
 const ProfilePage = ({ className, title, ...props }) => {
-  //TODO
-  //const { isFetching } = useAuth();
   const isFetching = useIsFetchingSelector();
   const [credentials, setCredentials] = useState(initialState);
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -152,9 +149,13 @@ const ProfilePage = ({ className, title, ...props }) => {
       return;
     }
     const getPrivateData = async () => {
-      const response = await getUserPrivateDataById(user._id);
-      const data = { ...response.result, ...user };
-      setUserPrivateData(data);
+      try {
+        const response = await getUserPrivateDataById(user._id);
+        const data = { ...response.result, ...user };
+        setUserPrivateData(data);
+      } catch (error) {
+        dispatch(errorUi(error));
+      }
     };
     dispatch(setUiIsFetching());
     getPrivateData();
@@ -163,6 +164,7 @@ const ProfilePage = ({ className, title, ...props }) => {
 
   return (
     <div className='row'>
+      {isFetching && <Spinner />}
       {isLogged && !isDelete && (
         <div className='col-sm-12 py-2 my-1 text-center'>
           <UserInfo user={userPrivateData} />
