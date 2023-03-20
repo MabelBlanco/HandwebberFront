@@ -16,6 +16,7 @@ import {
   request,
   success,
 } from '../../store/uiSlice';
+import { filesCorrectDataController } from '../../utils/filesCorrectDataController';
 import Button from '../commons/button/Button';
 import { Error } from '../commons/error/Error';
 import Checkbox from '../commons/forms/checkbox/Checkbox';
@@ -100,6 +101,8 @@ const EditAdvertisement = ({ className, ...props }) => {
     bodyFormData.append('idUser', advert.idUser._id);
 
     if (form.photo) {
+      const control = filesCorrectDataController(form.photo, dispatch);
+      if (!control) return;
       bodyFormData.append('image', form.photo ? form.photo : advert.image);
     }
 
@@ -267,20 +270,25 @@ const EditAdvertisement = ({ className, ...props }) => {
                   className='btn btn-secondary blur-secondary-800 radius-2  '>
                   {t(`AdsDetailPage.Edit`)}
                 </Button>
-                <Modal
-                  hasConfirm
-                  modalTitle={t(`AdsDetailPage.ModalTitle`)}
-                  doTask={onDelete}
-                  classNameBtn='ms-2 btn-secondary'
-                  classNameBtnClose='btn-secondary'
-                  classNameBtnConfirm='btn-primary'
-                  classNameContent='body'
-                  label_confirm={t(`AdsDetailPage.Delete`)}
-                  label_cancel={t(`AdsDetailPage.Cancel`)}
-                  label_btn={t(`AdsDetailPage.Delete`)}
-                  modalId='deleteAdvert'>
-                  {t(`AdsDetailPage.ModalText`)}
-                </Modal>
+                {
+                  // TODO Funcionalidad a implementar a futuro
+                  false && (
+                    <Modal
+                      hasConfirm
+                      modalTitle={t(`AdsDetailPage.ModalTitle`)}
+                      doTask={onDelete}
+                      classNameBtn='ms-2 btn-secondary'
+                      classNameBtnClose='btn-secondary'
+                      classNameBtnConfirm='btn-primary'
+                      classNameContent='body'
+                      label_confirm={t(`AdsDetailPage.Delete`)}
+                      label_cancel={t(`AdsDetailPage.Cancel`)}
+                      label_btn={t(`AdsDetailPage.Delete`)}
+                      modalId='deleteAdvert'>
+                      {t(`AdsDetailPage.ModalText`)}
+                    </Modal>
+                  )
+                }
               </div>
             )}
           </div>
