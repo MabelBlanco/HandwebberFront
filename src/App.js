@@ -37,10 +37,57 @@ function App() {
         );
       }
     };
+
+    const outOfStockNotification = (data) => {
+      const advert = data.advert;
+      const userNotification = data.user;
+
+      if (userNotification === user._id) {
+        setNotification(`El anuncio ${advert.name}, se ha quedado sin stock.`);
+      }
+    };
+
+    const backInStockNotification = (data) => {
+      const advert = data.advert;
+      const userNotification = data.user;
+
+      if (userNotification === user._id) {
+        setNotification(`¡El anuncio ${advert.name}, vuelve a tener stock!`);
+      }
+    };
+
+    const turnNoActiveNotification = (data) => {
+      const advert = data.advert;
+      const userNotification = data.user;
+
+      if (userNotification === user._id) {
+        setNotification(`El anuncio ${advert.name}, que marcaste como favorito, ha sido desactivado. 
+        Te avisaremos si el propietario lo activa de nuevo`);
+      }
+    };
+
+    const turnActiveNotification = (data) => {
+      const advert = data.advert;
+      const userNotification = data.user;
+
+      if (userNotification === user._id) {
+        setNotification(
+          `¡El anuncio ${advert.name}, que marcaste como favorito, vuelve a estar activo!`
+        );
+      }
+    };
     socket.on("Subscription_price_drop", priceDropNotification);
+    socket.on("Subscription_out_of_stock", outOfStockNotification);
+    socket.on("Subscription_back_in_stock", backInStockNotification);
+    socket.on("Subscription_turn_no_active", turnNoActiveNotification);
+    socket.on("Subscription_turn_active", turnActiveNotification);
 
     return () => {
       socket.off("Subscription_price_drop", priceDropNotification);
+      socket.off("Subscription_out_of_stock", outOfStockNotification);
+      socket.off("Subscription_back_in_stock", backInStockNotification);
+      socket.off("Subscription_turn_no_active", turnNoActiveNotification);
+      socket.off("Subscription_turn_active", turnActiveNotification);
     };
   });
   return (

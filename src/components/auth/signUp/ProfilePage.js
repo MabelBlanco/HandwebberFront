@@ -26,6 +26,7 @@ import {
 } from '../../../store/uiSlice';
 import { useDispatch } from 'react-redux';
 import Spinner from '../../commons/spinner/Spinner';
+import { filesCorrectDataController } from '../../../utils/filesCorrectDataController';
 
 const initialState = {
   username: '',
@@ -109,12 +110,19 @@ const ProfilePage = ({ className, title, ...props }) => {
     username && formData.append('username', username.toLowerCase());
     mail && formData.append('mail', mail);
     password && formData.append('password', password);
-    image && formData.append('image', image);
+    if (image) {
+      const control = filesCorrectDataController(image, dispatch);
+      if (!control) return;
+      formData.append('image', image);
+    }
+    //image && formData.append('image', image);
 
     try {
+      dispatch(setUiIsFetching());
       const { result } = await updateUser(user._id, formData);
       result.ads = user.ads;
       dispatch(authSuccess(result));
+      dispatch(setUiSuccess());
       setActiveForm(false);
     } catch (error) {
       const errors = [];
