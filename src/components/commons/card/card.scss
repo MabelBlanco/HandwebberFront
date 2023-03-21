@@ -11,6 +11,9 @@
     align-items: center;
     border-bottom: 2px solid var(--color-secondary-800);
     padding: 0px;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--color-static-white);
     img {
       width: 100%;
       height: auto;
