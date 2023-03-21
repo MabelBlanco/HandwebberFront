@@ -15,7 +15,7 @@ const RequireAuth = ({ isLogged, children }) => {
 };
 
 const ConnectedRequireAuth = (props) => {
-  const isLogged = useIsLoggedSelector();
+  const { isLogged } = useIsLoggedSelector();
   return (
     <RequireAuth
       {...props}
