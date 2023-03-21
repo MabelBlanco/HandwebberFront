@@ -19,7 +19,8 @@
 
   "DetailAdvertisement": {
     "Delete": "Delete",
-    "Edit": "Edit"
+    "Edit": "Edit",
+    "Save": "Guardar"
   },
 
   "NewAdvertisement": {
@@ -82,6 +83,7 @@
   },
   "AdsDetailPage": {
     "Edit": "Editar",
+    "Save": "Guardar",
     "Delete": "Borrar",
     "Price": "Precio",
     "Description": "Descripción",
