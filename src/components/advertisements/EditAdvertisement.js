@@ -144,7 +144,7 @@ const EditAdvertisement = ({ className, ...props }) => {
           <div className="col-md-6 image">
             <div className="edit-image mb-3 bg-light px-3 py-4">
               {isFetching && <Spinner />}
-              {isError.length && <Error arrayErrors={isError} />}
+              {isError && <Error arrayErrors={isError} />}
               {advert?.image ? (
                 <img
                   src={`${process.env.REACT_APP_API_BASE_URL}/${advert.image}`}
