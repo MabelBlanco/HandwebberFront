@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   useAdsListSelector,
   useDispatchFetchAdsAction,
   useMetaSelector,
-} from '../../store/adsListSlice';
+} from "../../store/adsListSlice";
 import {
   first,
   last,
@@ -16,22 +16,23 @@ import {
   useLastPage,
   useNext,
   usePrevious,
-} from '../../store/paginationSlice';
-import { useIsFetchingSelector, useUiErrorSelector } from '../../store/uiSlice';
-import styles from '../auth/signUp/SignUp.module.css';
-import Accordion from '../commons/accordion/Accordion';
-import Card from '../commons/card/Card';
-import { Error } from '../commons/error/Error';
+} from "../../store/paginationSlice";
+import { useIsFetchingSelector, useUiErrorSelector } from "../../store/uiSlice";
+import styles from "../auth/signUp/SignUp.module.css";
+import Accordion from "../commons/accordion/Accordion";
+import Card from "../commons/card/Card";
+import { Error } from "../commons/error/Error";
 //import { ReceiveNotification } from "../commons/notification/ReceiveNotification";
-import Pagination from '../commons/pagination/Pagination';
-import Spinner from '../commons/spinner/Spinner';
-import SearchBar from './SearchBar';
+import Pagination from "../commons/pagination/Pagination";
+import Spinner from "../commons/spinner/Spinner";
+import SearchBar from "./SearchBar";
 
 export const useAdvertisement = () => {
   const initialFiltersState = {
-    name: '',
-    tag: '',
-    price: '',
+    name: "",
+    tag: "",
+    price: "",
+    date: "",
   };
 
   const [filters, setFilters] = useState(initialFiltersState);
@@ -51,7 +52,7 @@ export const useAdvertisement = () => {
   const nextPage = () => nextPageSelector(next(totalNumOfAds));
 
   const handleFilters = (event) => {
-    if (event.target.name === 'resetFilters') {
+    if (event.target.name === "resetFilters") {
       setFilters(initialFiltersState);
       return;
     }
@@ -97,23 +98,18 @@ const AdsList = ({ ...props }) => {
   useDispatchFetchAdsAction(skip, MAX_RESULTS_PER_PAGE, filters);
 
   return (
-    <div
-      className='row'
-      {...props}>
+    <div className="row" {...props}>
       <Accordion
-        title={t('AdsList.Filter')}
-        children=''
+        title={t("AdsList.Filter")}
+        children=""
         icon
-        iconType='bi-funnel-fill'
-        classBody='bg-light p-4 my-2'
-        classButton='btn btn-secondary btn-accordion'
-        itemTarget='filter'
-        itemId='filterId'>
-        <SearchBar
-          onChange={handleFilters}
-          filters={filters}
-          max={maxPrice}
-        />
+        iconType="bi-funnel-fill"
+        classBody="bg-light p-4 my-2"
+        classButton="btn btn-secondary btn-accordion"
+        itemTarget="filter"
+        itemId="filterId"
+      >
+        <SearchBar onChange={handleFilters} filters={filters} max={maxPrice} />
       </Accordion>
 
       <Pagination
@@ -124,22 +120,17 @@ const AdsList = ({ ...props }) => {
       />
       {adsIsFetching && <Spinner />}
 
-      {error && (
-        <Error
-          className={styles.signup__error}
-          arrayErrors={error}
-        />
-      )}
+      {error && <Error className={styles.signup__error} arrayErrors={error} />}
 
       {advertisements.map((element) => {
         const newProps = { ...props, ...element };
         return (
           <Card
-            className='col-sm-12 col-lg-3 m-2'
+            className="col-sm-12 col-lg-3 m-2"
             key={element._id}
             {...newProps}
             link_1={`/advertisements/${element._id}-${element.name}`}
-            label_link_1={t('AdsList.See more')}
+            label_link_1={t("AdsList.See more")}
             subscribers={element.subscriptions}
           />
         );

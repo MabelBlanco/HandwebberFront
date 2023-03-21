@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { formatDistanceToNow } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import Button from "../button/Button";
@@ -82,10 +83,14 @@ const Card = ({
         </li>
         {
           // If it's necessary to show the date, put true
-          false && (
+          date && (
             <li key="date" className="list-group-item">
               <span>{t("Card.Date")}: </span>
-              {date}
+              <time dateTime={date}>
+                <small className="text-muted">
+                  {formatDistanceToNow(new Date(date), "MM/dd/yyy")}
+                </small>
+              </time>
             </li>
           )
         }

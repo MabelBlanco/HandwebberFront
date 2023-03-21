@@ -1,14 +1,18 @@
 import classNames from "classnames";
-import { format } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import { t } from "i18next";
+import { NavLink } from "react-router-dom";
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  LinkedinIcon,
+  LinkedinShareButton,
+} from "react-share";
 import Button from "../../commons/button/Button";
 import Modal from "../../commons/modal/Modal";
 import NoImage from "../../commons/noImage/NoImage";
 import Tags from "../../commons/tags/Tags";
 import "./adsDetailPage.scss";
-import { NavLink } from "react-router-dom";
-import { FacebookShareButton, LinkedinShareButton } from "react-share";
-import { FacebookIcon, LinkedinIcon } from "react-share";
 
 const AdsDetailPage = ({
   className,
@@ -61,7 +65,11 @@ const AdsDetailPage = ({
             </h1>
             <div key="date" className="date">
               <span className="label-info">Date: </span>
-              <time dateTime={update}>{format(new Date(), "MM/dd/yyy")}</time>
+              <time dateTime={update}>
+                <small className="text-muted">
+                  {formatDistanceToNow(new Date(update), "MM/dd/yyy")}
+                </small>
+              </time>
             </div>
             <div className="fs-5 mb-5 price">
               <span key="price" className="label-info">
