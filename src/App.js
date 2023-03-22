@@ -18,7 +18,6 @@ import Layout from "./components/Layout/Layout";
 import { useIsLoggedSelector } from "./store/authSlice";
 import { useState } from "react";
 import { Notification } from "./components/commons/notification/Notification";
-import ConnectedRequireAuth from "./components/auth/RequireAuth";
 
 function App() {
   const { user } = useIsLoggedSelector();
@@ -124,9 +123,9 @@ function App() {
           <Route
             path=""
             element={
-              <ConnectedRequireAuth>
+              <RequireAuth>
                 <Chat />
-              </ConnectedRequireAuth>
+              </RequireAuth>
             }
           />
         </Route>
