@@ -12,7 +12,6 @@ export const uiSlice = createSlice({
   reducers: {
     request: (state) => {
       state.isFetching = true;
-      state.error = [];
     },
     success: (state) => {
       state.isFetching = false;

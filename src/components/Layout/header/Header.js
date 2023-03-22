@@ -78,17 +78,6 @@ const Header = () => {
                   </li>
                 </>
               )}
-              <li className="nav-item active">
-                <NavLink
-                  to={"/test"}
-                  className="nav-link"
-                  aria-current="page"
-                  onClick={handleLinkClick}
-                  end
-                >
-                  {t("Header.Comp List")}
-                </NavLink>
-              </li>
             </ul>
             <div className="d-flex justify-content-end header-actions">
               {!isLogged && (

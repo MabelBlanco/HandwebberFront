@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
+import { socket } from ".";
 import "./App.css";
 import AdsList from "./components/advertisements/AdsList";
 import DetailAdvertisement from "./components/advertisements/DetailAdvertisement";
@@ -11,10 +13,8 @@ import ProfilePage from "./components/auth/signUp/ProfilePage";
 import SignUp from "./components/auth/signUp/SignUp";
 import { Chat } from "./components/Chat/chat/Chat.js";
 import NotFoundPage from "./components/commons/feedbacks/NotFound/NotFoundPage";
+import { Notification } from "./components/commons/notification/Notification";
 import Layout from "./components/Layout/Layout";
-import LayoutTest from "./components/Layout/LayoutTest";
-import { socket } from ".";
-import { useEffect } from "react";
 import { useIsLoggedSelector } from "./store/authSlice";
 import { useState } from "react";
 import { Notification } from "./components/commons/notification/Notification";
@@ -158,8 +158,6 @@ function App() {
             }
           />
         </Route>
-
-        <Route path="/test" element={<LayoutTest />} />
 
         <Route path="/404" element={<Layout title="NOT FOUND" />}>
           <Route path="" element={<NotFoundPage />} />
