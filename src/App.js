@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import { useIsLoggedSelector } from "./store/authSlice";
 import { useState } from "react";
 import { Notification } from "./components/commons/notification/Notification";
+import ConnectedRequireAuth from "./components/auth/RequireAuth";
 
 function App() {
   const { user } = useIsLoggedSelector();
@@ -119,13 +120,13 @@ function App() {
           <Route path="user/:username" element={<UserAdsList />} />
         </Route>
 
-        <Route path="chat" element={<Layout title="Chat" />}>
+        <Route path="/chat" element={<Layout title="Chat" />}>
           <Route
-            index
+            path=""
             element={
-              <RequireAuth>
+              <ConnectedRequireAuth>
                 <Chat />
-              </RequireAuth>
+              </ConnectedRequireAuth>
             }
           />
         </Route>

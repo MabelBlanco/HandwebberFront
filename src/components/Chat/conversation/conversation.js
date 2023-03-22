@@ -50,17 +50,9 @@ export function Conversation({ advertisement, userToId, userToComplete }) {
         advertisement,
         users: [userToId, user._id],
       });
-      console.log(
-        "solicitando conversación del anuncio ",
-        advertisement,
-        "y los usuarios ",
-        userToId,
-        user._id
-      );
     };
 
     const conversationReceived = (data) => {
-      console.log("Conversación recibida: ", data);
       setMessages(data.messages);
       setConversationId(data._id);
     };
@@ -78,9 +70,10 @@ export function Conversation({ advertisement, userToId, userToComplete }) {
 
   useEffect(() => {
     const newMessageSendFunction = (data) => {
-      const newMessage = data.message;
-      console.log(data);
-      setMessages([...messages, newMessage]);
+      if (data.conversationId === conversationId) {
+        const newMessage = data.message;
+        setMessages([...messages, newMessage]);
+      }
     };
     socket.on("new_message_send", newMessageSendFunction);
 

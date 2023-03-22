@@ -13,7 +13,6 @@ import "./chat.scss";
 export function Chat() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { user, isLogged } = useIsLoggedSelector();
-  const navigate = useNavigate();
 
   const [userToComplete, setUserToComplete] = useState("");
   const [conversations, setConversations] = useState([]);
@@ -64,9 +63,7 @@ export function Chat() {
       await addNamesById(convers);
     };
     // Use functions
-    if (!isLogged) {
-      navigate(`/`);
-    } else if (userTo) {
+    if (userTo) {
       try {
         getUserTo(userTo);
       } catch (error) {
@@ -84,7 +81,7 @@ export function Chat() {
         }
       }
     }
-  }, [userTo, user._id, isLogged, navigate]);
+  }, [userTo, user._id, isLogged]);
 
   useEffect(() => {
     const addNameById = async (conver) => {
