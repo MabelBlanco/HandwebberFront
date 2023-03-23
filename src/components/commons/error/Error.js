@@ -29,7 +29,7 @@ export function Error({ arrayErrors, ...props }) {
     return (
       <div>
         {errors.map((error) => {
-          console.log(error)
+          //console.log(error)
           let errorTranslate;
           if (error[0] === 'Username must be alphanumeric') {
             errorTranslate = t('Error.Username must be alphanumeric');
@@ -79,7 +79,9 @@ export function Error({ arrayErrors, ...props }) {
             errorTranslate = t('Error.This email is already registered');
           } else if (error[0] === "Passwords don't match") {
             errorTranslate = t("Error.Passwords don't match");
-          } else if (error[0] === "This is not the page you're looking for...") {
+          } else if (
+            error[0] === "This is not the page you're looking for..."
+          ) {
             errorTranslate = t(
               "Error.This is not the page you're looking for..."
             );

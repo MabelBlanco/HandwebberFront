@@ -37,6 +37,7 @@ datalist {
       }
       & .tags {
         display: flex;
+        flex-wrap: wrap;
       }
       & .select-edit-tags {
         width: 50%;

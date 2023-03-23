@@ -31,6 +31,7 @@ export const useAdvertisement = () => {
     name: "",
     tag: "",
     price: "",
+    date: "",
   };
 
   const [filters, setFilters] = useState(initialFiltersState);

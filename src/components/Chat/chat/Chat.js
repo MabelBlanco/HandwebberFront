@@ -154,13 +154,15 @@ export function Chat() {
                                       style={{
                                         backgroundImage: `url(${process.env.REACT_APP_API_BASE_URL}/${conversation.advertisementImage})`,
                                       }}
-                                    ></div>
+                                    >
+                                      {/* <img
+                                        src={`${process.env.REACT_APP_API_BASE_URL}/${conversation.advertisementImage}`}
+                                        className="rounded-circle advert-img"
+                                        alt={conversation.advertisementName}
+                                        style={{ opacity: "0" }}
+                                      /> */}
+                                    </div>
                                   ) : (
-                                    // <img
-                                    //   src={`${process.env.REACT_APP_API_BASE_URL}/${conversation.advertisementImage}`}
-                                    //   className="rounded-circle advert-img"
-                                    //   alt={conversation.advertisementName}
-                                    // />
                                     <NoImage className="rounded-circle advert-img" />
                                   )}
                                 </div>

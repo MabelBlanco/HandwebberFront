@@ -190,16 +190,20 @@ const ProfilePage = ({ className, title, ...props }) => {
               <div className='row'>
                 {activeFavorits &&
                   favorits?.map((element) => {
-                    const newProps = { ...props, ...element };
-                    return (
-                      <Card
-                        className='col-sm-12 col-lg-3 mx-2 my-5'
-                        key={element._id}
-                        {...newProps}
-                        link_1={`/advertisements/${element._id}`}
-                        label_link_1={t('UserAdsList.See more')}
-                      />
-                    );
+                    if (element) {
+                      const newProps = { ...props, ...element };
+                      return (
+                        <Card
+                          className='col-sm-12 col-lg-3 mx-2 my-5'
+                          key={element._id}
+                          {...newProps}
+                          link_1={`/advertisements/${element._id}`}
+                          label_link_1={t('UserAdsList.See more')}
+                        />
+                      );
+                    } else {
+                      return null;
+                    }
                   })}
               </div>
             </li>
