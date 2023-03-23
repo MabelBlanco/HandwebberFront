@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { t } from 'i18next';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
@@ -10,11 +10,11 @@ import {
 } from '../../store/adsListSlice';
 import { useIsLoggedSelector } from '../../store/authSlice';
 import {
-  useIsFetchingSelector,
-  useUiErrorSelector,
   errorUi,
   request,
   success,
+  useIsFetchingSelector,
+  useUiErrorSelector,
 } from '../../store/uiSlice';
 import { filesCorrectDataController } from '../../utils/filesCorrectDataController';
 import Button from '../commons/button/Button';
@@ -28,7 +28,7 @@ import Modal from '../commons/modal/Modal';
 import NoImage from '../commons/noImage/NoImage';
 import Spinner from '../commons/spinner/Spinner';
 import Tags from '../commons/tags/Tags';
-import { updateAdvertisement, getTags } from './service';
+import { getTags, updateAdvertisement } from './service';
 
 const EditAdvertisement = ({ className, ...props }) => {
   const navigate = useNavigate();
@@ -143,7 +143,7 @@ const EditAdvertisement = ({ className, ...props }) => {
           <div className='col-md-6 image'>
             <div className='edit-image mb-3 bg-light px-3 py-4'>
               {isFetching && <Spinner />}
-              {isError.length && <Error arrayErrors={isError} />}
+              {isError && <Error arrayErrors={isError} />}
               {advert?.image ? (
                 <img
                   src={`${process.env.REACT_APP_API_BASE_URL}/${advert.image}`}
@@ -268,7 +268,7 @@ const EditAdvertisement = ({ className, ...props }) => {
                 <Button
                   type='submit'
                   className='btn btn-secondary blur-secondary-800 radius-2  '>
-                  {t(`AdsDetailPage.Edit`)}
+                  {t(`AdsDetailPage.Save`)}
                 </Button>
                 {
                   // TODO Funcionalidad a implementar a futuro

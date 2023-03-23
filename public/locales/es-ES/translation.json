@@ -82,6 +82,7 @@
   },
   "AdsDetailPage": {
     "Editar": "Edit",
+    "Guardar": "Save",
     "Borrar": "Delete",
     "Precio": "Price",
     "Descripcion": "Description",

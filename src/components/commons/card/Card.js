@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { formatDistanceToNow } from 'date-fns';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import Button from '../button/Button';
@@ -46,7 +47,11 @@ const Card = ({
     <div
       className={classNames(`card ${active ? 'active' : ''}`, className)}
       {...props}>
-      <div className='header-card'>
+      <div
+        className='header-card'
+        style={{
+          backgroundImage: `url(${process.env.REACT_APP_API_BASE_URL}/${image})`,
+        }}>
         {image ? (
           <img
             src={`${process.env.REACT_APP_API_BASE_URL}/${image}`}
@@ -79,12 +84,16 @@ const Card = ({
         </li>
         {
           // If it's necessary to show the date, put true
-          false && (
+          date && (
             <li
               key='date'
               className='list-group-item'>
               <span>{t('Card.Date')}: </span>
-              {date}
+              <time dateTime={date}>
+                <small className='text-muted'>
+                  {formatDistanceToNow(new Date(date), 'MM/dd/yyy')}
+                </small>
+              </time>
             </li>
           )
         }

@@ -93,12 +93,10 @@ export function Conversation({ advertisement, userToId, userToComplete }) {
             return (
               <div key={message._id} className="chatConversation-item">
                 {user._id === message.from ? (
-                  <p className="conversation-username">
-                    {user.username} userfrom
-                  </p>
+                  <p className="conversation-username">{user.username}</p>
                 ) : (
                   <p className="conversation-username">
-                    {userToComplete.username} userfrom
+                    {userToComplete.username}
                   </p>
                 )}
                 <p className="conversation-body" key={message.body}>
