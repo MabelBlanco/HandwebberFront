@@ -150,17 +150,12 @@ export function Chat() {
                               <div className="img-cont">
                                 <div className="user-image">
                                   {conversation.advertisementImage ? (
-                                    <div
-                                      style={{
-                                        backgroundImage: `url(${process.env.REACT_APP_API_BASE_URL}/${conversation.advertisementImage})`,
-                                      }}
-                                    >
-                                      {/* <img
+                                    <div>
+                                      <img
                                         src={`${process.env.REACT_APP_API_BASE_URL}/${conversation.advertisementImage}`}
                                         className="rounded-circle advert-img"
                                         alt={conversation.advertisementName}
-                                        style={{ opacity: "0" }}
-                                      /> */}
+                                      />
                                     </div>
                                   ) : (
                                     <NoImage className="rounded-circle advert-img" />
