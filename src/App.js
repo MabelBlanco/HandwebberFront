@@ -16,8 +16,6 @@ import NotFoundPage from "./components/commons/feedbacks/NotFound/NotFoundPage";
 import { Notification } from "./components/commons/notification/Notification";
 import Layout from "./components/Layout/Layout";
 import { useIsLoggedSelector } from "./store/authSlice";
-import { useState } from "react";
-import { Notification } from "./components/commons/notification/Notification";
 
 function App() {
   const { user } = useIsLoggedSelector();

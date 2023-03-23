@@ -80,7 +80,7 @@ export function Conversation({ advertisement, userToId, userToComplete }) {
     return () => {
       socket.off("new_message_send", newMessageSendFunction);
     };
-  }, [messages]);
+  }, [messages, conversationId]);
   return (
     <div className=" row chatContainer">
       <div className="col-lg-4 chatNav">

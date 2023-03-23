@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { socket } from "../../..";
 import { useIsLoggedSelector } from "../../../store/authSlice";
 import { getAdvertisementDetail } from "../../advertisements/service";
